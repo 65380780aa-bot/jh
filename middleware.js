@@ -86,21 +86,20 @@ export default async function middleware(request) {
       return new Response(html, { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
     }
 
-    const deckName = await findDeckNameByKeyword(decodeURIComponent(deckParam).trim());
+    const keyword = decodeURIComponent(deckParam).trim();
+    const deckName = await findDeckNameByKeyword(keyword);
     if (!deckName) {
       // 못 찾았어도 원본 그대로 반환 (에러 아님)
       return new Response(html, { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
     }
 
-    const title = escapeHtml(`${deckName} 카운터 - 도면`);
-    const desc = escapeHtml(`[${deckName}] 카운터덱 공략을 확인하세요.`);
+    // 키워드 없이 고정 문구만 사용
+    const title = escapeHtml(`카운터 덱 확인`);
 
     html = html
       .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
       .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${title}">`)
-      .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${desc}">`)
-      .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${title}">`)
-      .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${desc}">`);
+      .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${title}">`);
 
     return new Response(html, { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
   } catch (e) {
