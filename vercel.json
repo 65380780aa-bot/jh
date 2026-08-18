@@ -1,6 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "proxy": {
-    "entrypoint": "middleware.js"
+    "entrypoint": "middleware.js",
+    "matcher": "/"
   }
 }
