@@ -83,6 +83,17 @@ function withTitle(html, title, requestUrl) {
   return out;
 }
 
+// fetch()로 정적 파일을 그대로 가져와서 반환할 때, Content-Encoding(gzip 등) 헤더가
+// 실제 전달되는 내용물과 안 맞아서 브라우저가 압축 해제에 실패하는 문제(ERR_CONTENT_DECODING_FAILED)가
+// 생길 수 있어서, 그 헤더들을 지우고 안전하게 반환하는 헬퍼.
+async function passThroughStatic(request) {
+  const res = await fetch(new URL('/index.html', request.url));
+  const headers = new Headers(res.headers);
+  headers.delete('content-encoding');
+  headers.delete('content-length');
+  return new Response(res.body, { status: res.status, headers });
+}
+
 export default async function middleware(request) {
   const url = new URL(request.url);
   const deckParam = url.searchParams.get('deck');
@@ -97,7 +108,7 @@ export default async function middleware(request) {
   // (텍스트로 다 읽어서 새 Response를 만드는 것보다 이 방식이 한 단계 더 가볍다)
   if (!isBotWithDeck && !isBotWithTab) {
     try {
-      return await fetch(new URL('/index.html', request.url));
+      return await passThroughStatic(request);
     } catch (e) {
       return new Response('일시적인 오류입니다. 새로고침 해주세요.', { status: 200, headers: { 'content-type': 'text/plain; charset=utf-8' } });
     }
@@ -112,7 +123,7 @@ export default async function middleware(request) {
       return new Response(withTitle(html, TAB_TITLES[tabParam], request.url), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
     } catch (e) {
       try {
-        return await fetch(new URL('/index.html', request.url));
+        return await passThroughStatic(request);
       } catch (e2) {
         return new Response('일시적인 오류입니다. 새로고침 해주세요.', { status: 200, headers: { 'content-type': 'text/plain; charset=utf-8' } });
       }
@@ -138,7 +149,7 @@ export default async function middleware(request) {
   } catch (e) {
     // 어떤 이유로든 실패하면 그냥 원본 정적 파일로 안전하게 폴백
     try {
-      return await fetch(new URL('/index.html', request.url));
+      return await passThroughStatic(request);
     } catch (e2) {
       return new Response('일시적인 오류입니다. 새로고침 해주세요.', { status: 200, headers: { 'content-type': 'text/plain; charset=utf-8' } });
     }
