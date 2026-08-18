@@ -5,7 +5,8 @@
 //  어떤 경우에도 빈 화면/네트워크 오류가 뜨지 않도록 보장함).
 // ============================================================
 
-export const config = { matcher: '/' };
+// matcher는 vercel.json의 proxy.matcher 쪽에서 관리하므로 여기서는 정의하지 않음
+// (양쪽에 다 정의하면 "충돌" 에러가 남)
 
 const FIREBASE_PROJECT_ID = 'jh-695bd';
 const COLLECTIONS = ['guild_atk_db', 'guild_def_db', 'guild_total_db'];
