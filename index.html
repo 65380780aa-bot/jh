@@ -337,7 +337,6 @@
       <div id="tab-atk" class="nav-link active">⚔️ 공격덱</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
       <div id="tab-total" class="nav-link">🔥 총력덱</div>
-      <div id="tab-stats" class="nav-link">📊 전적통계</div>
     </div>
     <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 33명</div>
     <button id="admin-mode-btn" class="admin-btn">🔒 관리자</button>
@@ -691,14 +690,6 @@
       <div id="gcd-deck-buttons"></div>
     </div>
 
-    <!-- 전적통계 탭 영역 -->
-    <div id="stats-wrapper" style="display: none;">
-      <div style="padding:16px 24px;">
-        <div style="font-size:14px; font-weight:800; color:var(--ink); margin-bottom:10px;">📂 상대 방어덱별로 보기</div>
-        <div id="stats-deck-accordion"></div>
-      </div>
-    </div>
-
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, onSnapshot, setDoc, doc, deleteDoc, getDocs, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -1033,7 +1024,6 @@
       snap.forEach(d => { map[d.id] = d.data(); });
       statsData = map;
       if (currentMode === 'ATK') renderList();
-      if (currentMode === 'STATS') renderStatsTab();
     });
 
     // 방문자 카운터: 매일 자정 기준으로 초기화(날짜별로 별도 문서에 저장).
@@ -1164,7 +1154,6 @@
   document.getElementById('tab-atk').onclick = () => switchMode('ATK');
   document.getElementById('tab-def').onclick = () => switchMode('DEF');
   document.getElementById('tab-total').onclick = () => switchMode('TOTAL');
-  document.getElementById('tab-stats').onclick = () => switchMode('STATS');
 
   toggleAddBtn.onclick = function(){
     if(!isAdmin) return;
@@ -1715,129 +1704,9 @@
     return `<span class="winrate-badge ${cls}">승률 ${pct}% (${wins}승 ${losses}패)</span>`;
   }
 
-  function renderIconNameGroup(icons) {
-    if (!icons || icons.length === 0) return '';
-    const escName = (n) => (n || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    return `<div class="stats-icon-name-group">${icons.map(h => `<div class="stats-icon-name-item"><img src="${h.img}" alt="${escName(h.name)}"><span>${escName(h.name)}</span></div>`).join('')}</div>`;
-  }
-
-  function getAllCounterEntries() {
-    // 모든 공격덱의 모든 카운터 조합을 { key, deckName, title, icons, ...winrate } 형태로 평탄화
-    // icons는 그 카운터 자체의 슬롯(우리 영웅)에서 가져옴 - 상대 조합 대표 이미지가 아님
-    let entries = [];
-    (atkData || []).forEach(item => {
-      (item.counters || []).forEach((c, cIdx) => {
-        const key = getComboKey(item.id, c, cIdx);
-        const wr = getWinRate(key);
-        const icons = (c.slots || []).filter(s => s && s.img && s.name);
-        entries.push({ key, deckId: item.id, deckName: item.name, title: c.title, icons, ...wr });
-      });
-    });
-    return entries;
-  }
-
-  function renderStatsTab() {
-    const escName = (n) => (n || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-
-    // 상대 방어덱(공격덱 목록)별로 펼쳐보기
-    document.getElementById('stats-deck-accordion').innerHTML = (atkData || []).map(item => {
-      const deckIcons = (item.titleHeroes || []).filter(h => h && h.img);
-      let comboList = (item.counters || []).map((c, cIdx) => ({ c, cIdx }));
-      // 승률 높은 순으로 정렬 (미검증은 맨 아래, 저장된 원본 순서는 안 건드림 - 화면 표시 순서만 바뀜)
-      comboList.sort((a, b) => {
-        const keyA = getComboKey(item.id, a.c, a.cIdx), keyB = getComboKey(item.id, b.c, b.cIdx);
-        const sa = !!(statsData[keyA] && statsData[keyA].isStandard);
-        const sb = !!(statsData[keyB] && statsData[keyB].isStandard);
-        if (sa !== sb) return sa ? -1 : 1; // ⭐ 정석으로 지정된 조합이 항상 최상단
-        const wa = getWinRate(keyA);
-        const wb = getWinRate(keyB);
-        if (wa.total === 0 && wb.total === 0) return 0;
-        if (wa.total === 0) return 1;
-        if (wb.total === 0) return -1;
-        if (wb.pct !== wa.pct) return wb.pct - wa.pct;
-        return wb.wins - wa.wins; // 승률 같으면 승수 많은 쪽이 위로
-      });
-      let combosHtml = '';
-      let statsUnverifiedHtml = '';
-      let statsUnverifiedCount = 0;
-      comboList.forEach(({ c, cIdx }, i) => {
-        const key = getComboKey(item.id, c, cIdx);
-        const wr = getWinRate(key);
-        const isStandard = !!(statsData[key] && statsData[key].isStandard);
-        const isUnverified = !isStandard && wr.total === 0;
-        const rankBadge = wr.total > 0 ? `<span class="stats-rank-badge">${i+1}위</span>` : '';
-        const standardBadge = isStandard ? `<span class="stats-standard-badge">⭐ 정석</span>` : '';
-        const counterIcons = (c.slots || []).filter(s => s && s.img && s.name);
-        const adminBtnsHtml = isAdmin ? `
-          <div class="stats-vote-btns">
-            <button class="stats-vote-btn standard-toggle${isStandard ? ' active' : ''}" onclick="window.toggleStandardTag('${key}')">⭐ 정석${isStandard ? ' 해제' : ' 지정'}</button>
-            <button class="stats-vote-btn win" onclick="window.recordStatsResult('${key}', 'win', 1)">+승</button>
-            <button class="stats-vote-btn win-minus" onclick="window.recordStatsResult('${key}', 'win', -1)">−승</button>
-            <button class="stats-vote-btn loss" onclick="window.recordStatsResult('${key}', 'loss', 1)">+패</button>
-            <button class="stats-vote-btn loss-minus" onclick="window.recordStatsResult('${key}', 'loss', -1)">−패</button>
-          </div>
-        ` : '';
-        const rowHtml = `
-          <div class="stats-combo-row${isStandard ? ' is-standard' : ''}">
-            ${renderIconNameGroup(counterIcons)}
-            <div style="display:flex; align-items:center; gap:8px; margin-left:auto; flex-wrap:wrap; justify-content:flex-end;">
-              ${standardBadge}
-              ${rankBadge}
-              ${renderWinRateBadge(key)}
-              ${adminBtnsHtml}
-            </div>
-          </div>
-        `;
-        if (isUnverified) {
-          statsUnverifiedCount++;
-          statsUnverifiedHtml += rowHtml;
-        } else {
-          combosHtml += rowHtml;
-        }
-      });
-      if (!combosHtml && statsUnverifiedCount === 0) {
-        combosHtml = `<p style="font-size:12px; color:var(--text-dim); padding-left:24px;">등록된 카운터 조합 없음</p>`;
-      }
-      let statsUnverifiedBlockHtml = '';
-      if (statsUnverifiedCount > 0) {
-        const wrapId = `stats-unverified-wrap-${item.id}`;
-        const btnId = `stats-unverified-toggle-btn-${item.id}`;
-        statsUnverifiedBlockHtml = `
-          <button id="${btnId}" class="stats-vote-btn" style="width:100%; margin-top:6px; padding:8px; font-size:12.5px;" data-show-text="🔽 미검증 조합 더보기 (${statsUnverifiedCount}개)" onclick="window.toggleUnverifiedCombos('${item.id}', true)">🔽 미검증 조합 더보기 (${statsUnverifiedCount}개)</button>
-          <div id="${wrapId}" style="display:none;">${statsUnverifiedHtml}</div>
-        `;
-      }
-      return `
-        <div>
-          <div class="stats-deck-header" onclick="window.toggleStatsDeck('${item.id}')">
-            <div style="display:flex; align-items:center; gap:10px;">
-              ${deckIcons.length > 0 ? renderIconNameGroup(deckIcons) : `<span style="font-size:13px; font-weight:800;">${escName(item.name)}</span>`}
-            </div>
-            <span id="stats-deck-arrow-${item.id}" style="font-size:12px; color:var(--text-dim);">▼</span>
-          </div>
-          <div id="stats-deck-body-${item.id}" style="display:none; margin-bottom:8px;">${combosHtml}${statsUnverifiedBlockHtml}</div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  window.toggleStatsDeck = function(deckId) {
-    const body = document.getElementById(`stats-deck-body-${deckId}`);
-    const arrow = document.getElementById(`stats-deck-arrow-${deckId}`);
-    if (body.style.display === 'none') {
-      body.style.display = 'block';
-      arrow.textContent = '▲';
-    } else {
-      body.style.display = 'none';
-      arrow.textContent = '▼';
-    }
-  };
-
-  window.toggleUnverifiedCombos = function(itemId, isStats) {
-    const wrapPrefix = isStats ? 'stats-unverified-wrap-' : 'unverified-wrap-';
-    const btnPrefix = isStats ? 'stats-unverified-toggle-btn-' : 'unverified-toggle-btn-';
-    const wrap = document.getElementById(`${wrapPrefix}${itemId}`);
-    const btn = document.getElementById(`${btnPrefix}${itemId}`);
+  window.toggleUnverifiedCombos = function(itemId) {
+    const wrap = document.getElementById(`unverified-wrap-${itemId}`);
+    const btn = document.getElementById(`unverified-toggle-btn-${itemId}`);
     if (!wrap || !btn) return;
     const isHidden = wrap.style.display === 'none';
     wrap.style.display = isHidden ? 'block' : 'none';
@@ -2025,6 +1894,12 @@
             let rankBadgeHtml = statsWr.total > 0 ? `<span class="stats-rank-badge">${i+1}위</span>` : '';
             let standardBadgeHtml = isStandard ? `<span class="stats-standard-badge">⭐ 정석</span>` : '';
             let standardToggleHtml = isAdmin ? `<button class="stats-vote-btn standard-toggle${isStandard ? ' active' : ''}" onclick="window.toggleStandardTag('${statsKey}')">⭐ 정석${isStandard ? ' 해제' : ' 지정'}</button>` : '';
+            let voteBtnsHtml = isAdmin ? `
+              <button class="stats-vote-btn win" onclick="window.recordStatsResult('${statsKey}', 'win', 1)">+승</button>
+              <button class="stats-vote-btn win-minus" onclick="window.recordStatsResult('${statsKey}', 'win', -1)">−승</button>
+              <button class="stats-vote-btn loss" onclick="window.recordStatsResult('${statsKey}', 'loss', 1)">+패</button>
+              <button class="stats-vote-btn loss-minus" onclick="window.recordStatsResult('${statsKey}', 'loss', -1)">−패</button>
+            ` : '';
             let orderSideHtml = (c.skillOrder || c.speedOrder) ? `
               <div class="counter-order-side">
                 ${c.skillOrder ? `<div><span class="counter-order-label">스킬순서</span>${c.skillOrder}</div>` : ''}
@@ -2040,6 +1915,7 @@
                     ${renderWinRateBadge(statsKey)}
                     <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
                     ${standardToggleHtml}
+                    ${voteBtnsHtml}
                   </span>
                 </div>
                 <div class="counter-body-formation-row">
@@ -2175,7 +2051,6 @@
     document.getElementById('list-wrapper').style.display = 'none';
     document.getElementById('gcd-search-section').style.display = 'none';
     document.getElementById('gcd-mode-title').style.display = 'none';
-    document.getElementById('stats-wrapper').style.display = 'none';
 
     if(mode === 'ATK'){
       document.getElementById('tab-atk').classList.add('active');
@@ -2201,10 +2076,6 @@
       document.getElementById('gcd-search-section').style.display = 'block';
       document.getElementById('list-wrapper').style.display = 'block';
       renderList();
-    } else if(mode === 'STATS'){
-      document.getElementById('tab-stats').classList.add('active');
-      document.getElementById('stats-wrapper').style.display = 'block';
-      renderStatsTab();
     }
   }
 
