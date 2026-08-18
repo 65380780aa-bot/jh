@@ -693,6 +693,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, onSnapshot, setDoc, doc, deleteDoc, getDocs, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyABt7YpH25hjSwLm4Z7FW369U-5t6GZ1cs",
@@ -704,8 +705,10 @@
     measurementId: "G-LZ7SQ3ZHMJ"
   };
 
-  const ADMIN_PASSWORD = "854613";
-  let isAdmin = sessionStorage.getItem('isAdminUnlocked') === 'true';
+  // 관리자 여부는 이제 Firestore 보안 규칙과 실제로 연동되는 Firebase 로그인 상태로 판단함
+  // (예전처럼 브라우저 화면에서만 비밀번호 맞는지 검사하고 끝나는 방식이 아님).
+  let isAdmin = false;
+  let auth; // Firebase Auth 인스턴스
   let db; // Firestore 인스턴스 - try 블록 밖에서도 쓸 수 있도록 최상위 스코프에 선언
 
   // 원본 공격덱 8개 데이터 전체 복구 (슬롯 구조 기반 지원)
@@ -996,19 +999,39 @@
   adminBtn.onclick = function() {
     if (isAdmin) {
       if (confirm('관리자 모드를 잠그시겠습니까?')) {
-        isAdmin = false; sessionStorage.removeItem('isAdminUnlocked'); updateAdminUI(); alert('잠겼습니다.');
+        signOut(auth).then(() => { alert('잠겼습니다.'); }).catch(e => { alert('로그아웃 실패: ' + e.message); });
       }
     } else {
+      const email = prompt('관리자 이메일을 입력하세요:');
+      if (email === null) return;
       const pwd = prompt('관리자 비밀번호를 입력하세요:');
-      if (pwd === ADMIN_PASSWORD) {
-        isAdmin = true; sessionStorage.setItem('isAdminUnlocked', 'true'); localStorage.setItem('gcd_owner_device', '1'); updateAdminUI(); alert('관리자 활성화!');
-      } else if (pwd !== null) { alert('비밀번호 불일치'); }
+      if (pwd === null) return;
+      signInWithEmailAndPassword(auth, email.trim(), pwd)
+        .then(() => { localStorage.setItem('gcd_owner_device', '1'); alert('관리자 활성화!'); })
+        .catch(e => {
+          if (e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found') {
+            alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+          } else {
+            alert('로그인 실패: ' + e.message);
+          }
+        });
     }
   };
 
   try {
     const app = initializeApp(firebaseConfig);
     db = getFirestore(app);
+    auth = getAuth(app);
+
+    // 로그인 상태를 실시간으로 감지해서 isAdmin을 갱신.
+    // Firebase Auth는 로그인 상태를 자동으로 기억하기 때문에(브라우저 저장소),
+    // 새로고침해도 다시 로그인할 필요 없이 유지됨.
+    onAuthStateChanged(auth, (user) => {
+      isAdmin = !!user;
+      updateAdminUI();
+      // 현재 보고 있는 화면을 관리자 상태에 맞게 다시 그려줌
+      if (currentMode === 'ATK' || currentMode === 'DEF' || currentMode === 'TOTAL') renderList();
+    });
 
     async function checkAndInitDB() {
       // 2026-08: 이미 모든 컬렉션에 데이터가 채워져 있어서 더 이상 자동 초기화가 필요 없음.
