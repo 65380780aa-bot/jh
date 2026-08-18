@@ -63,12 +63,24 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-function withTitle(html, title) {
+function withTitle(html, title, requestUrl) {
   const t = escapeHtml(title);
-  return html
+  let out = html
     .replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
     .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${t}">`)
     .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${t}">`);
+  // og:url을 쿼리 파라미터 포함한 실제 요청 주소로 채워서, 카카오가
+  // ?deck=밀스실 / ?tab=def / ?tab=total 등을 서로 다른 페이지로 정확히 구분하게 함
+  // (이게 없으면 카카오가 여러 링크를 같은 페이지로 착각해서 캐시가 서로 뒤섞일 수 있음)
+  if (requestUrl) {
+    const u = escapeHtml(requestUrl);
+    if (/<meta property="og:url" content="[^"]*">/.test(out)) {
+      out = out.replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${u}">`);
+    } else {
+      out = out.replace(/<meta property="og:type" content="[^"]*">/, `$&\n  <meta property="og:url" content="${u}">`);
+    }
+  }
+  return out;
 }
 
 export default async function middleware(request) {
@@ -97,7 +109,7 @@ export default async function middleware(request) {
       const staticRes = await fetch(new URL('/index.html', request.url));
       if (!staticRes.ok) return staticRes;
       const html = await staticRes.text();
-      return new Response(withTitle(html, TAB_TITLES[tabParam]), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
+      return new Response(withTitle(html, TAB_TITLES[tabParam], request.url), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
     } catch (e) {
       try {
         return await fetch(new URL('/index.html', request.url));
@@ -121,7 +133,7 @@ export default async function middleware(request) {
       return new Response(html, { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
     }
 
-    html = withTitle(html, '카운터 덱 확인');
+    html = withTitle(html, '카운터 덱 확인', request.url);
     return new Response(html, { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
   } catch (e) {
     // 어떤 이유로든 실패하면 그냥 원본 정적 파일로 안전하게 폴백
