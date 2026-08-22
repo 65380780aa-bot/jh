@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0088)file:///C:/Users/59598/OneDrive/%EB%B0%94%ED%83%95%20%ED%99%94%EB%A9%B4/index/index.html -->
+<!-- saved from url=(0069)https://index-ebon-omega.vercel.app/?deck=%EC%84%A0%EB%8D%B8%ED%81%B4 -->
 <html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -340,7 +340,7 @@
       <div id="tab-total" class="nav-link">🔥 총력덱</div>
     </div>
     <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 1명</div>
-    <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
+    <button id="admin-mode-btn" class="admin-btn">🔒 관리자</button>
   </div>
 
   <div class="container">
@@ -355,8 +355,8 @@
 
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
-      <button class="add-btn" id="toggle-add-btn" style="display: flex;">+ 덱 추가하기</button>
-      <button class="add-btn" id="show-deeplink-table-btn" style="display: flex; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
+      <button class="add-btn" id="toggle-add-btn" style="display: none;">+ 덱 추가하기</button>
+      <button class="add-btn" id="show-deeplink-table-btn" style="display: none; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
     </div>
 
     <!-- 딥링크 표 모달 -->
@@ -388,7 +388,7 @@
       
       <div id="atk-counter-builder">
         <label class="gcd-label" style="font-size:14px; color:#be185d; margin-top:12px;">⚔️ 카운터 조합 구성</label>
-        <div id="counter-cards-container"><div class="counter-builder-box" data-cid="cmt4kppayr138fy">
+        <div id="counter-cards-container"><div class="counter-builder-box" data-cid="cmt4nrfganlt8fr">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <b>조합 #1</b>
           <button type="button" class="btn-mini-del" onclick="window.removeBuilderCard(&#39;c&#39;, 0)">삭제</button>
@@ -544,8 +544,10 @@
         
 
         <label class="gcd-label" style="margin-top:10px;">⚡ 스킬순서 / 속공순서 (진형판 왼쪽에 표시됨, 선택사항)</label>
+        
         <input type="text" class="gcd-input c-skillorder" value="" placeholder="스킬순서 1 (예: 오공2 아리스2 오공1)" style="margin:0 0 6px 0;">
         <input type="text" class="gcd-input c-skillorder2" value="" placeholder="스킬순서 2 (다른 루트가 있으면 입력, 선택사항)" style="margin:0 0 6px 0;">
+        
         <input type="text" class="gcd-input c-speedorder" value="" placeholder="속공순서 (예: ①&gt;②&gt;③)" style="margin:0;">
 
         
@@ -761,88 +763,19 @@
       </div>
       <div id="gcd-deck-buttons"><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/fnel.webp" alt="루디"><span>루디</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div><div class="hero-comp-icon-item"><img src="./index_files/vkffksntm.webp" alt="팔라누스"><span>팔라누스</span></div></div></div>
-        <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
         <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/image.webp" alt="밀리아"><span>밀리아</span></div><div class="hero-comp-icon-item"><img src="./index_files/tmznfem.webp" alt="스쿨드"><span>스쿨드</span></div><div class="hero-comp-icon-item"><img src="./index_files/tlfqptmxk.webp" alt="실베스타"><span>실베스타</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/fksemrmflem.webp" alt="란드그리드"><span>란드그리드</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/image.webp" alt="밀리아"><span>밀리아</span></div><div class="hero-comp-icon-item"><img src="./index_files/tmznfem.webp" alt="스쿨드"><span>스쿨드</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
         <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item active-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
-        <div><button class="detail-btn active-btn">접기 ▲</button></div>
-      </div><div class="accordion-content">
-            <div class="gcd-result-card">
-              <div class="gcd-res-target">
-                <span style="font-size:18px; color:var(--ink); font-weight:900;">⚔️ [ 선란 · 오르카 · 칼헤론 ] 카운터</span>
-                <span>
-            <button class="btn-mini-edit" onclick="window.editDeckItem(&#39;atk_1787414952626&#39;)">✏️ 수정</button>
-            <button class="btn-mini-del" onclick="window.deleteDeckItem(&#39;atk_1787414952626&#39;)">🗑️ 삭제</button>
-          </span>
-              </div>
-              <div class="gcd-info-block gcd-atk-block">
-                <div class="title">⚔️ 카운터 상세 공략</div>
-                
-              <div class="gcd-atk-card-item is-standard">
-                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
-                  <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                    <span class="stats-standard-badge">⭐ 정석</span>
-                    
-                    <span class="winrate-badge wr-none">⚪ 미검증</span>
-                    <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">보호 진형</span>
-                    <button class="stats-vote-btn standard-toggle active" onclick="window.toggleStandardTag(&#39;atk_1787414952626_cmt4klwmcemg5xt&#39;)">⭐ 정석 해제</button>
-                    
-              <button class="stats-vote-btn win" onclick="window.recordStatsResult(&#39;atk_1787414952626_cmt4klwmcemg5xt&#39;, &#39;win&#39;, 1)">+승</button>
-              <button class="stats-vote-btn win-minus" onclick="window.recordStatsResult(&#39;atk_1787414952626_cmt4klwmcemg5xt&#39;, &#39;win&#39;, -1)">−승</button>
-              <button class="stats-vote-btn loss" onclick="window.recordStatsResult(&#39;atk_1787414952626_cmt4klwmcemg5xt&#39;, &#39;loss&#39;, 1)">+패</button>
-              <button class="stats-vote-btn loss-minus" onclick="window.recordStatsResult(&#39;atk_1787414952626_cmt4klwmcemg5xt&#39;, &#39;loss&#39;, -1)">−패</button>
-            
-                  </span>
-                </div>
-                <div class="counter-body-formation-row">
-                  
-              <div class="counter-order-side">
-                <div><span class="counter-order-label">스킬순서</span>선란2 선란1 여포2</div>
-                
-              </div>
-            
-                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">
-      <div class="formation-board">
-        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/tjsfks.webp" alt="hero"></div><div class="formation-slot-name">선란</div></div></div>
-        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/duvh.webp" alt="hero"></div><div class="formation-slot-name">여포</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/dhfmzk.webp" alt="hero"></div><div class="formation-slot-name">오르카</div></div></div>
-        
-      </div>
-    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/2026-08-15-004940.png" alt="제오"></div><div class="formation-slot-name">제오</div></div><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/dlfls.png" alt="이린"></div><div class="formation-slot-name">이린</div></div></div></div></div></div>
-                </div>
-                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">여포 : 암살자, 추적자 치확 약확 100% 근접 효저 최대한
-선란 : 암살자 치확 100% 효적, 치피 최대한 높게
-오르카 : 암살자, 추적자 치확 약확 100% 근접, 효적 66% 효저 50%
-
-오르카도 여포와 마찬가지로 암살자가 효율이 좀 더 나옵니다.
-
-보호 진형으로, 뒤에 선란 세팅하기
-반지 : 선란 권기, 여포 권불, 오르카 권기
-오르카 패시브 전체 효적 증가 34% 획득 고려해서 효적 수치 세팅하기</div>
-              </div>
-            
-                
-              </div>
-            </div>
-          </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/dhrhd.webp" alt="손오공"><span>손오공</span></div><div class="hero-comp-icon-item"><img src="./index_files/chtjs.webp" alt="초선"><span>초선</span></div><div class="hero-comp-icon-item"><img src="./index_files/fls.webp" alt="린"><span>린</span></div></div></div>
-        <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tlfqptmxk.webp" alt="실베스타"><span>실베스타</span></div><div class="hero-comp-icon-item"><img src="./index_files/ehddud.webp" alt="동영"><span>동영</span></div><div class="hero-comp-icon-item"><img src="./index_files/DHAHR.webp" alt="오목"><span>오목</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
@@ -850,7 +783,7 @@
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/dkfltm.webp" alt="아리스"><span>아리스</span></div><div class="hero-comp-icon-item"><img src="./index_files/rpfflentm.webp" alt="겔리두스"><span>겔리두스</span></div><div class="hero-comp-icon-item"><img src="./index_files/fnel(1).webp" alt="루디"><span>루디</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/dkfltm.webp" alt="아리스"><span>아리스</span></div><div class="hero-comp-icon-item"><img src="./index_files/rpfflentm.webp" alt="겔리두스"><span>겔리두스</span></div><div class="hero-comp-icon-item"><img src="./index_files/fnel.webp" alt="루디"><span>루디</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
@@ -862,15 +795,7 @@
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/qmfkswm.webp" alt="브란즈&amp;브란셀"><span>브란즈&amp;브란셀</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
-        <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
         <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
-        <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div><div class="hero-comp-icon-item"><img src="./index_files/qmfkswm.webp" alt="브란즈&amp;브란셀"><span>브란즈&amp;브란셀</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
@@ -878,7 +803,11 @@
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/dusgml.webp" alt="연희"><span>연희</span></div><div class="hero-comp-icon-item"><img src="./index_files/ehddud.webp" alt="동영"><span>동영</span></div><div class="hero-comp-icon-item"><img src="./index_files/vmfpdldi.webp" alt="프레이야"><span>프레이야</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/dbsrjs.webp" alt="윤건"><span>윤건</span></div><div class="hero-comp-icon-item"><img src="./index_files/ehddud.webp" alt="동영"><span>동영</span></div><div class="hero-comp-icon-item"><img src="./index_files/tmznfem.webp" alt="스쿨드"><span>스쿨드</span></div></div></div>
+        <div><button class="detail-btn">상세 공략 열기</button></div>
+      </div><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/dbsrjs.webp" alt="윤건"><span>윤건</span></div><div class="hero-comp-icon-item"><img src="./index_files/ehddud.webp" alt="동영"><span>동영</span></div><div class="hero-comp-icon-item"><img src="./index_files/tlfqptmxk.webp" alt="실베스타"><span>실베스타</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div></div>
     </div>
@@ -2128,15 +2057,8 @@
             let statsWr = getWinRate(statsKey);
             let isStandard = !!(statsData[statsKey] && statsData[statsKey].isStandard);
             let isUnverified = !isStandard && statsWr.total === 0; // ⭐정석이 아니면서 승패 기록이 아예 없는 미검증 조합
-            let rankBadgeHtml = statsWr.total > 0 ? `<span class="stats-rank-badge">${i+1}위</span>` : '';
             let standardBadgeHtml = isStandard ? `<span class="stats-standard-badge">⭐ 정석</span>` : '';
             let standardToggleHtml = isAdmin ? `<button class="stats-vote-btn standard-toggle${isStandard ? ' active' : ''}" onclick="window.toggleStandardTag('${statsKey}')">⭐ 정석${isStandard ? ' 해제' : ' 지정'}</button>` : '';
-            let voteBtnsHtml = isAdmin ? `
-              <button class="stats-vote-btn win" onclick="window.recordStatsResult('${statsKey}', 'win', 1)">+승</button>
-              <button class="stats-vote-btn win-minus" onclick="window.recordStatsResult('${statsKey}', 'win', -1)">−승</button>
-              <button class="stats-vote-btn loss" onclick="window.recordStatsResult('${statsKey}', 'loss', 1)">+패</button>
-              <button class="stats-vote-btn loss-minus" onclick="window.recordStatsResult('${statsKey}', 'loss', -1)">−패</button>
-            ` : '';
             let orderSideHtml = (c.skillOrder || c.skillOrder2 || c.speedOrder) ? `
               <div class="counter-order-side">
                 ${c.skillOrder ? `<div><span class="counter-order-label">스킬순서${c.skillOrder2 ? ' 1' : ''}</span>${c.skillOrder}</div>` : ''}
@@ -2149,11 +2071,9 @@
                 <div class="gcd-atk-card-title" style="justify-content:flex-end;">
                   <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
                     ${standardBadgeHtml}
-                    ${rankBadgeHtml}
                     ${renderWinRateBadge(statsKey)}
                     <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
                     ${standardToggleHtml}
-                    ${voteBtnsHtml}
                   </span>
                 </div>
                 <div class="counter-body-formation-row">
