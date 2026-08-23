@@ -63,6 +63,16 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+// nocard=1 로 요청된 경우, 미리보기 카드를 만들 수 있는 og:/twitter: 메타태그와
+// <title>을 전부 지워서 카톡 등 봇이 아예 카드를 못 만들게(=파란 링크만 뜨게) 만드는 헬퍼.
+// (/공덱, /방덱 처럼 링크를 여러 개 한 메시지에 나열할 때, 카드가 링크마다 주렁주렁 붙는 걸 막기 위함)
+function stripPreviewMeta(html) {
+  return html
+    .replace(/<meta property="og:[^"]*"[^>]*>\n?/gi, '')
+    .replace(/<meta name="twitter:[^"]*"[^>]*>\n?/gi, '')
+    .replace(/<title>[^<]*<\/title>/, '<title> </title>');
+}
+
 function withTitle(html, title, requestUrl) {
   const t = escapeHtml(title);
   let out = html
@@ -98,10 +108,30 @@ export default async function middleware(request) {
   const url = new URL(request.url);
   const deckParam = url.searchParams.get('deck');
   const tabParam = url.searchParams.get('tab');
+  const noCard = url.searchParams.get('nocard') === '1';
   const ua = request.headers.get('user-agent') || '';
   const isBot = BOT_UA_PATTERN.test(ua);
-  const isBotWithDeck = !!deckParam && isBot;
-  const isBotWithTab = !deckParam && !!tabParam && TAB_TITLES[tabParam] && isBot;
+  const isBotNoCard = isBot && noCard;
+  const isBotWithDeck = !!deckParam && isBot && !noCard;
+  const isBotWithTab = !deckParam && !!tabParam && TAB_TITLES[tabParam] && isBot && !noCard;
+
+  // nocard=1 로 붙은 링크는 봇이든 사람이든 상관없이 무조건 카드 없이 순수 링크로만 취급.
+  // (사람이 클릭했을 땐 그냥 정상적으로 페이지가 열리면 되고, 봇이 미리보기 만들 때만
+  //  og/twitter 메타태그를 지운 버전을 내려줘서 카드 자체가 안 생기게 함)
+  if (isBotNoCard) {
+    try {
+      const staticRes = await fetch(new URL('/index.html', request.url));
+      if (!staticRes.ok) return staticRes;
+      const html = await staticRes.text();
+      return new Response(stripPreviewMeta(html), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
+    } catch (e) {
+      try {
+        return await passThroughStatic(request);
+      } catch (e2) {
+        return new Response('일시적인 오류입니다. 새로고침 해주세요.', { status: 200, headers: { 'content-type': 'text/plain; charset=utf-8' } });
+      }
+    }
+  }
 
   // 일반 사용자(카톡 인앱 브라우저로 실제 클릭해서 들어온 경우 포함)는
   // 아무것도 가공하지 않고 정적 파일을 그대로 스트리밍으로 전달.
