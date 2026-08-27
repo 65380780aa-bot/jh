@@ -53,10 +53,15 @@ async function findDeckNameByKeyword(keyword) {
   return null;
 }
 
-// tab 값별 카드 제목 (?tab=def, ?tab=total 처럼 특정 탭 전체를 여는 고정 링크용)
-const TAB_TITLES = {
-  def: '길드방어덱구성',
-  total: '총력전덱구성'
+// tab 값별 카드 제목/설명 (?tab=def, ?tab=total, ?tab=공덱, ?tab=마덱, ?tab=방덱 처럼
+// 특정 탭 전체를 여는 고정 링크용). description을 안 적어두면 index.html에 있는
+// 원래 og:description을 그대로 씀 (def/total은 지금까지 하던 대로 그대로 둠).
+const TAB_META = {
+  def: { title: '길드방어덱구성' },
+  total: { title: '총력전덱구성' },
+  '공덱': { title: '카운터 덱 확인', description: '공덱' },
+  '마덱': { title: '카운터 덱 확인', description: '마덱' },
+  '방덱': { title: '카운터 덱 확인', description: '방덱' }
 };
 
 function escapeHtml(str) {
@@ -77,15 +82,24 @@ function stripPreviewMeta(html) {
     .replace(/<title>[^<]*<\/title>/, '<title> </title>');
 }
 
-function withTitle(html, title, requestUrl) {
+// title(필수)과 description(선택)을 <title>/og:title/og:description/twitter: 쪽에 반영.
+// description을 안 넘기면 index.html에 원래 있던 og:description을 그대로 둠.
+function withTitle(html, title, requestUrl, description) {
   const t = escapeHtml(title);
   let out = html
     .replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
     .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${t}">`)
     .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${t}">`);
 
+  if (description) {
+    const d = escapeHtml(description);
+    out = out
+      .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${d}">`)
+      .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${d}">`);
+  }
+
   // og:url을 쿼리 파라미터 포함한 실제 요청 주소로 채워서, 카카오가
-  // ?deck=밀스실 / ?tab=def / ?tab=total 등을 서로 다른 페이지로 정확히 구분하게 함
+  // ?deck=밀스실 / ?tab=def / ?tab=total / ?tab=공덱 등을 서로 다른 페이지로 정확히 구분하게 함
   // (이게 없으면 카카오가 여러 링크를 같은 페이지로 착각해서 캐시가 서로 뒤섞일 수 있음)
   if (requestUrl) {
     const u = escapeHtml(requestUrl);
@@ -127,7 +141,7 @@ export default async function middleware(request) {
 
   const isBotNoCard = isBot && noCard;
   const isBotWithDeck = !!deckParam && isBot && !noCard;
-  const isBotWithTab = !deckParam && !!tabParam && TAB_TITLES[tabParam] && isBot && !noCard;
+  const isBotWithTab = !deckParam && !!tabParam && TAB_META[tabParam] && isBot && !noCard;
 
   // nocard=1 로 붙은 링크는 봇이든 사람이든 상관없이 무조건 카드 없이 순수 링크로만 취급.
   // (사람이 클릭했을 땐 그냥 정상적으로 페이지가 열리면 되고, 봇이 미리보기 만들 때만
@@ -158,13 +172,15 @@ export default async function middleware(request) {
     }
   }
 
-  // "?tab=def / ?tab=total" 고정 탭 링크는 Firestore 조회가 필요 없어서 훨씬 간단하게 처리.
+  // "?tab=def / ?tab=total / ?tab=공덱 / ?tab=마덱 / ?tab=방덱" 고정 탭 링크는
+  // Firestore 조회가 필요 없어서 훨씬 간단하게 처리.
   if (isBotWithTab) {
     try {
       const staticRes = await fetchIndexHtml(request.url);
       if (!staticRes.ok) return staticRes;
       const html = await staticRes.text();
-      return new Response(withTitle(html, TAB_TITLES[tabParam], request.url), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
+      const meta = TAB_META[tabParam];
+      return new Response(withTitle(html, meta.title, request.url, meta.description), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
     } catch (e) {
       try {
         return await passThroughStatic(request);
