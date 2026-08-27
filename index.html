@@ -134,11 +134,15 @@
     .stats-vote-btn.win-minus:hover { background:#f0fdf4; opacity:1; }
     .stats-vote-btn.loss-minus { color:#7f1d1d; border-color:#d1d5db; opacity:0.7; }
     .stats-vote-btn.loss-minus:hover { background:#fef2f2; opacity:1; }
-    .stats-vote-btn.standard-toggle { color:#92600a; border-color:#fbbf24; }
-    .stats-vote-btn.standard-toggle:hover { background:#fffbeb; }
-    .stats-vote-btn.standard-toggle.active { background:#fbbf24; color:#78350f; border-color:#f59e0b; }
-    .stats-standard-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; background:#fbbf24; color:#78350f; }
-    .stats-combo-row.is-standard { border-left:2px solid #f59e0b; background:#fffbeb; }
+    .stats-vote-btn.standard-toggle { color:#15803d; border-color:#4ade80; }
+    .stats-vote-btn.standard-toggle:hover { background:#f0fdf4; }
+    .stats-vote-btn.standard-toggle.active { background:#22c55e; color:#fff; border-color:#16a34a; }
+    .stats-standard-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; background:#dcfce7; color:#15803d; }
+    .stats-combo-row.is-standard { border-left:2px solid #22c55e; background:#f0fdf4; }
+    .stats-vote-btn.not-recommended-toggle { color:#0369a1; border-color:#7dd3fc; }
+    .stats-vote-btn.not-recommended-toggle:hover { background:#f0f9ff; }
+    .stats-vote-btn.not-recommended-toggle.active { background:#0ea5e9; color:#fff; border-color:#0284c7; }
+    .stats-not-recommended-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; background:#e0f2fe; color:#0369a1; }
     .stats-combo-option { display:flex; align-items:center; gap:10px; padding:10px 14px; cursor:pointer; border-bottom:1px solid var(--border); }
     .stats-combo-option:last-child { border-bottom:none; }
     .stats-combo-option:hover { background:#f9fafb; }
@@ -191,7 +195,8 @@
       font-size: 14.5px; line-height: 1.7; font-weight: 900; color: #111827;
       display: block;
     }
-    .gcd-atk-card-item.is-standard{ border-color:#f59e0b; background:#fffbeb; box-shadow: 0 0 0 1px #fbbf24 inset; }
+    .gcd-atk-card-item.is-standard{ border-color:#22c55e; background:#f0fdf4; box-shadow: 0 0 0 1px #4ade80 inset; }
+    .gcd-atk-card-item.is-not-recommended{ border-color:#38bdf8; box-shadow: 0 0 0 1px #7dd3fc inset; }
     .gcd-tot-card-item{ 
       background:#fff; border:1px solid #fed7aa; border-radius:12px; padding:16px; margin-top:12px; 
       font-size: 14.5px; line-height: 1.7; font-weight: 900; color: #111827;
@@ -532,11 +537,23 @@
       <div style="background:#fff; border-radius:16px; max-width:600px; width:100%; max-height:80vh; overflow-y:auto; padding:24px; position:relative;">
         <button id="close-load-slot-modal-btn" style="position:absolute; top:16px; right:16px; background:#f3f4f6; border:none; border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
         <h2 style="margin:0 0 6px 0; font-size:18px; font-weight:900;">📥 영웅 한 명만 불러오기</h2>
-        <p style="font-size:13px; color:#6b7280; margin:0 0 12px 0;">기존 조합에 등록된 영웅 중 하나를 골라 이 칸(이름·이미지·반지·상세정보)에만 채워넣어요. 다른 칸에는 영향 없어요.</p>
+        <p style="font-size:13px; color:#6b7280; margin:0 0 12px 0;">기존 조합에 등록된 영웅 중 하나를 골라 이 칸(이름·이미지·상세정보)에만 채워넣어요. 반지는 포함되지 않으니, 반지가 필요하면 아래 '💍 반지 불러오기'를 따로 눌러주세요.</p>
         <input type="text" id="load-slot-search" class="gcd-input" placeholder="🔍 영웅 이름으로 검색" style="margin-bottom:12px;">
         <div id="load-slot-list"></div>
       </div>
     </div>
+
+    <!-- 개별 반지 불러오기 모달 -->
+    <div id="load-ring-modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+      <div style="background:#fff; border-radius:16px; max-width:600px; width:100%; max-height:80vh; overflow-y:auto; padding:24px; position:relative;">
+        <button id="close-load-ring-modal-btn" style="position:absolute; top:16px; right:16px; background:#f3f4f6; border:none; border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
+        <h2 style="margin:0 0 6px 0; font-size:18px; font-weight:900;">💍 반지 세트 불러오기</h2>
+        <p style="font-size:13px; color:#6b7280; margin:0 0 12px 0;">기존에 등록된 반지1·반지2 세트 중 하나를 골라 이 칸의 반지에만 채워넣어요. 영웅 이름·이미지에는 영향 없어요.</p>
+        <input type="text" id="load-ring-search" class="gcd-input" placeholder="🔍 반지 이름으로 검색" style="margin-bottom:12px;">
+        <div id="load-ring-list"></div>
+      </div>
+    </div>
+
 
     <!-- 폼 영역 (공격덱 추가/수정) - 이미지 주소 및 개별 상세정보 입력 지원 -->
     <div class="gcd-search-box" id="gcd-add-atk-section" style="display: none; background: rgb(253, 242, 248); border-color: rgb(251, 207, 232);">
@@ -1539,7 +1556,11 @@
             <div class="slot-row-grid">
               <input type="text" class="gcd-input ${prefix}-slot-name-${i}" value="${(slots[i]?.name || '').replace(/"/g,'&quot;')}" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
               <input type="text" class="gcd-input ${prefix}-slot-img-${i}" value="${slots[i]?.img || ''}" placeholder="이미지 주소(URL)" style="margin:0;">
-              <div style="display:flex; gap:6px; margin-top:6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, ${i})">📥 반지 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
                 <input type="text" class="gcd-input ${prefix}-slot-ring1-name-${i}" value="${(slots[i]?.ring1Name || '').replace(/"/g,'&quot;')}" placeholder="반지1 이름" style="margin:0;">
                 <input type="text" class="gcd-input ${prefix}-slot-ring1-${i}" value="${slots[i]?.ring1 || ''}" placeholder="반지1 이미지 URL" style="margin:0;">
               </div>
@@ -1693,11 +1714,15 @@
     const setV = (selector, val) => { const el = box.querySelector(selector); if(el) el.value = val || ''; };
     setV(`.${prefix}-slot-name-${index}`, s.name);
     setV(`.${prefix}-slot-img-${index}`, s.img);
+    setV(`.${prefix}-slot-info-${index}`, s.info);
+  }
+
+  function fillRingOnlyFields(box, prefix, index, s){
+    const setV = (selector, val) => { const el = box.querySelector(selector); if(el) el.value = val || ''; };
     setV(`.${prefix}-slot-ring1-name-${index}`, s.ring1Name);
     setV(`.${prefix}-slot-ring1-${index}`, s.ring1);
     setV(`.${prefix}-slot-ring2-name-${index}`, s.ring2Name);
     setV(`.${prefix}-slot-ring2-${index}`, s.ring2);
-    setV(`.${prefix}-slot-info-${index}`, s.info);
   }
 
   function renderLoadSlotList(query){
@@ -1746,6 +1771,85 @@
   document.getElementById('load-slot-search').oninput = (e) => renderLoadSlotList(e.target.value);
   document.getElementById('close-load-slot-modal-btn').onclick = function(){
     document.getElementById('load-slot-modal-overlay').style.display = 'none';
+  };
+
+  // ── 반지 세트만 불러오기 ──
+  let loadRingTargetBox = null;
+  let loadRingTargetIndex = 0;
+  let loadRingPrefix = 'c';
+  let loadRingFiltered = [];
+
+  function getAllRingsFlat(prefix){
+    const combos = getAllCombosFlat(prefix);
+    const bestByKey = new Map();
+    combos.forEach(item => {
+      (item.counter.slots || []).forEach(s => {
+        if(!s || !(s.ring1Name || s.ring1 || s.ring2Name || s.ring2)) return;
+        const key = [s.ring1Name || '', s.ring2Name || ''].join('|');
+        const candidate = { deckName: item.deckName, comboTitle: item.counter.title || '', heroName: s.name || '', ring1Name: s.ring1Name || '', ring1: s.ring1 || '', ring2Name: s.ring2Name || '', ring2: s.ring2 || '' };
+        if(!bestByKey.has(key)) bestByKey.set(key, candidate);
+      });
+    });
+    return Array.from(bestByKey.values()).sort((a, b) => (a.ring1Name || a.ring2Name || '').localeCompare(b.ring1Name || b.ring2Name || '', 'ko-KR'));
+  }
+
+  function fillRingFields(box, prefix, index, r){
+    const setV = (selector, val) => { const el = box.querySelector(selector); if(el) el.value = val || ''; };
+    setV(`.${prefix}-slot-ring1-name-${index}`, r.ring1Name);
+    setV(`.${prefix}-slot-ring1-${index}`, r.ring1);
+    setV(`.${prefix}-slot-ring2-name-${index}`, r.ring2Name);
+    setV(`.${prefix}-slot-ring2-${index}`, r.ring2);
+  }
+
+  function renderLoadRingList(query){
+    const allRings = getAllRingsFlat(loadRingPrefix);
+    const q = (query || '').trim();
+    loadRingFiltered = q ? allRings.filter(item => (item.ring1Name + item.ring2Name).includes(q)) : allRings;
+    const listEl = document.getElementById('load-ring-list');
+    const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    if(loadRingFiltered.length === 0){
+      listEl.innerHTML = `<p style="color:#6b7280; font-size:13px;">불러올 반지 세트가 없습니다.</p>`;
+      return;
+    }
+    listEl.innerHTML = loadRingFiltered.map((item, idx) => `
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            ${item.ring1 ? `<img src="${item.ring1}" style="width:32px; height:32px; border-radius:8px; object-fit:cover;">` : ''}
+            ${item.ring2 ? `<img src="${item.ring2}" style="width:32px; height:32px; border-radius:8px; object-fit:cover;">` : ''}
+          </div>
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">${esc(item.ring1Name) || '-'} ${item.ring2Name ? '· ' + esc(item.ring2Name) : ''}</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${esc(item.heroName)} · ${esc(item.deckName)}</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(${idx})" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    `).join('');
+  }
+
+  window.openLoadRingModal = function(btn, index){
+    const box = btn.closest('.counter-builder-box, .tot-builder-box');
+    if(!box) return;
+    loadRingTargetBox = box;
+    loadRingTargetIndex = index;
+    loadRingPrefix = box.classList.contains('tot-builder-box') ? 't' : 'c';
+    document.getElementById('load-ring-search').value = '';
+    renderLoadRingList('');
+    document.getElementById('load-ring-modal-overlay').style.display = 'flex';
+  };
+
+  window.applyLoadRing = function(idx){
+    const item = loadRingFiltered[idx];
+    if(!item || !loadRingTargetBox) return;
+    fillRingFields(loadRingTargetBox, loadRingPrefix, loadRingTargetIndex, item);
+    document.getElementById('load-ring-modal-overlay').style.display = 'none';
+    alert('반지 세트를 불러왔습니다! 내용을 확인·수정한 뒤 저장해주세요.');
+  };
+
+  document.getElementById('load-ring-search').oninput = (e) => renderLoadRingList(e.target.value);
+  document.getElementById('close-load-ring-modal-btn').onclick = function(){
+    document.getElementById('load-ring-modal-overlay').style.display = 'none';
   };
 
   // ── 펫 한 마리만 불러오기 ──
@@ -2317,6 +2421,19 @@
     }
   };
 
+  window.toggleNotRecommendedTag = async function(key) {
+    if (!isAdmin) return;
+    const current = !!(statsData[key] && statsData[key].isNotRecommended);
+    try {
+      await setDoc(doc(db, "counterStats", key), {
+        isNotRecommended: !current
+      }, { merge: true });
+    } catch (e) {
+      console.error("Not-recommended tag save failed:", e);
+      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+    }
+  };
+
   window.recordStatsResult = async function(key, result, delta) {
     if (!isAdmin) return;
     // 0 밑으로 안 내려가게 방지
@@ -2481,9 +2598,12 @@
             let statsKey = getComboKey(item.id, c, cIdx);
             let statsWr = getWinRate(statsKey);
             let isStandard = !!(statsData[statsKey] && statsData[statsKey].isStandard);
+            let isNotRecommended = !!(statsData[statsKey] && statsData[statsKey].isNotRecommended);
             let isUnverified = !isStandard && statsWr.total === 0; // ⭐정석이 아니면서 승패 기록이 아예 없는 미검증 조합
             let standardBadgeHtml = isStandard ? `<span class="stats-standard-badge">⭐ 정석</span>` : '';
+            let notRecommendedBadgeHtml = isNotRecommended ? `<span class="stats-not-recommended-badge">🚫 비추천</span>` : '';
             let standardToggleHtml = isAdmin ? `<button class="stats-vote-btn standard-toggle${isStandard ? ' active' : ''}" onclick="window.toggleStandardTag('${statsKey}')">⭐ 정석${isStandard ? ' 해제' : ' 지정'}</button>` : '';
+            let notRecommendedToggleHtml = isAdmin ? `<button class="stats-vote-btn not-recommended-toggle${isNotRecommended ? ' active' : ''}" onclick="window.toggleNotRecommendedTag('${statsKey}')">🚫 비추천${isNotRecommended ? ' 해제' : ' 지정'}</button>` : '';
             let orderSideHtml = (c.skillOrder || c.skillOrder2 || c.speedOrder) ? `
               <div class="counter-order-side">
                 ${c.skillOrder ? `<div><span class="counter-order-label">스킬순서${c.skillOrder2 ? ' 1' : ''}</span>${c.skillOrder}</div>` : ''}
@@ -2492,13 +2612,15 @@
               </div>
             ` : '';
             let cardHtml = `
-              <div class="gcd-atk-card-item${isStandard ? ' is-standard' : ''}">
+              <div class="gcd-atk-card-item${isStandard ? ' is-standard' : ''}${isNotRecommended ? ' is-not-recommended' : ''}">
                 <div class="gcd-atk-card-title" style="justify-content:flex-end;">
                   <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
                     ${standardBadgeHtml}
+                    ${notRecommendedBadgeHtml}
                     ${renderWinRateBadge(statsKey)}
                     <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
                     ${standardToggleHtml}
+                    ${notRecommendedToggleHtml}
                   </span>
                 </div>
                 <div class="counter-body-formation-row">
