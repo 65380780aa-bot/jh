@@ -980,6 +980,12 @@
     measurementId: "G-LZ7SQ3ZHMJ"
   };
 
+  // 덱 목록 정렬 기준: 대표 영웅 이미지의 1번째 영웅 이름을 우선 사용 (없으면 name 필드로 폴백)
+  function getDeckSortKey(item) {
+    const firstHero = item && item.titleHeroes && item.titleHeroes[0] && item.titleHeroes[0].name;
+    return (firstHero || item.name || '').trim();
+  }
+
   // 관리자 여부는 이제 Firestore 보안 규칙과 실제로 연동되는 Firebase 로그인 상태로 판단함
   // (예전처럼 브라우저 화면에서만 비밀번호 맞는지 검사하고 끝나는 방식이 아님).
   let isAdmin = false;
@@ -1114,7 +1120,7 @@
         { title: "추천 덱 정보 없음", formation: "기본 진형", slots: Array(8).fill({img: "", info: ""}), body: "추천 덱 정보 없음" }
       ] 
     }
-  ].sort((a,b) => a.name.localeCompare(b.name, 'ko-KR'));
+  ].sort((a,b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
 
   // 원본 방어덱 8개 데이터 전체 복구
   const INITIAL_DEF_DB = [
@@ -1214,7 +1220,7 @@
       backSlots: ["동영", "프레이야", "", ""],
       frontSlots: ["연희", "", "", ""]
     }
-  ].sort((a,b) => a.name.localeCompare(b.name, 'ko-KR'));
+  ].sort((a,b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
 
   // 총력덱 기본 데이터 (4가지 진형 선택 및 8개 슬롯 이미지주소/개별상세정보 지원)
   const INITIAL_TOT_DB = [
@@ -1240,7 +1246,7 @@
         }
       ]
     }
-  ].sort((a,b) => a.name.localeCompare(b.name, 'ko-KR'));
+  ].sort((a,b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
 
   let currentMode = 'ATK'; // 기본 화면 공격덱
   let atkSubFilter = '공덱'; // 공격덱 하위 탭: 공덱 / 마덱 / 방덱
@@ -1355,7 +1361,7 @@
     onSnapshot(collection(db, "guild_atk_db"), (snap) => {
       let map = new Map();
       snap.forEach(d => { let data = d.data(); if(data && data.id) map.set(data.id, data); });
-      atkData = Array.from(map.values()).sort((a, b) => (a.name || "").localeCompare(b.name || "", 'ko-KR'));
+      atkData = Array.from(map.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
       if(currentMode === 'ATK') renderList();
       atkLoadedOnce = true;
       tryDeepLink();
@@ -1364,7 +1370,7 @@
     onSnapshot(collection(db, "guild_def_db"), (snap) => {
       let map = new Map();
       snap.forEach(d => { let data = d.data(); if(data && data.id) map.set(data.id, data); });
-      defData = Array.from(map.values()).sort((a, b) => (a.name || "").localeCompare(b.name || "", 'ko-KR'));
+      defData = Array.from(map.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
       if(currentMode === 'DEF') renderList();
       defLoadedOnce = true;
       tryDeepLink();
@@ -1373,7 +1379,7 @@
     onSnapshot(collection(db, "guild_total_db"), (snap) => {
       let map = new Map();
       snap.forEach(d => { let data = d.data(); if(data && data.id) map.set(data.id, data); });
-      totData = Array.from(map.values()).sort((a, b) => (a.name || "").localeCompare(b.name || "", 'ko-KR'));
+      totData = Array.from(map.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
       if(currentMode === 'TOTAL') renderList();
       totLoadedOnce = true;
       tryDeepLink();
@@ -1669,15 +1675,18 @@
 
   function getAllSlotsFlat(prefix){
     const combos = getAllCombosFlat(prefix);
-    const slots = [];
+    const bestByName = new Map();
+    const scoreSlot = (s) => ['img','ring1Name','ring1','ring2Name','ring2','info'].filter(k => s[k]).length;
     combos.forEach(item => {
       (item.counter.slots || []).forEach(s => {
-        if(s && (s.name || s.img)) {
-          slots.push({ deckName: item.deckName, comboTitle: item.counter.title || '', slot: s });
-        }
+        if(!s || !(s.name || s.img)) return;
+        const key = s.name || s.img;
+        const candidate = { deckName: item.deckName, comboTitle: item.counter.title || '', slot: s };
+        const existing = bestByName.get(key);
+        if(!existing || scoreSlot(s) > scoreSlot(existing.slot)) bestByName.set(key, candidate);
       });
     });
-    return slots;
+    return Array.from(bestByName.values());
   }
 
   function fillSlotFields(box, prefix, index, s){
@@ -1747,16 +1756,18 @@
 
   function getAllPetsFlat(prefix){
     const combos = getAllCombosFlat(prefix);
-    const pets = [];
+    const bestByName = new Map();
     combos.forEach(item => {
       const petArr = Array.isArray(item.counter.pet) ? item.counter.pet : (item.counter.pet ? [item.counter.pet] : []);
       petArr.forEach(p => {
-        if(p && (p.name || p.img)) {
-          pets.push({ deckName: item.deckName, comboTitle: item.counter.title || '', pet: p });
-        }
+        if(!p || !(p.name || p.img)) return;
+        const key = p.name || p.img;
+        const candidate = { deckName: item.deckName, comboTitle: item.counter.title || '', pet: p };
+        const existing = bestByName.get(key);
+        if(!existing || (!existing.pet.img && p.img)) bestByName.set(key, candidate);
       });
     });
-    return pets;
+    return Array.from(bestByName.values());
   }
 
   function fillPetFields(box, prefix, index, p){
@@ -1870,7 +1881,7 @@
     if(!h) return;
     const nameEl = document.getElementById(`${loadTitleTargetPrefix}-title-name-${loadTitleTargetIndex}`);
     const imgEl = document.getElementById(`${loadTitleTargetPrefix}-title-img-${loadTitleTargetIndex}`);
-    if(nameEl) nameEl.value = h.name || '';
+    if(nameEl) { nameEl.value = h.name || ''; nameEl.dispatchEvent(new Event('input', { bubbles: true })); }
     if(imgEl) imgEl.value = h.img || '';
     document.getElementById('load-title-modal-overlay').style.display = 'none';
     alert('영웅을 불러왔습니다! 내용을 확인·수정한 뒤 저장해주세요.');
@@ -2089,7 +2100,7 @@
     const idx = atkData.findIndex(item => item.id == itemId);
     if(idx !== -1) atkData[idx] = newDeck; else atkData.push(newDeck);
     
-    atkData.sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
+    atkData.sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
     try {
       if(window.saveToFirestore) await window.saveToFirestore('ATK', itemId, newDeck);
     } catch(e) { renderList(); return; } // save failed - error already alerted, don't claim success
@@ -2180,7 +2191,7 @@
     const idx = defData.findIndex(item => item.id == itemId);
     if(idx !== -1) defData[idx] = newDefDeck; else defData.push(newDefDeck);
     
-    defData.sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
+    defData.sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
     try {
       if(window.saveToFirestore) await window.saveToFirestore('DEF', itemId, newDefDeck);
     } catch(e) { renderList(); return; }
@@ -2240,7 +2251,7 @@
     const idx = totData.findIndex(item => item.id == itemId);
     if(idx !== -1) totData[idx] = newDeck; else totData.push(newDeck);
     
-    totData.sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
+    totData.sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
     try {
       if(window.saveToFirestore) await window.saveToFirestore('TOTAL', itemId, newDeck);
     } catch(e) { renderList(); return; }
