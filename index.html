@@ -139,10 +139,10 @@
     .stats-vote-btn.standard-toggle.active { background:#22c55e; color:#fff; border-color:#16a34a; }
     .stats-standard-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; background:#dcfce7; color:#15803d; }
     .stats-combo-row.is-standard { border-left:2px solid #22c55e; background:#f0fdf4; }
-    .stats-vote-btn.not-recommended-toggle { color:#0369a1; border-color:#7dd3fc; }
-    .stats-vote-btn.not-recommended-toggle:hover { background:#f0f9ff; }
-    .stats-vote-btn.not-recommended-toggle.active { background:#0ea5e9; color:#fff; border-color:#0284c7; }
-    .stats-not-recommended-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; background:#e0f2fe; color:#0369a1; }
+    .stats-vote-btn.not-recommended-toggle { color:#6b7280; border-color:#d1d5db; }
+    .stats-vote-btn.not-recommended-toggle:hover { background:#f9fafb; }
+    .stats-vote-btn.not-recommended-toggle.active { background:#ef4444; color:#fff; border-color:#dc2626; }
+    .stats-not-recommended-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; background:#fee2e2; color:#dc2626; }
     .stats-combo-option { display:flex; align-items:center; gap:10px; padding:10px 14px; cursor:pointer; border-bottom:1px solid var(--border); }
     .stats-combo-option:last-child { border-bottom:none; }
     .stats-combo-option:hover { background:#f9fafb; }
@@ -196,7 +196,7 @@
       display: block;
     }
     .gcd-atk-card-item.is-standard{ border-color:#22c55e; background:#f0fdf4; box-shadow: 0 0 0 1px #4ade80 inset; }
-    .gcd-atk-card-item.is-not-recommended{ border-color:#38bdf8; box-shadow: 0 0 0 1px #7dd3fc inset; }
+    .gcd-atk-card-item.is-not-recommended{ border-color:#f87171; background:#fef2f2; box-shadow: 0 0 0 1px #fca5a5 inset; }
     .gcd-tot-card-item{ 
       background:#fff; border:1px solid #fed7aa; border-radius:12px; padding:16px; margin-top:12px; 
       font-size: 14.5px; line-height: 1.7; font-weight: 900; color: #111827;
@@ -2572,12 +2572,15 @@
           let unverifiedHtml = '';
           let unverifiedCount = 0;
           let cList = (item.counters || []).map((c, idx) => ({ c, idx }));
-          // 승률 높은 조합이 위로 오도록 정렬 (미검증은 맨 아래, 원래 저장 순서는 안 바뀜 - 화면 표시 순서만 바뀜)
+          // 승률 높은 조합이 위로 오도록 정렬 (⭐정석 최상단 → 승률순 → 🚫비추천은 항상 맨 아래, 원래 저장 순서는 안 바뀜 - 화면 표시 순서만 바뀜)
           cList.sort((a, b) => {
             const keyA = getComboKey(item.id, a.c, a.idx), keyB = getComboKey(item.id, b.c, b.idx);
             const sa = !!(statsData[keyA] && statsData[keyA].isStandard);
             const sb = !!(statsData[keyB] && statsData[keyB].isStandard);
             if (sa !== sb) return sa ? -1 : 1; // ⭐ 정석으로 지정된 조합이 항상 최상단
+            const na = !!(statsData[keyA] && statsData[keyA].isNotRecommended);
+            const nb = !!(statsData[keyB] && statsData[keyB].isNotRecommended);
+            if (na !== nb) return na ? 1 : -1; // 🚫 비추천으로 지정된 조합이 항상 최하단
             const wa = getWinRate(keyA);
             const wb = getWinRate(keyB);
             if (wa.total === 0 && wb.total === 0) return 0;
@@ -2599,9 +2602,9 @@
             let statsWr = getWinRate(statsKey);
             let isStandard = !!(statsData[statsKey] && statsData[statsKey].isStandard);
             let isNotRecommended = !!(statsData[statsKey] && statsData[statsKey].isNotRecommended);
-            let isUnverified = !isStandard && statsWr.total === 0; // ⭐정석이 아니면서 승패 기록이 아예 없는 미검증 조합
+            let isUnverified = !isStandard && !isNotRecommended && statsWr.total === 0; // ⭐정석·🚫비추천이 아니면서 승패 기록이 아예 없는 미검증 조합 (🚫비추천은 접지 않고 맨 아래에 항상 노출)
             let standardBadgeHtml = isStandard ? `<span class="stats-standard-badge">⭐ 정석</span>` : '';
-            let notRecommendedBadgeHtml = isNotRecommended ? `<span class="stats-not-recommended-badge">🚫 비추천</span>` : '';
+            let winOrNotRecBadgeHtml = isNotRecommended ? `<span class="stats-not-recommended-badge">🚫 비추천</span>` : renderWinRateBadge(statsKey);
             let standardToggleHtml = isAdmin ? `<button class="stats-vote-btn standard-toggle${isStandard ? ' active' : ''}" onclick="window.toggleStandardTag('${statsKey}')">⭐ 정석${isStandard ? ' 해제' : ' 지정'}</button>` : '';
             let notRecommendedToggleHtml = isAdmin ? `<button class="stats-vote-btn not-recommended-toggle${isNotRecommended ? ' active' : ''}" onclick="window.toggleNotRecommendedTag('${statsKey}')">🚫 비추천${isNotRecommended ? ' 해제' : ' 지정'}</button>` : '';
             let orderSideHtml = (c.skillOrder || c.skillOrder2 || c.speedOrder) ? `
@@ -2616,8 +2619,7 @@
                 <div class="gcd-atk-card-title" style="justify-content:flex-end;">
                   <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
                     ${standardBadgeHtml}
-                    ${notRecommendedBadgeHtml}
-                    ${renderWinRateBadge(statsKey)}
+                    ${winOrNotRecBadgeHtml}
                     <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
                     ${standardToggleHtml}
                     ${notRecommendedToggleHtml}
