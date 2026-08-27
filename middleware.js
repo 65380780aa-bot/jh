@@ -2,7 +2,11 @@
 // 카카오톡/페이스북 등 봇이 링크를 미리보기 카드로 만들 때만 제목/설명을 바꿔주는 미들웨어.
 // 일반 사용자가 접속할 때도 항상 명시적으로 index.html을 가져와서 그대로 돌려줌
 // (애매하게 "아무것도 반환 안 하면 알아서 통과되겠지" 하는 방식은 안 써서,
-//  어떤 경우에도 빈 화면/네트워크 오류가 뜨지 않도록 보장함).
+// 어떤 경우에도 빈 화면/네트워크 오류가 뜨지 않도록 보장함).
+//
+// ⚠️ 중요: /index.html을 fetch로 가져올 때 { cache: 'no-store' }를 반드시 붙여야 함.
+// 안 붙이면 Vercel의 fetch 캐시(Data Cache) 때문에 index.html을 새로 배포해도
+// 미들웨어가 예전 버전을 계속 캐시해서 내려줄 수 있음 (카카오 미리보기가 안 바뀌는 원인 중 하나).
 // ============================================================
 
 // matcher는 vercel.json의 proxy.matcher 쪽에서 관리하므로 여기서는 정의하지 않음
@@ -79,6 +83,7 @@ function withTitle(html, title, requestUrl) {
     .replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`)
     .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${t}">`)
     .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${t}">`);
+
   // og:url을 쿼리 파라미터 포함한 실제 요청 주소로 채워서, 카카오가
   // ?deck=밀스실 / ?tab=def / ?tab=total 등을 서로 다른 페이지로 정확히 구분하게 함
   // (이게 없으면 카카오가 여러 링크를 같은 페이지로 착각해서 캐시가 서로 뒤섞일 수 있음)
@@ -93,11 +98,18 @@ function withTitle(html, title, requestUrl) {
   return out;
 }
 
+// index.html을 항상 "지금 배포된 최신 버전"으로 가져오기 위한 공용 fetch 헬퍼.
+// cache: 'no-store'를 반드시 붙여서 Vercel의 fetch 캐시(Data Cache)를 완전히 우회함.
+// (이게 없으면 파일을 새로 배포해도 미들웨어가 예전 index.html을 계속 캐시해서 쓸 수 있음)
+function fetchIndexHtml(requestUrl) {
+  return fetch(new URL('/index.html', requestUrl), { cache: 'no-store' });
+}
+
 // fetch()로 정적 파일을 그대로 가져와서 반환할 때, Content-Encoding(gzip 등) 헤더가
 // 실제 전달되는 내용물과 안 맞아서 브라우저가 압축 해제에 실패하는 문제(ERR_CONTENT_DECODING_FAILED)가
 // 생길 수 있어서, 그 헤더들을 지우고 안전하게 반환하는 헬퍼.
 async function passThroughStatic(request) {
-  const res = await fetch(new URL('/index.html', request.url));
+  const res = await fetchIndexHtml(request.url);
   const headers = new Headers(res.headers);
   headers.delete('content-encoding');
   headers.delete('content-length');
@@ -109,18 +121,20 @@ export default async function middleware(request) {
   const deckParam = url.searchParams.get('deck');
   const tabParam = url.searchParams.get('tab');
   const noCard = url.searchParams.get('nocard') === '1';
+
   const ua = request.headers.get('user-agent') || '';
   const isBot = BOT_UA_PATTERN.test(ua);
+
   const isBotNoCard = isBot && noCard;
   const isBotWithDeck = !!deckParam && isBot && !noCard;
   const isBotWithTab = !deckParam && !!tabParam && TAB_TITLES[tabParam] && isBot && !noCard;
 
   // nocard=1 로 붙은 링크는 봇이든 사람이든 상관없이 무조건 카드 없이 순수 링크로만 취급.
   // (사람이 클릭했을 땐 그냥 정상적으로 페이지가 열리면 되고, 봇이 미리보기 만들 때만
-  //  og/twitter 메타태그를 지운 버전을 내려줘서 카드 자체가 안 생기게 함)
+  // og/twitter 메타태그를 지운 버전을 내려줘서 카드 자체가 안 생기게 함)
   if (isBotNoCard) {
     try {
-      const staticRes = await fetch(new URL('/index.html', request.url));
+      const staticRes = await fetchIndexHtml(request.url);
       if (!staticRes.ok) return staticRes;
       const html = await staticRes.text();
       return new Response(stripPreviewMeta(html), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
@@ -147,7 +161,7 @@ export default async function middleware(request) {
   // "?tab=def / ?tab=total" 고정 탭 링크는 Firestore 조회가 필요 없어서 훨씬 간단하게 처리.
   if (isBotWithTab) {
     try {
-      const staticRes = await fetch(new URL('/index.html', request.url));
+      const staticRes = await fetchIndexHtml(request.url);
       if (!staticRes.ok) return staticRes;
       const html = await staticRes.text();
       return new Response(withTitle(html, TAB_TITLES[tabParam], request.url), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
@@ -164,12 +178,13 @@ export default async function middleware(request) {
   // 이 경로만 Firestore 조회 + 텍스트 치환이 들어가서 약간 더 느리지만,
   // 실제 사용자 클릭 경로에는 전혀 영향 없음.
   try {
-    const staticRes = await fetch(new URL('/index.html', request.url));
+    const staticRes = await fetchIndexHtml(request.url);
     if (!staticRes.ok) return staticRes;
     let html = await staticRes.text();
 
     const keyword = decodeURIComponent(deckParam).trim();
     const deckName = await findDeckNameByKeyword(keyword);
+
     if (!deckName) {
       return new Response(html, { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
     }
@@ -185,4 +200,3 @@ export default async function middleware(request) {
     }
   }
 }
-
