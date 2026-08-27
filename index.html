@@ -1686,7 +1686,7 @@
         if(!existing || scoreSlot(s) > scoreSlot(existing.slot)) bestByName.set(key, candidate);
       });
     });
-    return Array.from(bestByName.values());
+    return Array.from(bestByName.values()).sort((a, b) => (a.slot.name || '').localeCompare(b.slot.name || '', 'ko-KR'));
   }
 
   function fillSlotFields(box, prefix, index, s){
@@ -1767,7 +1767,7 @@
         if(!existing || (!existing.pet.img && p.img)) bestByName.set(key, candidate);
       });
     });
-    return Array.from(bestByName.values());
+    return Array.from(bestByName.values()).sort((a, b) => (a.pet.name || '').localeCompare(b.pet.name || '', 'ko-KR'));
   }
 
   function fillPetFields(box, prefix, index, p){
@@ -1844,7 +1844,7 @@
     (defData || []).forEach(deck => {
       (deck.titleHeroes || []).forEach(addHero);
     });
-    return Array.from(pool.values());
+    return Array.from(pool.values()).sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ko-KR'));
   }
 
   function renderLoadTitleList(query){
