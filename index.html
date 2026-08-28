@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0036)https://index-ebon-omega.vercel.app/ -->
+<!-- saved from url=(0049)file:///C:/Users/59598/Downloads/index%20(2).html -->
 <html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,11 +102,15 @@
     
     @media (max-width:680px){ .list-item { grid-template-columns: 1fr; gap: 12px; } }
 
+    /* 길드전 배치용 카드를 화면 너비에 맞게 나란히 배치 (넓으면 2~3개씩, 좁으면 1개씩 자동으로 줄바꿈) */
+    #placement-list-container {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px;
+    }
     /* 길드전 배치용 - 상대 닉네임 + 후열/전열 영웅 아이콘을 한 줄에 컴팩트하게 보여주는 카드 */
     .placement-row {
       display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
       background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-      padding: 14px 20px; margin-top: 10px;
+      padding: 14px 20px; margin-top: 0;
     }
     .placement-name { font-weight: 900; font-size: 14px; min-width: 88px; color: var(--ink); }
     .placement-heroes { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 200px; }
@@ -259,6 +263,8 @@
     }
     .formation-slot:hover { border-color: var(--orange); transform: scale(1.05); }
     .formation-slot img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; pointer-events: none; }
+    .formation-slot.formation-slot-empty { background: #f9fafb; border: 2px dashed #e5e7eb; cursor: default; box-shadow: none; }
+    .formation-slot.formation-slot-empty:hover { border-color: #e5e7eb; transform: none; }
     .formation-slot-wrap { display: flex; flex-direction: column; align-items: center; gap: 3px; }
     .ring-pair { display: flex; gap: 10px; }
     .ring-item { display: flex; flex-direction: column; align-items: center; gap: 1px; }
@@ -374,13 +380,13 @@
   <div class="top-nav">
     <div class="logo"></div>
     <div class="nav-links">
-      <div id="tab-atk" class="nav-link active">⚔️ 공격덱</div>
+      <div id="tab-atk" class="nav-link">⚔️ 공격덱</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
-      <div id="tab-placement" class="nav-link">🪖 길드전 배치용</div>
+      <div id="tab-placement" class="nav-link active">🪖 길드전 배치용</div>
       <div id="tab-total" class="nav-link">🔥 총력덱</div>
     </div>
-    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 37명</div>
-    <button id="admin-mode-btn" class="admin-btn">🔒 관리자</button>
+    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 0명</div>
+    <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
   </div>
 
   <div class="container">
@@ -388,7 +394,7 @@
     <div class="gcd-notice-box">
       <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
         <span>📢 길드전 및 총력전 세팅</span>
-        <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display: none;">✏️ 수정</button>
+        <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display: inline-block;">✏️ 수정</button>
       </div>
       <div id="notice-content">• <b>전반 장신구 규칙 :</b> 전반 세공 없을 시 <b>왼쪽 우선</b> (ex: 권불 ➔ 권능 우선)<br>• 희귀 장신구 가능 시 <b>부불(기합)</b>형태 표기<br>• <b>길드전 및 총력전 문의 :</b> 운영진<br>• 신박한 조합 발견 또는 자료 추가 할 시 아이소이에게 문의</div>
       <div id="notice-edit-area" style="display:none; margin-top:8px;">
@@ -402,8 +408,8 @@
 
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
-      <button class="add-btn" id="toggle-add-btn" style="display: none;">닫기</button>
-      <button class="add-btn" id="show-deeplink-table-btn" style="display: none; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
+      <button class="add-btn" id="toggle-add-btn" style="display: flex;">+ 배치 추가하기</button>
+      <button class="add-btn" id="show-deeplink-table-btn" style="display: flex; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
     </div>
 
     <!-- 딥링크 표 모달 -->
@@ -562,7 +568,7 @@
         <div id="load-title-list">
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/rpfflentm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/rpfflentm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">겔리두스</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(0)" style="white-space:nowrap;">📥 불러오기</button>
@@ -570,7 +576,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/shrtm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/shrtm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">녹스</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(1)" style="white-space:nowrap;">📥 불러오기</button>
@@ -578,7 +584,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/epffhswm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/epffhswm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">델론즈</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(2)" style="white-space:nowrap;">📥 불러오기</button>
@@ -586,7 +592,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/ehddud.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/ehddud.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">동영</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(3)" style="white-space:nowrap;">📥 불러오기</button>
@@ -594,7 +600,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fkemrmflem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fkemrmflem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">라드그리드</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(4)" style="white-space:nowrap;">📥 불러오기</button>
@@ -602,7 +608,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fkdldjs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fkdldjs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">라이언</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(5)" style="white-space:nowrap;">📥 불러오기</button>
@@ -610,7 +616,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fksemrmflem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fksemrmflem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">란드그리드</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(6)" style="white-space:nowrap;">📥 불러오기</button>
@@ -618,7 +624,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fprls.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fprls.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">레긴레이프</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(7)" style="white-space:nowrap;">📥 불러오기</button>
@@ -626,7 +632,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fhwl.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fhwl.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">로지</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(8)" style="white-space:nowrap;">📥 불러오기</button>
@@ -634,7 +640,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fnel.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fnel.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">루디</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(9)" style="white-space:nowrap;">📥 불러오기</button>
@@ -642,7 +648,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/flsk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/flsk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">리나</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(10)" style="white-space:nowrap;">📥 불러오기</button>
@@ -650,7 +656,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/apfzlfm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/apfzlfm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">멜키르</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(11)" style="white-space:nowrap;">📥 불러오기</button>
@@ -658,7 +664,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/altmxm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/altmxm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">미스트</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(12)" style="white-space:nowrap;">📥 불러오기</button>
@@ -666,7 +672,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/image.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/image.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">밀리아</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(13)" style="white-space:nowrap;">📥 불러오기</button>
@@ -674,7 +680,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/qkffltmxk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/qkffltmxk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">발리스타</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(14)" style="white-space:nowrap;">📥 불러오기</button>
@@ -682,7 +688,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/qmfkswm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/qmfkswm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">브란즈&amp;브란셀</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(15)" style="white-space:nowrap;">📥 불러오기</button>
@@ -690,7 +696,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/tjsfks.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/tjsfks.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">선란</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(16)" style="white-space:nowrap;">📥 불러오기</button>
@@ -698,7 +704,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dhrhd.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dhrhd.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">손오공</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(17)" style="white-space:nowrap;">📥 불러오기</button>
@@ -706,7 +712,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/tmznfem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/tmznfem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">스쿨드</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(18)" style="white-space:nowrap;">📥 불러오기</button>
@@ -714,7 +720,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/tlfqptmxk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/tlfqptmxk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">실베스타</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(19)" style="white-space:nowrap;">📥 불러오기</button>
@@ -722,7 +728,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dkfltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dkfltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">아리스</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(20)" style="white-space:nowrap;">📥 불러오기</button>
@@ -730,7 +736,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dkaffldk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dkaffldk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">아멜리아</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(21)" style="white-space:nowrap;">📥 불러오기</button>
@@ -738,7 +744,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dpdltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dpdltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">에이스</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(22)" style="white-space:nowrap;">📥 불러오기</button>
@@ -746,7 +752,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dpffltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dpffltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">엘리스</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(23)" style="white-space:nowrap;">📥 불러오기</button>
@@ -754,7 +760,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dpffltldk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dpffltldk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">엘리시아</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(24)" style="white-space:nowrap;">📥 불러오기</button>
@@ -762,7 +768,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/duvh.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/duvh.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">여포</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(25)" style="white-space:nowrap;">📥 불러오기</button>
@@ -770,7 +776,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dusgml.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dusgml.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">연희</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(26)" style="white-space:nowrap;">📥 불러오기</button>
@@ -778,7 +784,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dhfmzk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dhfmzk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">오르카</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(27)" style="white-space:nowrap;">📥 불러오기</button>
@@ -786,7 +792,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/DHAHR.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/DHAHR.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">오목</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(28)" style="white-space:nowrap;">📥 불러오기</button>
@@ -794,7 +800,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dbsrjs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dbsrjs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">윤건</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(29)" style="white-space:nowrap;">📥 불러오기</button>
@@ -802,7 +808,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/chtjs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/chtjs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">초선</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(30)" style="white-space:nowrap;">📥 불러오기</button>
@@ -810,7 +816,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/zkfgpfhs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/zkfgpfhs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">칼헤론</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(31)" style="white-space:nowrap;">📥 불러오기</button>
@@ -818,7 +824,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/zmffpaltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/zmffpaltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">클레미스</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(32)" style="white-space:nowrap;">📥 불러오기</button>
@@ -826,7 +832,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/xmfnem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/xmfnem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">트루드</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(33)" style="white-space:nowrap;">📥 불러오기</button>
@@ -834,7 +840,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/vkffksntm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/vkffksntm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">팔라누스</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(34)" style="white-space:nowrap;">📥 불러오기</button>
@@ -842,7 +848,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/vmfpdldi.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/vmfpdldi.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">프레이야</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(35)" style="white-space:nowrap;">📥 불러오기</button>
@@ -850,7 +856,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/vmffkxms.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/vmffkxms.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">플라톤</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(36)" style="white-space:nowrap;">📥 불러오기</button>
@@ -858,7 +864,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/gpffpsldk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/gpffpsldk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">헬레니아</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(37)" style="white-space:nowrap;">📥 불러오기</button>
@@ -877,7 +883,7 @@
         <div id="load-pet-list">
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fn.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fn(1).png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">루</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 겔리두스 · 1. 조합 세트</div>
@@ -932,7 +938,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/2026-08-15-004940.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/2026-08-15-004940(1).png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">제오</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 트루드 · 아리스 · 1. 조합 세트</div>
@@ -965,7 +971,7 @@
         <div id="load-slot-list">
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/rpfflentm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/rpfflentm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">겔리두스</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 윤건 · 연희 · 1. 조합 세트</div>
@@ -976,7 +982,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/shrtm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/shrtm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">녹스</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
@@ -987,7 +993,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/ehddud(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/ehddud(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">동영</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 동영 · 카운터 조합</div>
@@ -998,7 +1004,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fkemrmflem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fkemrmflem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">라드그리드</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">윤건 · 동영 · 연희 · 1. 조합 세트</div>
@@ -1009,7 +1015,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fkdldjs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fkdldjs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">라이언</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 트루드 · 아리스 · 1. 조합 세트</div>
@@ -1020,7 +1026,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fksemrmflem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fksemrmflem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">란드그리드</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 트루드 · 아리스 · 1. 조합 세트</div>
@@ -1031,7 +1037,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fprls(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fprls(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">레긴레이프</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 1. 조합 세트</div>
@@ -1042,7 +1048,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fhwl(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fhwl(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">로지</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
@@ -1053,7 +1059,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/fnel(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/fnel(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">루디</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 겔리두스 · 카운터 조합</div>
@@ -1064,7 +1070,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/flsk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/flsk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">리나</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
@@ -1075,7 +1081,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/apfzlfm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/apfzlfm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">멜키르</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 카운터 조합</div>
@@ -1086,7 +1092,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/altmxm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/altmxm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">미스트</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
@@ -1097,7 +1103,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/image(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/image(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">밀리아</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 카운터 조합</div>
@@ -1108,7 +1114,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/qkffltmxk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/qkffltmxk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">발리스타</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
@@ -1119,10 +1125,10 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/qmfkswm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/qmfkswm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">브란즈&amp;브란셀</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">조합 세트 · 1. 조합 세트</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 델론즈 · 클레미스 · 선란 · 델론즈 · 클레미스</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(14)" style="white-space:nowrap;">📥 불러오기</button>
@@ -1130,7 +1136,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/tjsfks(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/tjsfks(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">선란</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
@@ -1141,7 +1147,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dhrhd(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dhrhd(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">손오공</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">윤건 · 동영 · 연희 · 1. 조합 세트</div>
@@ -1152,7 +1158,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/tmznfem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/tmznfem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">스쿨드</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 카운터 조합</div>
@@ -1163,7 +1169,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/tlfqptmxk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/tlfqptmxk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">실베스타</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 1. 조합 세트</div>
@@ -1174,7 +1180,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dkfltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dkfltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">아리스</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 겔리두스 · 1. 조합 세트</div>
@@ -1185,7 +1191,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dkaffldk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dkaffldk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">아멜리아</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
@@ -1196,7 +1202,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dpdltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dpdltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">에이스</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 엘리시아 · 카운터 조합</div>
@@ -1207,7 +1213,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dpffltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dpffltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">엘리스</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
@@ -1218,7 +1224,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dpffltldk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dpffltldk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">엘리시아</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">윤건 · 동영 · 연희 · 1. 조합 세트</div>
@@ -1229,7 +1235,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/duvh(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/duvh(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">여포</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 오르카 · 칼헤론 · 1. 조합 세트</div>
@@ -1240,7 +1246,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dusgml(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dusgml(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">연희</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">여포 · 칼헤론 · 클레미스 · 1. 조합 세트</div>
@@ -1251,7 +1257,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dhfmzk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dhfmzk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">오르카</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 오르카 · 칼헤론 · 1. 조합 세트</div>
@@ -1262,7 +1268,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/DHAHR(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/DHAHR(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">오목</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 1. 조합 세트</div>
@@ -1273,7 +1279,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dbsrjs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/dbsrjs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">윤건</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 델론즈 · 오르카 · 1. 조합 세트</div>
@@ -1284,7 +1290,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/chtjs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/chtjs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">초선</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
@@ -1295,7 +1301,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/zkfgpfhs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/zkfgpfhs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">칼헤론</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
@@ -1306,10 +1312,10 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/zmffpaltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/zmffpaltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">클레미스</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 델론즈 · 오르카 · 카운터 조합</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(31)" style="white-space:nowrap;">📥 불러오기</button>
@@ -1317,7 +1323,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/xmfnem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/xmfnem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">트루드</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 겔리두스 · 1. 조합 세트</div>
@@ -1328,7 +1334,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/vkffksntm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/vkffksntm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">팔라누스</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 클레미스 · 1. 조합 세트</div>
@@ -1339,7 +1345,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/vmfpdldi(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/vmfpdldi(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">프레이야</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 동영 · 카운터 조합</div>
@@ -1350,10 +1356,10 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/vmffkxms(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/vmffkxms(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">플라톤</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 겔리두스 · 카운터 조합</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(35)" style="white-space:nowrap;">📥 불러오기</button>
@@ -1361,7 +1367,7 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/gpffpsldk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img src="file:///C:/Users/59598/Downloads/index_files/gpffpsldk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">헬레니아</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 클레미스 · 1. 조합 세트</div>
@@ -1990,6 +1996,28 @@
         <option value="보호 진형">보호 진형</option>
       </select>
 
+      <label class="gcd-label">🔢 화면에 보여줄 칸 수 (빈 칸도 이 개수만큼 표시됨)</label>
+      <div class="slot-input-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="slot-input-box"><label>후열 칸 수</label>
+          <select id="custom-placement-back-count" class="gcd-select" style="margin:0;">
+            <option value="0">0칸</option>
+            <option value="1">1칸</option>
+            <option value="2">2칸</option>
+            <option value="3">3칸</option>
+            <option value="4" selected="">4칸</option>
+          </select>
+        </div>
+        <div class="slot-input-box"><label>전열 칸 수</label>
+          <select id="custom-placement-front-count" class="gcd-select" style="margin:0;">
+            <option value="0">0칸</option>
+            <option value="1">1칸</option>
+            <option value="2">2칸</option>
+            <option value="3">3칸</option>
+            <option value="4" selected="">4칸</option>
+          </select>
+        </div>
+      </div>
+
       <label class="gcd-label" style="display:flex; justify-content:space-between; align-items:center;">
         <span>🐾 펫 (선택사항)</span>
         <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadPlacementPetModal()">📥 불러오기</button>
@@ -2001,14 +2029,14 @@
 
       <label class="gcd-label">📍 배치 순서 (최대 8칸, 순서대로 배치됨 — 전열을 후열 중간에 넣어도 됨. 각 칸마다 후열/전열 선택)</label>
       <div class="slot-input-grid" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">1번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(0)">📥영웅</button></div><input type="text" id="plc-slot-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-0" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-0" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back" selected>후열</option><option value="front">전열</option></select></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">2번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(1)">📥영웅</button></div><input type="text" id="plc-slot-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-1" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-1" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back" selected>후열</option><option value="front">전열</option></select></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">3번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(2)">📥영웅</button></div><input type="text" id="plc-slot-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-2" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-2" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back" selected>후열</option><option value="front">전열</option></select></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">4번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(3)">📥영웅</button></div><input type="text" id="plc-slot-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-3" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-3" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back" selected>후열</option><option value="front">전열</option></select></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">5번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(4)">📥영웅</button></div><input type="text" id="plc-slot-name-4" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-4" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-4" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back">후열</option><option value="front" selected>전열</option></select></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">6번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(5)">📥영웅</button></div><input type="text" id="plc-slot-name-5" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-5" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-5" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back">후열</option><option value="front" selected>전열</option></select></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">7번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(6)">📥영웅</button></div><input type="text" id="plc-slot-name-6" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-6" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-6" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back">후열</option><option value="front" selected>전열</option></select></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">8번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(7)">📥영웅</button></div><input type="text" id="plc-slot-name-7" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-7" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-7" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back">후열</option><option value="front" selected>전열</option></select></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">1번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(0)">📥영웅</button></div><input type="text" id="plc-slot-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-0" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-0" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back" selected="">후열</option><option value="front">전열</option></select></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">2번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(1)">📥영웅</button></div><input type="text" id="plc-slot-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-1" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-1" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back" selected="">후열</option><option value="front">전열</option></select></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">3번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(2)">📥영웅</button></div><input type="text" id="plc-slot-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-2" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-2" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back" selected="">후열</option><option value="front">전열</option></select></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">4번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(3)">📥영웅</button></div><input type="text" id="plc-slot-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-3" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-3" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back" selected="">후열</option><option value="front">전열</option></select></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">5번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(4)">📥영웅</button></div><input type="text" id="plc-slot-name-4" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-4" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-4" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back">후열</option><option value="front" selected="">전열</option></select></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">6번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(5)">📥영웅</button></div><input type="text" id="plc-slot-name-5" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-5" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-5" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back">후열</option><option value="front" selected="">전열</option></select></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">7번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(6)">📥영웅</button></div><input type="text" id="plc-slot-name-6" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-6" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-6" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back">후열</option><option value="front" selected="">전열</option></select></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">8번</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadPlacementSlotModal(7)">📥영웅</button></div><input type="text" id="plc-slot-name-7" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="plc-slot-img-7" placeholder="이미지 URL" style="margin-bottom:4px;"><select id="plc-slot-row-7" class="gcd-select" style="font-size:11px; padding:5px; margin:0;"><option value="back">후열</option><option value="front" selected="">전열</option></select></div>
       </div>
       <button id="save-custom-placement-btn" class="gcd-btn-action" style="background:#15803d;">💾 배치 저장</button>
     </div>
@@ -2135,13 +2163,13 @@
     </div>
 
     <!-- 검색 바 -->
-    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: block;">⚔️ 길드전 공격 구성 덱</div>
-    <div id="atk-subtabs" style="display: flex; gap: 8px; margin-bottom: 10px;">
+    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: block;">🪖 길드전 배치용</div>
+    <div id="atk-subtabs" style="display: none; gap: 8px; margin-bottom: 10px;">
       <div id="atk-subtab-공덱" class="atk-subtab-link active" data-type="공덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: var(--red-soft); color: var(--red);">공덱</div>
       <div id="atk-subtab-마덱" class="atk-subtab-link" data-type="마덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">마덱</div>
       <div id="atk-subtab-방덱" class="atk-subtab-link" data-type="방덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">방덱</div>
     </div>
-    <div class="gcd-search-box" id="gcd-search-section" style="padding: 16px 24px; display: block;">
+    <div class="gcd-search-box" id="gcd-search-section" style="padding: 16px 24px; display: none;">
       <div class="search-row">
         <input type="text" id="gcd-heroes-input" class="gcd-input" style="margin:0;" placeholder="방어 영웅 추가... (예: 루디)">
         <button id="gcd-search-btn" class="gcd-btn-search">🔍 검색</button>
@@ -2149,7 +2177,7 @@
     </div>
 
     <!-- 길드전 배치용 검색 + 리스트 (ATK/DEF/TOTAL과 별도 구조 - 클릭해서 펼치는 상세보기 없이 목록에서 바로 다 보여줌) -->
-    <div id="placement-subtabs" style="display: none; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+    <div id="placement-subtabs" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
       <div class="placement-subtab-link active" data-type="본성" style="cursor:pointer; padding:6px 14px; border-radius:16px; font-size:13px; font-weight:800; background:#dcfce7; color:#15803d;">본성</div>
       <div class="placement-subtab-link" data-type="내성1" style="cursor:pointer; padding:6px 14px; border-radius:16px; font-size:13px; font-weight:800; background:#f3f4f6; color:#4b5563;">내성 1</div>
       <div class="placement-subtab-link" data-type="내성2" style="cursor:pointer; padding:6px 14px; border-radius:16px; font-size:13px; font-weight:800; background:#f3f4f6; color:#4b5563;">내성 2</div>
@@ -2160,18 +2188,144 @@
       <div class="placement-subtab-link" data-type="외성4" style="cursor:pointer; padding:6px 14px; border-radius:16px; font-size:13px; font-weight:800; background:#f3f4f6; color:#4b5563;">외성 4</div>
       <div class="placement-subtab-link" data-type="외성5" style="cursor:pointer; padding:6px 14px; border-radius:16px; font-size:13px; font-weight:800; background:#f3f4f6; color:#4b5563;">외성 5</div>
     </div>
-    <div class="gcd-search-box" id="placement-search-section" style="padding: 16px 24px; display: none;">
+    <div class="gcd-search-box" id="placement-search-section" style="padding: 16px 24px; display: block;">
       <div class="search-row">
         <input type="text" id="placement-search-input" class="gcd-input" style="margin:0;" placeholder="닉네임 검색">
         <button id="placement-search-btn" class="gcd-btn-search">🔍 검색</button>
       </div>
     </div>
-    <div id="placement-list-wrapper" style="display: none;">
-      <div id="placement-list-container"></div>
+    <div id="placement-list-wrapper" style="display: block;">
+      <div id="placement-list-container">
+        <div class="placement-row" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="placement-name">로쥬마리<span style="font-size:12px; font-weight:800; color:#9ca3af; margin-left:8px;">보호 진형</span></div>
+            
+            <div class="placement-actions">
+              <button type="button" class="btn-mini-edit" onclick="window.editPlacementItem(&#39;plc_1787931693817&#39;)">✏️ 수정</button>
+              <button type="button" class="btn-mini-del" onclick="window.deletePlacementItem(&#39;plc_1787931693817&#39;)">삭제</button>
+            </div>
+          </div>
+          <div class="counter-board-shift placement-board-compact" style="display:flex; align-items:center; flex-wrap:wrap;">
+      <div class="formation-board">
+        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/tjsfks.webp" alt="hero"></div><div class="formation-slot-name">선란</div></div></div>
+        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/epffhswm.webp" alt="hero"></div><div class="formation-slot-name">델론즈</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/zmffpaltm.webp" alt="hero"></div><div class="formation-slot-name">클레미스</div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div></div>
+        
+      </div>
+    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/2026-08-15-004940.png" alt="제오"></div><div class="formation-slot-name">제오</div></div></div></div></div>
+        </div>
+      
+        <div class="placement-row" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="placement-name">숩숩이<span style="font-size:12px; font-weight:800; color:#9ca3af; margin-left:8px;">보호 진형</span></div>
+            
+            <div class="placement-actions">
+              <button type="button" class="btn-mini-edit" onclick="window.editPlacementItem(&#39;plc_1787931830823&#39;)">✏️ 수정</button>
+              <button type="button" class="btn-mini-del" onclick="window.deletePlacementItem(&#39;plc_1787931830823&#39;)">삭제</button>
+            </div>
+          </div>
+          <div class="counter-board-shift placement-board-compact" style="display:flex; align-items:center; flex-wrap:wrap;">
+      <div class="formation-board">
+        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/tjsfks.webp" alt="hero"></div><div class="formation-slot-name">선란</div></div></div>
+        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/epffhswm.webp" alt="hero"></div><div class="formation-slot-name">델론즈</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/zmffpaltm.webp" alt="hero"></div><div class="formation-slot-name">클레미스</div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div></div>
+        
+      </div>
+    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/2026-08-15-004940.png" alt="제오"></div><div class="formation-slot-name">제오</div></div></div></div></div>
+        </div>
+      
+        <div class="placement-row" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="placement-name">스이더<span style="font-size:12px; font-weight:800; color:#9ca3af; margin-left:8px;">밸런스 진형</span></div>
+            
+            <div class="placement-actions">
+              <button type="button" class="btn-mini-edit" onclick="window.editPlacementItem(&#39;plc_1787931089572&#39;)">✏️ 수정</button>
+              <button type="button" class="btn-mini-del" onclick="window.deletePlacementItem(&#39;plc_1787931089572&#39;)">삭제</button>
+            </div>
+          </div>
+          <div class="counter-board-shift placement-board-compact" style="display:flex; align-items:center; flex-wrap:wrap;">
+      <div class="formation-board">
+        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div></div>
+        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/fnel.webp" alt="hero"></div><div class="formation-slot-name">루디</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/rpfflentm.webp" alt="hero"></div><div class="formation-slot-name">겔리두스</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/dkfltm.webp" alt="hero"></div><div class="formation-slot-name">아리스</div></div></div>
+        
+      </div>
+    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/fn.png" alt="루"></div><div class="formation-slot-name">루</div></div></div></div></div>
+        </div>
+      
+        <div class="placement-row" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="placement-name">스이더<span style="font-size:12px; font-weight:800; color:#9ca3af; margin-left:8px;">보호 진형</span></div>
+            
+            <div class="placement-actions">
+              <button type="button" class="btn-mini-edit" onclick="window.editPlacementItem(&#39;plc_1787931158560&#39;)">✏️ 수정</button>
+              <button type="button" class="btn-mini-del" onclick="window.deletePlacementItem(&#39;plc_1787931158560&#39;)">삭제</button>
+            </div>
+          </div>
+          <div class="counter-board-shift placement-board-compact" style="display:flex; align-items:center; flex-wrap:wrap;">
+      <div class="formation-board">
+        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/tjsfks.webp" alt="hero"></div><div class="formation-slot-name">선란</div></div></div>
+        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/epffhswm.webp" alt="hero"></div><div class="formation-slot-name">델론즈</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/zmffpaltm.webp" alt="hero"></div><div class="formation-slot-name">클레미스</div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div></div>
+        
+      </div>
+    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/2026-08-15-004940.png" alt="제오"></div><div class="formation-slot-name">제오</div></div></div></div></div>
+        </div>
+      
+        <div class="placement-row" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="placement-name">스이더<span style="font-size:12px; font-weight:800; color:#9ca3af; margin-left:8px;">공격 진형</span></div>
+            
+            <div class="placement-actions">
+              <button type="button" class="btn-mini-edit" onclick="window.editPlacementItem(&#39;plc_1787931273583&#39;)">✏️ 수정</button>
+              <button type="button" class="btn-mini-del" onclick="window.deletePlacementItem(&#39;plc_1787931273583&#39;)">삭제</button>
+            </div>
+          </div>
+          <div class="counter-board-shift placement-board-compact" style="display:flex; align-items:center; flex-wrap:wrap;">
+      <div class="formation-board">
+        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/dpffltldk.webp" alt="hero"></div><div class="formation-slot-name">엘리시아</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/dhrhd.webp" alt="hero"></div><div class="formation-slot-name">손오공</div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div></div>
+        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/fkemrmflem.webp" alt="hero"></div><div class="formation-slot-name">라드그리드</div></div></div>
+        
+      </div>
+    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/vkdlzm.png" alt="파이크"></div><div class="formation-slot-name">파이크</div></div></div></div></div>
+        </div>
+      
+        <div class="placement-row" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="placement-name">추억을되살려<span style="font-size:12px; font-weight:800; color:#9ca3af; margin-left:8px;">밸런스 진형</span></div>
+            
+            <div class="placement-actions">
+              <button type="button" class="btn-mini-edit" onclick="window.editPlacementItem(&#39;plc_1787930385701&#39;)">✏️ 수정</button>
+              <button type="button" class="btn-mini-del" onclick="window.deletePlacementItem(&#39;plc_1787930385701&#39;)">삭제</button>
+            </div>
+          </div>
+          <div class="counter-board-shift placement-board-compact" style="display:flex; align-items:center; flex-wrap:wrap;">
+      <div class="formation-board">
+        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/tjsfks.webp" alt="hero"></div><div class="formation-slot-name">선란</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/epffhswm.webp" alt="hero"></div><div class="formation-slot-name">델론즈</div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div></div>
+        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/fksemrmflem.webp" alt="hero"></div><div class="formation-slot-name">란드그리드</div></div></div>
+        
+      </div>
+    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/2026-08-15-004940.png" alt="제오"></div><div class="formation-slot-name">제오</div></div></div></div></div>
+        </div>
+      
+        <div class="placement-row" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="placement-name">lanser<span style="font-size:12px; font-weight:800; color:#9ca3af; margin-left:8px;">보호 진형</span></div>
+            
+            <div class="placement-actions">
+              <button type="button" class="btn-mini-edit" onclick="window.editPlacementItem(&#39;plc_1787932824766&#39;)">✏️ 수정</button>
+              <button type="button" class="btn-mini-del" onclick="window.deletePlacementItem(&#39;plc_1787932824766&#39;)">삭제</button>
+            </div>
+          </div>
+          <div class="counter-board-shift placement-board-compact" style="display:flex; align-items:center; flex-wrap:wrap;">
+      <div class="formation-board">
+        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/tjsfks.webp" alt="hero"></div><div class="formation-slot-name">선란</div></div></div>
+        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/epffhswm.webp" alt="hero"></div><div class="formation-slot-name">델론즈</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/fksemrmflem.webp" alt="hero"></div><div class="formation-slot-name">란드그리드</div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div><div class="formation-slot-wrap"><div class="formation-slot formation-slot-empty"></div></div></div>
+        
+      </div>
+    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/2026-08-15-004940.png" alt="제오"></div><div class="formation-slot-name">제오</div></div></div></div></div>
+        </div>
+      </div>
     </div>
 
     <!-- 리스트 영역 -->
-    <div id="list-wrapper" style="display: block;">
+    <div id="list-wrapper" style="display: none;">
       <div class="list-header">
         <div>구분</div>
         <div>영웅 구성</div>
@@ -2179,31 +2333,35 @@
       </div>
       <div id="gcd-deck-buttons"><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks(2).webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm(1).webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk(2).webp" alt="오르카"><span>오르카</span></div></div></div>
+        <div class="hero-comp">린<span style="color:#9ca3af; margin:0 8px;">·</span>손오공<span style="color:#9ca3af; margin:0 8px;">·</span>초선</div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks(2).webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm(1).webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm(2).webp" alt="클레미스"><span>클레미스</span></div></div></div>
+        <div class="hero-comp">밀리아<span style="color:#9ca3af; margin:0 8px;">·</span>스쿨드<span style="color:#9ca3af; margin:0 8px;">·</span>실베스타</div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks(2).webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk(2).webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs(2).webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
+        <div class="hero-comp">선란<span style="color:#9ca3af; margin:0 8px;">·</span>델론즈<span style="color:#9ca3af; margin:0 8px;">·</span>라드그리드</div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh(2).webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk(2).webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs(2).webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
+        <div class="hero-comp">선란<span style="color:#9ca3af; margin:0 8px;">·</span>클레미스<span style="color:#9ca3af; margin:0 8px;">·</span>델론즈</div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh(2).webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm(1).webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs(2).webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
+        <div class="hero-comp">아리스 방덱 (+루디,겔리두스,클레미스)</div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh(2).webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm(1).webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/fksemrmflem(2).webp" alt="란드그리드"><span>란드그리드</span></div></div></div>
+        <div class="hero-comp">여포<span style="color:#9ca3af; margin:0 8px;">·</span>오르카<span style="color:#9ca3af; margin:0 8px;">·</span>칼헤른</div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh(2).webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs(2).webp" alt="칼헤론"><span>칼헤론</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm(2).webp" alt="클레미스"><span>클레미스</span></div></div></div>
+        <div class="hero-comp">여포<span style="color:#9ca3af; margin:0 8px;">·</span>클레미스<span style="color:#9ca3af; margin:0 8px;">·</span>칼헤른</div>
+        <div><button class="detail-btn">상세 공략 열기</button></div>
+      </div><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp">연희<span style="color:#9ca3af; margin:0 8px;">·</span>동영<span style="color:#9ca3af; margin:0 8px;">·</span>프레이야</div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div></div>
     </div>
@@ -3488,6 +3646,8 @@
     document.getElementById('custom-placement-name').value = '';
     document.getElementById('custom-placement-castle').value = placementSubFilter || '본성';
     document.getElementById('custom-placement-formation').value = '기본 진형';
+    document.getElementById('custom-placement-back-count').value = '4';
+    document.getElementById('custom-placement-front-count').value = '4';
     document.getElementById('custom-placement-pet-name').value = '';
     document.getElementById('custom-placement-pet-img').value = '';
     for(let i=0; i<8; i++) {
@@ -3506,6 +3666,8 @@
     const itemId = editId || ('plc_' + Date.now());
     const castleType = document.getElementById('custom-placement-castle').value || '본성';
     const formation = document.getElementById('custom-placement-formation').value || '기본 진형';
+    const backCount = parseInt(document.getElementById('custom-placement-back-count').value, 10);
+    const frontCount = parseInt(document.getElementById('custom-placement-front-count').value, 10);
     const pet = {
       name: document.getElementById('custom-placement-pet-name').value.trim(),
       img: document.getElementById('custom-placement-pet-img').value.trim()
@@ -3520,7 +3682,7 @@
       });
     }
 
-    const newPlacement = { id: itemId, name: name, castleType: castleType, formation: formation, slots: slots, pet: pet };
+    const newPlacement = { id: itemId, name: name, castleType: castleType, formation: formation, slots: slots, pet: pet, backCount: backCount, frontCount: frontCount };
 
     try {
       await setDoc(doc(db, "guild_placement_db", itemId), newPlacement);
@@ -3550,6 +3712,8 @@
     document.getElementById('custom-placement-name').value = item.name || '';
     document.getElementById('custom-placement-castle').value = item.castleType || '본성';
     document.getElementById('custom-placement-formation').value = item.formation || '기본 진형';
+    document.getElementById('custom-placement-back-count').value = (item.backCount ?? 4).toString();
+    document.getElementById('custom-placement-front-count').value = (item.frontCount ?? 4).toString();
     document.getElementById('custom-placement-pet-name').value = item.pet?.name || '';
     document.getElementById('custom-placement-pet-img').value = item.pet?.img || '';
     const slots = getPlacementSlots(item);
@@ -3611,18 +3775,23 @@
     const container = document.getElementById('placement-list-container');
     if(!container) return;
     if(filtered.length === 0){
-      container.innerHTML = `<p style="text-align:center; color:#9ca3af; padding:30px 0;">등록된 배치가 없습니다.</p>`;
+      container.innerHTML = `<p style="text-align:center; color:#9ca3af; padding:30px 0; grid-column:1/-1;">등록된 배치가 없습니다.</p>`;
       return;
     }
     container.innerHTML = filtered.map(p => {
       // 후열/전열 태그 순서대로 정리해서 기존 진형판(generateFormationBoardBySlots)에 그대로 넣어줌
-      // (반지 정보는 안 넣으니 자동으로 표시 안 됨)
+      // (반지 정보는 안 넣으니 자동으로 표시 안 됨). 칸 수는 저장할 때 지정한 backCount/frontCount를 그대로 씀.
       const allSlots = getPlacementSlots(p);
       const backOnly = allSlots.filter(s => s.row !== 'front');
       const frontOnly = allSlots.filter(s => s.row === 'front');
-      const boardSlots = [...backOnly.slice(0, 4), ...frontOnly.slice(0, 4)];
-      while (boardSlots.length < 8) boardSlots.push({ img: '', name: '' });
-      const boardHtml = generateFormationBoardBySlots(boardSlots, `plc_${p.id}`);
+      const backCount = p.backCount ?? 4;
+      const frontCount = p.frontCount ?? 4;
+      const backDisplay = backOnly.slice(0, backCount);
+      while (backDisplay.length < backCount) backDisplay.push({ img: '', name: '' });
+      const frontDisplay = frontOnly.slice(0, frontCount);
+      while (frontDisplay.length < frontCount) frontDisplay.push({ img: '', name: '' });
+      const boardSlots = [...backDisplay, ...frontDisplay];
+      const boardHtml = generateFormationBoardBySlots(boardSlots, `plc_${p.id}`, true, backCount, frontCount);
       const petHtml = generatePetDisplay(p.pet);
       const castleBadgeHtml = q ? `<span style="font-size:11px; font-weight:800; color:#15803d; background:#dcfce7; padding:2px 8px; border-radius:999px; margin-left:8px;">${esc(castleLabel(p.castleType))}</span>` : '';
       return `
@@ -4005,33 +4174,41 @@
     return `<div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items">${itemsHtml}</div></div>`;
   }
 
-  function generateFormationBoardBySlots(slots = [], boardUniqueId = 'board') {
-    let backItems = slots.slice(0, 4).map((s, idx) => ({ ...s, idx })).filter(s => s.img !== '');
-    let frontItems = slots.slice(4, 8).map((s, idx) => ({ ...s, idx: idx + 4 })).filter(s => s.img !== '');
+  function generateFormationBoardBySlots(slots = [], boardUniqueId = 'board', keepEmpty = false, backCount = 4, frontCount = 4) {
+    let backItemsRaw = slots.slice(0, backCount).map((s, idx) => ({ ...s, idx }));
+    let frontItemsRaw = slots.slice(backCount, backCount + frontCount).map((s, idx) => ({ ...s, idx: idx + backCount }));
+    let backItems = keepEmpty ? backItemsRaw : backItemsRaw.filter(s => s.img !== '');
+    let frontItems = keepEmpty ? frontItemsRaw : frontItemsRaw.filter(s => s.img !== '');
 
     const escName = (n) => (n || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
     let backSlots = '';
     backItems.forEach(item => {
       let val = item.img;
-      let content = (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('data:image')) ? `<img src="${val}" alt="hero">` : val;
+      let content = !val
+        ? ''
+        : (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('data:image')) ? `<img src="${val}" alt="hero">` : val;
       let nameLabel = item.name ? `<div class="formation-slot-name">${escName(item.name)}</div>` : '';
       let ringHtml = (item.ring1 || item.ring2) ? `<div class="ring-pair">${item.ring1 ? `<div class="ring-item"><img src="${item.ring1}" alt="${escName(item.ring1Name) || 'ring1'}">${item.ring1Name ? `<span class="ring-name">${escName(item.ring1Name)}</span>` : ''}</div>` : ''}${item.ring2 ? `<div class="ring-item"><img src="${item.ring2}" alt="${escName(item.ring2Name) || 'ring2'}">${item.ring2Name ? `<span class="ring-name">${escName(item.ring2Name)}</span>` : ''}</div>` : ''}</div>` : '';
+      let emptyClass = !val ? ' formation-slot-empty' : '';
       let slotHtml = item.info
-        ? `<div class="formation-slot" onclick="window.toggleHeroInfo('${boardUniqueId}', ${item.idx})">${content}</div>`
-        : `<div class="formation-slot">${content}</div>`;
+        ? `<div class="formation-slot${emptyClass}" onclick="window.toggleHeroInfo('${boardUniqueId}', ${item.idx})">${content}</div>`
+        : `<div class="formation-slot${emptyClass}">${content}</div>`;
       backSlots += `<div class="formation-slot-wrap">${ringHtml}${slotHtml}${nameLabel}</div>`;
     });
 
     let frontSlots = '';
     frontItems.forEach(item => {
       let val = item.img;
-      let content = (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('data:image')) ? `<img src="${val}" alt="hero">` : val;
+      let content = !val
+        ? ''
+        : (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('data:image')) ? `<img src="${val}" alt="hero">` : val;
       let nameLabel = item.name ? `<div class="formation-slot-name">${escName(item.name)}</div>` : '';
       let ringHtml = (item.ring1 || item.ring2) ? `<div class="ring-pair">${item.ring1 ? `<div class="ring-item"><img src="${item.ring1}" alt="${escName(item.ring1Name) || 'ring1'}">${item.ring1Name ? `<span class="ring-name">${escName(item.ring1Name)}</span>` : ''}</div>` : ''}${item.ring2 ? `<div class="ring-item"><img src="${item.ring2}" alt="${escName(item.ring2Name) || 'ring2'}">${item.ring2Name ? `<span class="ring-name">${escName(item.ring2Name)}</span>` : ''}</div>` : ''}</div>` : '';
+      let emptyClass = !val ? ' formation-slot-empty' : '';
       let slotHtml = item.info
-        ? `<div class="formation-slot" onclick="window.toggleHeroInfo('${boardUniqueId}', ${item.idx})">${content}</div>`
-        : `<div class="formation-slot">${content}</div>`;
+        ? `<div class="formation-slot${emptyClass}" onclick="window.toggleHeroInfo('${boardUniqueId}', ${item.idx})">${content}</div>`
+        : `<div class="formation-slot${emptyClass}">${content}</div>`;
       frontSlots += `<div class="formation-slot-wrap">${ringHtml}${slotHtml}${nameLabel}</div>`;
     });
 
