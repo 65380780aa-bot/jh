@@ -351,11 +351,18 @@
   <div class="container">
     
     <div class="gcd-notice-box">
-      <div class="gcd-notice-title">📢 길드전 및 총력전 세팅</div>
-      • <b>전반 장신구 규칙 :</b> 전반 세공 없을 시 <b>왼쪽 우선</b> (ex: 권불 ➔ 권능 우선)<br>
-      • 희귀 장신구 가능 시 <b>부불(기합)</b>형태 표기<br>
-      • <b>길드전 및 총력전 문의 :</b> 운영진<br>
-      • 신박한 조합 발견 또는 자료 추가 할 시 아이소이에게 문의
+      <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>📢 길드전 및 총력전 세팅</span>
+        <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display:none;">✏️ 수정</button>
+      </div>
+      <div id="notice-content"></div>
+      <div id="notice-edit-area" style="display:none; margin-top:8px;">
+        <textarea id="notice-edit-textarea" class="gcd-input" style="width:100%; height:140px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button type="button" id="notice-save-btn" class="add-btn" style="background:#16a34a;">저장</button>
+          <button type="button" id="notice-cancel-btn" class="add-btn" style="background:#6b7280;">취소</button>
+        </div>
+      </div>
     </div>
 
     <!-- 관리자용 덱 추가 버튼 바 -->
@@ -2194,6 +2201,7 @@
       adminBtn.classList.add('admin-on');
       toggleAddBtn.style.display = 'flex';
       showDeeplinkTableBtn.style.display = 'flex';
+      document.getElementById('notice-edit-btn').style.display = 'inline-block';
     } else {
       adminBtn.innerHTML = "🔒 관리자";
       adminBtn.classList.remove('admin-on');
@@ -2202,6 +2210,8 @@
       document.getElementById('gcd-add-atk-section').style.display = 'none';
       document.getElementById('gcd-add-def-section').style.display = 'none';
       document.getElementById('gcd-add-tot-section').style.display = 'none';
+      document.getElementById('notice-edit-btn').style.display = 'none';
+      document.getElementById('notice-edit-area').style.display = 'none';
     }
   }
 
@@ -2280,6 +2290,60 @@
         });
       } catch (e) { console.log("Visitor count error", e); }
     })();
+
+    // 📢 공지사항(길드전 및 총력전 세팅) - 관리자가 직접 수정 가능, Firestore에 저장되어
+    // 모든 사람 화면에 실시간으로 반영됨. 처음 한 번도 저장한 적 없으면 기본 문구를 보여줌.
+    const DEFAULT_NOTICE_TEXT = [
+      '• **전반 장신구 규칙 :** 전반 세공 없을 시 **왼쪽 우선** (ex: 권불 ➔ 권능 우선)',
+      '• 희귀 장신구 가능 시 **부불(기합)**형태 표기',
+      '• **길드전 및 총력전 문의 :** 운영진',
+      '• 신박한 조합 발견 또는 자료 추가 할 시 아이소이에게 문의'
+    ].join('\n');
+    let currentNoticeText = DEFAULT_NOTICE_TEXT;
+
+    function escapeHtmlLocal(str) {
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    // 줄바꿈 -> <br>, **글자**로 감싼 부분 -> 굵게(<b>) 로 변환해서 보여줌
+    function renderNoticeText(raw) {
+      const escaped = escapeHtmlLocal(raw);
+      const bolded = escaped.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+      return bolded.replace(/\n/g, '<br>');
+    }
+    function renderNoticeContent() {
+      document.getElementById('notice-content').innerHTML = renderNoticeText(currentNoticeText);
+    }
+    renderNoticeContent();
+
+    const noticeRef = doc(db, "meta", "notice");
+    onSnapshot(noticeRef, (snap) => {
+      if (snap.exists() && typeof snap.data().text === 'string') {
+        currentNoticeText = snap.data().text;
+        renderNoticeContent();
+      }
+    });
+
+    document.getElementById('notice-edit-btn').onclick = function() {
+      if (!isAdmin) return;
+      document.getElementById('notice-edit-textarea').value = currentNoticeText;
+      document.getElementById('notice-content').style.display = 'none';
+      document.getElementById('notice-edit-area').style.display = 'block';
+    };
+    document.getElementById('notice-cancel-btn').onclick = function() {
+      document.getElementById('notice-edit-area').style.display = 'none';
+      document.getElementById('notice-content').style.display = 'block';
+    };
+    document.getElementById('notice-save-btn').onclick = async function() {
+      if (!isAdmin) return;
+      const newText = document.getElementById('notice-edit-textarea').value;
+      try {
+        await setDoc(noticeRef, { text: newText }, { merge: true });
+        document.getElementById('notice-edit-area').style.display = 'none';
+        document.getElementById('notice-content').style.display = 'block';
+      } catch (e) {
+        alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+      }
+    };
 
     // NOTE: Firestore가 유일한 원본(source of truth)입니다.
     // 예전엔 snap이 비어있으면 INITIAL_*_DB로 자동 대체했는데, 이것도 같은 이유로 위험해서
