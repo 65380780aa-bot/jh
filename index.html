@@ -239,7 +239,7 @@
     .ring-pair img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border); background: #fef3c7; }
     .ring-name { font-size: 9.5px; font-weight: 700; color: #92600a; text-align: center; line-height: 1.15; white-space: nowrap; }
     .counter-body-formation-row { display: flex; gap: 16px; align-items: center; margin-top: 10px; }
-    .counter-order-side { width: 180px; flex-shrink: 0; font-size: 14.5px; font-weight: 800; line-height: 1.6; color: var(--ink); word-break: keep-all; overflow-wrap: break-word; }
+    .counter-order-side { width: 180px; flex-shrink: 0; font-size: 14.5px; font-weight: 900; line-height: 1.7; color: var(--ink); word-break: keep-all; overflow-wrap: break-word; }
     .counter-order-side > div + div { margin-top: 8px; }
     .counter-board-shift { margin-left: 40px; }
     @media (max-width: 680px) { .counter-board-shift { margin-left: 0; } }
@@ -338,13 +338,13 @@
 
   <!-- 상단 네비게이션 바 -->
   <div class="top-nav">
-    <div class="logo">🛡️ 도면</div>
+    <div class="logo"></div>
     <div class="nav-links">
       <div id="tab-atk" class="nav-link active">⚔️ 공격덱</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
       <div id="tab-total" class="nav-link">🔥 총력덱</div>
     </div>
-    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 4명</div>
+    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 25명</div>
     <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
   </div>
 
@@ -360,7 +360,7 @@
 
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
-      <button class="add-btn" id="toggle-add-btn" style="display: flex;">+ 덱 추가하기</button>
+      <button class="add-btn" id="toggle-add-btn" style="display: flex;">닫기</button>
       <button class="add-btn" id="show-deeplink-table-btn" style="display: flex; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
     </div>
 
@@ -1040,9 +1040,9 @@
 
 
     <!-- 폼 영역 (공격덱 추가/수정) - 이미지 주소 및 개별 상세정보 입력 지원 -->
-    <div class="gcd-search-box" id="gcd-add-atk-section" style="display: none; background: rgb(253, 242, 248); border-color: rgb(251, 207, 232);">
-      <div class="gcd-quick-title" style="color:#be185d;" id="atk-form-title">➕ 커스텀 공격 카운터덱 추가</div>
-      <input type="hidden" id="custom-atk-id" value="">
+    <div class="gcd-search-box" id="gcd-add-atk-section" style="display: block; background: rgb(253, 242, 248); border-color: rgb(251, 207, 232);">
+      <div class="gcd-quick-title" style="color:#be185d;" id="atk-form-title">✏️ 카운터덱 수정</div>
+      <input type="hidden" id="custom-atk-id" value="atk_1787844372604">
       <label class="gcd-label">공격덱 이름 (대표 영웅 이름으로 자동 생성됨)</label>
       <input type="text" id="custom-atk-name" class="gcd-input" readonly="" style="background:#f3f4f6; color:#6b7280; cursor:not-allowed;">
       <label class="gcd-label">검색 키워드 (쉼표로 구분)</label>
@@ -1065,7 +1065,7 @@
       
       <div id="atk-counter-builder">
         <label class="gcd-label" style="font-size:14px; color:#be185d; margin-top:12px;">⚔️ 카운터 조합 구성</label>
-        <div id="counter-cards-container"><div class="counter-builder-box" data-cid="cmtbvrdxbaasrmr">
+        <div id="counter-cards-container"><div class="counter-builder-box" data-cid="cmtbo31q6535zag">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <b>조합 #1</b>
           <button type="button" class="btn-mini-del" onclick="window.removeBuilderCard(&#39;c&#39;, 0)">삭제</button>
@@ -1077,6 +1077,251 @@
         <select class="gcd-select c-form">
           <option value="기본 진형" selected="">기본 진형</option>
           <option value="밸런스 진형">밸런스 진형</option>
+          <option value="공격 진형">공격 진형</option>
+          <option value="보호 진형">보호 진형</option>
+        </select>
+
+        <label class="gcd-label" style="margin-top:10px;">🛡️ 진형 슬롯별 영웅 이미지 및 개별 상세정보</label>
+        
+          <div class="slot-row-builder">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 1</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 0)">📥 영웅 불러오기</button>
+            </div>
+            <div class="slot-row-grid">
+              <input type="text" class="gcd-input c-slot-name-0" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
+              <input type="text" class="gcd-input c-slot-img-0" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 0)">📥 반지 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input c-slot-ring1-name-0" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring1-0" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; gap:6px; margin-top:6px;">
+                <input type="text" class="gcd-input c-slot-ring2-name-0" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring2-0" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
+              <textarea class="gcd-textarea c-slot-info-0" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
+            </div>
+          </div>
+        
+          <div class="slot-row-builder">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 2</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 1)">📥 영웅 불러오기</button>
+            </div>
+            <div class="slot-row-grid">
+              <input type="text" class="gcd-input c-slot-name-1" value="윤건" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
+              <input type="text" class="gcd-input c-slot-img-1" value="https://i.ibb.co/v2rjXkV/dbsrjs.webp" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 1)">📥 반지 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input c-slot-ring1-name-1" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring1-1" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; gap:6px; margin-top:6px;">
+                <input type="text" class="gcd-input c-slot-ring2-name-1" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring2-1" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
+              <textarea class="gcd-textarea c-slot-info-1" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
+            </div>
+          </div>
+        
+          <div class="slot-row-builder">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 3</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 2)">📥 영웅 불러오기</button>
+            </div>
+            <div class="slot-row-grid">
+              <input type="text" class="gcd-input c-slot-name-2" value="동영" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
+              <input type="text" class="gcd-input c-slot-img-2" value="https://i.ibb.co/yndkxhbX/ehddud.webp" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 2)">📥 반지 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input c-slot-ring1-name-2" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring1-2" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; gap:6px; margin-top:6px;">
+                <input type="text" class="gcd-input c-slot-ring2-name-2" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring2-2" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
+              <textarea class="gcd-textarea c-slot-info-2" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
+            </div>
+          </div>
+        
+          <div class="slot-row-builder">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 4</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 3)">📥 영웅 불러오기</button>
+            </div>
+            <div class="slot-row-grid">
+              <input type="text" class="gcd-input c-slot-name-3" value="실베스타" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
+              <input type="text" class="gcd-input c-slot-img-3" value="https://i.ibb.co/jkpJH5Lf/tlfqptmxk.webp" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 3)">📥 반지 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input c-slot-ring1-name-3" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring1-3" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; gap:6px; margin-top:6px;">
+                <input type="text" class="gcd-input c-slot-ring2-name-3" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring2-3" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
+              <textarea class="gcd-textarea c-slot-info-3" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
+            </div>
+          </div>
+        
+          <div class="slot-row-builder">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 1</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 4)">📥 영웅 불러오기</button>
+            </div>
+            <div class="slot-row-grid">
+              <input type="text" class="gcd-input c-slot-name-4" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
+              <input type="text" class="gcd-input c-slot-img-4" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 4)">📥 반지 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input c-slot-ring1-name-4" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring1-4" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; gap:6px; margin-top:6px;">
+                <input type="text" class="gcd-input c-slot-ring2-name-4" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring2-4" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
+              <textarea class="gcd-textarea c-slot-info-4" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
+            </div>
+          </div>
+        
+          <div class="slot-row-builder">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 2</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 5)">📥 영웅 불러오기</button>
+            </div>
+            <div class="slot-row-grid">
+              <input type="text" class="gcd-input c-slot-name-5" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
+              <input type="text" class="gcd-input c-slot-img-5" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 5)">📥 반지 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input c-slot-ring1-name-5" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring1-5" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; gap:6px; margin-top:6px;">
+                <input type="text" class="gcd-input c-slot-ring2-name-5" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring2-5" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
+              <textarea class="gcd-textarea c-slot-info-5" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
+            </div>
+          </div>
+        
+          <div class="slot-row-builder">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 3</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 6)">📥 영웅 불러오기</button>
+            </div>
+            <div class="slot-row-grid">
+              <input type="text" class="gcd-input c-slot-name-6" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
+              <input type="text" class="gcd-input c-slot-img-6" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 6)">📥 반지 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input c-slot-ring1-name-6" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring1-6" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; gap:6px; margin-top:6px;">
+                <input type="text" class="gcd-input c-slot-ring2-name-6" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring2-6" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
+              <textarea class="gcd-textarea c-slot-info-6" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
+            </div>
+          </div>
+        
+          <div class="slot-row-builder">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 4</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 7)">📥 영웅 불러오기</button>
+            </div>
+            <div class="slot-row-grid">
+              <input type="text" class="gcd-input c-slot-name-7" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
+              <input type="text" class="gcd-input c-slot-img-7" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 7)">📥 반지 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input c-slot-ring1-name-7" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring1-7" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; gap:6px; margin-top:6px;">
+                <input type="text" class="gcd-input c-slot-ring2-name-7" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input c-slot-ring2-7" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
+              <textarea class="gcd-textarea c-slot-info-7" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
+            </div>
+          </div>
+        
+
+        <label class="gcd-label" style="margin-top:10px;">⚡ 스킬순서 / 속공순서 (진형판 왼쪽에 표시됨, 선택사항)</label>
+        
+        <input type="text" class="gcd-input c-skillorder" value="윤건 실베2 윤건1" placeholder="스킬순서 1 (예: 오공2 아리스2 오공1)" style="margin:0 0 6px 0;">
+        <input type="text" class="gcd-input c-skillorder2" value="" placeholder="스킬순서 2 (다른 루트가 있으면 입력, 선택사항)" style="margin:0 0 6px 0;">
+        
+        <input type="text" class="gcd-input c-speedorder" value="" placeholder="속공순서 (예: ①&gt;②&gt;③)" style="margin:0;">
+
+        
+        <label class="gcd-label" style="margin-top:10px;">🐾 펫 (최대 2마리, 선택사항 — 진형판 옆에 표시됨)</label>
+        <div class="slot-input-grid" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>펫 1 이름</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadPetModal(this, 0)">📥 불러오기</button></div><input type="text" class="gcd-input c-pet-name-0" value="제오" placeholder="이름"></div>
+          <div class="slot-input-box"><label>펫 1 이미지 URL</label><input type="text" class="gcd-input c-pet-img-0" value="https://i.ibb.co/sJRHLq8R/2026-08-15-004940.png" placeholder="이미지 URL"></div>
+          <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>펫 2 이름</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadPetModal(this, 1)">📥 불러오기</button></div><input type="text" class="gcd-input c-pet-name-1" value="연지" placeholder="이름"></div>
+          <div class="slot-input-box"><label>펫 2 이미지 URL</label><input type="text" class="gcd-input c-pet-img-1" value="https://i.ibb.co/S4m6yFY8/duswl.png" placeholder="이미지 URL"></div>
+        </div>
+        
+
+        <label class="gcd-label" style="margin-top:10px;">상세 공략 내용 (줄바꿈 가능)</label>
+        <textarea class="gcd-textarea c-body" style="height:60px;" placeholder="스킬 순서 및 세팅">- 윤건
+장비 : 선봉장 
+세팅 : 치확 약확 50% 효적 최대한
+
+- 동영
+장비 : 복수자 
+세팅 : 치확 약확 100% 효적 최대 55% 효저 100% 최대한
+
+- 실베스타
+장비 : 암살자, 추적자 
+세팅 : 치확 약확 100% 효적 100% 최대한
+
+기본 진형 뒤로 3마리 배치
+속공 지고 들어가는 빡내실 조합입니다.
+상대 속공 확인 or 근접하게 유추 가능 시
+속공 추월 가능 (속공 이기고 들어가면 승률 상승)</textarea>
+      </div><div class="counter-builder-box" data-cid="cmtbob430nxfj7r">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <b>조합 #2</b>
+          <button type="button" class="btn-mini-del" onclick="window.removeBuilderCard(&#39;c&#39;, 1)">삭제</button>
+        </div>
+        <label class="gcd-label">조합 타이틀 (상대 조합 이름, 예: 라드그리드 · 손오공 · 아리스)</label>
+        <input type="text" class="gcd-input c-title" value="카운터 조합" placeholder="예: 1. 라드그리드 · 손오공 · 아리스">
+        
+        <label class="gcd-label">진형 선택</label>
+        <select class="gcd-select c-form">
+          <option value="기본 진형">기본 진형</option>
+          <option value="밸런스 진형" selected="">밸런스 진형</option>
           <option value="공격 진형">공격 진형</option>
           <option value="보호 진형">보호 진형</option>
         </select>
@@ -1209,8 +1454,8 @@
               <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 5)">📥 영웅 불러오기</button>
             </div>
             <div class="slot-row-grid">
-              <input type="text" class="gcd-input c-slot-name-5" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
-              <input type="text" class="gcd-input c-slot-img-5" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <input type="text" class="gcd-input c-slot-name-5" value="루디" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
+              <input type="text" class="gcd-input c-slot-img-5" value="https://i.ibb.co/RTtNwf0d/fnel.webp" placeholder="이미지 주소(URL)" style="margin:0;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
                 <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
                 <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 5)">📥 반지 불러오기</button>
@@ -1233,8 +1478,8 @@
               <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 6)">📥 영웅 불러오기</button>
             </div>
             <div class="slot-row-grid">
-              <input type="text" class="gcd-input c-slot-name-6" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
-              <input type="text" class="gcd-input c-slot-img-6" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <input type="text" class="gcd-input c-slot-name-6" value="겔리두스" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
+              <input type="text" class="gcd-input c-slot-img-6" value="https://i.ibb.co/xKcMyZd3/rpfflentm.webp" placeholder="이미지 주소(URL)" style="margin:0;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
                 <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
                 <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 6)">📥 반지 불러오기</button>
@@ -1257,8 +1502,8 @@
               <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 7)">📥 영웅 불러오기</button>
             </div>
             <div class="slot-row-grid">
-              <input type="text" class="gcd-input c-slot-name-7" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
-              <input type="text" class="gcd-input c-slot-img-7" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <input type="text" class="gcd-input c-slot-name-7" value="클레미스" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
+              <input type="text" class="gcd-input c-slot-img-7" value="https://i.ibb.co/TMV36kcR/zmffpaltm.webp" placeholder="이미지 주소(URL)" style="margin:0;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
                 <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지</span>
                 <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 7)">📥 반지 불러오기</button>
@@ -1278,23 +1523,38 @@
 
         <label class="gcd-label" style="margin-top:10px;">⚡ 스킬순서 / 속공순서 (진형판 왼쪽에 표시됨, 선택사항)</label>
         
-        <input type="text" class="gcd-input c-skillorder" value="" placeholder="스킬순서 1 (예: 오공2 아리스2 오공1)" style="margin:0 0 6px 0;">
-        <input type="text" class="gcd-input c-skillorder2" value="" placeholder="스킬순서 2 (다른 루트가 있으면 입력, 선택사항)" style="margin:0 0 6px 0;">
+        <input type="text" class="gcd-input c-skillorder" value="클레1 루디1 루디2" placeholder="스킬순서 1 (예: 오공2 아리스2 오공1)" style="margin:0 0 6px 0;">
+        <input type="text" class="gcd-input c-skillorder2" value="클레2 루디1 루디2" placeholder="스킬순서 2 (다른 루트가 있으면 입력, 선택사항)" style="margin:0 0 6px 0;">
         
         <input type="text" class="gcd-input c-speedorder" value="" placeholder="속공순서 (예: ①&gt;②&gt;③)" style="margin:0;">
 
         
         <label class="gcd-label" style="margin-top:10px;">🐾 펫 (최대 2마리, 선택사항 — 진형판 옆에 표시됨)</label>
         <div class="slot-input-grid" style="grid-template-columns: repeat(2, 1fr);">
-          <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>펫 1 이름</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadPetModal(this, 0)">📥 불러오기</button></div><input type="text" class="gcd-input c-pet-name-0" value="" placeholder="이름"></div>
-          <div class="slot-input-box"><label>펫 1 이미지 URL</label><input type="text" class="gcd-input c-pet-img-0" value="" placeholder="이미지 URL"></div>
+          <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>펫 1 이름</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadPetModal(this, 0)">📥 불러오기</button></div><input type="text" class="gcd-input c-pet-name-0" value="루" placeholder="이름"></div>
+          <div class="slot-input-box"><label>펫 1 이미지 URL</label><input type="text" class="gcd-input c-pet-img-0" value="https://i.ibb.co/wrgz29cr/fn.png" placeholder="이미지 URL"></div>
           <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>펫 2 이름</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadPetModal(this, 1)">📥 불러오기</button></div><input type="text" class="gcd-input c-pet-name-1" value="" placeholder="이름"></div>
           <div class="slot-input-box"><label>펫 2 이미지 URL</label><input type="text" class="gcd-input c-pet-img-1" value="" placeholder="이미지 URL"></div>
         </div>
         
 
         <label class="gcd-label" style="margin-top:10px;">상세 공략 내용 (줄바꿈 가능)</label>
-        <textarea class="gcd-textarea c-body" style="height:60px;" placeholder="스킬 순서 및 세팅"></textarea>
+        <textarea class="gcd-textarea c-body" style="height:60px;" placeholder="스킬 순서 및 세팅">- 루디
+장비 : 조율자
+세팅 : 막기 100% 효저 100%
+
+- 겔리두스
+장비 : 주술사 
+세팅 : 효적 74% 막기 67% 효저 100%
+
+- 클레미스
+장비 : 성기사
+세팅 : 막기 67% 효저 100%
+
+★ 반지 세공 철벽 필수
+★ 탄성작 필수
+최소 전설 등급 탄성 3개 이상
+희귀 탄성 1개는 있어야 안정성 올라감</textarea>
       </div></div>
         <button type="button" id="add-counter-card-btn" class="gcd-btn-action" style="background:#db2777; margin-top:8px;">+ 카운터 조합 추가하기</button>
       </div>
@@ -1499,33 +1759,135 @@
         <div>영웅 구성</div>
         <div style="text-align: center;">상세 공략 열기</div>
       </div>
-      <div id="gcd-deck-buttons"><div class="list-item">
+      <div id="gcd-deck-buttons"><div class="list-item active-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks(1).webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk(1).webp" alt="오르카"><span>오르카</span></div></div></div>
+        <div><button class="detail-btn active-btn">접기 ▲</button></div>
+      </div><div class="accordion-content">
+            <div class="gcd-result-card">
+              <div class="gcd-res-target">
+                <span style="font-size:18px; color:var(--ink); font-weight:900;">⚔️ [ 선란 · 델론즈 · 오르카 ] 카운터</span>
+                <span>
+            <button class="btn-mini-edit" onclick="window.editDeckItem(&#39;atk_1787844372604&#39;)">✏️ 수정</button>
+            <button class="btn-mini-del" onclick="window.deleteDeckItem(&#39;atk_1787844372604&#39;)">🗑️ 삭제</button>
+          </span>
+              </div>
+              <div class="gcd-info-block gcd-atk-block">
+                <div class="title">⚔️ 카운터 상세 공략</div>
+                
+              <div class="gcd-atk-card-item is-standard">
+                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
+                  <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                    <span class="stats-standard-badge">⭐ 정석</span>
+                    <span class="winrate-badge wr-none">⚪ 미검증</span>
+                    <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">기본 진형</span>
+                    <button class="stats-vote-btn standard-toggle active" onclick="window.toggleStandardTag(&#39;atk_1787844372604_cmtbo31q6535zag&#39;)">⭐ 정석 해제</button>
+                    <button class="stats-vote-btn not-recommended-toggle" onclick="window.toggleNotRecommendedTag(&#39;atk_1787844372604_cmtbo31q6535zag&#39;)">🚫 비추천 지정</button>
+                  </span>
+                </div>
+                <div class="counter-body-formation-row">
+                  
+              <div class="counter-order-side">
+                <div><span class="counter-order-label">스킬순서</span>윤건 실베2 윤건1</div>
+                
+                
+              </div>
+            
+                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">
+      <div class="formation-board">
+        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/dbsrjs(1).webp" alt="hero"></div><div class="formation-slot-name">윤건</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/ehddud(1).webp" alt="hero"></div><div class="formation-slot-name">동영</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/tlfqptmxk(1).webp" alt="hero"></div><div class="formation-slot-name">실베스타</div></div></div>
+        
+        
+      </div>
+    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/2026-08-15-004940(1).png" alt="제오"></div><div class="formation-slot-name">제오</div></div><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/duswl(1).png" alt="연지"></div><div class="formation-slot-name">연지</div></div></div></div></div></div>
+                </div>
+                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">- 윤건
+장비 : 선봉장 
+세팅 : 치확 약확 50% 효적 최대한
+
+- 동영
+장비 : 복수자 
+세팅 : 치확 약확 100% 효적 최대 55% 효저 100% 최대한
+
+- 실베스타
+장비 : 암살자, 추적자 
+세팅 : 치확 약확 100% 효적 100% 최대한
+
+기본 진형 뒤로 3마리 배치
+속공 지고 들어가는 빡내실 조합입니다.
+상대 속공 확인 or 근접하게 유추 가능 시
+속공 추월 가능 (속공 이기고 들어가면 승률 상승)</div>
+              </div>
+            
+              <div class="gcd-atk-card-item is-standard">
+                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
+                  <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                    <span class="stats-standard-badge">⭐ 정석</span>
+                    <span class="winrate-badge wr-none">⚪ 미검증</span>
+                    <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">밸런스 진형</span>
+                    <button class="stats-vote-btn standard-toggle active" onclick="window.toggleStandardTag(&#39;atk_1787844372604_cmtbob430nxfj7r&#39;)">⭐ 정석 해제</button>
+                    <button class="stats-vote-btn not-recommended-toggle" onclick="window.toggleNotRecommendedTag(&#39;atk_1787844372604_cmtbob430nxfj7r&#39;)">🚫 비추천 지정</button>
+                  </span>
+                </div>
+                <div class="counter-body-formation-row">
+                  
+              <div class="counter-order-side">
+                <div><span class="counter-order-label">스킬순서 1</span>클레1 루디1 루디2</div>
+                <div><span class="counter-order-label">스킬순서 2</span>클레2 루디1 루디2</div>
+                
+              </div>
+            
+                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">
+      <div class="formation-board">
+        
+        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/fnel(1).webp" alt="hero"></div><div class="formation-slot-name">루디</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/rpfflentm(1).webp" alt="hero"></div><div class="formation-slot-name">겔리두스</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img src="./index_files/zmffpaltm(1).webp" alt="hero"></div><div class="formation-slot-name">클레미스</div></div></div>
+        
+      </div>
+    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img src="./index_files/fn(1).png" alt="루"></div><div class="formation-slot-name">루</div></div></div></div></div></div>
+                </div>
+                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">- 루디
+장비 : 조율자
+세팅 : 막기 100% 효저 100%
+
+- 겔리두스
+장비 : 주술사 
+세팅 : 효적 74% 막기 67% 효저 100%
+
+- 클레미스
+장비 : 성기사
+세팅 : 막기 67% 효저 100%
+
+★ 반지 세공 철벽 필수
+★ 탄성작 필수
+최소 전설 등급 탄성 3개 이상
+희귀 탄성 1개는 있어야 안정성 올라감</div>
+              </div>
+            
+              </div>
+            </div>
+          </div><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks(1).webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm(1).webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks(1).webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk(1).webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs(1).webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh(1).webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk(1).webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs(1).webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh(1).webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs(1).webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh(1).webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/fksemrmflem(1).webp" alt="란드그리드"><span>란드그리드</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img src="./index_files/fksemrmflem.webp" alt="란드그리드"><span>란드그리드</span></div></div></div>
-        <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/duvh(1).webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img src="./index_files/zkfgpfhs(1).webp" alt="칼헤론"><span>칼헤론</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm(1).webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div></div>
     </div>
@@ -3336,7 +3698,6 @@
       const item = atkData.find(d => d.id == id);
       if(!item) return;
       document.getElementById('custom-atk-id').value = item.id;
-      document.getElementById('custom-atk-name').value = item.name;
       document.getElementById('custom-atk-keywords').value = item.keywords ? item.keywords.join(', ') : '';
       document.getElementById('custom-atk-type').value = item.deckType || '공덱';
       let thArr = item.titleHeroes || [];
@@ -3344,6 +3705,10 @@
         document.getElementById(`atk-title-name-${i}`).value = thArr[i]?.name || '';
         document.getElementById(`atk-title-img-${i}`).value = thArr[i]?.img || '';
       }
+      // 대표 영웅 이름을 기준으로 공격덱 이름을 다시 계산 (저장된 이름이 예전 값이라
+      // 실제 대표 영웅이랑 어긋나 있어도, 여기서 항상 최신 대표 영웅 기준으로 맞춰줌)
+      const syncedNames = thArr.map(h => (h?.name || '').trim()).filter(Boolean);
+      document.getElementById('custom-atk-name').value = syncedNames.length > 0 ? syncedNames.join(' · ') : item.name;
       
       let counters = item.counters || [];
       counters = counters.map(c => {
