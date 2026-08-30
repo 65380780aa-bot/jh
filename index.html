@@ -1900,7 +1900,10 @@
         <option value="보호 진형">보호 진형</option>
       </select>
 
-      <label class="gcd-label">🐾 펫 (선택사항 — 진형판 옆에 표시됨)</label>
+      <label class="gcd-label" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>🐾 펫 (선택사항 — 진형판 옆에 표시됨)</span>
+        <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadDefPetModal()">📥 불러오기</button>
+      </label>
       <div class="slot-input-grid" style="grid-template-columns: repeat(2, 1fr);">
         <div class="slot-input-box"><label>펫 이름</label><input type="text" id="custom-def-pet-name" placeholder="이름"></div>
         <div class="slot-input-box"><label>펫 이미지 URL</label><input type="text" id="custom-def-pet-img" placeholder="이미지 URL"></div>
@@ -2930,8 +2933,47 @@
     return combos;
   }
 
-  function getAllSlotsFlat(prefix){
-    const combos = getAllCombosFlat(prefix);
+  // 공격덱(c) + 총력덱(t) 조합을 하나로 합침 (불러오기 풀을 두 덱 종류 다 공유하기 위함)
+  function getAllCombosFlatBoth(){
+    return [...getAllCombosFlat('c'), ...getAllCombosFlat('t')];
+  }
+
+  // 방어덱은 counters 구조가 아니라 후열/전열 배열이라 별도로 슬롯을 뽑아냄
+  function getAllDefSlotsFlat(){
+    const slots = [];
+    (defData || []).forEach(deck => {
+      for(let i=0; i<4; i++) {
+        const name = (deck.backSlotNames || [])[i] || '';
+        const img = (deck.backSlots || [])[i] || '';
+        if(!name && !img) continue;
+        slots.push({
+          deckName: deck.name || '', comboTitle: '방어덱',
+          slot: {
+            name, img,
+            ring1Name: (deck.backSlotRing1Name || [])[i] || '', ring1: (deck.backSlotRing1 || [])[i] || '',
+            ring2Name: (deck.backSlotRing2Name || [])[i] || '', ring2: (deck.backSlotRing2 || [])[i] || ''
+          }
+        });
+      }
+      for(let i=0; i<4; i++) {
+        const name = (deck.frontSlotNames || [])[i] || '';
+        const img = (deck.frontSlots || [])[i] || '';
+        if(!name && !img) continue;
+        slots.push({
+          deckName: deck.name || '', comboTitle: '방어덱',
+          slot: {
+            name, img,
+            ring1Name: (deck.frontSlotRing1Name || [])[i] || '', ring1: (deck.frontSlotRing1 || [])[i] || '',
+            ring2Name: (deck.frontSlotRing2Name || [])[i] || '', ring2: (deck.frontSlotRing2 || [])[i] || ''
+          }
+        });
+      }
+    });
+    return slots;
+  }
+
+  function getAllSlotsFlat(){
+    const combos = getAllCombosFlatBoth();
     const bestByName = new Map();
     const scoreSlot = (s) => ['img','ring1Name','ring1','ring2Name','ring2','info'].filter(k => s[k]).length;
     combos.forEach(item => {
@@ -2942,6 +2984,13 @@
         const existing = bestByName.get(key);
         if(!existing || scoreSlot(s) > scoreSlot(existing.slot)) bestByName.set(key, candidate);
       });
+    });
+    getAllDefSlotsFlat().forEach(item => {
+      const s = item.slot;
+      const key = s.name || s.img;
+      const candidate = item;
+      const existing = bestByName.get(key);
+      if(!existing || scoreSlot(s) > scoreSlot(existing.slot)) bestByName.set(key, candidate);
     });
     return Array.from(bestByName.values()).sort((a, b) => (a.slot.name || '').localeCompare(b.slot.name || '', 'ko-KR'));
   }
@@ -2968,7 +3017,7 @@
   }
 
   function renderLoadSlotList(query){
-    const allSlots = getAllSlotsFlat(loadSlotPrefix);
+    const allSlots = getAllSlotsFlat();
     const q = (query || '').trim();
     loadSlotFiltered = q ? allSlots.filter(item => (item.slot.name || '').includes(q)) : allSlots;
     const listEl = document.getElementById('load-slot-list');
@@ -3007,7 +3056,6 @@
     loadSlotTargetMode = 'def';
     loadSlotDefRow = row;
     loadSlotDefIndex = index;
-    loadSlotPrefix = 'c'; // 방어덱도 공격덱 카운터 조합에 쓰인 영웅 이미지 풀을 그대로 활용
     document.getElementById('load-slot-search').value = '';
     renderLoadSlotList('');
     document.getElementById('load-slot-modal-overlay').style.display = 'flex';
@@ -3040,8 +3088,8 @@
   let loadRingDefRow = null;
   let loadRingDefIndex = 0;
 
-  function getAllRingsFlat(prefix){
-    const combos = getAllCombosFlat(prefix);
+  function getAllRingsFlat(){
+    const combos = getAllCombosFlatBoth();
     const bestByKey = new Map();
     combos.forEach(item => {
       (item.counter.slots || []).forEach(s => {
@@ -3050,6 +3098,13 @@
         const candidate = { deckName: item.deckName, comboTitle: item.counter.title || '', heroName: s.name || '', ring1Name: s.ring1Name || '', ring1: s.ring1 || '', ring2Name: s.ring2Name || '', ring2: s.ring2 || '' };
         if(!bestByKey.has(key)) bestByKey.set(key, candidate);
       });
+    });
+    getAllDefSlotsFlat().forEach(item => {
+      const s = item.slot;
+      if(!(s.ring1Name || s.ring1 || s.ring2Name || s.ring2)) return;
+      const key = [s.ring1Name || '', s.ring2Name || ''].join('|');
+      const candidate = { deckName: item.deckName, comboTitle: item.comboTitle, heroName: s.name || '', ring1Name: s.ring1Name || '', ring1: s.ring1 || '', ring2Name: s.ring2Name || '', ring2: s.ring2 || '' };
+      if(!bestByKey.has(key)) bestByKey.set(key, candidate);
     });
     return Array.from(bestByKey.values()).sort((a, b) => (a.ring1Name || a.ring2Name || '').localeCompare(b.ring1Name || b.ring2Name || '', 'ko-KR'));
   }
@@ -3071,7 +3126,7 @@
   }
 
   function renderLoadRingList(query){
-    const allRings = getAllRingsFlat(loadRingPrefix);
+    const allRings = getAllRingsFlat();
     const q = (query || '').trim();
     loadRingFiltered = q ? allRings.filter(item => (item.ring1Name + item.ring2Name).includes(q)) : allRings;
     const listEl = document.getElementById('load-ring-list');
@@ -3113,7 +3168,6 @@
     loadRingTargetMode = 'def';
     loadRingDefRow = row;
     loadRingDefIndex = index;
-    loadRingPrefix = 'c'; // 방어덱도 공격덱 카운터 조합에 쓰인 반지 세트 풀을 그대로 활용
     document.getElementById('load-ring-search').value = '';
     renderLoadRingList('');
     document.getElementById('load-ring-modal-overlay').style.display = 'flex';
@@ -3142,9 +3196,10 @@
   let loadPetTargetIndex = 0;
   let loadPetPrefix = 'c';
   let loadPetFiltered = [];
+  let loadPetTargetMode = 'box'; // 'box' (공격덱/총력덱 조합칸) 또는 'def' (방어덱)
 
-  function getAllPetsFlat(prefix){
-    const combos = getAllCombosFlat(prefix);
+  function getAllPetsFlat(){
+    const combos = getAllCombosFlatBoth();
     const bestByName = new Map();
     combos.forEach(item => {
       const petArr = Array.isArray(item.counter.pet) ? item.counter.pet : (item.counter.pet ? [item.counter.pet] : []);
@@ -3156,6 +3211,14 @@
         if(!existing || (!existing.pet.img && p.img)) bestByName.set(key, candidate);
       });
     });
+    (defData || []).forEach(deck => {
+      const p = deck.pet;
+      if(!p || !(p.name || p.img)) return;
+      const key = p.name || p.img;
+      const candidate = { deckName: deck.name || '', comboTitle: '방어덱', pet: p };
+      const existing = bestByName.get(key);
+      if(!existing || (!existing.pet.img && p.img)) bestByName.set(key, candidate);
+    });
     return Array.from(bestByName.values()).sort((a, b) => (a.pet.name || '').localeCompare(b.pet.name || '', 'ko-KR'));
   }
 
@@ -3165,8 +3228,13 @@
     setV(`.${prefix}-pet-img-${index}`, p.img);
   }
 
+  function fillDefPetFields(p){
+    document.getElementById('custom-def-pet-name').value = p.name || '';
+    document.getElementById('custom-def-pet-img').value = p.img || '';
+  }
+
   function renderLoadPetList(query){
-    const allPets = getAllPetsFlat(loadPetPrefix);
+    const allPets = getAllPetsFlat();
     const q = (query || '').trim();
     loadPetFiltered = q ? allPets.filter(item => (item.pet.name || '').includes(q)) : allPets;
     const listEl = document.getElementById('load-pet-list');
@@ -3192,6 +3260,7 @@
   window.openLoadPetModal = function(btn, index){
     const box = btn.closest('.counter-builder-box, .tot-builder-box');
     if(!box) return;
+    loadPetTargetMode = 'box';
     loadPetTargetBox = box;
     loadPetTargetIndex = index;
     loadPetPrefix = box.classList.contains('tot-builder-box') ? 't' : 'c';
@@ -3200,10 +3269,22 @@
     document.getElementById('load-pet-modal-overlay').style.display = 'flex';
   };
 
+  window.openLoadDefPetModal = function(){
+    loadPetTargetMode = 'def';
+    document.getElementById('load-pet-search').value = '';
+    renderLoadPetList('');
+    document.getElementById('load-pet-modal-overlay').style.display = 'flex';
+  };
+
   window.applyLoadPet = function(idx){
     const item = loadPetFiltered[idx];
-    if(!item || !loadPetTargetBox) return;
-    fillPetFields(loadPetTargetBox, loadPetPrefix, loadPetTargetIndex, item.pet);
+    if(!item) return;
+    if(loadPetTargetMode === 'def'){
+      fillDefPetFields(item.pet);
+    } else {
+      if(!loadPetTargetBox) return;
+      fillPetFields(loadPetTargetBox, loadPetPrefix, loadPetTargetIndex, item.pet);
+    }
     document.getElementById('load-pet-modal-overlay').style.display = 'none';
     alert('펫 정보를 불러왔습니다! 내용을 확인·수정한 뒤 저장해주세요.');
   };
@@ -3230,8 +3311,13 @@
       (deck.titleHeroes || []).forEach(addHero);
       (deck.counters || []).forEach(c => (c.slots || []).forEach(addHero));
     });
+    (totData || []).forEach(deck => {
+      (deck.counters || []).forEach(c => (c.slots || []).forEach(addHero));
+    });
     (defData || []).forEach(deck => {
       (deck.titleHeroes || []).forEach(addHero);
+      (deck.backSlotNames || []).forEach((n, i) => addHero({ name: n, img: (deck.backSlots || [])[i] || '' }));
+      (deck.frontSlotNames || []).forEach((n, i) => addHero({ name: n, img: (deck.frontSlots || [])[i] || '' }));
     });
     return Array.from(pool.values()).sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ko-KR'));
   }
