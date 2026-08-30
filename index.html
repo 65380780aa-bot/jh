@@ -2070,7 +2070,7 @@
 
     <!-- 리스트 영역 -->
     <div id="list-wrapper" style="display: block;">
-      <div class="list-header">
+      <div class="list-header" id="list-header">
         <div>구분</div>
         <div>영웅 구성</div>
         <div style="text-align: center;">상세 공략 열기</div>
@@ -3910,20 +3910,22 @@
       else if(currentMode === 'DEF') badgeHtml = `<span class="badge def">DEF</span>`;
       else badgeHtml = `<span class="badge tot">TOT</span>`;
 
-      let isActive = activeDeckName === item.name;
+      let isActive = currentMode === 'TOTAL' ? true : (activeDeckName === item.name);
       let rowClass = isActive ? (currentMode === 'TOTAL' ? 'list-item active-item-tot' : 'list-item active-item') : 'list-item';
       let btnClass = isActive ? (currentMode === 'TOTAL' ? 'detail-btn active-btn-tot' : 'detail-btn active-btn') : 'detail-btn';
       let btnText = isActive ? '접기 ▲' : '상세 공략 열기';
       
-      const div = document.createElement('div');
-      div.className = rowClass;
-      div.innerHTML = `
-        <div>${badgeHtml}</div>
-        <div class="hero-comp">${heroesHtml}</div>
-        <div><button class="${btnClass}">${btnText}</button></div>
-      `;
-      div.querySelector('.detail-btn').onclick = () => renderGuide(item);
-      listContainer.appendChild(div);
+      if (currentMode !== 'TOTAL') {
+        const div = document.createElement('div');
+        div.className = rowClass;
+        div.innerHTML = `
+          <div>${badgeHtml}</div>
+          <div class="hero-comp">${heroesHtml}</div>
+          <div><button class="${btnClass}">${btnText}</button></div>
+        `;
+        div.querySelector('.detail-btn').onclick = () => renderGuide(item);
+        listContainer.appendChild(div);
+      }
 
       if(isActive) {
         const detailDiv = document.createElement('div');
@@ -4119,6 +4121,7 @@
       document.getElementById('atk-subtabs').style.display = 'flex';
       document.getElementById('gcd-search-section').style.display = 'block';
       document.getElementById('list-wrapper').style.display = 'block';
+      document.getElementById('list-header').style.display = 'grid';
       renderList();
     } else if(mode === 'DEF'){
       document.getElementById('tab-def').classList.add('active');
@@ -4127,6 +4130,7 @@
       document.getElementById('gcd-mode-title').style.display = 'block';
       document.getElementById('gcd-search-section').style.display = 'block';
       document.getElementById('list-wrapper').style.display = 'block';
+      document.getElementById('list-header').style.display = 'grid';
       renderList();
     } else if(mode === 'TOTAL'){
       document.getElementById('tab-total').classList.add('active-total');
@@ -4135,6 +4139,7 @@
       document.getElementById('gcd-mode-title').style.display = 'block';
       document.getElementById('gcd-search-section').style.display = 'block';
       document.getElementById('list-wrapper').style.display = 'block';
+      document.getElementById('list-header').style.display = 'none';
       renderList();
     }
   }
