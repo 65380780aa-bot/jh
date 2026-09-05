@@ -342,8 +342,8 @@
   <div class="top-nav">
     <div class="logo"></div>
     <div class="nav-links">
-      <div id="tab-atk" class="nav-link active">⚔️ 공격덱 [고스펙용]</div>
-      <div id="tab-total" class="nav-link">⚔️ 공격덱 [저스펙용]</div>
+      <div id="tab-atk" class="nav-link">⚔️ 공격덱 [고스펙용]</div>
+      <div id="tab-total" class="nav-link active-total">⚔️ 공격덱 [저스펙용]</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
     </div>
     <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 24명</div>
@@ -369,7 +369,7 @@
 
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
-      <button class="add-btn" id="toggle-add-btn" style="display: flex;">+ 덱 추가하기</button>
+      <button class="add-btn" id="toggle-add-btn" style="display: flex;">닫기</button>
       <button class="add-btn" id="show-deeplink-table-btn" style="display: flex; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
     </div>
 
@@ -529,306 +529,10 @@
         <div id="load-title-list">
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/rpfflentm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">겔리두스</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(0)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/shrtm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">녹스</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(1)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/epffhswm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">델론즈</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(2)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/ehddud.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">동영</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(3)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fkemrmflem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">라드그리드</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(4)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fkdldjs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">라이언</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(5)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fksemrmflem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">란드그리드</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(6)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fprls.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">레긴레이프</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(7)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fhwl.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">로지</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(8)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fnel.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">루디</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(9)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/flsk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">리나</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(10)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/apfzlfm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">멜키르</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(11)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/altmxm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">미스트</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(12)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/image.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">밀리아</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(13)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/qkffltmxk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">발리스타</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(14)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/qmfkswm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">브란즈&amp;브란셀</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(15)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/tjsfks.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">선란</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(16)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dhrhd.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">손오공</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(17)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/tmznfem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">스쿨드</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(18)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/tlfqptmxk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">실베스타</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(19)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dkfltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">아리스</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(20)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dkaffldk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">아멜리아</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(21)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dpdltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">에이스</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(22)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dpffltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">엘리스</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(23)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dpffltldk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">엘리시아</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(24)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/duvh.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">여포</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(25)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dusgml.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">연희</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(26)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dhfmzk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">오르카</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(27)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/DHAHR.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">오목</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(28)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dbsrjs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">윤건</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(29)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/chtjs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">초선</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(30)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/zkfgpfhs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">칼헤론</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(31)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/zmffpaltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">클레미스</div>
         </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(32)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/xmfnem.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">트루드</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(33)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/vkffksntm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">팔라누스</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(34)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/vmfpdldi.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">프레이야</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(35)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/vmffkxms.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">플라톤</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(36)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/gpffpsldk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">헬레니아</div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(37)" style="white-space:nowrap;">📥 불러오기</button>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(0)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     </div>
       </div>
@@ -844,10 +548,10 @@
         <div id="load-pet-list">
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fn(1).png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/vkdlzm.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">루</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 겔리두스 · 1. 조합 세트</div>
+            <div style="font-weight:900; font-size:13px;">★ 라오아</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 겔리두스 · 아리스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(0)" style="white-space:nowrap;">📥 불러오기</button>
@@ -855,10 +559,10 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/apfvofh.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/fn.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">멜페로</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
+            <div style="font-weight:900; font-size:13px;">★ 라오엘</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 겔리두스 · 아리스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(1)" style="white-space:nowrap;">📥 불러오기</button>
@@ -866,10 +570,10 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/duswl.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/fn.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">연지</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 1. 조합 세트</div>
+            <div style="font-weight:900; font-size:13px;">루</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 겔리두스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(2)" style="white-space:nowrap;">📥 불러오기</button>
@@ -877,10 +581,10 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/db.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/apfvofh.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">유</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 엘리시아 · 카운터 조합</div>
+            <div style="font-weight:900; font-size:13px;">멜패로</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">윤건 · 동영 · 스쿨드 · 카운터 조합</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(3)" style="white-space:nowrap;">📥 불러오기</button>
@@ -888,10 +592,10 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/dlfls.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/apfvofh.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">이린</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
+            <div style="font-weight:900; font-size:13px;">멜페로</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(4)" style="white-space:nowrap;">📥 불러오기</button>
@@ -899,10 +603,10 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/2026-08-15-004940(1).png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/duswl.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">제오</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 트루드 · 아리스 · 1. 조합 세트</div>
+            <div style="font-weight:900; font-size:13px;">연지</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(5)" style="white-space:nowrap;">📥 불러오기</button>
@@ -910,13 +614,46 @@
     
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="./index_files/zmfl.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/db.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">유</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 엘리시아 · 카운터 조합</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(6)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/dlfls.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">이린</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">동영 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(7)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/2026-08-15-004940.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">제오</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">동영 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(8)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/zmfl.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">크리</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
           </div>
         </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(6)" style="white-space:nowrap;">📥 불러오기</button>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(9)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     </div>
       </div>
@@ -932,422 +669,169 @@
         <div id="load-slot-list">
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/rpfflentm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">겔리두스</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 윤건 · 연희 · 1. 조합 세트</div>
+            <div style="font-weight:900; font-size:13px;">클레미스</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 델론즈 · 클레미스 · 조합</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(0)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/shrtm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">녹스</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(1)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/ehddud(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">동영</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 동영 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(2)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fkemrmflem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">라드그리드</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">윤건 · 동영 · 연희 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(3)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fkdldjs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">라이언</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 트루드 · 아리스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(4)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fksemrmflem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">란드그리드</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 트루드 · 아리스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(5)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fprls(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">레긴레이프</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(6)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fhwl(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">로지</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(7)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/fnel(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">루디</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 겔리두스 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(8)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/flsk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">리나</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(9)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/apfzlfm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">멜키르</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(10)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/altmxm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">미스트</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(11)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/image(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">밀리아</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(12)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/qkffltmxk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">발리스타</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(13)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/qmfkswm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">브란즈&amp;브란셀</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 델론즈 · 클레미스 · 선란 · 델론즈 · 클레미스</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(14)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/tjsfks(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">선란</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(15)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dhrhd(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">손오공</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">윤건 · 동영 · 연희 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(16)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/tmznfem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">스쿨드</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(17)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/tlfqptmxk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">실베스타</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(18)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dkfltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">아리스</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 겔리두스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(19)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dkaffldk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">아멜리아</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(20)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dpdltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">에이스</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 엘리시아 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(21)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dpffltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">엘리스</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(22)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dpffltldk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">엘리시아</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">윤건 · 동영 · 연희 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(23)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/duvh(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">여포</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 오르카 · 칼헤론 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(24)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dusgml(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">연희</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">여포 · 칼헤론 · 클레미스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(25)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dhfmzk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">오르카</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 오르카 · 칼헤론 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(26)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/DHAHR(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">오목</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(27)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/dbsrjs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">윤건</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 델론즈 · 오르카 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(28)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/chtjs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">초선</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(29)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/zkfgpfhs(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">칼헤론</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(30)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/zmffpaltm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">클레미스</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(31)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/xmfnem(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">트루드</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 겔리두스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(32)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/vkffksntm(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">팔라누스</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 클레미스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(33)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/vmfpdldi(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">프레이야</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 동영 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(34)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/vmffkxms(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">플라톤</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 카운터 조합</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(35)" style="white-space:nowrap;">📥 불러오기</button>
-      </div>
-    
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img src="file:///C:/Users/59598/Downloads/index_files/gpffpsldk(1).webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">헬레니아</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 클레미스 · 1. 조합 세트</div>
-          </div>
-        </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(36)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     </div>
       </div>
     </div>
 
     <!-- 개별 반지 불러오기 모달 -->
-    <div id="load-ring-modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+    <div id="load-ring-modal-overlay" style="display: none; position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.5); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
       <div style="background:#fff; border-radius:16px; max-width:600px; width:100%; max-height:80vh; overflow-y:auto; padding:24px; position:relative;">
         <button id="close-load-ring-modal-btn" style="position:absolute; top:16px; right:16px; background:#f3f4f6; border:none; border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
         <h2 style="margin:0 0 6px 0; font-size:18px; font-weight:900;">💍 반지 세트 불러오기</h2>
         <p style="font-size:13px; color:#6b7280; margin:0 0 12px 0;">기존에 등록된 반지1·반지2 세트 중 하나를 골라 이 칸의 반지에만 채워넣어요. 영웅 이름·이미지에는 영향 없어요.</p>
         <input type="text" id="load-ring-search" class="gcd-input" placeholder="🔍 반지 이름으로 검색" style="margin-bottom:12px;">
-        <div id="load-ring-list"></div>
+        <div id="load-ring-list">
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl.webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">6성 권능+불사</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">스쿨드 · 밀리아 · 스쿨드 · 실베스타</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(0)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf.webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">6성 부활+불사(기합)</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">실베스타 · 밀리아 · 스쿨드 · 실베스타</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(1)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/cjfqur.png" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">6성 철벽</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 밀리아 · 스쿨드 · 실베스타</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(2)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">권능</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라이언 · 라드그리드 · 트루드 · 아리스</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(3)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">권능+기합</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 동영 · 스쿨드 · 실베스타</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(4)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">권능+불사</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">칼헤론 · 동영 · 스쿨드 · 실베스타</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(5)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">부활</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">손오공 · 윤건 · 동영 · 연희</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(6)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf.webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">부활+권능</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 루디 · 겔리두스 · 아리스</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(7)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">부활+불사</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">실베스타 · 여포 · 오르카 · 칼헤론</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(8)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdqnftk.webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">불사</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">란드그리드 · 라드그리드 · 트루드 · 아리스</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(9)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdqnftk(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">불사+권능</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">아리스 · 루디 · 겔리두스 · 아리스</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(10)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdqnftk.webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">불사+부활</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">델론즈 · 선란 · 델론즈 · 란드그리드</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(11)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">https://i.ibb.co/LXqDCnV8/6tjdrnjsrl.webp</div>
+            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 선란 · 델론즈 · 란드그리드</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(12)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    </div>
       </div>
     </div>
 
@@ -1934,7 +1418,7 @@
     </div>
 
     <!-- 폼 영역 (공격덱 [저스펙용] 추가) -->
-    <div class="gcd-search-box" id="gcd-add-tot-section" style="display: none; background: rgb(255, 247, 237); border-color: rgb(254, 215, 170);">
+    <div class="gcd-search-box" id="gcd-add-tot-section" style="display: block; background: rgb(255, 247, 237); border-color: rgb(254, 215, 170);">
       <div class="gcd-quick-title" style="color:#c2410c;" id="tot-form-title">➕ 공격덱 [저스펙용] 추가</div>
       <input type="hidden" id="custom-tot-id" value="">
       <label class="gcd-label">공격덱 [저스펙용] 이름 (대표 영웅 이름으로 자동 생성됨)</label>
@@ -1959,12 +1443,12 @@
       
       <div id="tot-counter-builder">
         <label class="gcd-label" style="font-size:14px; color:#c2410c; margin-top:12px;">⚔️ 카운터 조합 구성 (여러 개 추가 가능)</label>
-        <div id="tot-cards-container"><div class="tot-builder-box">
+        <div id="tot-cards-container"><div class="tot-builder-box" data-cid="cmtohxkrfkjzf9a">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <b>조합 #1</b>
           <button type="button" class="btn-mini-del" onclick="window.removeBuilderCard(&#39;t&#39;, 0)">삭제</button>
         </div>
-        <label class="gcd-label">조합 타이틀 (상대 조합 이름)</label>
+        <label class="gcd-label">조합 타이틀 (상대 조합 이름, 예: 라드그리드 · 손오공 · 아리스)</label>
         <input type="text" class="gcd-input t-title" value="1. 조합 세트" placeholder="예: 1. 라드그리드 · 손오공 · 아리스">
         
         <label class="gcd-label">진형 선택</label>
@@ -1978,106 +1462,261 @@
         <label class="gcd-label" style="margin-top:10px;">🛡️ 진형 슬롯별 영웅 이미지 및 개별 상세정보</label>
         
           <div class="slot-row-builder">
-            <label style="font-size:11px; font-weight:800; color:#374151; margin-bottom:4px; display:block;">📍 후열 1</label>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 1</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 0)">📥 영웅 불러오기</button>
+            </div>
             <div class="slot-row-grid">
               <input type="text" class="gcd-input t-slot-name-0" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
               <input type="text" class="gcd-input t-slot-img-0" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 0, 1)">📥 반지1 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring1-name-0" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring1-0" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 0, 2)">📥 반지2 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring2-name-0" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring2-0" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
               <textarea class="gcd-textarea t-slot-info-0" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
             </div>
           </div>
         
           <div class="slot-row-builder">
-            <label style="font-size:11px; font-weight:800; color:#374151; margin-bottom:4px; display:block;">📍 후열 2</label>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 2</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 1)">📥 영웅 불러오기</button>
+            </div>
             <div class="slot-row-grid">
               <input type="text" class="gcd-input t-slot-name-1" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
               <input type="text" class="gcd-input t-slot-img-1" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 1, 1)">📥 반지1 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring1-name-1" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring1-1" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 1, 2)">📥 반지2 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring2-name-1" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring2-1" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
               <textarea class="gcd-textarea t-slot-info-1" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
             </div>
           </div>
         
           <div class="slot-row-builder">
-            <label style="font-size:11px; font-weight:800; color:#374151; margin-bottom:4px; display:block;">📍 후열 3</label>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 3</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 2)">📥 영웅 불러오기</button>
+            </div>
             <div class="slot-row-grid">
               <input type="text" class="gcd-input t-slot-name-2" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
               <input type="text" class="gcd-input t-slot-img-2" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 2, 1)">📥 반지1 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring1-name-2" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring1-2" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 2, 2)">📥 반지2 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring2-name-2" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring2-2" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
               <textarea class="gcd-textarea t-slot-info-2" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
             </div>
           </div>
         
           <div class="slot-row-builder">
-            <label style="font-size:11px; font-weight:800; color:#374151; margin-bottom:4px; display:block;">📍 후열 4</label>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 4</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 3)">📥 영웅 불러오기</button>
+            </div>
             <div class="slot-row-grid">
               <input type="text" class="gcd-input t-slot-name-3" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
               <input type="text" class="gcd-input t-slot-img-3" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 3, 1)">📥 반지1 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring1-name-3" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring1-3" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 3, 2)">📥 반지2 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring2-name-3" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring2-3" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
               <textarea class="gcd-textarea t-slot-info-3" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
             </div>
           </div>
         
           <div class="slot-row-builder">
-            <label style="font-size:11px; font-weight:800; color:#374151; margin-bottom:4px; display:block;">📍 전열 1</label>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 1</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 4)">📥 영웅 불러오기</button>
+            </div>
             <div class="slot-row-grid">
               <input type="text" class="gcd-input t-slot-name-4" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
               <input type="text" class="gcd-input t-slot-img-4" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 4, 1)">📥 반지1 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring1-name-4" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring1-4" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 4, 2)">📥 반지2 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring2-name-4" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring2-4" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
               <textarea class="gcd-textarea t-slot-info-4" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
             </div>
           </div>
         
           <div class="slot-row-builder">
-            <label style="font-size:11px; font-weight:800; color:#374151; margin-bottom:4px; display:block;">📍 전열 2</label>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 2</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 5)">📥 영웅 불러오기</button>
+            </div>
             <div class="slot-row-grid">
               <input type="text" class="gcd-input t-slot-name-5" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
               <input type="text" class="gcd-input t-slot-img-5" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 5, 1)">📥 반지1 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring1-name-5" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring1-5" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 5, 2)">📥 반지2 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring2-name-5" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring2-5" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
               <textarea class="gcd-textarea t-slot-info-5" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
             </div>
           </div>
         
           <div class="slot-row-builder">
-            <label style="font-size:11px; font-weight:800; color:#374151; margin-bottom:4px; display:block;">📍 전열 3</label>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 3</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 6)">📥 영웅 불러오기</button>
+            </div>
             <div class="slot-row-grid">
               <input type="text" class="gcd-input t-slot-name-6" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
               <input type="text" class="gcd-input t-slot-img-6" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 6, 1)">📥 반지1 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring1-name-6" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring1-6" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 6, 2)">📥 반지2 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring2-name-6" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring2-6" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
               <textarea class="gcd-textarea t-slot-info-6" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
             </div>
           </div>
         
           <div class="slot-row-builder">
-            <label style="font-size:11px; font-weight:800; color:#374151; margin-bottom:4px; display:block;">📍 전열 4</label>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 4</label>
+              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 7)">📥 영웅 불러오기</button>
+            </div>
             <div class="slot-row-grid">
               <input type="text" class="gcd-input t-slot-name-7" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
               <input type="text" class="gcd-input t-slot-img-7" value="" placeholder="이미지 주소(URL)" style="margin:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 7, 1)">📥 반지1 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring1-name-7" value="" placeholder="반지1 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring1-7" value="" placeholder="반지1 이미지 URL" style="margin:0;">
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
+                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 7, 2)">📥 반지2 불러오기</button>
+              </div>
+              <div style="display:flex; gap:6px; margin-top:4px;">
+                <input type="text" class="gcd-input t-slot-ring2-name-7" value="" placeholder="반지2 이름" style="margin:0;">
+                <input type="text" class="gcd-input t-slot-ring2-7" value="" placeholder="반지2 이미지 URL" style="margin:0;">
+              </div>
               <textarea class="gcd-textarea t-slot-info-7" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
             </div>
           </div>
         
 
-        
+        <label class="gcd-label" style="margin-top:10px;">⚡ 스킬순서 / 속공순서 (진형판 왼쪽에 표시됨, 선택사항)</label>
+        <input type="text" class="gcd-input t-skillorder" value="" placeholder="스킬순서 1 (예: 오공2 아리스2 오공1)" style="margin:0 0 6px 0;">
+        <input type="text" class="gcd-input t-skillorder2" value="" placeholder="스킬순서 2 (다른 루트가 있으면 입력, 선택사항)" style="margin:0 0 6px 0;">
+        <input type="text" class="gcd-input t-speedorder" value="" placeholder="속공순서 (예: ①&gt;②&gt;③)" style="margin:0;">
+
         <label class="gcd-label" style="margin-top:10px;">🐾 펫 (최대 2마리, 선택사항 — 진형판 옆에 표시됨)</label>
         <div class="slot-input-grid" style="grid-template-columns: repeat(2, 1fr);">
-          <div class="slot-input-box"><label>펫 1 이름</label><input type="text" class="gcd-input t-pet-name-0" value="" placeholder="이름"></div>
+          <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>펫 1 이름</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadPetModal(this, 0)">📥 불러오기</button></div><input type="text" class="gcd-input t-pet-name-0" value="" placeholder="이름"></div>
           <div class="slot-input-box"><label>펫 1 이미지 URL</label><input type="text" class="gcd-input t-pet-img-0" value="" placeholder="이미지 URL"></div>
-          <div class="slot-input-box"><label>펫 2 이름</label><input type="text" class="gcd-input t-pet-name-1" value="" placeholder="이름"></div>
+          <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>펫 2 이름</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadPetModal(this, 1)">📥 불러오기</button></div><input type="text" class="gcd-input t-pet-name-1" value="" placeholder="이름"></div>
           <div class="slot-input-box"><label>펫 2 이미지 URL</label><input type="text" class="gcd-input t-pet-img-1" value="" placeholder="이미지 URL"></div>
         </div>
-        
 
         <label class="gcd-label" style="margin-top:10px;">상세 공략 내용 (줄바꿈 가능)</label>
         <textarea class="gcd-textarea t-body" style="height:60px;" placeholder="스킬 순서 및 세팅"></textarea>
       </div></div>
-        <button type="button" id="add-tot-card-btn" class="gcd-btn-action" style="background:#ea580c; margin-top:8px;">+ 총력 조합 추가하기</button>
+        <button type="button" id="add-tot-card-btn" class="gcd-btn-action" style="background:#ea580c; margin-top:8px;">+ 카운터 조합 추가하기</button>
       </div>
 
-      <button id="save-custom-tot-btn" class="gcd-btn-action" style="background:#ea580c; margin-top:16px;">💾 총력덱 전체 저장</button>
+      <button id="save-custom-tot-btn" class="gcd-btn-action" style="background:#ea580c; margin-top:16px;">💾 공격덱 전체 저장</button>
     </div>
 
     <!-- 검색 바 -->
     <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: block;">⚔️ 길드전 공격 구성 덱</div>
-    <div id="atk-subtabs" style="display: flex; gap: 8px; margin-bottom: 10px;">
+    <div id="atk-subtabs" style="display: none; gap: 8px; margin-bottom: 10px;">
       <div id="atk-subtab-공덱" class="atk-subtab-link" data-type="공덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">공덱</div>
       <div id="atk-subtab-마덱" class="atk-subtab-link active" data-type="마덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: var(--red-soft); color: var(--red);">마덱</div>
       <div id="atk-subtab-방덱" class="atk-subtab-link" data-type="방덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">방덱</div>
     </div>
-    <div id="tot-subtabs" style="display: none; gap: 8px; margin-bottom: 10px;">
-      <div id="tot-subtab-공덱" class="tot-subtab-link active" data-type="공덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: #ffedd5; color: #c2410c;">공덱</div>
+    <div id="tot-subtabs" style="display: flex; gap: 8px; margin-bottom: 10px;">
+      <div id="tot-subtab-공덱" class="tot-subtab-link active" data-type="공덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(255, 237, 213); color: rgb(194, 65, 12);">공덱</div>
       <div id="tot-subtab-마덱" class="tot-subtab-link" data-type="마덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">마덱</div>
       <div id="tot-subtab-방덱" class="tot-subtab-link" data-type="방덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">방덱</div>
     </div>
@@ -2097,19 +1736,11 @@
       </div>
       <div id="gcd-deck-buttons"><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div></div></div>
-        <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
         <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
-        <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/fksemrmflem.webp" alt="란드그리드"><span>란드그리드</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
@@ -2117,15 +1748,7 @@
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
-        <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/fksemrmflem.webp" alt="란드그리드"><span>란드그리드</span></div></div></div>
-        <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div></div>
     </div>
