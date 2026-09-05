@@ -346,8 +346,8 @@
       <div id="tab-total" class="nav-link">⚔️ 공격덱 [저스펙용]</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
     </div>
-    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 37명</div>
-    <button id="admin-mode-btn" class="admin-btn">🔒 관리자</button>
+    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 24명</div>
+    <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
   </div>
 
   <div class="container">
@@ -355,7 +355,7 @@
     <div class="gcd-notice-box">
       <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
         <span>📢 길드전 및 총력전 세팅</span>
-        <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display: none;">✏️ 수정</button>
+        <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display: inline-block;">✏️ 수정</button>
       </div>
       <div id="notice-content">• 신박한 조합 발견 또는 자료 추가 할 시 아이소이에게 문의</div>
       <div id="notice-edit-area" style="display:none; margin-top:8px;">
@@ -369,9 +369,8 @@
 
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
-      <button class="add-btn" id="toggle-add-btn" style="display: none;">+ 배치 추가하기</button>
-      <button class="add-btn" id="clear-tot-btn" style="display: none; background: rgb(220, 38, 38);">🗑️ 예전 총력덱 데이터 전체 비우기</button>
-      <button class="add-btn" id="show-deeplink-table-btn" style="display: none; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
+      <button class="add-btn" id="toggle-add-btn" style="display: flex;">+ 덱 추가하기</button>
+      <button class="add-btn" id="show-deeplink-table-btn" style="display: flex; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
     </div>
 
     <!-- 딥링크 표 모달 -->
@@ -1939,23 +1938,23 @@
       <div class="gcd-quick-title" style="color:#c2410c;" id="tot-form-title">➕ 공격덱 [저스펙용] 추가</div>
       <input type="hidden" id="custom-tot-id" value="">
       <label class="gcd-label">공격덱 [저스펙용] 이름 (대표 영웅 이름으로 자동 생성됨)</label>
-      <input type="text" id="custom-tot-name" class="gcd-input" readonly style="background:#f3f4f6; color:#6b7280; cursor:not-allowed;">
+      <input type="text" id="custom-tot-name" class="gcd-input" readonly="" style="background:#f3f4f6; color:#6b7280; cursor:not-allowed;">
       <label class="gcd-label">검색 키워드 (쉼표로 구분)</label>
       <input type="text" id="custom-tot-keywords" class="gcd-input">
 
       <label class="gcd-label">🏷️ 덱 구분</label>
       <select id="custom-tot-type" class="gcd-select">
-        <option value="공덱" selected>공덱</option>
+        <option value="공덱" selected="">공덱</option>
         <option value="마덱">마덱</option>
         <option value="방덱">방덱</option>
       </select>
 
       <label class="gcd-label">🖼️ 목록에 표시할 대표 영웅 이미지 (최대 4명, 선택사항 — 안 넣으면 예전처럼 텍스트로 표시됨)</label>
       <div class="slot-input-grid" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 1</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 0)">📥</button></div><input type="text" id="tot-title-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-0" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 2</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 1)">📥</button></div><input type="text" id="tot-title-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-1" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 3</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 2)">📥</button></div><input type="text" id="tot-title-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-2" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 4</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 3)">📥</button></div><input type="text" id="tot-title-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-3" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 1</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;tot&#39;, 0)">📥</button></div><input type="text" id="tot-title-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-0" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 2</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;tot&#39;, 1)">📥</button></div><input type="text" id="tot-title-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-1" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 3</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;tot&#39;, 2)">📥</button></div><input type="text" id="tot-title-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-2" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 4</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;tot&#39;, 3)">📥</button></div><input type="text" id="tot-title-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-3" placeholder="이미지 URL"></div>
       </div>
       
       <div id="tot-counter-builder">
@@ -2091,93 +2090,42 @@
 
     <!-- 리스트 영역 -->
     <div id="list-wrapper" style="display: block;">
-      <div class="list-header" id="list-header">
+      <div class="list-header" id="list-header" style="display: grid;">
         <div>구분</div>
         <div>영웅 구성</div>
         <div style="text-align: center;">상세 공략 열기</div>
       </div>
       <div id="gcd-deck-buttons"><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/image.webp" alt="밀리아"><span>밀리아</span></div><div class="hero-comp-icon-item"><img src="./index_files/tmznfem.webp" alt="스쿨드"><span>스쿨드</span></div><div class="hero-comp-icon-item"><img src="./index_files/tlfqptmxk.webp" alt="실베스타"><span>실베스타</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/image.webp" alt="밀리아"><span>밀리아</span></div><div class="hero-comp-icon-item"><img src="./index_files/tmznfem.webp" alt="스쿨드"><span>스쿨드</span></div><div class="hero-comp-icon-item"><img src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/image.webp" alt="밀리아"><span>밀리아</span></div><div class="hero-comp-icon-item"><img src="./index_files/tmznfem.webp" alt="스쿨드"><span>스쿨드</span></div><div class="hero-comp-icon-item"><img src="./index_files/ehddud.webp" alt="동영"><span>동영</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/image.webp" alt="밀리아"><span>밀리아</span></div><div class="hero-comp-icon-item"><img src="./index_files/dbsrjs.webp" alt="윤건"><span>윤건</span></div><div class="hero-comp-icon-item"><img src="./index_files/dusgml.webp" alt="연희"><span>연희</span></div></div></div>
-        <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item active-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/image.webp" alt="밀리아"><span>밀리아</span></div><div class="hero-comp-icon-item"><img src="./index_files/tmznfem.webp" alt="스쿨드"><span>스쿨드</span></div><div class="hero-comp-icon-item"><img src="./index_files/DHAHR.webp" alt="오목"><span>오목</span></div></div></div>
-        <div><button class="detail-btn active-btn">접기 ▲</button></div>
-      </div><div class="accordion-content">
-            <div class="gcd-result-card">
-              <div class="gcd-res-target">
-                <span style="font-size:18px; color:var(--ink); font-weight:900;">⚔️ [ 밀리아 · 스쿨드 · 오목 ] 카운터</span>
-                <span></span>
-              </div>
-              <div class="gcd-info-block gcd-atk-block">
-                <div class="title">⚔️ 카운터 상세 공략</div>
-                
-              <div class="gcd-atk-card-item">
-                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
-                  <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                    
-                    <span class="winrate-badge wr-none">⚪ 미검증</span>
-                    <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">밸런스 진형</span>
-                    
-                    
-                  </span>
-                </div>
-                <div class="counter-body-formation-row">
-                  
-                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">
-      <div class="formation-board">
-        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="ring-pair"><div class="ring-item"><img src="./index_files/6tjdqnftk.webp" alt="불사"><span class="ring-name">불사</span></div></div><div class="formation-slot"><img src="./index_files/qkffltmxk.webp" alt="hero"></div><div class="formation-slot-name">발리스타</div></div><div class="formation-slot-wrap"><div class="ring-pair"><div class="ring-item"><img src="./index_files/6tjdrnjsrl.webp" alt="권능+기합"><span class="ring-name">권능+기합</span></div></div><div class="formation-slot"><img src="./index_files/tjsfks.webp" alt="hero"></div><div class="formation-slot-name">선란</div></div></div>
-        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="ring-pair"><div class="ring-item"><img src="./index_files/6tjdqnftk.webp" alt="불사"><span class="ring-name">불사</span></div></div><div class="formation-slot"><img src="./index_files/zkfgpfhs.webp" alt="hero"></div><div class="formation-slot-name">칼헤론</div></div></div>
-        
-      </div>
-    </div></div>
-                </div>
-                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">- 선란
-장비 : 암살자
-세팅 : 치확 100% 효적, 치피 최대한 높게
-
-- 발리스타
-장비 : 추적자
-세팅 : 치확 약확 100% 나머지 치피 공% 올빵
-
-- 칼헤론
-장비 : 추적자
-세팅 : 치확 약확 100% 근접 효적 효저 최대한
-
-공격형 나머지 1마리는 칼헤론으로 많이 가는 편
-그 외 태오, 델론즈, 오르카 중 강한 기물 사용해도됨</div>
-              </div>
-            
-              </div>
-            </div>
-          </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/dbsrjs.webp" alt="윤건"><span>윤건</span></div><div class="hero-comp-icon-item"><img src="./index_files/ehddud.webp" alt="동영"><span>동영</span></div><div class="hero-comp-icon-item"><img src="./index_files/tlfqptmxk.webp" alt="실베스타"><span>실베스타</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/fksemrmflem.webp" alt="란드그리드"><span>란드그리드</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/dbsrjs.webp" alt="윤건"><span>윤건</span></div><div class="hero-comp-icon-item"><img src="./index_files/ehddud.webp" alt="동영"><span>동영</span></div><div class="hero-comp-icon-item"><img src="./index_files/tmznfem.webp" alt="스쿨드"><span>스쿨드</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/dbsrjs.webp" alt="윤건"><span>윤건</span></div><div class="hero-comp-icon-item"><img src="./index_files/ehddud.webp" alt="동영"><span>동영</span></div><div class="hero-comp-icon-item"><img src="./index_files/dusgml.webp" alt="연희"><span>연희</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img src="./index_files/dbsrjs.webp" alt="윤건"><span>윤건</span></div><div class="hero-comp-icon-item"><img src="./index_files/ehddud.webp" alt="동영"><span>동영</span></div><div class="hero-comp-icon-item"><img src="./index_files/DHAHR.webp" alt="오목"><span>오목</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/fksemrmflem.webp" alt="란드그리드"><span>란드그리드</span></div></div></div>
+        <div><button class="detail-btn">상세 공략 열기</button></div>
+      </div><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div></div>
     </div>
@@ -2477,22 +2425,7 @@
   const adminBtn = document.getElementById('admin-mode-btn');
   const toggleAddBtn = document.getElementById('toggle-add-btn');
   const showDeeplinkTableBtn = document.getElementById('show-deeplink-table-btn');
-  const clearTotBtn = document.getElementById('clear-tot-btn');
   const listContainer = document.getElementById('gcd-deck-buttons');
-
-  clearTotBtn.onclick = async function(){
-    if(!isAdmin) return;
-    if(totData.length === 0){ alert('이미 비어있습니다.'); return; }
-    if(!confirm(`예전 총력덱 데이터 ${totData.length}개를 전부 삭제할까요? 이 작업은 되돌릴 수 없습니다.`)) return;
-    try {
-      for (const item of [...totData]) {
-        await deleteDoc(doc(db, "guild_total_db", item.id));
-      }
-      alert('전부 삭제되었습니다.');
-    } catch (e) {
-      alert('⚠️ 삭제 중 오류 발생! (원인: ' + e.code + ' - ' + e.message + ')');
-    }
-  };
 
   function updateAdminUI() {
     if (isAdmin) {
@@ -4188,7 +4121,6 @@
     document.getElementById('gcd-add-def-section').style.display = 'none';
     document.getElementById('gcd-add-tot-section').style.display = 'none';
     toggleAddBtn.style.display = 'none';
-    document.getElementById('clear-tot-btn').style.display = 'none';
 
     document.getElementById('list-wrapper').style.display = 'none';
     document.getElementById('gcd-search-section').style.display = 'none';
@@ -4217,7 +4149,7 @@
       renderList();
     } else if(mode === 'TOTAL'){
       document.getElementById('tab-total').classList.add('active-total');
-      if(isAdmin){ toggleAddBtn.style.display = 'flex'; document.getElementById('clear-tot-btn').style.display = 'flex'; }
+      if(isAdmin) toggleAddBtn.style.display = 'flex';
       document.getElementById('gcd-mode-title').textContent = '⚔️ 길드전 공격 구성 덱';
       document.getElementById('gcd-mode-title').style.display = 'block';
       document.getElementById('tot-subtabs').style.display = 'flex';
