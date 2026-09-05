@@ -3029,7 +3029,7 @@
     listEl.innerHTML = loadSlotFiltered.map((item, idx) => `
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          ${item.slot.img ? `<img src="${item.slot.img}" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">` : ''}
+          ${item.slot.img ? `<img referrerpolicy="no-referrer" src="${item.slot.img}" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">` : ''}
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">${esc(item.slot.name) || '(이름 없음)'}</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${esc(item.deckName)} · ${esc(item.comboTitle)}</div>
@@ -3139,8 +3139,8 @@
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <div style="display:flex; gap:6px; flex-shrink:0;">
-            ${item.ring1 ? `<img src="${item.ring1}" style="width:32px; height:32px; border-radius:8px; object-fit:cover;">` : ''}
-            ${item.ring2 ? `<img src="${item.ring2}" style="width:32px; height:32px; border-radius:8px; object-fit:cover;">` : ''}
+            ${item.ring1 ? `<img referrerpolicy="no-referrer" src="${item.ring1}" style="width:32px; height:32px; border-radius:8px; object-fit:cover;">` : ''}
+            ${item.ring2 ? `<img referrerpolicy="no-referrer" src="${item.ring2}" style="width:32px; height:32px; border-radius:8px; object-fit:cover;">` : ''}
           </div>
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">${esc(item.ring1Name) || '-'} ${item.ring2Name ? '· ' + esc(item.ring2Name) : ''}</div>
@@ -3246,7 +3246,7 @@
     listEl.innerHTML = loadPetFiltered.map((item, idx) => `
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          ${item.pet.img ? `<img src="${item.pet.img}" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">` : ''}
+          ${item.pet.img ? `<img referrerpolicy="no-referrer" src="${item.pet.img}" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">` : ''}
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">${esc(item.pet.name) || '(이름 없음)'}</div>
             <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${esc(item.deckName)} · ${esc(item.comboTitle)}</div>
@@ -3335,7 +3335,7 @@
     listEl.innerHTML = loadTitleFiltered.map((h, idx) => `
       <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          ${h.img ? `<img src="${h.img}" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">` : ''}
+          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">` : ''}
           <div style="font-weight:900; font-size:13px;">${esc(h.name) || '(이름 없음)'}</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(${idx})" style="white-space:nowrap;">📥 불러오기</button>
@@ -3821,7 +3821,7 @@
     if (pets.length === 0) return '';
     const escName = (n) => (n || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     let itemsHtml = pets.map(p => {
-      let imgTag = p.img ? `<img src="${p.img}" alt="${escName(p.name)}">` : '';
+      let imgTag = p.img ? `<img referrerpolicy="no-referrer" src="${p.img}" alt="${escName(p.name)}">` : '';
       return `<div class="pet-display-item"><div class="formation-slot pet-slot">${imgTag}</div>${p.name ? `<div class="formation-slot-name">${escName(p.name)}</div>` : ''}</div>`;
     }).join('');
     return `<div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items">${itemsHtml}</div></div>`;
@@ -3840,9 +3840,9 @@
       let val = item.img;
       let content = !val
         ? ''
-        : (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('data:image')) ? `<img src="${val}" alt="hero">` : val;
+        : (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('data:image')) ? `<img referrerpolicy="no-referrer" src="${val}" alt="hero">` : val;
       let nameLabel = item.name ? `<div class="formation-slot-name">${escName(item.name)}</div>` : '';
-      let ringHtml = (item.ring1 || item.ring2) ? `<div class="ring-pair">${item.ring1 ? `<div class="ring-item"><img src="${item.ring1}" alt="${escName(item.ring1Name) || 'ring1'}">${item.ring1Name ? `<span class="ring-name">${escName(item.ring1Name)}</span>` : ''}</div>` : ''}${item.ring2 ? `<div class="ring-item"><img src="${item.ring2}" alt="${escName(item.ring2Name) || 'ring2'}">${item.ring2Name ? `<span class="ring-name">${escName(item.ring2Name)}</span>` : ''}</div>` : ''}</div>` : '';
+      let ringHtml = (item.ring1 || item.ring2) ? `<div class="ring-pair">${item.ring1 ? `<div class="ring-item"><img referrerpolicy="no-referrer" src="${item.ring1}" alt="${escName(item.ring1Name) || 'ring1'}">${item.ring1Name ? `<span class="ring-name">${escName(item.ring1Name)}</span>` : ''}</div>` : ''}${item.ring2 ? `<div class="ring-item"><img referrerpolicy="no-referrer" src="${item.ring2}" alt="${escName(item.ring2Name) || 'ring2'}">${item.ring2Name ? `<span class="ring-name">${escName(item.ring2Name)}</span>` : ''}</div>` : ''}</div>` : '';
       let emptyClass = !val ? ' formation-slot-empty' : '';
       let slotHtml = item.info
         ? `<div class="formation-slot${emptyClass}" onclick="window.toggleHeroInfo('${boardUniqueId}', ${item.idx})">${content}</div>`
@@ -3855,9 +3855,9 @@
       let val = item.img;
       let content = !val
         ? ''
-        : (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('data:image')) ? `<img src="${val}" alt="hero">` : val;
+        : (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('data:image')) ? `<img referrerpolicy="no-referrer" src="${val}" alt="hero">` : val;
       let nameLabel = item.name ? `<div class="formation-slot-name">${escName(item.name)}</div>` : '';
-      let ringHtml = (item.ring1 || item.ring2) ? `<div class="ring-pair">${item.ring1 ? `<div class="ring-item"><img src="${item.ring1}" alt="${escName(item.ring1Name) || 'ring1'}">${item.ring1Name ? `<span class="ring-name">${escName(item.ring1Name)}</span>` : ''}</div>` : ''}${item.ring2 ? `<div class="ring-item"><img src="${item.ring2}" alt="${escName(item.ring2Name) || 'ring2'}">${item.ring2Name ? `<span class="ring-name">${escName(item.ring2Name)}</span>` : ''}</div>` : ''}</div>` : '';
+      let ringHtml = (item.ring1 || item.ring2) ? `<div class="ring-pair">${item.ring1 ? `<div class="ring-item"><img referrerpolicy="no-referrer" src="${item.ring1}" alt="${escName(item.ring1Name) || 'ring1'}">${item.ring1Name ? `<span class="ring-name">${escName(item.ring1Name)}</span>` : ''}</div>` : ''}${item.ring2 ? `<div class="ring-item"><img referrerpolicy="no-referrer" src="${item.ring2}" alt="${escName(item.ring2Name) || 'ring2'}">${item.ring2Name ? `<span class="ring-name">${escName(item.ring2Name)}</span>` : ''}</div>` : ''}</div>` : '';
       let emptyClass = !val ? ' formation-slot-empty' : '';
       let slotHtml = item.info
         ? `<div class="formation-slot${emptyClass}" onclick="window.toggleHeroInfo('${boardUniqueId}', ${item.idx})">${content}</div>`
@@ -3899,7 +3899,7 @@
       let heroesHtml = textHtml;
       if (item.titleHeroes && item.titleHeroes.some(h => h.img)) {
         let iconsHtml = `<div class="hero-comp-icons">` + item.titleHeroes.filter(h => h.name || h.img).map(h => {
-          let imgTag = h.img ? `<img src="${h.img}" alt="${escName(h.name)}">` : '';
+          let imgTag = h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" alt="${escName(h.name)}">` : '';
           return `<div class="hero-comp-icon-item">${imgTag}<span>${escName(h.name)}</span></div>`;
         }).join('') + `</div>`;
         heroesHtml = iconsHtml;
