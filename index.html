@@ -342,9 +342,9 @@
   <div class="top-nav">
     <div class="logo"></div>
     <div class="nav-links">
-      <div id="tab-atk" class="nav-link active">⚔️ 공격덱</div>
+      <div id="tab-atk" class="nav-link active">⚔️ 공격덱 [고스펙용]</div>
+      <div id="tab-total" class="nav-link">⚔️ 공격덱 [저스펙용]</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
-      <div id="tab-total" class="nav-link">🔥 총력덱</div>
     </div>
     <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 37명</div>
     <button id="admin-mode-btn" class="admin-btn">🔒 관리자</button>
@@ -370,6 +370,7 @@
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
       <button class="add-btn" id="toggle-add-btn" style="display: none;">+ 배치 추가하기</button>
+      <button class="add-btn" id="clear-tot-btn" style="display: none; background: rgb(220, 38, 38);">🗑️ 예전 총력덱 데이터 전체 비우기</button>
       <button class="add-btn" id="show-deeplink-table-btn" style="display: none; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
     </div>
 
@@ -1933,17 +1934,32 @@
       <button id="save-custom-def-btn" class="gcd-btn-action" style="background:#1d4ed8;">💾 방어 세팅 저장</button>
     </div>
 
-    <!-- 폼 영역 (총력덱 추가) -->
+    <!-- 폼 영역 (공격덱 [저스펙용] 추가) -->
     <div class="gcd-search-box" id="gcd-add-tot-section" style="display: none; background: rgb(255, 247, 237); border-color: rgb(254, 215, 170);">
-      <div class="gcd-quick-title" style="color:#c2410c;" id="tot-form-title">➕ 총력덱 추가</div>
+      <div class="gcd-quick-title" style="color:#c2410c;" id="tot-form-title">➕ 공격덱 [저스펙용] 추가</div>
       <input type="hidden" id="custom-tot-id" value="">
-      <label class="gcd-label">총력덱 이름</label>
-      <input type="text" id="custom-tot-name" class="gcd-input">
+      <label class="gcd-label">공격덱 [저스펙용] 이름 (대표 영웅 이름으로 자동 생성됨)</label>
+      <input type="text" id="custom-tot-name" class="gcd-input" readonly style="background:#f3f4f6; color:#6b7280; cursor:not-allowed;">
       <label class="gcd-label">검색 키워드 (쉼표로 구분)</label>
       <input type="text" id="custom-tot-keywords" class="gcd-input">
+
+      <label class="gcd-label">🏷️ 덱 구분</label>
+      <select id="custom-tot-type" class="gcd-select">
+        <option value="공덱" selected>공덱</option>
+        <option value="마덱">마덱</option>
+        <option value="방덱">방덱</option>
+      </select>
+
+      <label class="gcd-label">🖼️ 목록에 표시할 대표 영웅 이미지 (최대 4명, 선택사항 — 안 넣으면 예전처럼 텍스트로 표시됨)</label>
+      <div class="slot-input-grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 1</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 0)">📥</button></div><input type="text" id="tot-title-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-0" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 2</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 1)">📥</button></div><input type="text" id="tot-title-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-1" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 3</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 2)">📥</button></div><input type="text" id="tot-title-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-2" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 4</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 3)">📥</button></div><input type="text" id="tot-title-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-3" placeholder="이미지 URL"></div>
+      </div>
       
       <div id="tot-counter-builder">
-        <label class="gcd-label" style="font-size:14px; color:#c2410c; margin-top:12px;">🔥 총력전 조합 구성 (여러 개 추가 가능)</label>
+        <label class="gcd-label" style="font-size:14px; color:#c2410c; margin-top:12px;">⚔️ 카운터 조합 구성 (여러 개 추가 가능)</label>
         <div id="tot-cards-container"><div class="tot-builder-box">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <b>조합 #1</b>
@@ -2060,6 +2076,11 @@
       <div id="atk-subtab-공덱" class="atk-subtab-link" data-type="공덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">공덱</div>
       <div id="atk-subtab-마덱" class="atk-subtab-link active" data-type="마덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: var(--red-soft); color: var(--red);">마덱</div>
       <div id="atk-subtab-방덱" class="atk-subtab-link" data-type="방덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">방덱</div>
+    </div>
+    <div id="tot-subtabs" style="display: none; gap: 8px; margin-bottom: 10px;">
+      <div id="tot-subtab-공덱" class="tot-subtab-link active" data-type="공덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: #ffedd5; color: #c2410c;">공덱</div>
+      <div id="tot-subtab-마덱" class="tot-subtab-link" data-type="마덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">마덱</div>
+      <div id="tot-subtab-방덱" class="tot-subtab-link" data-type="방덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">방덱</div>
     </div>
     <div class="gcd-search-box" id="gcd-search-section" style="padding: 16px 24px; display: block;">
       <div class="search-row">
@@ -2446,6 +2467,7 @@
 
   let currentMode = 'ATK'; // 기본 화면 공격덱
   let atkSubFilter = '공덱'; // 공격덱 하위 탭: 공덱 / 마덱 / 방덱
+  let totSubFilter = '공덱'; // 공격덱 [저스펙용] 하위 탭: 공덱 / 마덱 / 방덱
   let activeDeckName = null;
   let atkData = [...INITIAL_ATK_DB];
   let defData = [...INITIAL_DEF_DB];
@@ -2455,7 +2477,22 @@
   const adminBtn = document.getElementById('admin-mode-btn');
   const toggleAddBtn = document.getElementById('toggle-add-btn');
   const showDeeplinkTableBtn = document.getElementById('show-deeplink-table-btn');
+  const clearTotBtn = document.getElementById('clear-tot-btn');
   const listContainer = document.getElementById('gcd-deck-buttons');
+
+  clearTotBtn.onclick = async function(){
+    if(!isAdmin) return;
+    if(totData.length === 0){ alert('이미 비어있습니다.'); return; }
+    if(!confirm(`예전 총력덱 데이터 ${totData.length}개를 전부 삭제할까요? 이 작업은 되돌릴 수 없습니다.`)) return;
+    try {
+      for (const item of [...totData]) {
+        await deleteDoc(doc(db, "guild_total_db", item.id));
+      }
+      alert('전부 삭제되었습니다.');
+    } catch (e) {
+      alert('⚠️ 삭제 중 오류 발생! (원인: ' + e.code + ' - ' + e.message + ')');
+    }
+  };
 
   function updateAdminUI() {
     if (isAdmin) {
@@ -2744,6 +2781,26 @@
   });
   document.getElementById('tab-def').onclick = () => switchMode('DEF');
   document.getElementById('tab-total').onclick = () => switchMode('TOTAL');
+
+  function setTotSubFilter(type){
+    totSubFilter = type;
+    document.querySelectorAll('.tot-subtab-link').forEach(l => {
+      l.classList.remove('active');
+      l.style.background = '#f3f4f6';
+      l.style.color = '#4b5563';
+    });
+    const target = document.getElementById(`tot-subtab-${type}`);
+    if(target){
+      target.classList.add('active');
+      target.style.background = '#ffedd5';
+      target.style.color = '#c2410c';
+    }
+    activeDeckName = null;
+    if(currentMode === 'TOTAL') renderList();
+  }
+  document.querySelectorAll('.tot-subtab-link').forEach(el => {
+    el.onclick = () => setTotSubFilter(el.dataset.type);
+  });
 
   toggleAddBtn.onclick = function(){
     if(!isAdmin) return;
@@ -3486,8 +3543,13 @@
     document.getElementById('custom-tot-id').value = '';
     document.getElementById('custom-tot-name').value = '';
     document.getElementById('custom-tot-keywords').value = '';
+    document.getElementById('custom-tot-type').value = totSubFilter || '공덱';
+    for(let i=0; i<4; i++) {
+      document.getElementById(`tot-title-name-${i}`).value = '';
+      document.getElementById(`tot-title-img-${i}`).value = '';
+    }
     renderCounterBuilder('tot-cards-container', [], 't');
-    document.getElementById('tot-form-title').textContent = '➕ 총력덱 추가';
+    document.getElementById('tot-form-title').textContent = '➕ 공격덱 [저스펙용] 추가';
   }
 
   // 공격덱/방어덱 이름 자동 생성: 대표 영웅 이름 입력할 때마다 실시간으로 덱 이름 조합
@@ -3508,6 +3570,7 @@
   }
   setupAutoNameSync('atk', 'custom-atk-name');
   setupAutoNameSync('def', 'custom-def-name');
+  setupAutoNameSync('tot', 'custom-tot-name');
 
   // 공격덱 저장
   document.getElementById('save-custom-atk-btn').onclick = async function(){
@@ -3676,14 +3739,26 @@
     renderList();
   };
 
-  // 총력덱 저장
+  // 공격덱 [저스펙용] 저장
   document.getElementById('save-custom-tot-btn').onclick = async function(){
     if(!isAdmin) return;
-    const name = document.getElementById('custom-tot-name').value.trim();
+    let name = document.getElementById('custom-tot-name').value.trim();
     const keywordsStr = document.getElementById('custom-tot-keywords').value.trim();
     const editId = document.getElementById('custom-tot-id').value;
 
-    if(!name || !keywordsStr){ alert('총력덱 이름과 키워드를 입력해주세요!'); return; }
+    // 대표 영웅 이름을 안 넣었으면, 첫 번째 조합의 슬롯 이름(자동 생성된 조합 타이틀)에서 이름을 가져옴
+    if(!name) {
+      const firstTitle = document.querySelector('.tot-builder-box .t-title')?.value.trim() || '';
+      name = firstTitle.replace(/^\d+\.\s*/, '');
+      if(name) document.getElementById('custom-tot-name').value = name;
+    }
+    // 그래도 없으면 키워드를 이름으로 사용
+    if(!name && keywordsStr) {
+      name = keywordsStr.split(',')[0].trim();
+      document.getElementById('custom-tot-name').value = name;
+    }
+
+    if(!name || !keywordsStr){ alert('영웅 이름(대표 영웅 이미지 칸)이나 키워드 중 최소 하나는 입력해주세요!'); return; }
 
     const builderBoxes = document.querySelectorAll('.tot-builder-box');
     let counters = [];
@@ -3721,7 +3796,15 @@
     });
 
     const itemId = editId || ('tot_' + Date.now());
-    const newDeck = { id: itemId, name: name, keywords: keywordsStr.split(',').map(s=>s.trim()).filter(Boolean), counters: counters };
+    let titleHeroes = [];
+    for(let i=0; i<4; i++) {
+      titleHeroes.push({
+        name: document.getElementById(`tot-title-name-${i}`).value.trim(),
+        img: document.getElementById(`tot-title-img-${i}`).value.trim()
+      });
+    }
+    const deckType = document.getElementById('custom-tot-type').value || '공덱';
+    const newDeck = { id: itemId, name: name, keywords: keywordsStr.split(',').map(s=>s.trim()).filter(Boolean), counters: counters, titleHeroes: titleHeroes, deckType: deckType };
 
     const idx = totData.findIndex(item => item.id == itemId);
     if(idx !== -1) totData[idx] = newDeck; else totData.push(newDeck);
@@ -3891,7 +3974,7 @@
   function renderList(listToRender){
     listContainer.innerHTML = '';
 
-    const currentDB = listToRender || (currentMode === 'ATK' ? getFullAtkDB().filter(d => (d.deckType || '공덱') === atkSubFilter) : (currentMode === 'DEF' ? getFullDefDB() : getFullTotDB()));
+    const currentDB = listToRender || (currentMode === 'ATK' ? getFullAtkDB().filter(d => (d.deckType || '공덱') === atkSubFilter) : (currentMode === 'DEF' ? getFullDefDB() : getFullTotDB().filter(d => (d.deckType || '공덱') === totSubFilter)));
     
     currentDB.forEach((item) => {
       const escName = (n) => (n || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -3908,24 +3991,22 @@
       let badgeHtml = '';
       if(currentMode === 'ATK') badgeHtml = `<span class="badge atk">ATK</span>`;
       else if(currentMode === 'DEF') badgeHtml = `<span class="badge def">DEF</span>`;
-      else badgeHtml = `<span class="badge tot">TOT</span>`;
+      else badgeHtml = `<span class="badge atk">ATK</span>`;
 
-      let isActive = currentMode === 'TOTAL' ? true : (activeDeckName === item.name);
-      let rowClass = isActive ? (currentMode === 'TOTAL' ? 'list-item active-item-tot' : 'list-item active-item') : 'list-item';
-      let btnClass = isActive ? (currentMode === 'TOTAL' ? 'detail-btn active-btn-tot' : 'detail-btn active-btn') : 'detail-btn';
+      let isActive = activeDeckName === item.name;
+      let rowClass = isActive ? 'list-item active-item' : 'list-item';
+      let btnClass = isActive ? 'detail-btn active-btn' : 'detail-btn';
       let btnText = isActive ? '접기 ▲' : '상세 공략 열기';
       
-      if (currentMode !== 'TOTAL') {
-        const div = document.createElement('div');
-        div.className = rowClass;
-        div.innerHTML = `
-          <div>${badgeHtml}</div>
-          <div class="hero-comp">${heroesHtml}</div>
-          <div><button class="${btnClass}">${btnText}</button></div>
-        `;
-        div.querySelector('.detail-btn').onclick = () => renderGuide(item);
-        listContainer.appendChild(div);
-      }
+      const div = document.createElement('div');
+      div.className = rowClass;
+      div.innerHTML = `
+        <div>${badgeHtml}</div>
+        <div class="hero-comp">${heroesHtml}</div>
+        <div><button class="${btnClass}">${btnText}</button></div>
+      `;
+      div.querySelector('.detail-btn').onclick = () => renderGuide(item);
+      listContainer.appendChild(div);
 
       if(isActive) {
         const detailDiv = document.createElement('div');
@@ -4086,7 +4167,7 @@
                 <span>${editControlsHtml}</span>
               </div>
               <div class="gcd-info-block gcd-tot-block">
-                <div class="title">🔥 총력덱 상세 정보</div>
+                <div class="title">⚔️ 카운터 상세 공략</div>
                 ${countersHtml}
               </div>
             </div>
@@ -4107,11 +4188,13 @@
     document.getElementById('gcd-add-def-section').style.display = 'none';
     document.getElementById('gcd-add-tot-section').style.display = 'none';
     toggleAddBtn.style.display = 'none';
+    document.getElementById('clear-tot-btn').style.display = 'none';
 
     document.getElementById('list-wrapper').style.display = 'none';
     document.getElementById('gcd-search-section').style.display = 'none';
     document.getElementById('gcd-mode-title').style.display = 'none';
     document.getElementById('atk-subtabs').style.display = 'none';
+    document.getElementById('tot-subtabs').style.display = 'none';
 
     if(mode === 'ATK'){
       document.getElementById('tab-atk').classList.add('active');
@@ -4134,12 +4217,13 @@
       renderList();
     } else if(mode === 'TOTAL'){
       document.getElementById('tab-total').classList.add('active-total');
-      if(isAdmin) toggleAddBtn.style.display = 'flex';
-      document.getElementById('gcd-mode-title').textContent = '🔥 총력전 덱';
+      if(isAdmin){ toggleAddBtn.style.display = 'flex'; document.getElementById('clear-tot-btn').style.display = 'flex'; }
+      document.getElementById('gcd-mode-title').textContent = '⚔️ 공격덱 [저스펙용]';
       document.getElementById('gcd-mode-title').style.display = 'block';
+      document.getElementById('tot-subtabs').style.display = 'flex';
       document.getElementById('gcd-search-section').style.display = 'block';
       document.getElementById('list-wrapper').style.display = 'block';
-      document.getElementById('list-header').style.display = 'none';
+      document.getElementById('list-header').style.display = 'grid';
       renderList();
     }
   }
@@ -4256,12 +4340,19 @@
       const item = totData.find(d => d.id == id);
       if(!item) return;
       document.getElementById('custom-tot-id').value = item.id;
-      document.getElementById('custom-tot-name').value = item.name;
       document.getElementById('custom-tot-keywords').value = item.keywords ? item.keywords.join(', ') : '';
-      
+      document.getElementById('custom-tot-type').value = item.deckType || '공덱';
+      let thArrTot = item.titleHeroes || [];
+      for(let i=0; i<4; i++) {
+        document.getElementById(`tot-title-name-${i}`).value = thArrTot[i]?.name || '';
+        document.getElementById(`tot-title-img-${i}`).value = thArrTot[i]?.img || '';
+      }
+      const syncedNamesTot = thArrTot.map(h => (h?.name || '').trim()).filter(Boolean);
+      document.getElementById('custom-tot-name').value = syncedNamesTot.length > 0 ? syncedNamesTot.join(' · ') : item.name;
+
       renderCounterBuilder('tot-cards-container', item.counters || [], 't');
 
-      document.getElementById('tot-form-title').textContent = '✏️ 총력덱 수정';
+      document.getElementById('tot-form-title').textContent = '✏️ 공격덱 [저스펙용] 수정';
       document.getElementById('gcd-add-tot-section').style.display = 'block';
       toggleAddBtn.textContent = '닫기';
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4289,7 +4380,7 @@
   function searchGuide(){
     const query = input.value.trim();
     if(!query){ alert('검색어를 입력해 주세요!'); return; }
-    const currentDB = currentMode === 'ATK' ? getFullAtkDB().filter(d => (d.deckType || '공덱') === atkSubFilter) : (currentMode === 'DEF' ? getFullDefDB() : getFullTotDB());
+    const currentDB = currentMode === 'ATK' ? getFullAtkDB().filter(d => (d.deckType || '공덱') === atkSubFilter) : (currentMode === 'DEF' ? getFullDefDB() : getFullTotDB().filter(d => (d.deckType || '공덱') === totSubFilter));
     const inputTags = query.split(',').map(s=>s.trim()).filter(Boolean);
     let matches = [];
 
@@ -4325,7 +4416,7 @@
       { label: '🔮 마덱 탭 전체 보기', url: `${base}?tab=마덱` },
       { label: '🛡️ 방덱 탭 전체 보기', url: `${base}?tab=방덱` },
       { label: '🛡️ 방어덱 탭 전체 보기', url: `${base}?tab=def` },
-      { label: '🔥 총력덱 탭 전체 보기', url: `${base}?tab=total` }
+      { label: '⚔️ 공격덱 [저스펙용] 탭 전체 보기', url: `${base}?tab=total` }
     ];
     let html = `<h3 style="margin:0 0 8px 0; font-size:15px; font-weight:900;">📌 탭 바로가기</h3>`;
     tabLinks.forEach(t => {
