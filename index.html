@@ -3483,7 +3483,7 @@
     const embedUrl = getYoutubeEmbedUrl(url);
     if (!embedUrl) return '';
     return `
-      <div style="margin-top:10px; position:relative; width:100%; max-width:480px; aspect-ratio:16/9; border-radius:10px; overflow:hidden; background:#000;">
+      <div style="margin-top:10px; position:relative; width:100%; max-width:720px; aspect-ratio:16/9; border-radius:10px; overflow:hidden; background:#000;">
         <iframe src="${embedUrl}" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       </div>
     `;
