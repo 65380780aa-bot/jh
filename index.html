@@ -2462,6 +2462,9 @@
           <div class="slot-input-box"><label>펫 2 이미지 URL</label><input type="text" class="gcd-input ${prefix}-pet-img-1" value="${Array.isArray(c.pet)?(c.pet[1]?.img || ''):''}" placeholder="이미지 URL"></div>
         </div>
 
+        <label class="gcd-label" style="margin-top:10px;">🎥 영상 링크 (유튜브 - 카드에서 바로 재생됨, 선택사항)</label>
+        <input type="text" class="gcd-input ${prefix}-video" value="${(c.videoUrl || '').replace(/"/g,'&quot;')}" placeholder="예: https://youtu.be/XXXXXXXXXXX 또는 https://www.youtube.com/watch?v=XXXXXXXXXXX">
+
         <label class="gcd-label" style="margin-top:10px;">상세 공략 내용 (줄바꿈 가능)</label>
         <textarea class="gcd-textarea ${prefix}-body" style="height:60px;" placeholder="스킬 순서 및 세팅">${c.body || ''}</textarea>
       `;
@@ -2994,6 +2997,7 @@
         formation: box.querySelector('.c-form').value,
         slots: slots,
         body: box.querySelector('.c-body').value,
+        videoUrl: box.querySelector('.c-video')?.value || '',
         pet: [
           { name: box.querySelector('.c-pet-name-0')?.value || '', img: box.querySelector('.c-pet-img-0')?.value || '' },
           { name: box.querySelector('.c-pet-name-1')?.value || '', img: box.querySelector('.c-pet-img-1')?.value || '' }
@@ -3028,6 +3032,7 @@
         formation: box.querySelector('.t-form').value,
         slots: slots,
         body: box.querySelector('.t-body').value,
+        videoUrl: box.querySelector('.t-video')?.value || '',
         pet: [
           {
             name: box.querySelector('.t-pet-name-0')?.value || '',
@@ -3163,6 +3168,7 @@
         formation: box.querySelector('.c-form').value,
         slots: slots,
         body: box.querySelector('.c-body').value.trim(),
+        videoUrl: (box.querySelector('.c-video')?.value || '').trim(),
         pet: [
           { name: (box.querySelector('.c-pet-name-0')?.value || '').trim(), img: (box.querySelector('.c-pet-img-0')?.value || '').trim() },
           { name: (box.querySelector('.c-pet-name-1')?.value || '').trim(), img: (box.querySelector('.c-pet-img-1')?.value || '').trim() }
@@ -3329,6 +3335,7 @@
         formation: box.querySelector('.t-form').value,
         slots: slots,
         body: box.querySelector('.t-body').value.trim(),
+        videoUrl: (box.querySelector('.t-video')?.value || '').trim(),
         pet: [
           {
             name: (box.querySelector('.t-pet-name-0')?.value || '').trim(),
@@ -3458,6 +3465,28 @@
       return `<div class="pet-display-item"><div class="formation-slot pet-slot">${imgTag}</div>${p.name ? `<div class="formation-slot-name">${escName(p.name)}</div>` : ''}</div>`;
     }).join('');
     return `<div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items">${itemsHtml}</div></div>`;
+  }
+
+  // 유튜브 주소(watch?v=, youtu.be/, embed/ 등 어떤 형태로 붙여넣어도)를 바로 재생 가능한 embed 주소로 변환.
+  // 유튜브 주소가 아니면 null 반환 (엉뚱한 링크를 iframe으로 억지로 넣지 않기 위함).
+  function getYoutubeEmbedUrl(url) {
+    if (!url) return null;
+    const trimmed = url.trim();
+    let videoId = null;
+    let m = trimmed.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{6,})/);
+    if (m) videoId = m[1];
+    if (!videoId) return null;
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+
+  function generateVideoEmbedHtml(url) {
+    const embedUrl = getYoutubeEmbedUrl(url);
+    if (!embedUrl) return '';
+    return `
+      <div style="margin-top:10px; position:relative; width:100%; max-width:480px; aspect-ratio:16/9; border-radius:10px; overflow:hidden; background:#000;">
+        <iframe src="${embedUrl}" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    `;
   }
 
   function generateFormationBoardBySlots(slots = [], boardUniqueId = 'board', keepEmpty = false, backCount = 4, frontCount = 4) {
@@ -3630,6 +3659,7 @@
                   <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">${boardHtml}${petHtml}</div></div>
                 </div>
                 <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">${c.body || ''}</div>
+                ${generateVideoEmbedHtml(c.videoUrl)}
               </div>
             `;
             countersHtml += cardHtml;
@@ -3719,10 +3749,6 @@
             let statsWr = getWinRate(statsKey);
             let isStandard = !!(statsData[statsKey] && statsData[statsKey].isStandard);
             let isNotRecommended = !!(statsData[statsKey] && statsData[statsKey].isNotRecommended);
-            let standardBadgeHtml = isStandard ? `<span class="stats-standard-badge">⭐ 정석</span>` : '';
-            let winOrNotRecBadgeHtml = isNotRecommended ? `<span class="stats-not-recommended-badge">🚫 비추천</span>` : renderWinRateBadge(statsKey);
-            let standardToggleHtml = isAdmin ? `<button class="stats-vote-btn standard-toggle${isStandard ? ' active' : ''}" onclick="window.toggleStandardTag('${statsKey}')">⭐ 정석${isStandard ? ' 해제' : ' 지정'}</button>` : '';
-            let notRecommendedToggleHtml = isAdmin ? `<button class="stats-vote-btn not-recommended-toggle${isNotRecommended ? ' active' : ''}" onclick="window.toggleNotRecommendedTag('${statsKey}')">🚫 비추천${isNotRecommended ? ' 해제' : ' 지정'}</button>` : '';
             let orderSideHtml = (c.skillOrder || c.skillOrder2 || c.speedOrder) ? `
               <div class="counter-order-side">
                 ${c.skillOrder ? `<div><span class="counter-order-label">스킬순서${c.skillOrder2 ? ' 1' : ''}</span>${c.skillOrder}</div>` : ''}
@@ -3731,14 +3757,10 @@
               </div>
             ` : '';
             let cardHtml = `
-              <div class="gcd-atk-card-item${isStandard ? ' is-standard' : ''}${isNotRecommended ? ' is-not-recommended' : ''}">
+              <div class="gcd-atk-card-item">
                 <div class="gcd-atk-card-title" style="justify-content:flex-end;">
                   <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                    ${standardBadgeHtml}
-                    ${winOrNotRecBadgeHtml}
                     <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
-                    ${standardToggleHtml}
-                    ${notRecommendedToggleHtml}
                   </span>
                 </div>
                 <div class="counter-body-formation-row">
@@ -3746,6 +3768,7 @@
                   <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">${boardHtml}${petHtml}</div></div>
                 </div>
                 <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">${c.body || ''}</div>
+                ${generateVideoEmbedHtml(c.videoUrl)}
               </div>
             `;
             countersHtml += cardHtml;
