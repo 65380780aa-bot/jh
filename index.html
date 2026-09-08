@@ -3654,12 +3654,12 @@
                     ${notRecommendedToggleHtml}
                   </span>
                 </div>
+                ${generateVideoEmbedHtml(c.videoUrl)}
                 <div class="counter-body-formation-row">
                   ${orderSideHtml}
                   <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">${boardHtml}${petHtml}</div></div>
                 </div>
                 <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">${c.body || ''}</div>
-                ${generateVideoEmbedHtml(c.videoUrl)}
               </div>
             `;
             countersHtml += cardHtml;
@@ -3763,12 +3763,12 @@
                     <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
                   </span>
                 </div>
+                ${generateVideoEmbedHtml(c.videoUrl)}
                 <div class="counter-body-formation-row">
                   ${orderSideHtml}
                   <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">${boardHtml}${petHtml}</div></div>
                 </div>
                 <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">${c.body || ''}</div>
-                ${generateVideoEmbedHtml(c.videoUrl)}
               </div>
             `;
             countersHtml += cardHtml;
