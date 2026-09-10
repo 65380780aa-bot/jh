@@ -13,233 +13,237 @@
   <meta name="twitter:description" content="카운터 덱 확인">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+    @import url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css');
     
     :root {
-      --bg: #f8f9fa; --card: #ffffff; --border: #e5e7eb; --ink: #111827; 
-      --blue: #2563eb; --blue-soft: #eff6ff; --red: #e11d48; --red-soft: #ffe4e6;
-      --orange: #ea580c; --orange-soft: #ffedd5;
-      --text-dim: #6b7280;
+      --bg: #f3ecdd; --card: #ffffff; --border: #dcd3bd; --ink: #2b2a26;
+      --blue: #3d6690; --blue-soft: #e7eef4; --red: #b1503a; --red-soft: #f6e9e5;
+      --orange: #8a6d3b; --orange-soft: #f4efe3;
+      --text-dim: #9a978c;
     }
     
     * { box-sizing: border-box; }
-    body { margin: 0; background-color: var(--bg); font-family: 'Noto Sans KR', sans-serif; color: var(--ink); }
+    body {
+      margin: 0; background-color: var(--bg); font-family: 'Wanted Sans Variable', 'Noto Sans KR', sans-serif; color: var(--ink);
+    }
 
     /* 상단 네비게이션 바 */
     .top-nav {
       background: var(--card); padding: 16px 40px; display: flex; justify-content: space-between;
-      align-items: center; border-bottom: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      align-items: center; border-bottom: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.04);
       position: sticky; top: 0; z-index: 100;
     }
-    .logo { font-size: 20px; font-weight: 900; display: flex; align-items: center; gap: 8px; }
-    .nav-links { display: flex; gap: 20px; align-items: center; font-size: 14px; font-weight: 700; color: #4b5563; }
-    .nav-link { cursor: pointer; padding: 6px 12px; border-radius: 20px; transition: all 0.2s; }
-    .nav-link:hover { background: #f3f4f6; }
+    .logo { font-size: 20px; font-weight: 900; display: flex; align-items: center; gap: 8px; color: var(--ink); }
+    .nav-links { display: flex; gap: 20px; align-items: center; font-size: 14px; font-weight: 700; color: var(--text-dim); }
+    .nav-link { cursor: pointer; padding: 6px 12px; border-radius: 3px; transition: all 0.2s; }
+    .nav-link:hover { background: var(--bg); }
     .nav-link.active { background: var(--red-soft); color: var(--red); }
     .nav-link.active-total { background: var(--orange-soft); color: var(--orange); }
     
-    .admin-btn { font-size: 13px; font-weight: 800; cursor: pointer; color: var(--text-dim); background: #f3f4f6; padding: 6px 12px; border-radius: 8px; border: none; }
-    .admin-btn.admin-on { background: #16a34a; color: #fff; }
+    .admin-btn { font-size: 13px; font-weight: 800; cursor: pointer; color: var(--text-dim); background: var(--bg); padding: 6px 12px; border-radius: 3px; border: 1px solid var(--border); }
+    .admin-btn.admin-on { background: #16a34a; color: #fff; border-color: #16a34a; }
 
     /* 메인 컨테이너 */
     .container { max-width: 1000px; margin: 0 auto; padding: 32px 20px; }
 
     /* 관리자 추가 버튼용 플로팅 바 */
     .admin-control-bar { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-    .add-btn { background: var(--red); color: white; padding: 8px 16px; border-radius: 12px; font-size: 13px; font-weight: 900; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: transform 0.2s;}
+    .add-btn { background: var(--red); color: white; padding: 8px 16px; border-radius: 3px; font-size: 13px; font-weight: 900; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: transform 0.2s;}
     .add-btn:hover { transform: scale(1.05); }
 
     /* 공지 및 폼 영역 */
-    .gcd-notice-box { background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--red); border-radius: 12px; padding: 12px 16px; margin-bottom: 24px; font-size: 13px; line-height: 1.5; }
+    .gcd-notice-box { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 3px; padding: 12px 16px; margin-bottom: 24px; font-size: 13px; line-height: 1.5; color: var(--ink); }
     .gcd-notice-title { font-weight: 900; color: var(--red); margin-bottom: 4px; }
-    .gcd-search-box { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-    .gcd-quick-title { font-size: 15px; font-weight: 900; margin-bottom: 16px; }
+    .gcd-search-box { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(43,42,38,0.05); }
+    .gcd-quick-title { font-size: 15px; font-weight: 900; margin-bottom: 16px; color: var(--ink); }
     .gcd-label { font-size: 12px; font-weight: 800; color: var(--text-dim); margin-bottom: 6px; display: block; }
-    .gcd-input, .gcd-textarea, .gcd-select { width: 100%; background: #f9fafb; border: 1px solid var(--border); border-radius: 12px; font-size: 14px; padding: 12px; font-weight: 700; font-family: inherit; margin-bottom: 12px; outline: none; }
+    .gcd-input, .gcd-textarea, .gcd-select { width: 100%; background: #f9f8f4; border: 1px solid var(--border); border-radius: 3px; font-size: 14px; padding: 12px; font-weight: 700; font-family: inherit; margin-bottom: 12px; outline: none; color: var(--ink); }
+    .gcd-input::placeholder, .gcd-textarea::placeholder { color: #b5b2a5; }
     .gcd-textarea { height: 100px; resize: vertical; }
-    .gcd-btn-action { width: 100%; padding: 14px; border-radius: 12px; border: none; font-size: 14px; font-weight: 800; cursor: pointer; color: #fff; transition: opacity 0.2s;}
+    .gcd-btn-action { width: 100%; padding: 14px; border-radius: 3px; border: none; font-size: 14px; font-weight: 800; cursor: pointer; color: #fff; transition: opacity 0.2s;}
     .gcd-btn-action:hover { opacity: 0.9; }
 
     /* 슬롯 직접 입력 그리드 */
     .slot-input-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
-    .slot-input-box { background: #f3f4f6; padding: 8px; border-radius: 8px; border: 1px solid var(--border); text-align: center; }
+    .slot-input-box { background: #f9f8f4; padding: 8px; border-radius: 3px; border: 1px solid var(--border); text-align: center; }
     .slot-input-box label { font-size: 10px; font-weight: 700; color: var(--text-dim); display: block; margin-bottom: 4px; }
-    .slot-input-box input { width: 100%; padding: 6px; font-size: 12px; border: 1px solid var(--border); border-radius: 6px; text-align: center; font-weight: 700; outline: none; background: #fff; }
+    .slot-input-box input { width: 100%; padding: 6px; font-size: 12px; border: 1px solid var(--border); border-radius: 3px; text-align: center; font-weight: 700; outline: none; background: #ffffff; color: var(--ink); }
 
-    .slot-row-builder { background: #f9fafb; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+    .slot-row-builder { background: #f9f8f4; border: 1px solid var(--border); border-radius: 3px; padding: 12px; margin-bottom: 10px; }
     .slot-row-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 6px; }
 
-    .counter-builder-box { background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 14px; padding: 16px; margin-bottom: 16px; }
-    .tot-builder-box { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+    .counter-builder-box { background: var(--red-soft); border: 1px solid #e2c6bc; border-radius: 4px; padding: 16px; margin-bottom: 16px; }
+    .tot-builder-box { background: var(--orange-soft); border: 1px solid #e2d6ba; border-radius: 4px; padding: 16px; margin-bottom: 16px; }
 
     /* 검색 박스 */
     .search-row { display: flex; gap: 12px; align-items: center; }
-    .gcd-btn-search { background: #111827; color: white; padding: 12px 24px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; white-space: nowrap; }
+    .gcd-btn-search { background: var(--ink); color: #ffffff; padding: 12px 24px; border-radius: 3px; border: none; font-weight: 800; cursor: pointer; white-space: nowrap; }
 
     /* 리스트 디자인 */
     .list-header {
       display: grid; grid-template-columns: 80px 1fr 120px; padding: 0 24px 12px;
-      font-size: 13px; font-weight: 800; color: #9ca3af; border-bottom: 2px solid #f3f4f6;
+      font-size: 13px; font-weight: 800; color: var(--text-dim); border-bottom: 2px solid var(--border);
     }
     @media (max-width:680px){ .list-header { display: none; } }
 
     .list-item {
       display: grid; grid-template-columns: 80px 1fr 120px; align-items: center;
-      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-      padding: 16px 24px; margin-top: 12px; transition: all 0.2s;
+      background: var(--card); border: 1px solid var(--border); border-left: 3px solid transparent; border-radius: 3px;
+      padding: 16px 24px; margin-top: 12px; transition: all 0.15s;
     }
-    .list-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-2px); border-color: #d1d5db; }
+    .list-item:hover { box-shadow: 0 2px 8px rgba(43,42,38,0.08); border-color: #c9c5b6; }
     
     .list-item.active-item { 
-      border: 2px solid var(--red); background: #fffcfd; 
+      border: 1px solid var(--red); border-left: 3px solid var(--red); background: var(--red-soft); 
       border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none; 
-      margin-bottom: 0; z-index: 2; position: relative; transform: translateY(0);
+      margin-bottom: 0; z-index: 2; position: relative;
     }
     .list-item.active-item-tot { 
-      border: 2px solid var(--orange); background: #fffaf5; 
+      border: 1px solid var(--orange); border-left: 3px solid var(--orange); background: var(--orange-soft); 
       border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none; 
-      margin-bottom: 0; z-index: 2; position: relative; transform: translateY(0);
+      margin-bottom: 0; z-index: 2; position: relative;
     }
     
     @media (max-width:680px){ .list-item { grid-template-columns: 1fr; gap: 12px; } }
 
-    .badge { font-size: 11px; font-weight: 900; padding: 4px 8px; border-radius: 6px; display: inline-block; text-align: center; }
+    .badge { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; padding: 4px 8px; border-radius: 2px; display: inline-block; text-align: center; }
     .badge.def { background: var(--blue-soft); color: var(--blue); }
-    .badge.atk { background: #fce7f3; color: var(--red); }
+    .badge.atk { background: var(--red-soft); color: var(--red); }
     .badge.tot { background: var(--orange-soft); color: var(--orange); }
     
     .hero-comp { display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 900; color: var(--ink); flex-wrap: wrap; }
     .hero-comp-icons { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
     .hero-comp-icon-item { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; }
-    .hero-comp-icon-item img { width: 46px; height: 46px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); background: #f3f4f6; }
+    .hero-comp-icon-item img { width: 46px; height: 46px; border-radius: 4px; object-fit: cover; border: 1px solid var(--border); background: var(--bg); }
     .hero-comp-icon-item span { font-size: 12px; font-weight: 800; color: var(--ink); white-space: nowrap; }
     .winrate-badge { display:inline-block; font-size:11px; font-weight:800; padding:3px 9px; border-radius:999px; white-space:nowrap; }
-    .winrate-badge.wr-good { background:#dcfce7; color:#15803d; }
-    .winrate-badge.wr-mid { background:#fef3c7; color:#b45309; }
-    .winrate-badge.wr-bad { background:#fee2e2; color:#b91c1c; }
-    .winrate-badge.wr-none { background:#f3f4f6; color:#9ca3af; }
-    .stats-rank-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; background:#1e293b; color:#fff; }
-    .stats-rank-row { display:flex; align-items:center; gap:10px; border:1px solid var(--border); border-radius:10px; padding:10px 12px; background:#fff; margin-bottom:8px; }
+    .winrate-badge.wr-good { background:#e7f0e2; color:#3f6b2f; }
+    .winrate-badge.wr-mid { background:#f4efe3; color:#8a6d3b; }
+    .winrate-badge.wr-bad { background:#f6e9e5; color:#b1503a; }
+    .winrate-badge.wr-none { background:var(--bg); color:#9a978c; }
+    .stats-rank-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:2px; white-space:nowrap; background:var(--ink); color:#fff; }
+    .stats-rank-row { display:flex; align-items:center; gap:10px; border:1px solid var(--border); border-radius:3px; padding:10px 12px; background:var(--card); margin-bottom:8px; }
     .stats-rank-row.unverified { opacity:0.55; }
-    .stats-deck-header { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:12px 14px; border:1px solid var(--border); border-radius:10px; background:#fff; cursor:pointer; margin-bottom:6px; }
+    .stats-deck-header { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:12px 14px; border:1px solid var(--border); border-radius:3px; background:var(--card); cursor:pointer; margin-bottom:6px; }
     .stats-combo-row { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:10px 14px 10px 24px; border-left:2px solid var(--border); margin-bottom:4px; }
-    .stats-combo-trigger { display:flex; align-items:center; justify-content:space-between; gap:8px; border:1px solid var(--border); border-radius:10px; padding:10px 14px; background:#fff; cursor:pointer; font-size:13px; font-weight:700; }
-    .stats-combo-panel { border:1px solid var(--border); border-radius:10px; margin-top:6px; max-height:320px; overflow-y:auto; background:#fff; }
+    .stats-combo-trigger { display:flex; align-items:center; justify-content:space-between; gap:8px; border:1px solid var(--border); border-radius:3px; padding:10px 14px; background:var(--card); cursor:pointer; font-size:13px; font-weight:700; }
+    .stats-combo-panel { border:1px solid var(--border); border-radius:3px; margin-top:6px; max-height:320px; overflow-y:auto; background:var(--card); }
     .stats-vote-btns { display:flex; gap:4px; flex-wrap:wrap; }
-    .stats-vote-btn { font-size:11px; font-weight:800; padding:5px 10px; border-radius:8px; border:1px solid; cursor:pointer; background:#fff; }
-    .stats-vote-btn.win { color:#15803d; border-color:#86efac; }
-    .stats-vote-btn.win:hover { background:#dcfce7; }
-    .stats-vote-btn.loss { color:#b91c1c; border-color:#fca5a5; }
-    .stats-vote-btn.loss:hover { background:#fee2e2; }
-    .stats-vote-btn.win-minus { color:#166534; border-color:#d1d5db; opacity:0.7; }
-    .stats-vote-btn.win-minus:hover { background:#f0fdf4; opacity:1; }
-    .stats-vote-btn.loss-minus { color:#7f1d1d; border-color:#d1d5db; opacity:0.7; }
-    .stats-vote-btn.loss-minus:hover { background:#fef2f2; opacity:1; }
-    .stats-vote-btn.standard-toggle { color:#15803d; border-color:#4ade80; }
-    .stats-vote-btn.standard-toggle:hover { background:#f0fdf4; }
-    .stats-vote-btn.standard-toggle.active { background:#22c55e; color:#fff; border-color:#16a34a; }
-    .stats-standard-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; background:#dcfce7; color:#15803d; }
-    .stats-combo-row.is-standard { border-left:2px solid #22c55e; background:#f0fdf4; }
-    .stats-vote-btn.not-recommended-toggle { color:#6b7280; border-color:#d1d5db; }
-    .stats-vote-btn.not-recommended-toggle:hover { background:#f9fafb; }
-    .stats-vote-btn.not-recommended-toggle.active { background:#ef4444; color:#fff; border-color:#dc2626; }
-    .stats-not-recommended-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; background:#fee2e2; color:#dc2626; }
+    .stats-vote-btn { font-size:11px; font-weight:800; padding:5px 10px; border-radius:3px; border:1px solid; cursor:pointer; background:var(--card); }
+    .stats-vote-btn.win { color:#3f6b2f; border-color:#a9c99a; }
+    .stats-vote-btn.win:hover { background:#e7f0e2; }
+    .stats-vote-btn.loss { color:#b1503a; border-color:#e0b5a8; }
+    .stats-vote-btn.loss:hover { background:#f6e9e5; }
+    .stats-vote-btn.win-minus { color:#3f6b2f; border-color:var(--border); opacity:0.7; }
+    .stats-vote-btn.win-minus:hover { background:#e7f0e2; opacity:1; }
+    .stats-vote-btn.loss-minus { color:#b1503a; border-color:var(--border); opacity:0.7; }
+    .stats-vote-btn.loss-minus:hover { background:#f6e9e5; opacity:1; }
+    .stats-vote-btn.standard-toggle { color:#3f6b2f; border-color:#a9c99a; }
+    .stats-vote-btn.standard-toggle:hover { background:#e7f0e2; }
+    .stats-vote-btn.standard-toggle.active { background:#4d7a3c; color:#fff; border-color:#4d7a3c; }
+    .stats-standard-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:2px; white-space:nowrap; background:#e7f0e2; color:#3f6b2f; }
+    .stats-combo-row.is-standard { border-left:2px solid #4d7a3c; background:#f2f6ef; }
+    .stats-vote-btn.not-recommended-toggle { color:var(--text-dim); border-color:var(--border); }
+    .stats-vote-btn.not-recommended-toggle:hover { background:var(--bg); }
+    .stats-vote-btn.not-recommended-toggle.active { background:#b1503a; color:#fff; border-color:#b1503a; }
+    .stats-not-recommended-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:2px; white-space:nowrap; background:#f6e9e5; color:#b1503a; }
     .stats-combo-option { display:flex; align-items:center; gap:10px; padding:10px 14px; cursor:pointer; border-bottom:1px solid var(--border); }
     .stats-combo-option:last-child { border-bottom:none; }
-    .stats-combo-option:hover { background:#f9fafb; }
+    .stats-combo-option:hover { background:#f9f8f4; }
     .stats-combo-option-icons { display:flex; gap:4px; flex-shrink:0; }
-    .stats-combo-option-icons img { width:28px; height:28px; border-radius:6px; object-fit:cover; border:1px solid var(--border); }
-    .stats-combo-option-text { font-size:13px; font-weight:700; line-height:1.3; }
+    .stats-combo-option-icons img { width:28px; height:28px; border-radius:3px; object-fit:cover; border:1px solid var(--border); }
+    .stats-combo-option-text { font-size:13px; font-weight:700; line-height:1.3; color: var(--ink); }
     .stats-combo-option-text .deck-name { display:block; font-size:11px; color:var(--text-dim); font-weight:600; }
     .stats-icon-name-group { display:flex; gap:14px; flex-shrink:0; flex-wrap:wrap; }
     .stats-icon-name-item { display:flex; flex-direction:column; align-items:center; gap:2px; }
-    .stats-icon-name-item img { width:46px; height:46px; border-radius:10px; object-fit:cover; border:1px solid var(--border); background:#f3f4f6; }
+    .stats-icon-name-item img { width:46px; height:46px; border-radius:4px; object-fit:cover; border:1px solid var(--border); background:var(--bg); }
     .stats-icon-name-item span { font-size:12px; font-weight:800; color:var(--ink); white-space:nowrap; }
     .hero-comp-text { font-size: 14px; font-weight: 700; color: var(--text-dim); display: flex; align-items: center; }
 
-    .detail-btn { background: var(--red-soft); color: var(--red); border: 1px solid #fecdd3; padding: 8px 0; border-radius: 20px; font-size: 13px; font-weight: 900; text-align: center; cursor: pointer; width: 100%; transition: background 0.2s; }
-    .detail-btn:hover { background: #fecdd3; }
-    .detail-btn.active-btn { background: var(--red); color: white; border-color: var(--red); }
-    .detail-btn.active-btn-tot { background: var(--orange); color: white; border-color: var(--orange); }
+    .detail-btn { background: var(--red-soft); color: var(--red); border: 1px solid #e2c6bc; padding: 8px 0; border-radius: 3px; font-size: 13px; font-weight: 900; text-align: center; cursor: pointer; width: 100%; transition: background 0.2s; }
+    .detail-btn:hover { background: #e2c6bc; }
+    .detail-btn.active-btn { background: var(--red); color: #fff; border-color: var(--red); }
+    .detail-btn.active-btn-tot { background: var(--orange); color: #fff; border-color: var(--orange); }
 
     /* 아코디언 상세 결과 카드 */
     .accordion-content .gcd-result-card {
-      border: 2px solid var(--red); border-top: none;
-      border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;
-      margin-top: 0; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(225,29,72,0.1);
+      border: 1px solid var(--red); border-top: none;
+      border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;
+      margin-top: 0; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(43,42,38,0.06);
       background: var(--card); padding: 24px; display: block;
     }
     .accordion-content .gcd-result-card.tot-card-border {
       border-color: var(--orange);
-      box-shadow: 0 4px 12px rgba(234,88,12,0.1);
+      box-shadow: 0 4px 12px rgba(43,42,38,0.06);
     }
     
     .gcd-res-target { font-size: 18px; color: var(--ink); margin-bottom: 20px; font-weight: 900; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-    .btn-mini-edit{ background:#dbeafe; color:#1e40af; border:none; font-size:12px; font-weight:800; padding:6px 10px; border-radius:6px; cursor:pointer; margin-left:4px; }
-    .btn-mini-del{ background:#fee2e2; color:#991b1b; border:none; font-size:12px; font-weight:800; padding:6px 10px; border-radius:6px; cursor:pointer; margin-left:4px; }
+    .btn-mini-edit{ background:var(--blue-soft); color:var(--blue); border:none; font-size:12px; font-weight:800; padding:6px 10px; border-radius:2px; cursor:pointer; margin-left:4px; }
+    .btn-mini-del{ background:var(--red-soft); color:var(--red); border:none; font-size:12px; font-weight:800; padding:6px 10px; border-radius:2px; cursor:pointer; margin-left:4px; }
 
     /* 세팅 그리드 */
     .gcd-grid-layout{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
     @media (max-width:680px){ .gcd-grid-layout{ grid-template-columns:1fr; } }
-    .gcd-info-block{ border-radius:16px; padding:18px; font-size:14.5px; line-height:1.7; border: 1px solid var(--border); font-weight: 900; color: #111827;}
-    .gcd-info-block .title{ font-size:13px; font-weight:900; margin-bottom:8px; display: flex; align-items: center; gap: 6px; }
-    .gcd-pos{ background:#fffbeb; border-color: #fef08a; } .gcd-pos .title{ color:#b45309; }
-    .gcd-ring{ background:#faf5ff; border-color: #e9d5ff; } .gcd-ring .title{ color:#7e22ce; }
-    .gcd-gear{ background:#f0fdf4; border-color: #bbf7d0; } .gcd-gear .title{ color:#15803d; }
-    .gcd-spec{ background:#eff6ff; border-color: #bfdbfe; } .gcd-spec .title{ color:#1d4ed8; }
+    .gcd-info-block{ border-radius:3px; padding:18px; font-size:14.5px; line-height:1.7; border: 1px solid var(--border); border-left-width: 3px; font-weight: 900; color: var(--ink); background: var(--card); }
+    .gcd-info-block .title{ font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:8px; display: flex; align-items: center; gap: 6px; }
+    .gcd-pos{ border-left-color: #8a6d3b; } .gcd-pos .title{ color:#8a6d3b; }
+    .gcd-ring{ border-left-color: #6b5a8a; } .gcd-ring .title{ color:#6b5a8a; }
+    .gcd-gear{ border-left-color: #3f6b2f; } .gcd-gear .title{ color:#3f6b2f; }
+    .gcd-spec{ border-left-color: #3d6690; } .gcd-spec .title{ color:#3d6690; }
     
-    .gcd-atk-block{ background:#fef2f2; border-color: #fecaca; } .gcd-atk-block .title{ color:var(--red); }
-    .gcd-tot-block{ background:#fff7ed; border-color: #fed7aa; } .gcd-tot-block .title{ color:var(--orange); }
+    .gcd-atk-block{ border-left-color: var(--red); } .gcd-atk-block .title{ color:var(--red); }
+    .gcd-tot-block{ border-left-color: var(--orange); } .gcd-tot-block .title{ color:var(--orange); }
     
     .gcd-atk-card-item{ 
-      background:#fff; border:1px solid #fca5a5; border-radius:12px; padding:16px; margin-top:12px; 
-      font-size: 14.5px; line-height: 1.7; font-weight: 900; color: #111827;
+      background:var(--card); border:1px solid var(--border); border-left: 3px solid var(--red); border-radius:3px; padding:16px; margin-top:12px; 
+      font-size: 14.5px; line-height: 1.7; font-weight: 900; color: var(--ink);
       display: block;
     }
-    .gcd-atk-card-item.is-standard{ border-color:#22c55e; background:#f0fdf4; box-shadow: 0 0 0 1px #4ade80 inset; }
-    .gcd-atk-card-item.is-not-recommended{ border-color:#f87171; background:#fef2f2; box-shadow: 0 0 0 1px #fca5a5 inset; }
+    .gcd-atk-card-item.is-standard{ border-left-color:#4d7a3c; background:#f2f6ef; box-shadow: none; }
+    .gcd-atk-card-item.is-not-recommended{ border-left-color:#b1503a; background:#f6e9e5; box-shadow: none; }
     .gcd-tot-card-item{ 
-      background:#fff; border:1px solid #fed7aa; border-radius:12px; padding:16px; margin-top:12px; 
-      font-size: 14.5px; line-height: 1.7; font-weight: 900; color: #111827;
+      background:var(--card); border:1px solid var(--border); border-left: 3px solid var(--orange); border-radius:3px; padding:16px; margin-top:12px; 
+      font-size: 14.5px; line-height: 1.7; font-weight: 900; color: var(--ink);
       display: block;
     }
-    .gcd-atk-card-title{ font-size:15px; font-weight:900; color:#991b1b; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
-    .gcd-tot-card-title{ font-size:15px; font-weight:900; color:#c2410c; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
+    .gcd-atk-card-title{ font-size:15px; font-weight:900; color:var(--red); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
+    .gcd-tot-card-title{ font-size:15px; font-weight:900; color:var(--orange); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
 
     /* 진형 시각화 사각형 슬롯 스타일 */
     .formation-board { padding: 12px; margin-top: 10px; margin-bottom: 12px; text-align: center; }
-    .formation-row-label { font-size: 11px; color: #78716c; font-weight: 700; margin-bottom: 4px; text-align: left; }
+    .formation-row-label { font-size: 11px; color: var(--text-dim); font-weight: 700; margin-bottom: 4px; text-align: left; }
     .formation-slots { display: flex; gap: 6px; justify-content: center; margin-bottom: 6px; flex-wrap: wrap; }
     .formation-slots:last-child { margin-bottom: 0; }
     .formation-slot { 
-      background: #ffffff; 
-      border: 2px solid #d6d3d1; 
-      border-radius: 8px; 
+      background: #f9f8f4; 
+      border: 1px solid var(--border); 
+      border-radius: 4px; 
       width: 70px; 
       height: 70px; 
       font-size: 10px; 
       font-weight: 900; 
-      color: #44403c; 
+      color: var(--ink); 
       display: flex; 
       flex-direction: column;
       align-items: center; 
       justify-content: center; 
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05); 
+      box-shadow: none; 
       overflow: hidden;
       padding: 2px;
       text-align: center;
       word-break: break-all;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s;
     }
-    .formation-slot:hover { border-color: var(--orange); transform: scale(1.05); }
-    .formation-slot img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; pointer-events: none; }
-    .formation-slot.formation-slot-empty { background: #f9fafb; border: 2px dashed #e5e7eb; cursor: default; box-shadow: none; }
-    .formation-slot.formation-slot-empty:hover { border-color: #e5e7eb; transform: none; }
+    .formation-slot:hover { border-color: var(--orange); }
+    .formation-slot img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; pointer-events: none; }
+    .formation-slot.formation-slot-empty { background: var(--bg); border: 1px dashed var(--border); cursor: default; box-shadow: none; }
+    .formation-slot.formation-slot-empty:hover { border-color: var(--border); }
     .formation-slot-wrap { display: flex; flex-direction: column; align-items: center; gap: 3px; }
     .ring-pair { display: flex; gap: 10px; }
     .ring-item { display: flex; flex-direction: column; align-items: center; gap: 1px; }
-    .ring-pair img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border); background: #fef3c7; }
-    .ring-name { font-size: 9.5px; font-weight: 700; color: #92600a; text-align: center; line-height: 1.15; white-space: nowrap; }
+    .ring-pair img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border); background: var(--orange-soft); }
+    .ring-name { font-size: 9.5px; font-weight: 700; color: var(--orange); text-align: center; line-height: 1.15; white-space: nowrap; }
     .counter-body-formation-row { display: flex; gap: 16px; align-items: center; margin-top: 10px; }
     .counter-order-side { width: 180px; flex-shrink: 0; font-size: 14.5px; font-weight: 900; line-height: 1.7; color: var(--ink); word-break: keep-all; overflow-wrap: break-word; }
     .counter-order-side > div + div { margin-top: 8px; }
@@ -250,27 +254,27 @@
     .pet-display-label { font-size: 10px; font-weight: 800; color: var(--text-dim); }
     .pet-display-items { display: flex; align-items: center; gap: 10px; }
     .pet-display-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-    .formation-slot.pet-slot { border-color: #f59e0b; }
-    .formation-slot-name { font-size: 10px; font-weight: 700; color: #57534e; max-width: 74px; text-align: center; word-break: keep-all; line-height: 1.2; }
+    .formation-slot.pet-slot { border-color: var(--orange); }
+    .formation-slot-name { font-size: 10px; font-weight: 700; color: var(--ink); max-width: 74px; text-align: center; word-break: keep-all; line-height: 1.2; }
     @media (max-width: 680px) { .formation-slot-name { font-size: 9px; max-width: 62px; } }
     @media (max-width: 680px) { .counter-body-formation-row { flex-direction: column; align-items: stretch; } .counter-order-side { width: 100%; } }
     @media (max-width: 430px) { .formation-slot-name { font-size: 8.5px; max-width: 54px; } }
 
     /* 영웅 클릭 시 상세 정보 토글 팝업 (클릭 시 나타나고 다시 누르면 사라짐) */
     .hero-info-popup {
-      background: #fffbeb;
-      border: 1px solid #fef08a;
-      border-radius: 12px;
+      background: var(--orange-soft);
+      border: 1px solid #e2d6ba;
+      border-radius: 3px;
       padding: 16px;
       margin-top: 12px;
       font-size: 14.5px;
       font-weight: 700;
-      color: #92400e;
+      color: #6b5629;
       text-align: left;
       display: none;
       width: 100%;
       white-space: pre-line;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: none;
       animation: fadeIn 0.2s ease-in-out;
     }
     @keyframes fadeIn {
@@ -375,145 +379,145 @@
 
     <!-- 딥링크 표 모달 -->
     <div id="deeplink-modal-overlay" style="display: none; position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.5); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
-      <div style="background:#fff; border-radius:16px; max-width:900px; width:100%; max-height:85vh; overflow-y:auto; padding:24px; position:relative;">
-        <button id="close-deeplink-modal-btn" style="position:absolute; top:16px; right:16px; background:#f3f4f6; border:none; border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
+      <div style="background:var(--card); color:var(--ink); border:1px solid var(--border); border-radius:14px; max-width:900px; width:100%; max-height:85vh; overflow-y:auto; padding:24px; position:relative;">
+        <button id="close-deeplink-modal-btn" style="position:absolute; top:16px; right:16px; background:#1c2436; color:var(--ink); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
         <h2 style="margin:0 0 6px 0; font-size:20px; font-weight:900;">🔗 카톡 오픈채팅봇용 딥링크 주소 모음</h2>
-        <p style="font-size:13px; color:#6b7280; margin:0 0 16px 0;">각 키워드 옆 "복사" 버튼을 눌러 오픈채팅봇 "질문 및 답변"의 답변 칸에 그대로 붙여넣으세요. 질문 칸에는 <b>/키워드</b> 형태로 등록하시면 돼요.</p>
-        <div id="deeplink-table-body"><h3 style="margin:0 0 8px 0; font-size:15px; font-weight:900;">📌 탭 바로가기</h3><div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <p style="font-size:13px; color:#8b95ac; margin:0 0 16px 0;">각 키워드 옆 "복사" 버튼을 눌러 오픈채팅봇 "질문 및 답변"의 답변 칸에 그대로 붙여넣으세요. 질문 칸에는 <b>/키워드</b> 형태로 등록하시면 돼요.</p>
+        <div id="deeplink-table-body"><h3 style="margin:0 0 8px 0; font-size:15px; font-weight:900;">📌 탭 바로가기</h3><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
         <span style="font-weight:800; min-width:140px;">🛡️ 방어덱 탭 전체 보기</span>
-        <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?tab=def</span>
+        <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?tab=def</span>
         <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?tab=def&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
-      </div><div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+      </div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
         <span style="font-weight:800; min-width:140px;">🔥 총력덱 탭 전체 보기</span>
-        <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?tab=total</span>
+        <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?tab=total</span>
         <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?tab=total&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
-      </div><h3 style="margin:20px 0 8px 0; font-size:15px; font-weight:900;">⚔️ 공격덱 (8개)</h3><div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+      </div><h3 style="margin:20px 0 8px 0; font-size:15px; font-weight:900;">⚔️ 공격덱 (8개)</h3><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">밀리아 · 스쿨드 · 실베스타</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/밀리아</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EB%A6%AC%EC%95%84</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EB%A6%AC%EC%95%84</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EB%A6%AC%EC%95%84&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/스쿨드</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%8A%A4%EC%BF%A8%EB%93%9C</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%8A%A4%EC%BF%A8%EB%93%9C</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%8A%A4%EC%BF%A8%EB%93%9C&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/실베스타</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%8B%A4%EB%B2%A0%EC%8A%A4%ED%83%80</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%8B%A4%EB%B2%A0%EC%8A%A4%ED%83%80</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%8B%A4%EB%B2%A0%EC%8A%A4%ED%83%80&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/밀스실</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%EC%8B%A4</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%EC%8B%A4</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%EC%8B%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
-          </div></div><div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+          </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">밀리아 · 스쿨드 · 클레미스</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/밀스클</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%ED%81%B4</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%ED%81%B4</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%ED%81%B4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
-          </div></div><div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+          </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">아리스 · 겔리두스 · 델론즈</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/아리스</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/겔리두스</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/델론즈</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%8D%B8%EB%A1%A0%EC%A6%88</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%8D%B8%EB%A1%A0%EC%A6%88</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%8D%B8%EB%A1%A0%EC%A6%88&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/아겔델</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EA%B2%94%EB%8D%B8</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EA%B2%94%EB%8D%B8</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EA%B2%94%EB%8D%B8&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/겔델아</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%8D%B8%EC%95%84</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%8D%B8%EC%95%84</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%8D%B8%EC%95%84&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/아델겔</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%8D%B8%EA%B2%94</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%8D%B8%EA%B2%94</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%8D%B8%EA%B2%94&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
-          </div></div><div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+          </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">아리스 · 겔리두스 · 루디 · 클레미스</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/아리스</span>
             
             <span style="font-size:11px; background:#fef3c7; color:#92600a; padding:2px 6px; border-radius:6px;">⚠️ 중복 키워드</span>
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/겔리두스</span>
             
             <span style="font-size:11px; background:#fef3c7; color:#92600a; padding:2px 6px; border-radius:6px;">⚠️ 중복 키워드</span>
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/루디</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%A3%A8%EB%94%94</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%A3%A8%EB%94%94</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%A3%A8%EB%94%94&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/클레미스</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%ED%81%B4%EB%A0%88%EB%AF%B8%EC%8A%A4</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%ED%81%B4%EB%A0%88%EB%AF%B8%EC%8A%A4</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%ED%81%B4%EB%A0%88%EB%AF%B8%EC%8A%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/방덱</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%A9%EB%8D%B1</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%A9%EB%8D%B1</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%A9%EB%8D%B1&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
-          </div></div><div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+          </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">여포 · 델론즈 · 칼헤론</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/여델칼</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EB%8D%B8%EC%B9%BC</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EB%8D%B8%EC%B9%BC</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EB%8D%B8%EC%B9%BC&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
-          </div></div><div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+          </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">여포 · 오르카 · 칼헤론</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/여오칼</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EC%98%A4%EC%B9%BC</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EC%98%A4%EC%B9%BC</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EC%98%A4%EC%B9%BC&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
-          </div></div><div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+          </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">윤건 · 동영 · 스쿨드</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/윤동</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
-          </div></div><div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+          </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">윤건 · 동영 · 실베스타</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/윤동실</span>
             
             
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99%EC%8B%A4</span>
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99%EC%8B%A4</span>
             <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99%EC%8B%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div></div></div>
       </div>
@@ -521,13 +525,13 @@
 
     <!-- 대표 영웅 이미지 불러오기 모달 -->
     <div id="load-title-modal-overlay" style="display: none; position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.5); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
-      <div style="background:#fff; border-radius:16px; max-width:600px; width:100%; max-height:80vh; overflow-y:auto; padding:24px; position:relative;">
-        <button id="close-load-title-modal-btn" style="position:absolute; top:16px; right:16px; background:#f3f4f6; border:none; border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
+      <div style="background:var(--card); color:var(--ink); border:1px solid var(--border); border-radius:14px; max-width:600px; width:100%; max-height:80vh; overflow-y:auto; padding:24px; position:relative;">
+        <button id="close-load-title-modal-btn" style="position:absolute; top:16px; right:16px; background:#1c2436; color:var(--ink); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
         <h2 style="margin:0 0 6px 0; font-size:18px; font-weight:900;">🖼️ 대표 영웅 불러오기</h2>
-        <p style="font-size:13px; color:#6b7280; margin:0 0 12px 0;">기존에 등록된 영웅 이미지 중 하나를 골라 이 칸에만 채워넣어요. 다른 칸에는 영향 없어요.</p>
+        <p style="font-size:13px; color:#8b95ac; margin:0 0 12px 0;">기존에 등록된 영웅 이미지 중 하나를 골라 이 칸에만 채워넣어요. 다른 칸에는 영향 없어요.</p>
         <input type="text" id="load-title-search" class="gcd-input" placeholder="🔍 영웅 이름으로 검색" style="margin-bottom:12px;">
         <div id="load-title-list">
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="font-weight:900; font-size:13px;">클레미스</div>
@@ -540,117 +544,117 @@
 
     <!-- 개별 펫 불러오기 모달 -->
     <div id="load-pet-modal-overlay" style="display: none; position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.5); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
-      <div style="background:#fff; border-radius:16px; max-width:600px; width:100%; max-height:80vh; overflow-y:auto; padding:24px; position:relative;">
-        <button id="close-load-pet-modal-btn" style="position:absolute; top:16px; right:16px; background:#f3f4f6; border:none; border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
+      <div style="background:var(--card); color:var(--ink); border:1px solid var(--border); border-radius:14px; max-width:600px; width:100%; max-height:80vh; overflow-y:auto; padding:24px; position:relative;">
+        <button id="close-load-pet-modal-btn" style="position:absolute; top:16px; right:16px; background:#1c2436; color:var(--ink); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
         <h2 style="margin:0 0 6px 0; font-size:18px; font-weight:900;">🐾 펫 불러오기</h2>
-        <p style="font-size:13px; color:#6b7280; margin:0 0 12px 0;">기존 조합에 등록된 펫 중 하나를 골라 이 칸(이름·이미지)에만 채워넣어요. 다른 칸에는 영향 없어요.</p>
+        <p style="font-size:13px; color:#8b95ac; margin:0 0 12px 0;">기존 조합에 등록된 펫 중 하나를 골라 이 칸(이름·이미지)에만 채워넣어요. 다른 칸에는 영향 없어요.</p>
         <input type="text" id="load-pet-search" class="gcd-input" placeholder="🔍 펫 이름으로 검색" style="margin-bottom:12px;">
         <div id="load-pet-list">
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/vkdlzm.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">★ 라오아</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 겔리두스 · 아리스 · 1. 조합 세트</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 겔리두스 · 아리스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(0)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/fn.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">★ 라오엘</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 겔리두스 · 아리스 · 1. 조합 세트</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 겔리두스 · 아리스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(1)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/fn.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">루</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 겔리두스 · 1. 조합 세트</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 겔리두스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(2)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/apfvofh.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">멜패로</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">윤건 · 동영 · 스쿨드 · 카운터 조합</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">윤건 · 동영 · 스쿨드 · 카운터 조합</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(3)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/apfvofh.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">멜페로</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(4)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/duswl.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">연지</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 1. 조합 세트</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 아리스 · 클레미스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(5)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/db.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">유</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 엘리시아 · 카운터 조합</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 손오공 · 엘리시아 · 카운터 조합</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(6)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/dlfls.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">이린</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">동영 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">동영 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(7)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/2026-08-15-004940.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">제오</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">동영 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">동영 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(8)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/zmfl.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">크리</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(9)" style="white-space:nowrap;">📥 불러오기</button>
@@ -661,18 +665,18 @@
 
     <!-- 개별 영웅(슬롯) 불러오기 모달 -->
     <div id="load-slot-modal-overlay" style="display: none; position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.5); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
-      <div style="background:#fff; border-radius:16px; max-width:600px; width:100%; max-height:80vh; overflow-y:auto; padding:24px; position:relative;">
-        <button id="close-load-slot-modal-btn" style="position:absolute; top:16px; right:16px; background:#f3f4f6; border:none; border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
+      <div style="background:var(--card); color:var(--ink); border:1px solid var(--border); border-radius:14px; max-width:600px; width:100%; max-height:80vh; overflow-y:auto; padding:24px; position:relative;">
+        <button id="close-load-slot-modal-btn" style="position:absolute; top:16px; right:16px; background:#1c2436; color:var(--ink); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
         <h2 style="margin:0 0 6px 0; font-size:18px; font-weight:900;">📥 영웅 한 명만 불러오기</h2>
-        <p style="font-size:13px; color:#6b7280; margin:0 0 12px 0;">기존 조합에 등록된 영웅 중 하나를 골라 이 칸(이름·이미지·상세정보)에만 채워넣어요. 반지는 포함되지 않으니, 반지가 필요하면 아래 '💍 반지 불러오기'를 따로 눌러주세요.</p>
+        <p style="font-size:13px; color:#8b95ac; margin:0 0 12px 0;">기존 조합에 등록된 영웅 중 하나를 골라 이 칸(이름·이미지·상세정보)에만 채워넣어요. 반지는 포함되지 않으니, 반지가 필요하면 아래 '💍 반지 불러오기'를 따로 눌러주세요.</p>
         <input type="text" id="load-slot-search" class="gcd-input" placeholder="🔍 영웅 이름으로 검색" style="margin-bottom:12px;">
         <div id="load-slot-list">
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">클레미스</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 델론즈 · 클레미스 · 조합</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 델론즈 · 클레미스 · 조합</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(0)" style="white-space:nowrap;">📥 불러오기</button>
@@ -683,150 +687,150 @@
 
     <!-- 개별 반지 불러오기 모달 -->
     <div id="load-ring-modal-overlay" style="display: none; position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.5); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
-      <div style="background:#fff; border-radius:16px; max-width:600px; width:100%; max-height:80vh; overflow-y:auto; padding:24px; position:relative;">
-        <button id="close-load-ring-modal-btn" style="position:absolute; top:16px; right:16px; background:#f3f4f6; border:none; border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
+      <div style="background:var(--card); color:var(--ink); border:1px solid var(--border); border-radius:14px; max-width:600px; width:100%; max-height:80vh; overflow-y:auto; padding:24px; position:relative;">
+        <button id="close-load-ring-modal-btn" style="position:absolute; top:16px; right:16px; background:#1c2436; color:var(--ink); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
         <h2 style="margin:0 0 6px 0; font-size:18px; font-weight:900;">💍 반지 세트 불러오기</h2>
-        <p style="font-size:13px; color:#6b7280; margin:0 0 12px 0;">기존에 등록된 반지1·반지2 세트 중 하나를 골라 이 칸의 반지에만 채워넣어요. 영웅 이름·이미지에는 영향 없어요.</p>
+        <p style="font-size:13px; color:#8b95ac; margin:0 0 12px 0;">기존에 등록된 반지1·반지2 세트 중 하나를 골라 이 칸의 반지에만 채워넣어요. 영웅 이름·이미지에는 영향 없어요.</p>
         <input type="text" id="load-ring-search" class="gcd-input" placeholder="🔍 반지 이름으로 검색" style="margin-bottom:12px;">
         <div id="load-ring-list">
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl.webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">6성 권능+불사</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">스쿨드 · 밀리아 · 스쿨드 · 실베스타</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">스쿨드 · 밀리아 · 스쿨드 · 실베스타</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(0)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf.webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">6성 부활+불사(기합)</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">실베스타 · 밀리아 · 스쿨드 · 실베스타</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">실베스타 · 밀리아 · 스쿨드 · 실베스타</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(1)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/cjfqur.png" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">6성 철벽</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 밀리아 · 스쿨드 · 실베스타</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 밀리아 · 스쿨드 · 실베스타</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(2)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">권능</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라이언 · 라드그리드 · 트루드 · 아리스</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라이언 · 라드그리드 · 트루드 · 아리스</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(3)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">권능+기합</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 동영 · 스쿨드 · 실베스타</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 동영 · 스쿨드 · 실베스타</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(4)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">권능+불사</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">칼헤론 · 동영 · 스쿨드 · 실베스타</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">칼헤론 · 동영 · 스쿨드 · 실베스타</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(5)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">부활</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">손오공 · 윤건 · 동영 · 연희</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">손오공 · 윤건 · 동영 · 연희</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(6)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf.webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">부활+권능</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 루디 · 겔리두스 · 아리스</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 루디 · 겔리두스 · 아리스</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(7)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">부활+불사</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">실베스타 · 여포 · 오르카 · 칼헤론</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">실베스타 · 여포 · 오르카 · 칼헤론</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(8)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/6tjdqnftk.webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">불사</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">란드그리드 · 라드그리드 · 트루드 · 아리스</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">란드그리드 · 라드그리드 · 트루드 · 아리스</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(9)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/6tjdqnftk(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">불사+권능</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">아리스 · 루디 · 겔리두스 · 아리스</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">아리스 · 루디 · 겔리두스 · 아리스</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(10)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/6tjdqnftk.webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">불사+부활</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">델론즈 · 선란 · 델론즈 · 란드그리드</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">델론즈 · 선란 · 델론즈 · 란드그리드</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(11)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">https://i.ibb.co/LXqDCnV8/6tjdrnjsrl.webp</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 선란 · 델론즈 · 란드그리드</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 선란 · 델론즈 · 란드그리드</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(12)" style="white-space:nowrap;">📥 불러오기</button>
@@ -840,8 +844,8 @@
     <div class="gcd-search-box" id="gcd-add-atk-section" style="display: none; background: rgb(253, 242, 248); border-color: rgb(251, 207, 232);">
       <div class="gcd-quick-title" style="color:#be185d;" id="atk-form-title">✏️ 카운터덱 수정</div>
       <input type="hidden" id="custom-atk-id" value="atk_1787844372604">
-      <label class="gcd-label">공격덱 이름 (대표 영웅 이름으로 자동 생성됨)</label>
-      <input type="text" id="custom-atk-name" class="gcd-input" readonly="" style="background:#f3f4f6; color:#6b7280; cursor:not-allowed;">
+      <label class="gcd-label" style="display:none;">공격덱 이름 (대표 영웅 이름으로 자동 생성됨)</label>
+      <input type="text" id="custom-atk-name" class="gcd-input" readonly="" style="display:none;">
       <label class="gcd-label">검색 키워드 (쉼표로 구분)</label>
       <input type="text" id="custom-atk-keywords" class="gcd-input">
 
@@ -1363,8 +1367,8 @@
     <div class="gcd-search-box" id="gcd-add-def-section" style="display: none; background: rgb(239, 246, 255); border-color: rgb(191, 219, 254);">
       <div class="gcd-quick-title" style="color:#1d4ed8;" id="def-form-title">✏️ 방어 세팅 덱 수정</div>
       <input type="hidden" id="custom-def-id" value="">
-      <label class="gcd-label">방어덱 이름 (대표 영웅 이름으로 자동 생성됨)</label>
-      <input type="text" id="custom-def-name" class="gcd-input" readonly="" style="background:#f3f4f6; color:#6b7280; cursor:not-allowed;">
+      <label class="gcd-label" style="display:none;">방어덱 이름 (대표 영웅 이름으로 자동 생성됨)</label>
+      <input type="text" id="custom-def-name" class="gcd-input" readonly="" style="display:none;">
       <label class="gcd-label">검색 키워드</label>
       <input type="text" id="custom-def-keywords" class="gcd-input">
 
@@ -1421,8 +1425,8 @@
     <div class="gcd-search-box" id="gcd-add-tot-section" style="display: block; background: rgb(255, 247, 237); border-color: rgb(254, 215, 170);">
       <div class="gcd-quick-title" style="color:#c2410c;" id="tot-form-title">➕ 공격덱 [저스펙용] 추가</div>
       <input type="hidden" id="custom-tot-id" value="">
-      <label class="gcd-label">공격덱 [저스펙용] 이름 (대표 영웅 이름으로 자동 생성됨)</label>
-      <input type="text" id="custom-tot-name" class="gcd-input" readonly="" style="background:#f3f4f6; color:#6b7280; cursor:not-allowed;">
+      <label class="gcd-label" style="display:none;">공격덱 [저스펙용] 이름 (대표 영웅 이름으로 자동 생성됨)</label>
+      <input type="text" id="custom-tot-name" class="gcd-input" readonly="" style="display:none;">
       <label class="gcd-label">검색 키워드 (쉼표로 구분)</label>
       <input type="text" id="custom-tot-keywords" class="gcd-input">
 
@@ -2612,16 +2616,16 @@
     const listEl = document.getElementById('load-slot-list');
     const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     if(loadSlotFiltered.length === 0){
-      listEl.innerHTML = `<p style="color:#6b7280; font-size:13px;">불러올 영웅이 없습니다.</p>`;
+      listEl.innerHTML = `<p style="color:#8b95ac; font-size:13px;">불러올 영웅이 없습니다.</p>`;
       return;
     }
     listEl.innerHTML = loadSlotFiltered.map((item, idx) => `
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           ${item.slot.img ? `<img referrerpolicy="no-referrer" src="${item.slot.img}" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">` : ''}
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">${esc(item.slot.name) || '(이름 없음)'}</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${esc(item.deckName)} · ${esc(item.comboTitle)}</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${esc(item.deckName)} · ${esc(item.comboTitle)}</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(${idx})" style="white-space:nowrap;">📥 불러오기</button>
@@ -2724,16 +2728,16 @@
     const listEl = document.getElementById('load-ring-list');
     const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     if(loadRingFiltered.length === 0){
-      listEl.innerHTML = `<p style="color:#6b7280; font-size:13px;">불러올 반지가 없습니다.</p>`;
+      listEl.innerHTML = `<p style="color:#8b95ac; font-size:13px;">불러올 반지가 없습니다.</p>`;
       return;
     }
     listEl.innerHTML = loadRingFiltered.map((item, idx) => `
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           ${item.img ? `<img referrerpolicy="no-referrer" src="${item.img}" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">` : ''}
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">${esc(item.name) || '(이름 없음)'}</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${esc(item.heroName)} · ${esc(item.deckName)}</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${esc(item.heroName)} · ${esc(item.deckName)}</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(${idx})" style="white-space:nowrap;">📥 불러오기</button>
@@ -2831,16 +2835,16 @@
     const listEl = document.getElementById('load-pet-list');
     const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     if(loadPetFiltered.length === 0){
-      listEl.innerHTML = `<p style="color:#6b7280; font-size:13px;">불러올 펫이 없습니다.</p>`;
+      listEl.innerHTML = `<p style="color:#8b95ac; font-size:13px;">불러올 펫이 없습니다.</p>`;
       return;
     }
     listEl.innerHTML = loadPetFiltered.map((item, idx) => `
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           ${item.pet.img ? `<img referrerpolicy="no-referrer" src="${item.pet.img}" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">` : ''}
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">${esc(item.pet.name) || '(이름 없음)'}</div>
-            <div style="font-size:11px; color:#6b7280; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${esc(item.deckName)} · ${esc(item.comboTitle)}</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${esc(item.deckName)} · ${esc(item.comboTitle)}</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(${idx})" style="white-space:nowrap;">📥 불러오기</button>
@@ -2920,11 +2924,11 @@
     const listEl = document.getElementById('load-title-list');
     const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     if(loadTitleFiltered.length === 0){
-      listEl.innerHTML = `<p style="color:#6b7280; font-size:13px;">불러올 영웅이 없습니다.</p>`;
+      listEl.innerHTML = `<p style="color:#8b95ac; font-size:13px;">불러올 영웅이 없습니다.</p>`;
       return;
     }
     listEl.innerHTML = loadTitleFiltered.map((h, idx) => `
-      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">` : ''}
           <div style="font-weight:900; font-size:13px;">${esc(h.name) || '(이름 없음)'}</div>
@@ -3632,7 +3636,7 @@
                   <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
                     ${standardBadgeHtml}
                     ${winOrNotRecBadgeHtml}
-                    <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
+                    <span style="font-size:11px; background:var(--red-soft); color:var(--red); padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
                     ${standardToggleHtml}
                     ${notRecommendedToggleHtml}
                   </span>
@@ -3694,7 +3698,7 @@
               </div>
               <div class="gcd-atk-card-item" style="margin-top:0;">
                 <div class="gcd-atk-card-title" style="justify-content:flex-end;">
-                  <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">${item.formation || '기본 진형'}</span>
+                  <span style="font-size:11px; background:var(--red-soft); color:var(--red); padding:2px 8px; border-radius:6px;">${item.formation || '기본 진형'}</span>
                 </div>
                 <div class="counter-body-formation-row">
                   ${orderSideHtml}
@@ -3743,7 +3747,7 @@
               <div class="gcd-atk-card-item">
                 <div class="gcd-atk-card-title" style="justify-content:flex-end;">
                   <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                    <span style="font-size:11px; background:#fce7f3; color:#be185d; padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
+                    <span style="font-size:11px; background:var(--red-soft); color:var(--red); padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
                   </span>
                 </div>
                 ${generateVideoEmbedHtml(c.videoUrl)}
@@ -4016,10 +4020,10 @@
     ];
     let html = `<h3 style="margin:0 0 8px 0; font-size:15px; font-weight:900;">📌 탭 바로가기</h3>`;
     tabLinks.forEach(t => {
-      html += `<div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+      html += `<div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
         <span style="font-weight:800; min-width:140px;">${t.label}</span>
-        <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">${t.url}</span>
-        <button onclick="navigator.clipboard.writeText('${t.url}').then(()=>{this.textContent='✅ 복사됨';setTimeout(()=>this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+        <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">${t.url}</span>
+        <button onclick="navigator.clipboard.writeText('${t.url}').then(()=>{this.textContent='✅ 복사됨';setTimeout(()=>this.textContent='복사',1200);})" style="font-size:12px; background:var(--blue-soft); color:var(--blue); border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
       </div>`;
     });
 
@@ -4030,26 +4034,26 @@
       items.forEach(item => {
         const kws = (item.keywords || []).filter(Boolean);
         if (kws.length === 0) return;
-        html += `<div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
+        html += `<div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">${item.name}</div>`;
         kws.forEach(kw => {
           const url = `${base}?deck=${encodeURIComponent(kw)}`;
           const isTypo = looksLikeTypo(kw);
           const isDup = seenKeywords.has(kw);
           seenKeywords.set(kw, (seenKeywords.get(kw) || 0) + 1);
-          html += `<div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
+          html += `<div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid var(--border);">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/${kw}</span>
-            ${isTypo ? `<span style="font-size:11px; background:#fee2e2; color:#b91c1c; padding:2px 6px; border-radius:6px;">⚠️ 이상한 문자 의심</span>` : ''}
-            ${isDup ? `<span style="font-size:11px; background:#fef3c7; color:#92600a; padding:2px 6px; border-radius:6px;">⚠️ 중복 키워드</span>` : ''}
-            <span style="font-size:12px; color:#6b7280; flex:1; word-break:break-all;">${url}</span>
-            <button onclick="navigator.clipboard.writeText('${url}').then(()=>{this.textContent='✅ 복사됨';setTimeout(()=>this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            ${isTypo ? `<span style="font-size:11px; background:#f6e9e5; color:#b1503a; padding:2px 6px; border-radius:2px;">⚠️ 이상한 문자 의심</span>` : ''}
+            ${isDup ? `<span style="font-size:11px; background:#f4efe3; color:#8a6d3b; padding:2px 6px; border-radius:2px;">⚠️ 중복 키워드</span>` : ''}
+            <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">${url}</span>
+            <button onclick="navigator.clipboard.writeText('${url}').then(()=>{this.textContent='✅ 복사됨';setTimeout(()=>this.textContent='복사',1200);})" style="font-size:12px; background:var(--blue-soft); color:var(--blue); border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div>`;
         });
         html += `</div>`;
       });
     });
 
-    if (!html) html = `<p style="color:#6b7280; font-size:13px;">등록된 덱/키워드가 없습니다.</p>`;
+    if (!html) html = `<p style="color:#8b95ac; font-size:13px;">등록된 덱/키워드가 없습니다.</p>`;
     document.getElementById('deeplink-table-body').innerHTML = html;
   }
 
