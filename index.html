@@ -2023,9 +2023,9 @@
   let atkSubFilter = '공덱'; // 공격덱 하위 탭: 공덱 / 마덱 / 방덱
   let totSubFilter = '공덱'; // 공격덱 [저스펙용] 하위 탭: 공덱 / 마덱 / 방덱
   let activeDeckName = null;
-  let atkData = [...INITIAL_ATK_DB];
-  let defData = [...INITIAL_DEF_DB];
-  let totData = [...INITIAL_TOT_DB];
+  let atkData = []; // Firestore 로딩 전까지는 비워둠 (예전 더미 데이터가 잠깐 보였다 바뀌는 깜빡임 방지)
+  let defData = [];
+  let totData = [];
   let statsData = {}; // { "atk_4_0": { wins: 3, losses: 1, isStandard: true } } - 카운터 조합별 승/패 기록 + ⭐정석 파훼덱 수동 태그
 
   const adminBtn = document.getElementById('admin-mode-btn');
