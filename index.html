@@ -349,7 +349,7 @@
       <div id="tab-total" class="nav-link active-total">⚔️ 공격덱</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
     </div>
-    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 24명</div>
+    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 7명</div>
     <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
   </div>
 
@@ -360,7 +360,7 @@
         <span>📢 길드전 및 총력전 세팅</span>
         <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display: inline-block;">✏️ 수정</button>
       </div>
-      <div id="notice-content">• 신박한 조합 발견 또는 자료 추가 할 시 아이소이에게 문의</div>
+      <div id="notice-content">★★ 공격덱에 없는 부분은 시트지 활용 부탁드립니다.<br><br>데이터 수집 중입니다.<br><br>보시다가 애매하거나 추가해야 할 문의사항 있을 시 운영진 문의<br></div>
       <div id="notice-edit-area" style="display:none; margin-top:8px;">
         <textarea id="notice-edit-textarea" class="gcd-input" style="width:100%; height:140px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
         <div style="display:flex; gap:8px; margin-top:8px;">
@@ -372,7 +372,7 @@
 
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
-      <button class="add-btn" id="toggle-add-btn" style="display: flex;">닫기</button>
+      <button class="add-btn" id="toggle-add-btn" style="display: flex;">+ 덱 추가하기</button>
       <button class="add-btn" id="show-deeplink-table-btn" style="display: flex; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
     </div>
 
@@ -385,139 +385,139 @@
         <div id="deeplink-table-body"><h3 style="margin:0 0 8px 0; font-size:15px; font-weight:900;">📌 탭 바로가기</h3><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
         <span style="font-weight:800; min-width:140px;">🛡️ 방어덱 탭 전체 보기</span>
         <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?tab=def</span>
-        <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?tab=def&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+        <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?tab=def').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
       </div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
         <span style="font-weight:800; min-width:140px;">🔥 총력덱 탭 전체 보기</span>
         <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?tab=total</span>
-        <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?tab=total&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+        <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?tab=total').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
       </div><h3 style="margin:20px 0 8px 0; font-size:15px; font-weight:900;">⚔️ 공격덱 (8개)</h3><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">밀리아 · 스쿨드 · 실베스타</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/밀리아</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EB%A6%AC%EC%95%84</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EB%A6%AC%EC%95%84&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EB%A6%AC%EC%95%84').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/스쿨드</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%8A%A4%EC%BF%A8%EB%93%9C</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%8A%A4%EC%BF%A8%EB%93%9C&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EC%8A%A4%EC%BF%A8%EB%93%9C').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/실베스타</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%8B%A4%EB%B2%A0%EC%8A%A4%ED%83%80</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%8B%A4%EB%B2%A0%EC%8A%A4%ED%83%80&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EC%8B%A4%EB%B2%A0%EC%8A%A4%ED%83%80').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/밀스실</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%EC%8B%A4</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%EC%8B%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%EC%8B%A4').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">밀리아 · 스쿨드 · 클레미스</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/밀스클</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%ED%81%B4</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%ED%81%B4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%80%EC%8A%A4%ED%81%B4').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">아리스 · 겔리두스 · 델론즈</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/아리스</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/겔리두스</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/델론즈</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%8D%B8%EB%A1%A0%EC%A6%88</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%8D%B8%EB%A1%A0%EC%A6%88&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EB%8D%B8%EB%A1%A0%EC%A6%88').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/아겔델</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EA%B2%94%EB%8D%B8</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EA%B2%94%EB%8D%B8&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EA%B2%94%EB%8D%B8').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/겔델아</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%8D%B8%EC%95%84</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%8D%B8%EC%95%84&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%8D%B8%EC%95%84').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/아델겔</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%8D%B8%EA%B2%94</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%8D%B8%EA%B2%94&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%8D%B8%EA%B2%94').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">아리스 · 겔리두스 · 루디 · 클레미스</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/아리스</span>
             
             <span style="font-size:11px; background:#fef3c7; color:#92600a; padding:2px 6px; border-radius:6px;">⚠️ 중복 키워드</span>
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EC%95%84%EB%A6%AC%EC%8A%A4').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/겔리두스</span>
             
             <span style="font-size:11px; background:#fef3c7; color:#92600a; padding:2px 6px; border-radius:6px;">⚠️ 중복 키워드</span>
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EA%B2%94%EB%A6%AC%EB%91%90%EC%8A%A4').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/루디</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%A3%A8%EB%94%94</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%A3%A8%EB%94%94&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EB%A3%A8%EB%94%94').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/클레미스</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%ED%81%B4%EB%A0%88%EB%AF%B8%EC%8A%A4</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%ED%81%B4%EB%A0%88%EB%AF%B8%EC%8A%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%ED%81%B4%EB%A0%88%EB%AF%B8%EC%8A%A4').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/방덱</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%A9%EB%8D%B1</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%A9%EB%8D%B1&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EB%B0%A9%EB%8D%B1').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">여포 · 델론즈 · 칼헤론</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/여델칼</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EB%8D%B8%EC%B9%BC</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EB%8D%B8%EC%B9%BC&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EB%8D%B8%EC%B9%BC').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">여포 · 오르카 · 칼헤론</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/여오칼</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EC%98%A4%EC%B9%BC</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EC%98%A4%EC%B9%BC&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EC%97%AC%EC%98%A4%EC%B9%BC').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">윤건 · 동영 · 스쿨드</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/윤동</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div></div><div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">윤건 · 동영 · 실베스타</div><div style="display:flex; align-items:center; gap:8px; padding:6px 0; flex-wrap:wrap; border-top:1px solid #f3f4f6;">
             <span style="font-family:monospace; font-weight:800; min-width:80px;">/윤동실</span>
             
             
             <span style="font-size:12px; color:#8b95ac; flex:1; word-break:break-all;">file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99%EC%8B%A4</span>
-            <button onclick="navigator.clipboard.writeText(&#39;file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99%EC%8B%A4&#39;).then(()=&gt;{this.textContent=&#39;✅ 복사됨&#39;;setTimeout(()=&gt;this.textContent=&#39;복사&#39;,1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
+            <button onclick="navigator.clipboard.writeText('file:///C:/Users/59598/Downloads/index.html?deck=%EC%9C%A4%EB%8F%99%EC%8B%A4').then(()=&gt;{this.textContent='✅ 복사됨';setTimeout(()=&gt;this.textContent='복사',1200);})" style="font-size:12px; background:#eef2ff; color:#4338ca; border:none; padding:5px 10px; border-radius:6px; font-weight:800; cursor:pointer; white-space:nowrap;">복사</button>
           </div></div></div>
       </div>
     </div>
@@ -532,8 +532,8 @@
         <div id="load-title-list">
       <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
-          <div style="font-weight:900; font-size:13px;">클레미스</div>
+          <img referrerpolicy="no-referrer" src="./index_files/dbsrjs.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="font-weight:900; font-size:13px;">윤건</div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadTitleHero(0)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
@@ -639,13 +639,24 @@
     
       <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/wpqm.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0;">
+            <div style="font-weight:900; font-size:13px;">제브</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">연희 · 동영 · 윤건 · 1. 조합 세트</div>
+          </div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(8)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <img referrerpolicy="no-referrer" src="./index_files/2026-08-15-004940.png" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">제오</div>
             <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">동영 · 스쿨드 · 실베스타 · 1. 조합 세트</div>
           </div>
         </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(8)" style="white-space:nowrap;">📥 불러오기</button>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(9)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     
       <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
@@ -656,7 +667,7 @@
             <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">라드그리드 · 루디 · 아리스 · 1. 조합 세트</div>
           </div>
         </div>
-        <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(9)" style="white-space:nowrap;">📥 불러오기</button>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadPet(10)" style="white-space:nowrap;">📥 불러오기</button>
       </div>
     </div>
       </div>
@@ -672,10 +683,10 @@
         <div id="load-slot-list">
       <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/gpffpsldk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
-            <div style="font-weight:900; font-size:13px;">클레미스</div>
-            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 · 델론즈 · 클레미스 · 조합</div>
+            <div style="font-weight:900; font-size:13px;">헬레니아</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">밀리아 · 스쿨드 · 클레미스 · 1. 조합 세트</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadSlot(0)" style="white-space:nowrap;">📥 불러오기</button>
@@ -771,10 +782,10 @@
     
       <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
         <div style="display:flex; align-items:center; gap:10px; min-width:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf.webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf(1).webp" style="width:32px; height:32px; border-radius:8px; object-fit:cover; flex-shrink:0;">
           <div style="min-width:0;">
             <div style="font-weight:900; font-size:13px;">부활+권능</div>
-            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">루디 · 루디 · 겔리두스 · 아리스</div>
+            <div style="font-size:11px; color:#8b95ac; margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">헬레니아 · 연희 · 동영 · 윤건</div>
           </div>
         </div>
         <button type="button" class="btn-mini-edit" onclick="window.applyLoadRing(7)" style="white-space:nowrap;">📥 불러오기</button>
@@ -850,10 +861,10 @@
 
       <label class="gcd-label">🖼️ 목록에 표시할 대표 영웅 이미지 (최대 4명, 선택사항 — 안 넣으면 예전처럼 텍스트로 표시됨)</label>
       <div class="slot-input-grid" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 1</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;def&#39;, 0)">📥</button></div><input type="text" id="def-title-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-title-img-0" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 2</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;def&#39;, 1)">📥</button></div><input type="text" id="def-title-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-title-img-1" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 3</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;def&#39;, 2)">📥</button></div><input type="text" id="def-title-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-title-img-2" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 4</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;def&#39;, 3)">📥</button></div><input type="text" id="def-title-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-title-img-3" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 1</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('def', 0)">📥</button></div><input type="text" id="def-title-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-title-img-0" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 2</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('def', 1)">📥</button></div><input type="text" id="def-title-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-title-img-1" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 3</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('def', 2)">📥</button></div><input type="text" id="def-title-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-title-img-2" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 4</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('def', 3)">📥</button></div><input type="text" id="def-title-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-title-img-3" placeholder="이미지 URL"></div>
       </div>
       
       <label class="gcd-label">📍 진형 선택</label>
@@ -875,18 +886,18 @@
 
       <label class="gcd-label">📍 후열 영웅 (최대 4칸, 이름은 이미지 밑에 표시됨)</label>
       <div class="slot-input-grid" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal(&#39;back&#39;, 0)">📥영웅</button></div><input type="text" id="def-back-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-0" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;back&#39;, 0, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;back&#39;, 0, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-0" placeholder="반지1 이름"><input type="text" id="def-back-ring1-0" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-0" placeholder="반지2 이름"><input type="text" id="def-back-ring2-0" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal(&#39;back&#39;, 1)">📥영웅</button></div><input type="text" id="def-back-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-1" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;back&#39;, 1, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;back&#39;, 1, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-1" placeholder="반지1 이름"><input type="text" id="def-back-ring1-1" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-1" placeholder="반지2 이름"><input type="text" id="def-back-ring2-1" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 3</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal(&#39;back&#39;, 2)">📥영웅</button></div><input type="text" id="def-back-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-2" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;back&#39;, 2, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;back&#39;, 2, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-2" placeholder="반지1 이름"><input type="text" id="def-back-ring1-2" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-2" placeholder="반지2 이름"><input type="text" id="def-back-ring2-2" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 4</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal(&#39;back&#39;, 3)">📥영웅</button></div><input type="text" id="def-back-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-3" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;back&#39;, 3, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;back&#39;, 3, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-3" placeholder="반지1 이름"><input type="text" id="def-back-ring1-3" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-3" placeholder="반지2 이름"><input type="text" id="def-back-ring2-3" placeholder="반지2 이미지 URL"></div></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('back', 0)">📥영웅</button></div><input type="text" id="def-back-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-0" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 0, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 0, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-0" placeholder="반지1 이름"><input type="text" id="def-back-ring1-0" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-0" placeholder="반지2 이름"><input type="text" id="def-back-ring2-0" placeholder="반지2 이미지 URL"></div></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('back', 1)">📥영웅</button></div><input type="text" id="def-back-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-1" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 1, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 1, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-1" placeholder="반지1 이름"><input type="text" id="def-back-ring1-1" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-1" placeholder="반지2 이름"><input type="text" id="def-back-ring2-1" placeholder="반지2 이미지 URL"></div></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 3</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('back', 2)">📥영웅</button></div><input type="text" id="def-back-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-2" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 2, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 2, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-2" placeholder="반지1 이름"><input type="text" id="def-back-ring1-2" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-2" placeholder="반지2 이름"><input type="text" id="def-back-ring2-2" placeholder="반지2 이미지 URL"></div></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 4</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('back', 3)">📥영웅</button></div><input type="text" id="def-back-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-3" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 3, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 3, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-3" placeholder="반지1 이름"><input type="text" id="def-back-ring1-3" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-3" placeholder="반지2 이름"><input type="text" id="def-back-ring2-3" placeholder="반지2 이미지 URL"></div></div>
       </div>
 
       <label class="gcd-label">📍 전열 영웅 (최대 4칸, 이름은 이미지 밑에 표시됨)</label>
       <div class="slot-input-grid" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal(&#39;front&#39;, 0)">📥영웅</button></div><input type="text" id="def-front-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-0" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;front&#39;, 0, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;front&#39;, 0, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-0" placeholder="반지1 이름"><input type="text" id="def-front-ring1-0" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-0" placeholder="반지2 이름"><input type="text" id="def-front-ring2-0" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal(&#39;front&#39;, 1)">📥영웅</button></div><input type="text" id="def-front-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-1" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;front&#39;, 1, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;front&#39;, 1, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-1" placeholder="반지1 이름"><input type="text" id="def-front-ring1-1" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-1" placeholder="반지2 이름"><input type="text" id="def-front-ring2-1" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 3</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal(&#39;front&#39;, 2)">📥영웅</button></div><input type="text" id="def-front-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-2" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;front&#39;, 2, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;front&#39;, 2, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-2" placeholder="반지1 이름"><input type="text" id="def-front-ring1-2" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-2" placeholder="반지2 이름"><input type="text" id="def-front-ring2-2" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 4</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal(&#39;front&#39;, 3)">📥영웅</button></div><input type="text" id="def-front-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-3" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;front&#39;, 3, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal(&#39;front&#39;, 3, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-3" placeholder="반지1 이름"><input type="text" id="def-front-ring1-3" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-3" placeholder="반지2 이름"><input type="text" id="def-front-ring2-3" placeholder="반지2 이미지 URL"></div></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('front', 0)">📥영웅</button></div><input type="text" id="def-front-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-0" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 0, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 0, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-0" placeholder="반지1 이름"><input type="text" id="def-front-ring1-0" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-0" placeholder="반지2 이름"><input type="text" id="def-front-ring2-0" placeholder="반지2 이미지 URL"></div></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('front', 1)">📥영웅</button></div><input type="text" id="def-front-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-1" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 1, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 1, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-1" placeholder="반지1 이름"><input type="text" id="def-front-ring1-1" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-1" placeholder="반지2 이름"><input type="text" id="def-front-ring2-1" placeholder="반지2 이미지 URL"></div></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 3</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('front', 2)">📥영웅</button></div><input type="text" id="def-front-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-2" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 2, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 2, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-2" placeholder="반지1 이름"><input type="text" id="def-front-ring1-2" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-2" placeholder="반지2 이름"><input type="text" id="def-front-ring2-2" placeholder="반지2 이미지 URL"></div></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 4</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('front', 3)">📥영웅</button></div><input type="text" id="def-front-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-3" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 3, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 3, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-3" placeholder="반지1 이름"><input type="text" id="def-front-ring1-3" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-3" placeholder="반지2 이름"><input type="text" id="def-front-ring2-3" placeholder="반지2 이미지 URL"></div></div>
       </div>
 
       <label class="gcd-label" style="margin-top:10px;">⚡ 스킬순서 / 속공순서 (진형판 왼쪽에 표시됨, 선택사항)</label>
@@ -898,7 +909,7 @@
     </div>
 
     <!-- 폼 영역 (공격덱 추가) -->
-    <div class="gcd-search-box" id="gcd-add-tot-section" style="display: block; background: rgb(255, 247, 237); border-color: rgb(254, 215, 170);">
+    <div class="gcd-search-box" id="gcd-add-tot-section" style="display: none; background: rgb(255, 247, 237); border-color: rgb(254, 215, 170);">
       <div class="gcd-quick-title" style="color:#c2410c;" id="tot-form-title">➕ 공격덱 추가</div>
       <input type="hidden" id="custom-tot-id" value="">
       <label class="gcd-label" style="display:none;">공격덱 이름 (대표 영웅 이름으로 자동 생성됨)</label>
@@ -915,18 +926,18 @@
 
       <label class="gcd-label">🖼️ 목록에 표시할 대표 영웅 이미지 (최대 4명, 선택사항 — 안 넣으면 예전처럼 텍스트로 표시됨)</label>
       <div class="slot-input-grid" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 1</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;tot&#39;, 0)">📥</button></div><input type="text" id="tot-title-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-0" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 2</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;tot&#39;, 1)">📥</button></div><input type="text" id="tot-title-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-1" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 3</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;tot&#39;, 2)">📥</button></div><input type="text" id="tot-title-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-2" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 4</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal(&#39;tot&#39;, 3)">📥</button></div><input type="text" id="tot-title-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-3" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 1</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 0)">📥</button></div><input type="text" id="tot-title-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-0" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 2</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 1)">📥</button></div><input type="text" id="tot-title-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-1" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 3</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 2)">📥</button></div><input type="text" id="tot-title-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-2" placeholder="이미지 URL"></div>
+        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 4</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 3)">📥</button></div><input type="text" id="tot-title-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="tot-title-img-3" placeholder="이미지 URL"></div>
       </div>
       
       <div id="tot-counter-builder">
         <label class="gcd-label" style="font-size:14px; color:#c2410c; margin-top:12px;">⚔️ 카운터 조합 구성 (여러 개 추가 가능)</label>
-        <div id="tot-cards-container"><div class="tot-builder-box" data-cid="cmtohxkrfkjzf9a">
+        <div id="tot-cards-container"><div class="tot-builder-box" data-cid="cmtzo3yierfdfow">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <b>조합 #1</b>
-          <button type="button" class="btn-mini-del" onclick="window.removeBuilderCard(&#39;t&#39;, 0)">삭제</button>
+          <button type="button" class="btn-mini-del" onclick="window.removeBuilderCard('t', 0)">삭제</button>
         </div>
         <label class="gcd-label">조합 타이틀 (상대 조합 이름, 예: 라드그리드 · 손오공 · 아리스)</label>
         <input type="text" class="gcd-input t-title" value="1. 조합 세트" placeholder="예: 1. 라드그리드 · 손오공 · 아리스">
@@ -1179,6 +1190,9 @@
           <div class="slot-input-box"><label>펫 2 이미지 URL</label><input type="text" class="gcd-input t-pet-img-1" value="" placeholder="이미지 URL"></div>
         </div>
 
+        <label class="gcd-label" style="margin-top:10px;">🎥 영상 링크 (유튜브 - 카드에서 바로 재생됨, 선택사항)</label>
+        <input type="text" class="gcd-input t-video" value="" placeholder="예: https://youtu.be/XXXXXXXXXXX 또는 https://www.youtube.com/watch?v=XXXXXXXXXXX">
+
         <label class="gcd-label" style="margin-top:10px;">상세 공략 내용 (줄바꿈 가능)</label>
         <textarea class="gcd-textarea t-body" style="height:60px;" placeholder="스킬 순서 및 세팅"></textarea>
       </div></div>
@@ -1209,7 +1223,107 @@
         <div>영웅 구성</div>
         <div style="text-align: center;">상세 공략 열기</div>
       </div>
-      <div id="gcd-deck-buttons"><p style="text-align:center; color:#9ca3af; padding:40px 0;">불러오는 중...</p></div>
+      <div id="gcd-deck-buttons"><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
+        <div><button class="detail-btn">상세 공략 열기</button></div>
+      </div><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div></div></div>
+        <div><button class="detail-btn">상세 공략 열기</button></div>
+      </div><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" alt="하연"><span>하연</span></div></div></div>
+        <div><button class="detail-btn">상세 공략 열기</button></div>
+      </div><div class="list-item active-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
+        <div><button class="detail-btn active-btn">접기 ▲</button></div>
+      </div><div class="accordion-content">
+            <div class="gcd-result-card">
+              <div class="gcd-res-target">
+                <span style="font-size:18px; color:var(--ink); font-weight:900;">⚔️ [ 여포 · 오르카 · 칼헤론 ] 카운터</span>
+                <span>
+            <button class="btn-mini-edit" onclick="window.editDeckItem('tot_1788615298183')">✏️ 수정</button>
+            <button class="btn-mini-del" onclick="window.deleteDeckItem('tot_1788615298183')">🗑️ 삭제</button>
+          </span>
+              </div>
+              <div class="gcd-info-block gcd-atk-block">
+                <div class="title">⚔️ 카운터 상세 공략</div>
+                
+              <div class="gcd-atk-card-item">
+                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
+                  <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                    <span style="font-size:11px; background:var(--red-soft); color:var(--red); padding:2px 8px; border-radius:6px;">밸런스 진형</span>
+                  </span>
+                </div>
+                
+                <div class="counter-body-formation-row">
+                  
+                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">
+      <div class="formation-board">
+        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="hero"></div><div class="formation-slot-name">여포</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/qmfkswm.webp" alt="hero"></div><div class="formation-slot-name">브란즈&amp;브란셀</div></div></div>
+        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="hero"></div><div class="formation-slot-name">칼헤론</div></div></div>
+        
+      </div>
+    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img referrerpolicy="no-referrer" src="./index_files/dlfls.png" alt="이린"></div><div class="formation-slot-name">이린</div></div></div></div></div></div>
+                </div>
+                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">- 여포
+장비 : 추적자
+세팅 : 효저 최대한 챙기기
+
+- 칼헤론
+세팅 : 팀 내 공격력 1순위 필수
+
+- 브란즈&amp;브란셀
+장비 : 추적자, 조율자
+세팅 : 약공 효저 땡기기
+tip 조율자 팀 내 속공 3순위 필수</div>
+              </div>
+            
+              <div class="gcd-atk-card-item">
+                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
+                  <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                    <span style="font-size:11px; background:var(--red-soft); color:var(--red); padding:2px 8px; border-radius:6px;">기본 진형</span>
+                  </span>
+                </div>
+                
+                <div class="counter-body-formation-row">
+                  
+              <div class="counter-order-side">
+                <div><span class="counter-order-label">스킬순서</span>연희2 실베1 실베2</div>
+                
+                <div><span class="counter-order-label">속공순서</span>속공 필수로 따야함 ★★★</div>
+              </div>
+            
+                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">
+      <div class="formation-board">
+        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="ring-pair"><div class="ring-item"><img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl(1).webp" alt="권능"><span class="ring-name">권능</span></div><div class="ring-item"><img referrerpolicy="no-referrer" src="./index_files/6tjdqnftk.webp" alt="불사"><span class="ring-name">불사</span></div></div><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/dusgml.webp" alt="hero"></div><div class="formation-slot-name">연희</div></div><div class="formation-slot-wrap"><div class="ring-pair"><div class="ring-item"><img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl(1).webp" alt="권능"><span class="ring-name">권능</span></div><div class="ring-item"><img referrerpolicy="no-referrer" src="./index_files/6tjdqnftk.webp" alt="불사"><span class="ring-name">불사</span></div></div><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/vmfpdldi.webp" alt="hero"></div><div class="formation-slot-name">프레이야</div></div><div class="formation-slot-wrap"><div class="ring-pair"><div class="ring-item"><img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf(1).webp" alt="부활+불사"><span class="ring-name">부활+불사</span></div></div><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" alt="hero"></div><div class="formation-slot-name">실베스타</div></div></div>
+        
+        
+      </div>
+    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img referrerpolicy="no-referrer" src="./index_files/zmfl.png" alt="크리"></div><div class="formation-slot-name">크리</div></div></div></div></div></div>
+                </div>
+                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">- 연희 
+장비 : 암살자 치치공공
+
+- 프레이야
+장비 : 조율자 
+세팅 : 효저100, 적당한 효적
+★ 팀 내 공격력 1순위 필수
+
+- 실베스타
+장비 : 추적자 효약공공
+세팅 : 효적이 높을수록 좋음</div>
+              </div>
+            
+              </div>
+            </div>
+          </div><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
+        <div><button class="detail-btn">상세 공략 열기</button></div>
+      </div></div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -3043,8 +3157,11 @@
         } else {
           let countersHtml = '';
           let cList = (item.counters || []).map((c, idx) => ({ c, idx }));
-          // 승률 높은 조합이 위로 오도록 정렬 (⭐정석 최상단 → 승률순 → 🚫비추천은 항상 맨 아래, 원래 저장 순서는 안 바뀜 - 화면 표시 순서만 바뀜)
+          // 영상 있는 조합이 제일 위로 → 승률 높은 조합이 그 다음 (⭐정석 → 승률순 → 🚫비추천은 항상 맨 아래, 원래 저장 순서는 안 바뀜 - 화면 표시 순서만 바뀜)
           cList.sort((a, b) => {
+            const va = !!(a.c.videoUrl && a.c.videoUrl.trim());
+            const vb = !!(b.c.videoUrl && b.c.videoUrl.trim());
+            if (va !== vb) return va ? -1 : 1; // 🎥 영상이 있는 조합이 항상 최상단
             const keyA = getComboKey(item.id, a.c, a.idx), keyB = getComboKey(item.id, b.c, b.idx);
             const sa = !!(statsData[keyA] && statsData[keyA].isStandard);
             const sb = !!(statsData[keyB] && statsData[keyB].isStandard);
@@ -3388,4 +3505,4 @@
 </script>
   </div>
 
-</body></html>
+</div></body></html>
