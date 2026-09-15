@@ -237,6 +237,9 @@
     }
     .formation-slot:hover { border-color: var(--orange); }
     .formation-slot img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; pointer-events: none; }
+    .skillorder-icon-wrap, .skillorder-icon-img { width: 70px; height: 70px; }
+    .skillorder-icon-img { border-radius: 4px; object-fit: cover; border: 1px solid var(--border); display: block; }
+    .skillorder-icon-wrap { position: relative; flex-shrink: 0; }
     .formation-slot.formation-slot-empty { background: var(--bg); border: 1px dashed var(--border); cursor: default; box-shadow: none; }
     .formation-slot.formation-slot-empty:hover { border-color: var(--border); }
     .formation-slot-wrap { display: flex; flex-direction: column; align-items: center; gap: 3px; }
@@ -298,6 +301,7 @@
 
       /* 진형 미리보기 슬롯 살짝 축소 */
       .formation-slot { width: 58px; height: 58px; font-size: 9px; }
+      .skillorder-icon-wrap, .skillorder-icon-img { width: 58px; height: 58px; }
       .ring-pair img { width: 22px; height: 22px; }
       .ring-name { font-size: 8.5px; }
 
@@ -332,6 +336,7 @@
 
     @media (max-width: 430px) {
       .formation-slot { width: 50px; height: 50px; }
+      .skillorder-icon-wrap, .skillorder-icon-img { width: 50px; height: 50px; }
       .nav-links { gap: 6px; }
       .nav-link { font-size: 12px; padding: 5px 6px; }
       .logo { font-size: 15px; }
@@ -3926,9 +3931,7 @@
       let nameLabel = item.name ? `<div class="formation-slot-name">${escName(item.name)}</div>` : '';
       let ringHtml = (item.ring1 || item.ring2) ? `<div class="ring-pair">${item.ring1 ? `<div class="ring-item"><img referrerpolicy="no-referrer" src="${item.ring1}" alt="${escName(item.ring1Name) || 'ring1'}">${item.ring1Name ? `<span class="ring-name">${escName(item.ring1Name)}</span>` : ''}</div>` : ''}${item.ring2 ? `<div class="ring-item"><img referrerpolicy="no-referrer" src="${item.ring2}" alt="${escName(item.ring2Name) || 'ring2'}">${item.ring2Name ? `<span class="ring-name">${escName(item.ring2Name)}</span>` : ''}</div>` : ''}</div>` : '';
       let emptyClass = !val ? ' formation-slot-empty' : '';
-      let slotHtml = item.info
-        ? `<div class="formation-slot${emptyClass}" onclick="window.toggleHeroInfo('${boardUniqueId}', ${item.idx})">${content}</div>`
-        : `<div class="formation-slot${emptyClass}">${content}</div>`;
+      let slotHtml = `<div class="formation-slot${emptyClass}">${content}</div>`;
       backSlots += `<div class="formation-slot-wrap">${ringHtml}${slotHtml}${nameLabel}</div>`;
     });
 
@@ -3941,31 +3944,17 @@
       let nameLabel = item.name ? `<div class="formation-slot-name">${escName(item.name)}</div>` : '';
       let ringHtml = (item.ring1 || item.ring2) ? `<div class="ring-pair">${item.ring1 ? `<div class="ring-item"><img referrerpolicy="no-referrer" src="${item.ring1}" alt="${escName(item.ring1Name) || 'ring1'}">${item.ring1Name ? `<span class="ring-name">${escName(item.ring1Name)}</span>` : ''}</div>` : ''}${item.ring2 ? `<div class="ring-item"><img referrerpolicy="no-referrer" src="${item.ring2}" alt="${escName(item.ring2Name) || 'ring2'}">${item.ring2Name ? `<span class="ring-name">${escName(item.ring2Name)}</span>` : ''}</div>` : ''}</div>` : '';
       let emptyClass = !val ? ' formation-slot-empty' : '';
-      let slotHtml = item.info
-        ? `<div class="formation-slot${emptyClass}" onclick="window.toggleHeroInfo('${boardUniqueId}', ${item.idx})">${content}</div>`
-        : `<div class="formation-slot${emptyClass}">${content}</div>`;
+      let slotHtml = `<div class="formation-slot${emptyClass}">${content}</div>`;
       frontSlots += `<div class="formation-slot-wrap">${ringHtml}${slotHtml}${nameLabel}</div>`;
     });
 
     let backSection = backSlots ? `<div class="formation-row-label">후열</div><div class="formation-slots">${backSlots}</div>` : '';
     let frontSection = frontSlots ? `<div class="formation-row-label">전열</div><div class="formation-slots">${frontSlots}</div>` : '';
 
-    let popupsHtml = '';
-    [...backItems, ...frontItems].forEach(item => {
-      if(item.info) {
-        popupsHtml += `
-          <div id="popup_${boardUniqueId}_${item.idx}" class="hero-info-popup popup-${boardUniqueId}">
-            ${item.info}
-          </div>
-        `;
-      }
-    });
-
     return `
       <div class="formation-board">
         ${backSection}
         ${frontSection}
-        ${popupsHtml}
       </div>
     `;
   }
@@ -4184,11 +4173,10 @@
             skillEntriesGear.sort((a, b) => priNumGear(a.pri) - priNumGear(b.pri));
             const skillOrderHtmlGear = skillEntriesGear.map(e => `
               <div style="text-align:center; flex-shrink:0;">
-                <div style="position:relative; width:40px; height:40px;">
-                  <img referrerpolicy="no-referrer" src="${e.img}" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-                  ${e.pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${escGear(e.pri)}</span>` : ''}
+                <div class="skillorder-icon-wrap">
+                  <img referrerpolicy="no-referrer" src="${e.img}" class="skillorder-icon-img">
+                  ${e.pri ? `<span style="position:absolute; bottom:-5px; right:-5px; background:var(--orange); color:#fff; font-size:12px; font-weight:900; width:21px; height:21px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${escGear(e.pri)}</span>` : ''}
                 </div>
-                ${e.heroImg ? `<img referrerpolicy="no-referrer" src="${e.heroImg}" style="width:36px; height:36px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:4px;">` : ''}
                 <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">${escGear(e.name)}</div>
               </div>
             `).join('');
