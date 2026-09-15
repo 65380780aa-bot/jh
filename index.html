@@ -3259,14 +3259,10 @@ tip 조율자 팀 내 속공 3순위 필수</div>
         <div style="font-weight:900; font-size:14px; color:var(--ink); margin-bottom:10px;">🗡️ 전원 장비 · 세팅 디테일</div>
         <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:12px; margin-bottom:24px;">${gearCardsHtml}</div>
 
-        <div style="font-weight:900; font-size:14px; color:var(--ink); margin-bottom:10px;">📍 배치 · 펫</div>
-        <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
-          <div style="display:flex; flex-direction:column; gap:8px; align-items:center;">
-            <div style="display:flex; gap:8px; justify-content:center;">${placementTopHeroes.map(h => placementIcon(h)).join('')}</div>
-            <div style="display:flex; gap:8px;">${placementBottomHeroes.map(h => placementIcon(h)).join('')}</div>
-          </div>
-          ${petHtml ? `<span style="width:1px; height:52px; background:var(--border); margin:0 4px;"></span><div style="text-align:center;">${petHtml}</div>` : ''}
-        </div>
+        ${petHtml ? `
+        <div style="font-weight:900; font-size:14px; color:var(--ink); margin-bottom:10px;">🐾 펫</div>
+        <div>${petHtml}</div>
+        ` : ''}
       </div>
     `;
   }
