@@ -3180,8 +3180,8 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const heroes = (item.heroes || []).filter(h => h.name || h.img);
 
-    // 스킬 예약 (영웅 초상화 + 스킬 1·2·3 아이콘, 우선순위 뱃지)
-    const skillRowHtml = heroes.map(h => `
+    // 스킬 예약 (스킬 이미지가 실제로 등록된 영웅만 표시)
+    const skillRowHtml = heroes.filter(h => h.skill1Img || h.skill2Img || h.skill3Img).map(h => `
       <div style="text-align:center; flex-shrink:0;">
         <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
           ${[[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].map(([simg, pri]) => simg ? `
@@ -3245,13 +3245,10 @@ tip 조율자 팀 내 속공 3순위 필수</div>
           <button class="btn-mini-edit" onclick="window.closeArenaDetail()" style="margin-left:0;">▲ 닫기</button>
           <div>${editControlsHtml}</div>
         </div>
-        <div style="display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; align-items:center;">
+        <div style="display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; align-items:center;">
           ${item.category ? `<span style="font-size:12px; font-weight:900; color:#241a05; background:#ffb648; padding:4px 12px; border-radius:999px;">${esc(item.category)}</span>` : ''}
           ${item.tier ? `<span style="font-size:12px; font-weight:800; color:var(--ink); background:var(--bg); border:1px solid var(--border); padding:4px 10px; border-radius:999px;">${esc(item.tier)}</span>` : ''}
           ${item.pickRate ? `<span style="font-size:12px; font-weight:800; color:var(--blue); background:var(--blue-soft); padding:4px 10px; border-radius:999px;">픽률 ${esc(item.pickRate)}</span>` : ''}
-        </div>
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-          <div style="font-size:20px; font-weight:900; color:var(--ink);">${esc(item.name)}</div>
           ${item.tag ? `<span style="font-size:12px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:4px 10px; border-radius:2px;">${esc(item.tag)}</span>` : ''}
         </div>
 
