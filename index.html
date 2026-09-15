@@ -2975,6 +2975,16 @@
         });
       });
     });
+    (totData || []).forEach(deck => {
+      (deck.counters || []).forEach(c => {
+        (c.slots || []).forEach(s => {
+          [s.skill1Img, s.skill2Img, s.skill3Img].forEach(img => {
+            if(!img) return;
+            if(!pool.has(img)) pool.set(img, { img, heroName: s.name || '' });
+          });
+        });
+      });
+    });
     return Array.from(pool.values());
   }
 
