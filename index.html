@@ -3187,19 +3187,23 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     };
     const petHtml = (item.pet && item.pet.img) ? `<img referrerpolicy="no-referrer" src="${item.pet.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);">` : '';
 
-    // 우선순위 숫자가 매겨진 스킬만, 작은 순서대로 나열 (펫 옆에 표시)
-    const prioritizedSkills = [];
-    heroes.forEach(h => {
-      [[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].forEach(([simg, pri]) => {
-        const n = parseInt(pri, 10);
-        if(simg && !isNaN(n)) prioritizedSkills.push({ img: simg, pri: n });
-      });
-    });
-    prioritizedSkills.sort((a, b) => a.pri - b.pri);
-    const skillOrderHtml = prioritizedSkills.map(s => `
-      <div style="position:relative; flex-shrink:0;">
-        <img referrerpolicy="no-referrer" src="${s.img}" style="width:30px; height:30px; border-radius:5px; object-fit:cover; border:1px solid var(--border);">
-        <span style="position:absolute; bottom:-3px; right:-3px; background:var(--orange); color:#fff; font-size:8px; font-weight:900; width:13px; height:13px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(String(s.pri))}</span>
+    // 스킬 예약 (우선순위 숫자 작은 순서대로) — 펫 옆에 표시
+    const getMinPri = (h) => {
+      const nums = [h.skill1Pri, h.skill2Pri, h.skill3Pri].map(p => parseInt(p, 10)).filter(n => !isNaN(n));
+      return nums.length ? Math.min(...nums) : Infinity;
+    };
+    const skillHeroes = heroes.filter(h => h.skill1Img || h.skill2Img || h.skill3Img).slice().sort((a, b) => getMinPri(a) - getMinPri(b));
+    const skillOrderHtml = skillHeroes.map(h => `
+      <div style="text-align:center; flex-shrink:0;">
+        <div style="display:flex; gap:2px;">
+          ${[[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].map(([simg, pri]) => simg ? `
+            <div style="position:relative;">
+              <img referrerpolicy="no-referrer" src="${simg}" style="width:28px; height:28px; border-radius:5px; object-fit:cover; border:1px solid var(--border);">
+              ${pri ? `<span style="position:absolute; bottom:-3px; right:-3px; background:var(--orange); color:#fff; font-size:8px; font-weight:900; width:13px; height:13px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(pri)}</span>` : ''}
+            </div>
+          ` : '').join('')}
+        </div>
+        <div style="font-size:9px; font-weight:800; color:var(--text-dim); margin-top:2px;">${esc(h.name)}</div>
       </div>
     `).join('');
 
