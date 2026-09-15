@@ -3113,11 +3113,9 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     const topHeroes = heroes.filter(h => h.row === 'top');
     const bottomHeroes = heroes.filter(h => h.row !== 'top');
     const iconHtml = (h, size) => {
-      const pri = h.skill1Pri || h.skill2Pri || h.skill3Pri || '';
       return `
-        <div style="position:relative; text-align:center; flex-shrink:0;">
+        <div style="text-align:center; flex-shrink:0;">
           ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:${size}px; height:${size}px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:${size}px; height:${size}px; border-radius:6px; background:var(--bg); border:1px solid var(--border);"></div>`}
-          ${pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:10px; font-weight:900; width:17px; height:17px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(pri)}</span>` : ''}
         </div>
       `;
     };
@@ -3232,8 +3230,7 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     const placementTopHeroes = placementSorted.filter(h => h.row === 'top');
     const placementBottomHeroes = placementSorted.filter(h => h.row !== 'top');
     const placementIcon = (h) => {
-      const pri = h.skill1Pri || h.skill2Pri || h.skill3Pri || '';
-      return h.img ? `<div style="position:relative; text-align:center; flex-shrink:0;"><img referrerpolicy="no-referrer" src="${h.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">${pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:10px; font-weight:900; width:17px; height:17px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(pri)}</span>` : ''}</div>` : '';
+      return h.img ? `<div style="text-align:center; flex-shrink:0;"><img referrerpolicy="no-referrer" src="${h.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);"></div>` : '';
     };
     const petHtml = (item.pet && item.pet.img) ? `<img referrerpolicy="no-referrer" src="${item.pet.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);">` : '';
 
