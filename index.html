@@ -3062,24 +3062,20 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     const wrap = document.getElementById('arena-list-wrapper');
     if(!wrap) return;
     const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    if(currentArenaDetailId){
-      const item = arenaData.find(a => a.id === currentArenaDetailId);
-      if(item){ wrap.innerHTML = renderArenaDetailHtml(item); return; }
-      currentArenaDetailId = null;
-    }
     if(filtered.length === 0){
       wrap.innerHTML = `<p style="text-align:center; color:var(--text-dim); padding:30px 0;">등록된 결투장 덱이 없습니다.</p>`;
       return;
     }
     wrap.innerHTML = filtered.map(item => {
+      const isOpen = currentArenaDetailId === item.id;
       const heroes = item.heroes || [];
       const iconsHtml = heroes.filter(h => h.name || h.img).map(h => `
         <div style="text-align:center;">
           ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:40px; height:40px; border-radius:4px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:40px; height:40px; border-radius:4px; background:var(--bg); border:1px solid var(--border);"></div>`}
         </div>
       `).join('');
-      return `
-        <div class="list-item" style="grid-template-columns: 1fr auto; cursor:pointer;" onclick="window.openArenaDetail('${item.id}')">
+      const rowHtml = `
+        <div class="list-item" style="grid-template-columns: 1fr auto; cursor:pointer; ${isOpen ? 'border-color:var(--red); border-bottom-left-radius:0; border-bottom-right-radius:0; border-bottom:none; margin-bottom:0;' : ''}" onclick="window.openArenaDetail('${item.id}')">
           <div>
             <div style="display:flex; gap:6px; margin-bottom:6px; flex-wrap:wrap; align-items:center;">
               ${item.category ? `<span style="font-size:11px; font-weight:900; color:#241a05; background:#ffb648; padding:2px 10px; border-radius:999px;">${esc(item.category)}</span>` : ''}
@@ -3089,9 +3085,11 @@ tip 조율자 팀 내 속공 3순위 필수</div>
             <div style="font-weight:900; font-size:15px; color:var(--ink); margin-bottom:6px;">${esc(item.name)}${item.tag ? `<span style="font-size:11px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:2px 8px; border-radius:2px; margin-left:8px;">${esc(item.tag)}</span>` : ''}</div>
             <div style="display:flex; gap:6px;">${iconsHtml}</div>
           </div>
-          <button class="detail-btn" style="width:auto; padding:10px 18px;">상세 보기</button>
+          <button class="detail-btn ${isOpen ? 'active-btn' : ''}" style="width:auto; padding:10px 18px;" onclick="event.stopPropagation(); window.openArenaDetail('${item.id}')">${isOpen ? '닫기 ▲' : '상세 보기'}</button>
         </div>
       `;
+      const detailHtml = isOpen ? `<div class="accordion-content">${renderArenaDetailHtml(item)}</div>` : '';
+      return rowHtml + detailHtml;
     }).join('');
   }
 
@@ -3099,9 +3097,8 @@ tip 조율자 팀 내 속공 3순위 필수</div>
   document.getElementById('arena-search-input').onkeypress = (e) => { if(e.key === 'Enter') renderArenaList(e.target.value); };
 
   window.openArenaDetail = function(id){
-    currentArenaDetailId = id;
+    currentArenaDetailId = currentArenaDetailId === id ? null : id;
     renderArenaList(document.getElementById('arena-search-input')?.value || '');
-    document.getElementById('arena-list-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   window.closeArenaDetail = function(){
@@ -3178,9 +3175,9 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     ` : '';
 
     return `
-      <div class="gcd-result-card" style="display:block; border:1px solid var(--border); border-radius:4px; padding:24px; background:var(--card);">
+      <div class="gcd-result-card" style="display:block; padding:24px; background:var(--card);">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
-          <button class="btn-mini-edit" onclick="window.closeArenaDetail()" style="margin-left:0;">← 목록으로</button>
+          <button class="btn-mini-edit" onclick="window.closeArenaDetail()" style="margin-left:0;">▲ 닫기</button>
           <div>${editControlsHtml}</div>
         </div>
         <div style="display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; align-items:center;">
