@@ -1119,7 +1119,10 @@
         </div>
       </div>
 
-      <label class="gcd-label" style="margin-top:10px; font-size:14px; color:#c2410c;">🐾 펫</label>
+      <label class="gcd-label" style="margin-top:10px; font-size:14px; color:#c2410c; display:flex; justify-content:space-between; align-items:center;">
+        <span>🐾 펫</span>
+        <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadArenaPetModal()">📥 불러오기</button>
+      </label>
       <div class="slot-input-grid" style="grid-template-columns: repeat(2,1fr);">
         <div class="slot-input-box"><label>펫 이름</label><input type="text" id="arena-pet-name" placeholder="이름"></div>
         <div class="slot-input-box"><label>펫 이미지 URL</label><input type="text" id="arena-pet-img" placeholder="이미지 URL"></div>
@@ -2629,6 +2632,11 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     document.getElementById('custom-def-pet-img').value = p.img || '';
   }
 
+  function fillArenaPetFields(p){
+    document.getElementById('arena-pet-name').value = p.name || '';
+    document.getElementById('arena-pet-img').value = p.img || '';
+  }
+
   function renderLoadPetList(query){
     const allPets = getAllPetsFlat();
     const q = (query || '').trim();
@@ -2672,11 +2680,20 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     document.getElementById('load-pet-modal-overlay').style.display = 'flex';
   };
 
+  window.openLoadArenaPetModal = function(){
+    loadPetTargetMode = 'arena';
+    document.getElementById('load-pet-search').value = '';
+    renderLoadPetList('');
+    document.getElementById('load-pet-modal-overlay').style.display = 'flex';
+  };
+
   window.applyLoadPet = function(idx){
     const item = loadPetFiltered[idx];
     if(!item) return;
     if(loadPetTargetMode === 'def'){
       fillDefPetFields(item.pet);
+    } else if(loadPetTargetMode === 'arena'){
+      fillArenaPetFields(item.pet);
     } else {
       if(!loadPetTargetBox) return;
       fillPetFields(loadPetTargetBox, loadPetPrefix, loadPetTargetIndex, item.pet);
