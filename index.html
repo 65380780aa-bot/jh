@@ -933,10 +933,10 @@
           </div>
           <div style="flex:1;">
             <div style="display:flex; gap:6px; margin-bottom:6px;">
-              <input type="text" id="arena-hero-name-0" class="gcd-input" placeholder="영웅 1 이름" style="margin:0; flex:1;" oninput="window.updateArenaHeroPreview(0)" value="선란">
+              <input type="text" id="arena-title-name-0" class="gcd-input" placeholder="영웅 1 이름" style="margin:0; flex:1;" oninput="window.updateArenaHeroPreview(0)" value="선란">
               <button type="button" class="btn-mini-edit" style="margin:0;" onclick="window.openLoadTitleHeroModal('arena', 0)">📥</button>
             </div>
-            <input type="text" id="arena-hero-img-0" class="gcd-input" placeholder="이미지 URL" style="margin:0;" oninput="window.updateArenaHeroPreview(0)">
+            <input type="text" id="arena-title-img-0" class="gcd-input" placeholder="이미지 URL" style="margin:0;" oninput="window.updateArenaHeroPreview(0)">
           </div>
           <input type="text" id="arena-hero-job-0" class="gcd-input" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;" value="암살자">
         </div>
@@ -957,8 +957,14 @@
           <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="arena-hero-skill2-img-0" placeholder="이미지 URL" style="margin:0;"><input type="text" id="arena-hero-skill2-pri-0" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
           <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="arena-hero-skill3-img-0" placeholder="이미지 URL" style="margin:0;"><input type="text" id="arena-hero-skill3-pri-0" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
         </div>
-        <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 위치 (1~5번, 숫자가 작을수록 왼쪽/위쪽에 배치됨)</label>
-        <input type="text" id="arena-hero-pos-0" class="gcd-input" placeholder="예: 1" value="1" style="margin:0; width:80px;">
+        <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 (같은 줄 안에서는 숫자 작을수록 왼쪽)</label>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <select id="arena-hero-row-0" class="gcd-select" style="margin:0; width:90px;">
+            <option value="bottom" >아래 줄</option>
+            <option value="top" selected>위 줄</option>
+          </select>
+          <input type="text" id="arena-hero-pos-0" class="gcd-input" placeholder="예: 1" value="1" style="margin:0; width:70px;">
+        </div>
       </div>
       <div style="border:1px solid var(--border); border-radius:4px; padding:12px; margin-bottom:12px; background:var(--bg);">
         <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:10px;">
@@ -967,10 +973,10 @@
           </div>
           <div style="flex:1;">
             <div style="display:flex; gap:6px; margin-bottom:6px;">
-              <input type="text" id="arena-hero-name-1" class="gcd-input" placeholder="영웅 2 이름" style="margin:0; flex:1;" oninput="window.updateArenaHeroPreview(1)" value="하연">
+              <input type="text" id="arena-title-name-1" class="gcd-input" placeholder="영웅 2 이름" style="margin:0; flex:1;" oninput="window.updateArenaHeroPreview(1)" value="하연">
               <button type="button" class="btn-mini-edit" style="margin:0;" onclick="window.openLoadTitleHeroModal('arena', 1)">📥</button>
             </div>
-            <input type="text" id="arena-hero-img-1" class="gcd-input" placeholder="이미지 URL" style="margin:0;" oninput="window.updateArenaHeroPreview(1)">
+            <input type="text" id="arena-title-img-1" class="gcd-input" placeholder="이미지 URL" style="margin:0;" oninput="window.updateArenaHeroPreview(1)">
           </div>
           <input type="text" id="arena-hero-job-1" class="gcd-input" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;" value="조율자">
         </div>
@@ -989,8 +995,14 @@
           <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="arena-hero-skill2-img-1" placeholder="이미지 URL" style="margin:0;"><input type="text" id="arena-hero-skill2-pri-1" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
           <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="arena-hero-skill3-img-1" placeholder="이미지 URL" style="margin:0;"><input type="text" id="arena-hero-skill3-pri-1" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
         </div>
-        <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 위치 (1~5번, 숫자가 작을수록 왼쪽/위쪽에 배치됨)</label>
-        <input type="text" id="arena-hero-pos-1" class="gcd-input" placeholder="예: 2" value="2" style="margin:0; width:80px;">
+        <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 (같은 줄 안에서는 숫자 작을수록 왼쪽)</label>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <select id="arena-hero-row-1" class="gcd-select" style="margin:0; width:90px;">
+            <option value="bottom" selected>아래 줄</option>
+            <option value="top" >위 줄</option>
+          </select>
+          <input type="text" id="arena-hero-pos-1" class="gcd-input" placeholder="예: 2" value="2" style="margin:0; width:70px;">
+        </div>
       </div>
       <div style="border:1px solid var(--border); border-radius:4px; padding:12px; margin-bottom:12px; background:var(--bg);">
         <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:10px;">
@@ -999,10 +1011,10 @@
           </div>
           <div style="flex:1;">
             <div style="display:flex; gap:6px; margin-bottom:6px;">
-              <input type="text" id="arena-hero-name-2" class="gcd-input" placeholder="영웅 3 이름" style="margin:0; flex:1;" oninput="window.updateArenaHeroPreview(2)" value="윤건">
+              <input type="text" id="arena-title-name-2" class="gcd-input" placeholder="영웅 3 이름" style="margin:0; flex:1;" oninput="window.updateArenaHeroPreview(2)" value="윤건">
               <button type="button" class="btn-mini-edit" style="margin:0;" onclick="window.openLoadTitleHeroModal('arena', 2)">📥</button>
             </div>
-            <input type="text" id="arena-hero-img-2" class="gcd-input" placeholder="이미지 URL" style="margin:0;" oninput="window.updateArenaHeroPreview(2)">
+            <input type="text" id="arena-title-img-2" class="gcd-input" placeholder="이미지 URL" style="margin:0;" oninput="window.updateArenaHeroPreview(2)">
           </div>
           <input type="text" id="arena-hero-job-2" class="gcd-input" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;" value="암살자">
         </div>
@@ -1021,8 +1033,14 @@
           <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="arena-hero-skill2-img-2" placeholder="이미지 URL" style="margin:0;"><input type="text" id="arena-hero-skill2-pri-2" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
           <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="arena-hero-skill3-img-2" placeholder="이미지 URL" style="margin:0;"><input type="text" id="arena-hero-skill3-pri-2" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
         </div>
-        <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 위치 (1~5번, 숫자가 작을수록 왼쪽/위쪽에 배치됨)</label>
-        <input type="text" id="arena-hero-pos-2" class="gcd-input" placeholder="예: 3" value="3" style="margin:0; width:80px;">
+        <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 (같은 줄 안에서는 숫자 작을수록 왼쪽)</label>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <select id="arena-hero-row-2" class="gcd-select" style="margin:0; width:90px;">
+            <option value="bottom" selected>아래 줄</option>
+            <option value="top" >위 줄</option>
+          </select>
+          <input type="text" id="arena-hero-pos-2" class="gcd-input" placeholder="예: 3" value="3" style="margin:0; width:70px;">
+        </div>
       </div>
       <div style="border:1px solid var(--border); border-radius:4px; padding:12px; margin-bottom:12px; background:var(--bg);">
         <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:10px;">
@@ -1031,10 +1049,10 @@
           </div>
           <div style="flex:1;">
             <div style="display:flex; gap:6px; margin-bottom:6px;">
-              <input type="text" id="arena-hero-name-3" class="gcd-input" placeholder="영웅 4 이름" style="margin:0; flex:1;" oninput="window.updateArenaHeroPreview(3)" value="오르카">
+              <input type="text" id="arena-title-name-3" class="gcd-input" placeholder="영웅 4 이름" style="margin:0; flex:1;" oninput="window.updateArenaHeroPreview(3)" value="오르카">
               <button type="button" class="btn-mini-edit" style="margin:0;" onclick="window.openLoadTitleHeroModal('arena', 3)">📥</button>
             </div>
-            <input type="text" id="arena-hero-img-3" class="gcd-input" placeholder="이미지 URL" style="margin:0;" oninput="window.updateArenaHeroPreview(3)">
+            <input type="text" id="arena-title-img-3" class="gcd-input" placeholder="이미지 URL" style="margin:0;" oninput="window.updateArenaHeroPreview(3)">
           </div>
           <input type="text" id="arena-hero-job-3" class="gcd-input" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;" value="추적자">
         </div>
@@ -1053,8 +1071,14 @@
           <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="arena-hero-skill2-img-3" placeholder="이미지 URL" style="margin:0;"><input type="text" id="arena-hero-skill2-pri-3" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
           <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="arena-hero-skill3-img-3" placeholder="이미지 URL" style="margin:0;"><input type="text" id="arena-hero-skill3-pri-3" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
         </div>
-        <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 위치 (1~5번, 숫자가 작을수록 왼쪽/위쪽에 배치됨)</label>
-        <input type="text" id="arena-hero-pos-3" class="gcd-input" placeholder="예: 4" value="4" style="margin:0; width:80px;">
+        <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 (같은 줄 안에서는 숫자 작을수록 왼쪽)</label>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <select id="arena-hero-row-3" class="gcd-select" style="margin:0; width:90px;">
+            <option value="bottom" selected>아래 줄</option>
+            <option value="top" >위 줄</option>
+          </select>
+          <input type="text" id="arena-hero-pos-3" class="gcd-input" placeholder="예: 4" value="4" style="margin:0; width:70px;">
+        </div>
       </div>
       <div style="border:1px solid var(--border); border-radius:4px; padding:12px; margin-bottom:12px; background:var(--bg);">
         <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:10px;">
@@ -1063,10 +1087,10 @@
           </div>
           <div style="flex:1;">
             <div style="display:flex; gap:6px; margin-bottom:6px;">
-              <input type="text" id="arena-hero-name-4" class="gcd-input" placeholder="영웅 5 이름" style="margin:0; flex:1;" oninput="window.updateArenaHeroPreview(4)" value="칼헤론">
+              <input type="text" id="arena-title-name-4" class="gcd-input" placeholder="영웅 5 이름" style="margin:0; flex:1;" oninput="window.updateArenaHeroPreview(4)" value="칼헤론">
               <button type="button" class="btn-mini-edit" style="margin:0;" onclick="window.openLoadTitleHeroModal('arena', 4)">📥</button>
             </div>
-            <input type="text" id="arena-hero-img-4" class="gcd-input" placeholder="이미지 URL" style="margin:0;" oninput="window.updateArenaHeroPreview(4)">
+            <input type="text" id="arena-title-img-4" class="gcd-input" placeholder="이미지 URL" style="margin:0;" oninput="window.updateArenaHeroPreview(4)">
           </div>
           <input type="text" id="arena-hero-job-4" class="gcd-input" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;" value="주술사">
         </div>
@@ -1085,8 +1109,14 @@
           <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="arena-hero-skill2-img-4" placeholder="이미지 URL" style="margin:0;"><input type="text" id="arena-hero-skill2-pri-4" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
           <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="arena-hero-skill3-img-4" placeholder="이미지 URL" style="margin:0;"><input type="text" id="arena-hero-skill3-pri-4" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
         </div>
-        <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 위치 (1~5번, 숫자가 작을수록 왼쪽/위쪽에 배치됨)</label>
-        <input type="text" id="arena-hero-pos-4" class="gcd-input" placeholder="예: 5" value="5" style="margin:0; width:80px;">
+        <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 (같은 줄 안에서는 숫자 작을수록 왼쪽)</label>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <select id="arena-hero-row-4" class="gcd-select" style="margin:0; width:90px;">
+            <option value="bottom" selected>아래 줄</option>
+            <option value="top" >위 줄</option>
+          </select>
+          <input type="text" id="arena-hero-pos-4" class="gcd-input" placeholder="예: 5" value="5" style="margin:0; width:70px;">
+        </div>
       </div>
 
       <label class="gcd-label" style="margin-top:10px; font-size:14px; color:#c2410c;">🐾 펫</label>
@@ -2834,14 +2864,14 @@ tip 조율자 팀 내 속공 3순위 필수</div>
   // 이미 같은 이름의 덱이 있으면 그 문서를 덮어써서 최신 내용으로 갱신함 (이미지처럼 직접 채운 부분은 보존)
   let arenaAutoSaveAttempted = false;
 
-  function heroDef(name, job, gearSummary, notes, w1, w2, a1, a2, accessory, skill1Pri, skill2Pri, pos, existingHero){
+  function heroDef(name, job, gearSummary, notes, w1, w2, a1, a2, accessory, skill1Pri, skill2Pri, pos, row, existingHero){
     return {
       name, job, gearSummary, notes, w1, w2, a1, a2, accessory,
       img: existingHero?.img || '',
       skill1Img: existingHero?.skill1Img || '', skill1Pri: skill1Pri || '',
       skill2Img: existingHero?.skill2Img || '', skill2Pri: skill2Pri || '',
       skill3Img: existingHero?.skill3Img || '', skill3Pri: '',
-      pos
+      pos, row
     };
   }
 
@@ -2849,41 +2879,41 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     {
       name: '선란+윤건 하이브리드 덱', tag: '속공 세팅', category: '하이브리드', tier: '0티어', pickRate: '42%',
       heroBuilders: (ex) => [
-        heroDef('선란', '암살자', '공공공공', '모공 9000이상 치확 최대한 속공 제일 낮게 세팅\n\n암살자 or 선봉장', '모든 공격력(%)', '모든 공격력(%)', '모든 공격력(%)', '모든 공격력(%)', '권능', '3', '', 1, ex?.[0]),
-        heroDef('하연', '조율자', '효적방받받', '부불, 막기 최대한', '효과 적중', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '부활', '2', '', 2, ex?.[1]),
-        heroDef('윤건', '암살자', '공효적효저공', '약,치 50 필수 효적 효저 최대한 | 부불, 부권 추천', '모든 공격력(%)', '효과 적중', '효과 저항', '모든 공격력(%)', '불사', '1', '', 3, ex?.[2]),
-        heroDef('오르카', '추적자', '효적치확공공', '효저100 효적 최대한, 부권 추천 권능 필수', '효과 적중', '치명타 확률', '모든 공격력(%)', '모든 공격력(%)', '권능', '', '', 4, ex?.[3]),
-        heroDef('칼헤론', '주술사', '치확공공공', '속공 최대한 땡기기, 효저 100필수, 권불 추천', '치명타 확률', '모든 공격력(%)', '모든 공격력(%)', '모든 공격력(%)', '권능', '', '', 5, ex?.[4])
+        heroDef('선란', '암살자', '공공공공', '모공 9000이상 치확 최대한 속공 제일 낮게 세팅\n\n암살자 or 선봉장', '모든 공격력(%)', '모든 공격력(%)', '모든 공격력(%)', '모든 공격력(%)', '권능', '3', '', 1, 'top', ex?.[0]),
+        heroDef('하연', '조율자', '효적방받받', '부불, 막기 최대한', '효과 적중', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '부활', '2', '', 2, 'bottom', ex?.[1]),
+        heroDef('윤건', '암살자', '공효적효저공', '약,치 50 필수 효적 효저 최대한 | 부불, 부권 추천', '모든 공격력(%)', '효과 적중', '효과 저항', '모든 공격력(%)', '불사', '1', '', 3, 'bottom', ex?.[2]),
+        heroDef('오르카', '추적자', '효적치확공공', '효저100 효적 최대한, 부권 추천 권능 필수', '효과 적중', '치명타 확률', '모든 공격력(%)', '모든 공격력(%)', '권능', '', '', 4, 'bottom', ex?.[3]),
+        heroDef('칼헤론', '주술사', '치확공공공', '속공 최대한 땡기기, 효저 100필수, 권불 추천', '치명타 확률', '모든 공격력(%)', '모든 공격력(%)', '모든 공격력(%)', '권능', '', '', 5, 'bottom', ex?.[4])
       ]
     },
     {
       name: '정석 방덱', tag: '내실 세팅', category: '방덱', tier: '0티어', pickRate: '32%',
       heroBuilders: (ex) => [
-        heroDef('아리스', '암살자', '방치확받받', '막기 100% 필수 치확 80이상', '방어력(%)', '치명타 확률', '받는 피해 감소', '받는 피해 감소', '권능', '2', '', 1, ex?.[0]),
-        heroDef('팔라누스', '암살자', '치확치피받받', '치확 90 이상\n부활+불사', '치명타 확률', '치명타 피해', '받는 피해 감소', '받는 피해 감소', '부활', '3', '', 2, ex?.[1]),
-        heroDef('겔리두스', '성기사', '효적효적받받', '대탈 필수 효적 100 가까이', '효과 적중', '효과 적중', '받는 피해 감소', '받는 피해 감소', '부활', '', '', 3, ex?.[2]),
-        heroDef('하연', '성기사', '효적방받받', '부불, 막기 최대한 4탄성', '효과 적중', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '부활', '1', '', 4, ex?.[3]),
-        heroDef('라드그리드', '성기사', '방방받받', '막기 100 최대한', '방어력(%)', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '불사', '', '', 5, ex?.[4])
+        heroDef('아리스', '암살자', '방치확받받', '막기 100% 필수 치확 80이상', '방어력(%)', '치명타 확률', '받는 피해 감소', '받는 피해 감소', '권능', '2', '', 1, 'bottom', ex?.[0]),
+        heroDef('팔라누스', '암살자', '치확치피받받', '치확 90 이상\n부활+불사', '치명타 확률', '치명타 피해', '받는 피해 감소', '받는 피해 감소', '부활', '3', '', 2, 'bottom', ex?.[1]),
+        heroDef('겔리두스', '성기사', '효적효적받받', '대탈 필수 효적 100 가까이', '효과 적중', '효과 적중', '받는 피해 감소', '받는 피해 감소', '부활', '', '', 3, 'bottom', ex?.[2]),
+        heroDef('하연', '성기사', '효적방받받', '부불, 막기 최대한 4탄성', '효과 적중', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '부활', '1', '', 4, 'bottom', ex?.[3]),
+        heroDef('라드그리드', '성기사', '방방받받', '막기 100 최대한', '방어력(%)', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '불사', '', '', 5, 'top', ex?.[4])
       ]
     },
     {
       name: '선란 공진', tag: '내실 세팅', category: '마덱', tier: '0티어', pickRate: '15%',
       heroBuilders: (ex) => [
-        heroDef('하연', '성기사', '효적방받받', '효적, 막기 최대한\n부불 필수', '효과 적중', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '부활', '', '', 1, ex?.[0]),
-        heroDef('동영', '복수자', '치확치확효저효저', '치확 100 가까이\n효저 100, 효적 최대한 챙겨주기 불권 필수', '치명타 확률', '치명타 확률', '효과 저항', '효과 저항', '부활', '', '', 2, ex?.[1]),
-        heroDef('윤건', '암살자', '효적치피효저효저', '약공, 치확 50%\n효저100, 효적 최대한 챙겨주기\n불권도 좋지만 부활이 약간 더 좋음', '효과 적중', '치명타 피해', '효과 저항', '효과 저항', '권능', '1', '3', 3, ex?.[2]),
-        heroDef('연희', '추적자', '약공치확공공', '약치 100 가까이, 권불 필수', '약점 공격 확률', '치명타 확률', '모든 공격력(%)', '모든 공격력(%)', '권능', '', '', 4, ex?.[3]),
-        heroDef('선란', '선봉장', '치확치확공공', '속공x 치확100 모공 최대한\n적중도 어느정도 챙겨주면 좋음', '치명타 확률', '치명타 확률', '모든 공격력(%)', '모든 공격력(%)', '불사', '', '', 5, ex?.[4])
+        heroDef('하연', '성기사', '효적방받받', '효적, 막기 최대한\n부불 필수', '효과 적중', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '부활', '', '', 1, 'bottom', ex?.[0]),
+        heroDef('동영', '복수자', '치확치확효저효저', '치확 100 가까이\n효저 100, 효적 최대한 챙겨주기 불권 필수', '치명타 확률', '치명타 확률', '효과 저항', '효과 저항', '부활', '', '', 2, 'bottom', ex?.[1]),
+        heroDef('윤건', '암살자', '효적치피효저효저', '약공, 치확 50%\n효저100, 효적 최대한 챙겨주기\n불권도 좋지만 부활이 약간 더 좋음', '효과 적중', '치명타 피해', '효과 저항', '효과 저항', '권능', '1', '3', 3, 'bottom', ex?.[2]),
+        heroDef('연희', '추적자', '약공치확공공', '약치 100 가까이, 권불 필수', '약점 공격 확률', '치명타 확률', '모든 공격력(%)', '모든 공격력(%)', '권능', '', '', 4, 'bottom', ex?.[3]),
+        heroDef('선란', '선봉장', '치확치확공공', '속공x 치확100 모공 최대한\n적중도 어느정도 챙겨주면 좋음', '치명타 확률', '치명타 확률', '모든 공격력(%)', '모든 공격력(%)', '불사', '', '', 5, 'top', ex?.[4])
       ]
     },
     {
       name: '효저 방덱', tag: '내실 세팅', category: '방덱', tier: '0티어', pickRate: '10%',
       heroBuilders: (ex) => [
-        heroDef('루디', '주술사', '방방받받', '효저 100 가까이 막기, 효적 최대한, 대불\n4탄성 필수', '방어력(%)', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '부활', '', '', 1, ex?.[0]),
-        heroDef('리나', '성기사', '생방받받', '효저 100 가까이 막기 최대한, 대권\n4탄성 필수', '생명력(%)', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '불사', '', '', 2, ex?.[1]),
-        heroDef('클레미스', '성기사', '생방받받', '효저 100 가까이 막기 최대한, 권불\n4탄성 필수', '생명력(%)', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '불사', '1', '2', 3, ex?.[2]),
-        heroDef('팔라누스', '암살자', '치확치피받받', '효저 100 가까이 치확100 최대한, 막기 적당히, 대불\n4탄성 필수', '치명타 확률', '치명타 피해', '받는 피해 감소', '받는 피해 감소', '부활', '', '', 4, ex?.[3]),
-        heroDef('하연', '성기사', '생방받받', '효저 100 가까이 막기 최대한, 부불\n4탄성 필수', '생명력(%)', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '부활', '3', '', 5, ex?.[4])
+        heroDef('루디', '주술사', '방방받받', '효저 100 가까이 막기, 효적 최대한, 대불\n4탄성 필수', '방어력(%)', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '부활', '', '', 1, 'bottom', ex?.[0]),
+        heroDef('리나', '성기사', '생방받받', '효저 100 가까이 막기 최대한, 대권\n4탄성 필수', '생명력(%)', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '불사', '', '', 2, 'bottom', ex?.[1]),
+        heroDef('클레미스', '성기사', '생방받받', '효저 100 가까이 막기 최대한, 권불\n4탄성 필수', '생명력(%)', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '불사', '1', '2', 3, 'bottom', ex?.[2]),
+        heroDef('팔라누스', '암살자', '치확치피받받', '효저 100 가까이 치확100 최대한, 막기 적당히, 대불\n4탄성 필수', '치명타 확률', '치명타 피해', '받는 피해 감소', '받는 피해 감소', '부활', '', '', 4, 'bottom', ex?.[3]),
+        heroDef('하연', '성기사', '생방받받', '효저 100 가까이 막기 최대한, 부불\n4탄성 필수', '생명력(%)', '방어력(%)', '받는 피해 감소', '받는 피해 감소', '부활', '3', '', 5, 'top', ex?.[4])
       ]
     }
   ];
@@ -2916,8 +2946,8 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     document.getElementById('custom-arena-tier').value = '';
     document.getElementById('custom-arena-pickrate').value = '';
     for(let i=0; i<5; i++){
-      document.getElementById(`arena-hero-name-${i}`).value = '';
-      document.getElementById(`arena-hero-img-${i}`).value = '';
+      document.getElementById(`arena-title-name-${i}`).value = '';
+      document.getElementById(`arena-title-img-${i}`).value = '';
       document.getElementById(`arena-hero-job-${i}`).value = '';
       document.getElementById(`arena-hero-gearsum-${i}`).value = '';
       document.getElementById(`arena-hero-notes-${i}`).value = '';
@@ -2933,6 +2963,7 @@ tip 조율자 팀 내 속공 3순위 필수</div>
       document.getElementById(`arena-hero-skill3-img-${i}`).value = '';
       document.getElementById(`arena-hero-skill3-pri-${i}`).value = '';
       document.getElementById(`arena-hero-pos-${i}`).value = (i + 1);
+      document.getElementById(`arena-hero-row-${i}`).value = i === 0 ? 'top' : 'bottom';
       window.updateArenaHeroPreview(i);
     }
     document.getElementById('arena-pet-name').value = '';
@@ -2941,7 +2972,7 @@ tip 조율자 팀 내 속공 3순위 필수</div>
   }
 
   window.updateArenaHeroPreview = function(i){
-    const img = document.getElementById(`arena-hero-img-${i}`).value.trim();
+    const img = document.getElementById(`arena-title-img-${i}`).value.trim();
     const prev = document.getElementById(`arena-hero-preview-${i}`);
     if(!prev) return;
     if(img){ prev.src = img; prev.style.display = 'block'; } else { prev.style.display = 'none'; }
@@ -2960,8 +2991,8 @@ tip 조율자 팀 내 속공 3순위 필수</div>
 
     const heroes = [];
     for(let i=0; i<5; i++){
-      const hName = document.getElementById(`arena-hero-name-${i}`).value.trim();
-      const hImg = document.getElementById(`arena-hero-img-${i}`).value.trim();
+      const hName = document.getElementById(`arena-title-name-${i}`).value.trim();
+      const hImg = document.getElementById(`arena-title-img-${i}`).value.trim();
       if(!hName && !hImg) continue;
       heroes.push({
         name: hName, img: hImg,
@@ -2979,7 +3010,8 @@ tip 조율자 팀 내 속공 3순위 필수</div>
         skill2Pri: document.getElementById(`arena-hero-skill2-pri-${i}`).value.trim(),
         skill3Img: document.getElementById(`arena-hero-skill3-img-${i}`).value.trim(),
         skill3Pri: document.getElementById(`arena-hero-skill3-pri-${i}`).value.trim(),
-        pos: parseInt(document.getElementById(`arena-hero-pos-${i}`).value.trim(), 10) || (i + 1)
+        pos: parseInt(document.getElementById(`arena-hero-pos-${i}`).value.trim(), 10) || (i + 1),
+        row: document.getElementById(`arena-hero-row-${i}`).value || 'bottom'
       });
     }
 
@@ -3015,8 +3047,8 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     const heroes = item.heroes || [];
     for(let i=0; i<5; i++){
       const h = heroes[i] || {};
-      document.getElementById(`arena-hero-name-${i}`).value = h.name || '';
-      document.getElementById(`arena-hero-img-${i}`).value = h.img || '';
+      document.getElementById(`arena-title-name-${i}`).value = h.name || '';
+      document.getElementById(`arena-title-img-${i}`).value = h.img || '';
       document.getElementById(`arena-hero-job-${i}`).value = h.job || '';
       document.getElementById(`arena-hero-gearsum-${i}`).value = h.gearSummary || '';
       document.getElementById(`arena-hero-notes-${i}`).value = h.notes || '';
@@ -3032,6 +3064,7 @@ tip 조율자 팀 내 속공 3순위 필수</div>
       document.getElementById(`arena-hero-skill3-img-${i}`).value = h.skill3Img || '';
       document.getElementById(`arena-hero-skill3-pri-${i}`).value = h.skill3Pri || '';
       document.getElementById(`arena-hero-pos-${i}`).value = h.pos || (i + 1);
+      document.getElementById(`arena-hero-row-${i}`).value = h.row || (i === 0 ? 'top' : 'bottom');
       window.updateArenaHeroPreview(i);
     }
     document.getElementById('arena-pet-name').value = (item.pet && item.pet.name) || '';
@@ -3059,23 +3092,26 @@ tip 조율자 팀 내 속공 3순위 필수</div>
   // 목록 미리보기용: 배치 위치(pos) 기준으로 흩어진 배열 + 펫 + 우선순위 스킬 있는 영웅에 작은 숫자 뱃지
   function buildArenaPreviewHtml(item){
     const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    const posGridMap = { 1: { col: 1, row: 2 }, 2: { col: 2, row: 1 }, 3: { col: 2, row: 2 }, 4: { col: 2, row: 3 }, 5: { col: 2, row: 4 } };
-    const heroes = (item.heroes || []).filter(h => h.name || h.img);
-    const gridHtml = heroes.map((h, idx) => {
-      const g = posGridMap[h.pos] || posGridMap[idx + 1] || { col: 1, row: 1 };
+    const heroes = (item.heroes || []).filter(h => h.name || h.img).slice().sort((a, b) => (a.pos || 99) - (b.pos || 99));
+    const topHeroes = heroes.filter(h => h.row === 'top');
+    const bottomHeroes = heroes.filter(h => h.row !== 'top');
+    const iconHtml = (h, size) => {
       const pri = h.skill1Pri || h.skill2Pri || h.skill3Pri || '';
       return `
-        <div style="grid-column:${g.col}; grid-row:${g.row}; position:relative; text-align:center;">
-          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:36px; height:36px; border-radius:4px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:36px; height:36px; border-radius:4px; background:var(--bg); border:1px solid var(--border);"></div>`}
+        <div style="position:relative; text-align:center; flex-shrink:0;">
+          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:${size}px; height:${size}px; border-radius:4px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:${size}px; height:${size}px; border-radius:4px; background:var(--bg); border:1px solid var(--border);"></div>`}
           ${pri ? `<span style="position:absolute; bottom:-3px; right:-3px; background:var(--orange); color:#fff; font-size:8px; font-weight:900; width:13px; height:13px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(pri)}</span>` : ''}
         </div>
       `;
-    }).join('');
+    };
     const petHtml = (item.pet && item.pet.img) ? `<img referrerpolicy="no-referrer" src="${item.pet.img}" style="width:36px; height:36px; border-radius:4px; object-fit:cover; border:2px solid var(--orange);">` : '';
     return `
-      <div style="display:flex; gap:14px; align-items:center;">
-        <div style="display:grid; grid-template-columns: repeat(2, 36px); grid-template-rows: repeat(4, 36px); gap:4px;">${gridHtml}</div>
-        ${petHtml ? `<div style="text-align:center;">${petHtml}<div style="font-size:9px; font-weight:800; color:var(--text-dim); margin-top:1px;">펫</div></div>` : ''}
+      <div style="display:flex; gap:10px; align-items:center;">
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+          <div style="display:flex; gap:4px; justify-content:center;">${topHeroes.map(h => iconHtml(h, 36)).join('')}</div>
+          <div style="display:flex; gap:4px;">${bottomHeroes.map(h => iconHtml(h, 36)).join('')}</div>
+        </div>
+        ${petHtml ? `<span style="width:1px; height:30px; background:var(--border);"></span><div style="text-align:center; flex-shrink:0;">${petHtml}</div>` : ''}
       </div>
     `;
   }
@@ -3097,11 +3133,11 @@ tip 조율자 팀 내 속공 3순위 필수</div>
         <div class="list-item" style="grid-template-columns: 1fr auto; cursor:pointer; ${isOpen ? 'border-color:var(--red); border-bottom-left-radius:0; border-bottom-right-radius:0; border-bottom:none; margin-bottom:0;' : ''}" onclick="window.openArenaDetail('${item.id}')">
           <div>
             <div style="display:flex; gap:6px; margin-bottom:6px; flex-wrap:wrap; align-items:center;">
-              ${item.category ? `<span style="font-size:11px; font-weight:900; color:#241a05; background:#ffb648; padding:2px 10px; border-radius:999px;">${esc(item.category)}</span>` : ''}
-              ${item.tier ? `<span style="font-size:11px; font-weight:800; color:var(--ink); background:var(--bg); border:1px solid var(--border); padding:2px 8px; border-radius:999px;">${esc(item.tier)}</span>` : ''}
-              ${item.pickRate ? `<span style="font-size:11px; font-weight:800; color:var(--blue); background:var(--blue-soft); padding:2px 8px; border-radius:999px;">픽률 ${esc(item.pickRate)}</span>` : ''}
+              ${item.category ? `<span style="font-size:12px; font-weight:900; color:#241a05; background:#ffb648; padding:3px 11px; border-radius:999px;">${esc(item.category)}</span>` : ''}
+              ${item.tier ? `<span style="font-size:12px; font-weight:900; color:var(--ink); background:var(--bg); border:1px solid var(--border); padding:3px 9px; border-radius:999px;">${esc(item.tier)}</span>` : ''}
+              ${item.pickRate ? `<span style="font-size:12px; font-weight:900; color:var(--blue); background:var(--blue-soft); padding:3px 9px; border-radius:999px;">픽률 ${esc(item.pickRate)}</span>` : ''}
             </div>
-            <div style="font-weight:900; font-size:15px; color:var(--ink); margin-bottom:6px;">${esc(item.name)}${item.tag ? `<span style="font-size:11px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:2px 8px; border-radius:2px; margin-left:8px;">${esc(item.tag)}</span>` : ''}</div>
+            <div style="font-weight:900; font-size:16px; color:var(--ink); margin-bottom:6px;">${esc(item.name)}${item.tag ? `<span style="font-size:12px; font-weight:900; color:var(--orange); background:var(--orange-soft); padding:3px 9px; border-radius:2px; margin-left:8px;">${esc(item.tag)}</span>` : ''}</div>
             ${previewHtml}
           </div>
           <button class="detail-btn ${isOpen ? 'active-btn' : ''}" style="width:auto; padding:10px 18px;" onclick="event.stopPropagation(); window.openArenaDetail('${item.id}')">${isOpen ? '닫기 ▲' : '상세 보기'}</button>
@@ -3156,7 +3192,7 @@ tip 조율자 팀 내 속공 3순위 필수</div>
           </div>
           ${h.job ? `<span style="font-size:11px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:3px 8px; border-radius:2px; white-space:nowrap;">${esc(h.job)}</span>` : ''}
         </div>
-        ${h.notes ? `<div style="font-size:12px; color:var(--ink); line-height:1.6; background:var(--bg); border-radius:3px; padding:8px; margin-bottom:8px; white-space:pre-line;">${esc(h.notes)}</div>` : ''}
+        ${h.notes ? `<div style="font-size:12.5px; font-weight:700; color:var(--ink); line-height:1.7; background:var(--bg); border-radius:3px; padding:8px; margin-bottom:8px; white-space:pre-line;">${esc(h.notes)}</div>` : ''}
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-bottom:8px;">
           ${[['무기1', h.w1], ['무기2', h.w2], ['방어구1', h.a1], ['방어구2', h.a2]].map(([label, val]) => val ? `
             <div style="background:var(--bg); border-radius:3px; padding:6px 8px; text-align:center;">
@@ -3174,18 +3210,14 @@ tip 조율자 팀 내 속공 3순위 필수</div>
       </div>
     `).join('');
 
-    // 배치·펫 — 등록하신 "배치 위치"(1~5) 기준으로 흩어진 진형처럼 배치
-    const posGridMap = {
-      1: { col: 1, row: 2 },
-      2: { col: 2, row: 1 },
-      3: { col: 2, row: 2 },
-      4: { col: 2, row: 3 },
-      5: { col: 2, row: 4 }
+    // 배치·펫 — 등록하신 "배치 위치"(1~5) 순서대로 왼쪽부터 한 줄로 배치
+    const placementSorted = heroes.slice().sort((a, b) => (a.pos || 99) - (b.pos || 99));
+    const placementTopHeroes = placementSorted.filter(h => h.row === 'top');
+    const placementBottomHeroes = placementSorted.filter(h => h.row !== 'top');
+    const placementIcon = (h) => {
+      const pri = h.skill1Pri || h.skill2Pri || h.skill3Pri || '';
+      return h.img ? `<div style="position:relative; text-align:center; flex-shrink:0;"><img referrerpolicy="no-referrer" src="${h.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">${pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:10px; font-weight:900; width:17px; height:17px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(pri)}</span>` : ''}</div>` : '';
     };
-    const placementGridHtml = heroes.map(h => {
-      const g = posGridMap[h.pos] || posGridMap[heroes.indexOf(h) + 1] || { col: 1, row: 1 };
-      return h.img ? `<div style="grid-column:${g.col}; grid-row:${g.row}; text-align:center;"><img referrerpolicy="no-referrer" src="${h.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);"></div>` : '';
-    }).join('');
     const petHtml = (item.pet && item.pet.img) ? `<img referrerpolicy="no-referrer" src="${item.pet.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);">` : '';
 
     const editControlsHtml = isAdmin ? `
@@ -3216,9 +3248,12 @@ tip 조율자 팀 내 속공 3순위 필수</div>
         <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:12px; margin-bottom:24px;">${gearCardsHtml}</div>
 
         <div style="font-weight:900; font-size:14px; color:var(--ink); margin-bottom:10px;">📍 배치 · 펫</div>
-        <div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap;">
-          <div style="display:grid; grid-template-columns: repeat(2, 60px); grid-template-rows: repeat(4, 60px); gap:8px;">${placementGridHtml}</div>
-          ${petHtml ? `<div style="text-align:center;">${petHtml}<div style="font-size:10px; font-weight:800; color:var(--text-dim); margin-top:2px;">펫</div></div>` : ''}
+        <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+          <div style="display:flex; flex-direction:column; gap:8px; align-items:center;">
+            <div style="display:flex; gap:8px; justify-content:center;">${placementTopHeroes.map(h => placementIcon(h)).join('')}</div>
+            <div style="display:flex; gap:8px;">${placementBottomHeroes.map(h => placementIcon(h)).join('')}</div>
+          </div>
+          ${petHtml ? `<span style="width:1px; height:52px; background:var(--border); margin:0 4px;"></span><div style="text-align:center;">${petHtml}<div style="font-size:10px; font-weight:800; color:var(--text-dim); margin-top:2px;">펫</div></div>` : ''}
         </div>
       </div>
     `;
