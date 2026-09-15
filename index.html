@@ -1006,7 +1006,7 @@
           </div>
           <input type="text" id="arena-hero-job-0" class="gcd-input" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;" value="암살자">
         </div>
-        <input type="text" id="arena-hero-gearsum-0" class="gcd-input" placeholder="장비 옵션 요약 (예: 공공공공)" style="margin:0 0 6px;" value="공공공공">
+        <textarea id="arena-hero-gearsum-0" class="gcd-textarea" placeholder="장비 옵션 요약 (예: 공공공공, 줄바꿈 가능)" style="margin:0 0 6px; height:44px;">공공공공</textarea>
         <textarea id="arena-hero-notes-0" class="gcd-textarea" placeholder="세팅 디테일 메모" style="height:50px; margin:0 0 6px;">모공 9000이상 치확 최대한 속공 제일 낮게 세팅
 
 암살자 or 선봉장</textarea>
@@ -1046,7 +1046,7 @@
           </div>
           <input type="text" id="arena-hero-job-1" class="gcd-input" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;" value="조율자">
         </div>
-        <input type="text" id="arena-hero-gearsum-1" class="gcd-input" placeholder="장비 옵션 요약 (예: 공공공공)" style="margin:0 0 6px;" value="효적방받받">
+        <textarea id="arena-hero-gearsum-1" class="gcd-textarea" placeholder="장비 옵션 요약 (예: 공공공공, 줄바꿈 가능)" style="margin:0 0 6px; height:44px;">효적방받받</textarea>
         <textarea id="arena-hero-notes-1" class="gcd-textarea" placeholder="세팅 디테일 메모" style="height:50px; margin:0 0 6px;">부불, 막기 최대한</textarea>
         <div class="slot-input-grid" style="grid-template-columns: repeat(2,1fr); margin-bottom:6px;">
           <div class="slot-input-box"><label>무기1</label><input type="text" id="arena-hero-w1-1" placeholder="예: 모든 공격력(%)" value="효과 적중"></div>
@@ -1084,7 +1084,7 @@
           </div>
           <input type="text" id="arena-hero-job-2" class="gcd-input" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;" value="암살자">
         </div>
-        <input type="text" id="arena-hero-gearsum-2" class="gcd-input" placeholder="장비 옵션 요약 (예: 공공공공)" style="margin:0 0 6px;" value="공효적효저공">
+        <textarea id="arena-hero-gearsum-2" class="gcd-textarea" placeholder="장비 옵션 요약 (예: 공공공공, 줄바꿈 가능)" style="margin:0 0 6px; height:44px;">공효적효저공</textarea>
         <textarea id="arena-hero-notes-2" class="gcd-textarea" placeholder="세팅 디테일 메모" style="height:50px; margin:0 0 6px;">약,치 50 필수 효적 효저 최대한 | 부불, 부권 추천</textarea>
         <div class="slot-input-grid" style="grid-template-columns: repeat(2,1fr); margin-bottom:6px;">
           <div class="slot-input-box"><label>무기1</label><input type="text" id="arena-hero-w1-2" placeholder="예: 모든 공격력(%)" value="모든 공격력(%)"></div>
@@ -1122,7 +1122,7 @@
           </div>
           <input type="text" id="arena-hero-job-3" class="gcd-input" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;" value="추적자">
         </div>
-        <input type="text" id="arena-hero-gearsum-3" class="gcd-input" placeholder="장비 옵션 요약 (예: 공공공공)" style="margin:0 0 6px;" value="효적치확공공">
+        <textarea id="arena-hero-gearsum-3" class="gcd-textarea" placeholder="장비 옵션 요약 (예: 공공공공, 줄바꿈 가능)" style="margin:0 0 6px; height:44px;">효적치확공공</textarea>
         <textarea id="arena-hero-notes-3" class="gcd-textarea" placeholder="세팅 디테일 메모" style="height:50px; margin:0 0 6px;">효저100 효적 최대한, 부권 추천 권능 필수</textarea>
         <div class="slot-input-grid" style="grid-template-columns: repeat(2,1fr); margin-bottom:6px;">
           <div class="slot-input-box"><label>무기1</label><input type="text" id="arena-hero-w1-3" placeholder="예: 모든 공격력(%)" value="효과 적중"></div>
@@ -1160,7 +1160,7 @@
           </div>
           <input type="text" id="arena-hero-job-4" class="gcd-input" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;" value="주술사">
         </div>
-        <input type="text" id="arena-hero-gearsum-4" class="gcd-input" placeholder="장비 옵션 요약 (예: 공공공공)" style="margin:0 0 6px;" value="치확공공공">
+        <textarea id="arena-hero-gearsum-4" class="gcd-textarea" placeholder="장비 옵션 요약 (예: 공공공공, 줄바꿈 가능)" style="margin:0 0 6px; height:44px;">치확공공공</textarea>
         <textarea id="arena-hero-notes-4" class="gcd-textarea" placeholder="세팅 디테일 메모" style="height:50px; margin:0 0 6px;">속공 최대한 땡기기, 효저 100필수, 권불 추천</textarea>
         <div class="slot-input-grid" style="grid-template-columns: repeat(2,1fr); margin-bottom:6px;">
           <div class="slot-input-box"><label>무기1</label><input type="text" id="arena-hero-w1-4" placeholder="예: 모든 공격력(%)" value="치명타 확률"></div>
@@ -2440,17 +2440,19 @@
                 <input type="text" class="gcd-input ${prefix}-slot-ring2-name-${i}" value="${(slots[i]?.ring2Name || '').replace(/"/g,'&quot;')}" placeholder="반지2 이름" style="margin:0;">
                 <input type="text" class="gcd-input ${prefix}-slot-ring2-${i}" value="${slots[i]?.ring2 || ''}" placeholder="반지2 이미지 URL" style="margin:0;">
               </div>
-              <div style="display:flex; gap:6px; margin-top:8px;">
-                <input type="text" class="gcd-input ${prefix}-slot-job-${i}" value="${(slots[i]?.job || '').replace(/"/g,'&quot;')}" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;">
-                <input type="text" class="gcd-input ${prefix}-slot-gearsum-${i}" value="${(slots[i]?.gearSummary || '').replace(/"/g,'&quot;')}" placeholder="장비 옵션 요약 (예: 공공공공)" style="margin:0; flex:1;">
-              </div>
+              <input type="text" class="gcd-input ${prefix}-slot-job-${i}" value="${(slots[i]?.job || '').replace(/"/g,'&quot;')}" placeholder="직업 (예: 암살자)" style="margin-top:8px;">
               <div class="slot-input-grid" style="grid-template-columns: repeat(2, 1fr); margin-top:6px;">
                 <div class="slot-input-box"><label>무기1</label><input type="text" class="gcd-input ${prefix}-slot-w1-${i}" value="${(slots[i]?.w1 || '').replace(/"/g,'&quot;')}" placeholder="예: 모든 공격력(%)"></div>
                 <div class="slot-input-box"><label>무기2</label><input type="text" class="gcd-input ${prefix}-slot-w2-${i}" value="${(slots[i]?.w2 || '').replace(/"/g,'&quot;')}" placeholder="예: 치명타 확률"></div>
                 <div class="slot-input-box"><label>방어구1</label><input type="text" class="gcd-input ${prefix}-slot-a1-${i}" value="${(slots[i]?.a1 || '').replace(/"/g,'&quot;')}" placeholder="예: 효과 적중"></div>
                 <div class="slot-input-box"><label>방어구2</label><input type="text" class="gcd-input ${prefix}-slot-a2-${i}" value="${(slots[i]?.a2 || '').replace(/"/g,'&quot;')}" placeholder="예: 받는 피해 감소"></div>
               </div>
-              <input type="text" class="gcd-input ${prefix}-slot-acc-${i}" value="${(slots[i]?.accessory || '').replace(/"/g,'&quot;')}" placeholder="장신구 (예: 권능)" style="margin-top:6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-size:10px; font-weight:800; color:#9ca3af;">⚡ 스킬 예약 (최대 3개, 우선순위 숫자)</span></div>
+              <div class="slot-input-grid" style="grid-template-columns: repeat(3, 1fr); margin-top:4px;">
+                <div class="slot-input-box"><label>스킬1 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="${prefix}-skill1-img-${idx}-${i}" class="gcd-input ${prefix}-slot-skill1-img-${i}" value="${slots[i]?.skill1Img || ''}" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('${prefix}-skill1-img-${idx}-${i}')">📥</button><input type="text" class="gcd-input ${prefix}-slot-skill1-pri-${i}" value="${(slots[i]?.skill1Pri || '').replace(/"/g,'&quot;')}" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
+                <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="${prefix}-skill2-img-${idx}-${i}" class="gcd-input ${prefix}-slot-skill2-img-${i}" value="${slots[i]?.skill2Img || ''}" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('${prefix}-skill2-img-${idx}-${i}')">📥</button><input type="text" class="gcd-input ${prefix}-slot-skill2-pri-${i}" value="${(slots[i]?.skill2Pri || '').replace(/"/g,'&quot;')}" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
+                <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="${prefix}-skill3-img-${idx}-${i}" class="gcd-input ${prefix}-slot-skill3-img-${i}" value="${slots[i]?.skill3Img || ''}" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('${prefix}-skill3-img-${idx}-${i}')">📥</button><input type="text" class="gcd-input ${prefix}-slot-skill3-pri-${i}" value="${(slots[i]?.skill3Pri || '').replace(/"/g,'&quot;')}" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
+              </div>
               <textarea class="gcd-textarea ${prefix}-slot-info-${i}" placeholder="세팅 디테일 메모 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;">${slots[i]?.info || ''}</textarea>
             </div>
           </div>
@@ -2519,12 +2521,16 @@
             ring1Name: box.querySelector(`.${prefix}-slot-ring1-name-${k}`)?.value || '',
             ring2Name: box.querySelector(`.${prefix}-slot-ring2-name-${k}`)?.value || '',
             job: box.querySelector(`.${prefix}-slot-job-${k}`)?.value || '',
-            gearSummary: box.querySelector(`.${prefix}-slot-gearsum-${k}`)?.value || '',
             w1: box.querySelector(`.${prefix}-slot-w1-${k}`)?.value || '',
             w2: box.querySelector(`.${prefix}-slot-w2-${k}`)?.value || '',
             a1: box.querySelector(`.${prefix}-slot-a1-${k}`)?.value || '',
             a2: box.querySelector(`.${prefix}-slot-a2-${k}`)?.value || '',
-            accessory: box.querySelector(`.${prefix}-slot-acc-${k}`)?.value || '',
+            skill1Img: box.querySelector(`.${prefix}-slot-skill1-img-${k}`)?.value || '',
+            skill1Pri: box.querySelector(`.${prefix}-slot-skill1-pri-${k}`)?.value || '',
+            skill2Img: box.querySelector(`.${prefix}-slot-skill2-img-${k}`)?.value || '',
+            skill2Pri: box.querySelector(`.${prefix}-slot-skill2-pri-${k}`)?.value || '',
+            skill3Img: box.querySelector(`.${prefix}-slot-skill3-img-${k}`)?.value || '',
+            skill3Pri: box.querySelector(`.${prefix}-slot-skill3-pri-${k}`)?.value || '',
             info: box.querySelector(`.${prefix}-slot-info-${k}`).value
           });
         }
@@ -3095,12 +3101,16 @@
           ring1Name: box.querySelector(`.t-slot-ring1-name-${k}`)?.value || '',
           ring2Name: box.querySelector(`.t-slot-ring2-name-${k}`)?.value || '',
           job: box.querySelector(`.t-slot-job-${k}`)?.value || '',
-          gearSummary: box.querySelector(`.t-slot-gearsum-${k}`)?.value || '',
           w1: box.querySelector(`.t-slot-w1-${k}`)?.value || '',
           w2: box.querySelector(`.t-slot-w2-${k}`)?.value || '',
           a1: box.querySelector(`.t-slot-a1-${k}`)?.value || '',
           a2: box.querySelector(`.t-slot-a2-${k}`)?.value || '',
-          accessory: box.querySelector(`.t-slot-acc-${k}`)?.value || '',
+          skill1Img: box.querySelector(`.t-slot-skill1-img-${k}`)?.value || '',
+          skill1Pri: box.querySelector(`.t-slot-skill1-pri-${k}`)?.value || '',
+          skill2Img: box.querySelector(`.t-slot-skill2-img-${k}`)?.value || '',
+          skill2Pri: box.querySelector(`.t-slot-skill2-pri-${k}`)?.value || '',
+          skill3Img: box.querySelector(`.t-slot-skill3-img-${k}`)?.value || '',
+          skill3Pri: box.querySelector(`.t-slot-skill3-pri-${k}`)?.value || '',
           info: box.querySelector(`.t-slot-info-${k}`).value
         });
       }
@@ -3457,50 +3467,64 @@
     const topHeroes = heroes.filter(h => h.row === 'top');
     const bottomHeroes = heroes.filter(h => h.row !== 'top');
     const iconHtml = (h, size) => {
+      if(!h.img) return '';
       return `
         <div style="text-align:center; flex-shrink:0;">
-          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:${size}px; height:${size}px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:${size}px; height:${size}px; border-radius:6px; background:var(--bg); border:1px solid var(--border);"></div>`}
+          <img referrerpolicy="no-referrer" src="${h.img}" style="width:${size}px; height:${size}px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
         </div>
       `;
     };
     const petHtml = (item.pet && item.pet.img) ? `<img referrerpolicy="no-referrer" src="${item.pet.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);">` : '';
 
-    // 스킬 예약 (우선순위 숫자 작은 순서대로) — 펫 옆에 표시
-    const getMinPri = (h) => {
-      const nums = [h.skill1Pri, h.skill2Pri, h.skill3Pri].map(p => parseInt(p, 10)).filter(n => !isNaN(n));
-      return nums.length ? Math.min(...nums) : Infinity;
-    };
-    const skillHeroes = heroes.filter(h => h.skill1Img || h.skill2Img || h.skill3Img).slice().sort((a, b) => getMinPri(a) - getMinPri(b));
-    const skillOrderHtml = skillHeroes.map(h => `
+    // 스킬 예약 (우선순위 숫자 작은 순서대로) — 펫 옆에 표시. 영웅별로 묶지 않고 스킬 하나당 한 칸씩, 같은 영웅이 여러 번 나올 수 있음
+    const skillEntries = [];
+    heroes.forEach(h => {
+      [[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].forEach(([simg, pri]) => {
+        if(simg) skillEntries.push({ img: simg, pri, name: h.name, heroImg: h.img });
+      });
+    });
+    const priNum = (pri) => { const n = parseInt(pri, 10); return isNaN(n) ? Infinity : n; };
+    skillEntries.sort((a, b) => priNum(a.pri) - priNum(b.pri));
+    const skillOrderHtml = skillEntries.map(e => `
       <div style="text-align:center; flex-shrink:0;">
-        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-          ${[[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].map(([simg, pri]) => simg ? `
-            <div style="position:relative; width:40px; height:40px;">
-              <img referrerpolicy="no-referrer" src="${simg}" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-              ${pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(pri)}</span>` : ''}
-            </div>
-          ` : '').join('')}
-          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">` : ''}
+        <div style="position:relative; width:40px; height:40px;">
+          <img referrerpolicy="no-referrer" src="${e.img}" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+          ${e.pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(e.pri)}</span>` : ''}
         </div>
-        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">${esc(h.name)}</div>
+        ${e.heroImg ? `<img referrerpolicy="no-referrer" src="${e.heroImg}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:4px;">` : ''}
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">${esc(e.name)}</div>
       </div>
     `).join('');
 
+    const hasTopHero = topHeroes.some(h => h.img);
+    const hasBottomHero = bottomHeroes.some(h => h.img);
+    if(!hasTopHero && !hasBottomHero && !petHtml && !skillOrderHtml) return '';
+
     return `
       <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap;">
+        ${(hasTopHero || hasBottomHero) ? `
         <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          <div style="display:flex; gap:6px; justify-content:center;">${topHeroes.map(h => iconHtml(h, 52)).join('')}</div>
-          <div style="display:flex; gap:6px;">${bottomHeroes.map(h => iconHtml(h, 52)).join('')}</div>
+          ${hasTopHero ? `<div style="display:flex; gap:6px; justify-content:center;">${topHeroes.map(h => iconHtml(h, 52)).join('')}</div>` : ''}
+          ${hasBottomHero ? `<div style="display:flex; gap:6px;">${bottomHeroes.map(h => iconHtml(h, 52)).join('')}</div>` : ''}
         </div>
+        ` : ''}
         ${petHtml ? `<span style="width:1px; height:44px; background:var(--border);"></span><div style="text-align:center; flex-shrink:0;">${petHtml}</div>` : ''}
         ${skillOrderHtml ? `<span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">${skillOrderHtml}</div>` : ''}
       </div>
     `;
   }
 
+  function arenaHasAnyImage(item){
+    const heroes = item.heroes || [];
+    if(heroes.some(h => h.img)) return true;
+    if(item.pet && item.pet.img) return true;
+    return false;
+  }
+
   function renderArenaList(query){
     const q = (query || '').trim();
-    const filtered = q ? arenaData.filter(a => (a.name || '').includes(q)) : arenaData;
+    let filtered = q ? arenaData.filter(a => (a.name || '').includes(q)) : arenaData;
+    filtered = filtered.filter(arenaHasAnyImage);
     const wrap = document.getElementById('arena-list-wrapper');
     if(!wrap) return;
     const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -3576,7 +3600,7 @@
           ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:44px; height:44px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : ''}
           <div style="flex:1;">
             <div style="font-weight:900; font-size:14px; color:var(--ink);">${esc(h.name)}</div>
-            ${h.gearSummary ? `<div style="font-size:11px; color:var(--text-dim); font-weight:700;">${esc(h.gearSummary)}</div>` : ''}
+            ${h.gearSummary ? `<div style="font-size:11px; color:var(--text-dim); font-weight:700; white-space:pre-line;">${esc(h.gearSummary)}</div>` : ''}
           </div>
           ${h.job ? `<span style="font-size:11px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:3px 8px; border-radius:2px; white-space:nowrap;">${esc(h.job)}</span>` : ''}
         </div>
@@ -3665,12 +3689,16 @@
           ring1Name: (box.querySelector(`.t-slot-ring1-name-${k}`)?.value || '').trim(),
           ring2Name: (box.querySelector(`.t-slot-ring2-name-${k}`)?.value || '').trim(),
           job: (box.querySelector(`.t-slot-job-${k}`)?.value || '').trim(),
-          gearSummary: (box.querySelector(`.t-slot-gearsum-${k}`)?.value || '').trim(),
           w1: (box.querySelector(`.t-slot-w1-${k}`)?.value || '').trim(),
           w2: (box.querySelector(`.t-slot-w2-${k}`)?.value || '').trim(),
           a1: (box.querySelector(`.t-slot-a1-${k}`)?.value || '').trim(),
           a2: (box.querySelector(`.t-slot-a2-${k}`)?.value || '').trim(),
-          accessory: (box.querySelector(`.t-slot-acc-${k}`)?.value || '').trim(),
+          skill1Img: (box.querySelector(`.t-slot-skill1-img-${k}`)?.value || '').trim(),
+          skill1Pri: (box.querySelector(`.t-slot-skill1-pri-${k}`)?.value || '').trim(),
+          skill2Img: (box.querySelector(`.t-slot-skill2-img-${k}`)?.value || '').trim(),
+          skill2Pri: (box.querySelector(`.t-slot-skill2-pri-${k}`)?.value || '').trim(),
+          skill3Img: (box.querySelector(`.t-slot-skill3-img-${k}`)?.value || '').trim(),
+          skill3Pri: (box.querySelector(`.t-slot-skill3-pri-${k}`)?.value || '').trim(),
           info: box.querySelector(`.t-slot-info-${k}`).value.trim()
         });
       }
@@ -4105,13 +4133,30 @@
             ` : '';
             const escGear = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
             const gearHeroes = slots.filter(h => h && (h.name || h.img));
+            const priNumGear = (pri) => { const n = parseInt(pri, 10); return isNaN(n) ? Infinity : n; };
+            const skillEntriesGear = [];
+            gearHeroes.forEach(h => {
+              [[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].forEach(([simg, pri]) => {
+                if(simg) skillEntriesGear.push({ img: simg, pri, name: h.name, heroImg: h.img });
+              });
+            });
+            skillEntriesGear.sort((a, b) => priNumGear(a.pri) - priNumGear(b.pri));
+            const skillOrderHtmlGear = skillEntriesGear.map(e => `
+              <div style="text-align:center; flex-shrink:0;">
+                <div style="position:relative; width:40px; height:40px;">
+                  <img referrerpolicy="no-referrer" src="${e.img}" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+                  ${e.pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${escGear(e.pri)}</span>` : ''}
+                </div>
+                ${e.heroImg ? `<img referrerpolicy="no-referrer" src="${e.heroImg}" style="width:36px; height:36px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:4px;">` : ''}
+                <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">${escGear(e.name)}</div>
+              </div>
+            `).join('');
             const gearCardsHtml = gearHeroes.map(h => `
               <div style="border:1px solid var(--border); border-radius:4px; padding:14px; background:var(--card);">
                 <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
                   ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:44px; height:44px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : ''}
                   <div style="flex:1;">
                     <div style="font-weight:900; font-size:14px; color:var(--ink);">${escGear(h.name)}</div>
-                    ${h.gearSummary ? `<div style="font-size:11px; color:var(--text-dim); font-weight:700;">${escGear(h.gearSummary)}</div>` : ''}
                   </div>
                   ${h.job ? `<span style="font-size:11px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:3px 8px; border-radius:2px; white-space:nowrap;">${escGear(h.job)}</span>` : ''}
                 </div>
@@ -4124,12 +4169,6 @@
                     </div>
                   ` : '').join('')}
                 </div>
-                ${h.accessory ? `
-                  <div style="background:var(--bg); border-radius:3px; padding:6px 8px; text-align:center;">
-                    <div style="font-size:10px; color:var(--text-dim); font-weight:700;">장신구</div>
-                    <div style="font-size:12px; font-weight:800; color:var(--ink);">${escGear(h.accessory)}</div>
-                  </div>
-                ` : ''}
               </div>
             `).join('');
             let cardHtml = `
@@ -4142,7 +4181,7 @@
                 ${generateVideoEmbedHtml(c.videoUrl)}
                 <div class="counter-body-formation-row">
                   ${orderSideHtml}
-                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">${boardHtml}${petHtml}</div></div>
+                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap; gap:16px;">${boardHtml}${petHtml}${skillOrderHtmlGear ? `<span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">${skillOrderHtmlGear}</div>` : ''}</div></div>
                 </div>
                 <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">${c.body || ''}</div>
                 ${gearCardsHtml ? `<div style="font-weight:900; font-size:13px; color:var(--ink); margin:14px 0 8px;">🗡️ 전원 장비 · 세팅 디테일</div><div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:10px;">${gearCardsHtml}</div>` : ''}
