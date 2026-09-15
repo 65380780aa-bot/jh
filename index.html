@@ -2810,6 +2810,32 @@ tip 조율자 팀 내 속공 3순위 필수</div>
 
   // ── 영웅 능력치 관리 ──
   // ── 결투장 덱 관리 ──
+  // 관리자로 결투장 탭 들어올 때, "선란+윤건 하이브리드 덱"이 아직 없으면 자동으로 한 번 저장해줌 (수동 입력/저장 클릭 불필요)
+  let arenaAutoSaveAttempted = false;
+  window.autoSaveSampleArenaDeck = async function(){
+    if(!isAdmin || arenaAutoSaveAttempted) return;
+    arenaAutoSaveAttempted = true;
+    const already = arenaData.some(a => a.name === '선란+윤건 하이브리드 덱');
+    if(already) return;
+    const itemId = 'arena_' + Date.now();
+    const newArena = {
+      id: itemId, name: '선란+윤건 하이브리드 덱', tag: '속공 세팅',
+      heroes: [
+        { name: '선란', img: '', job: '암살자', gearSummary: '공공공공', notes: '모공 9000이상 치확 최대한 속공 제일 낮게 세팅\n\n암살자 or 선봉장', w1: '모든 공격력(%)', w2: '모든 공격력(%)', a1: '모든 공격력(%)', a2: '모든 공격력(%)', accessory: '권능', skill1Img: '', skill1Pri: '3', skill2Img: '', skill2Pri: '' },
+        { name: '하연', img: '', job: '조율자', gearSummary: '효적방받받', notes: '부불, 막기 최대한', w1: '효과 적중', w2: '방어력(%)', a1: '받는 피해 감소', a2: '받는 피해 감소', accessory: '부활', skill1Img: '', skill1Pri: '2', skill2Img: '', skill2Pri: '' },
+        { name: '윤건', img: '', job: '암살자', gearSummary: '공효적효저공', notes: '약,치 50 필수 효적 효저 최대한 | 부불, 부권 추천', w1: '모든 공격력(%)', w2: '효과 적중', a1: '효과 저항', a2: '모든 공격력(%)', accessory: '불사', skill1Img: '', skill1Pri: '1', skill2Img: '', skill2Pri: '' },
+        { name: '오르카', img: '', job: '추적자', gearSummary: '효적치확공공', notes: '효저100 효적 최대한, 부권 추천 권능 필수', w1: '효과 적중', w2: '치명타 확률', a1: '모든 공격력(%)', a2: '모든 공격력(%)', accessory: '권능', skill1Img: '', skill1Pri: '', skill2Img: '', skill2Pri: '' },
+        { name: '칼헤론', img: '', job: '주술사', gearSummary: '치확공공공', notes: '속공 최대한 땡기기, 효저 100필수, 권불 추천', w1: '치명타 확률', w2: '모든 공격력(%)', a1: '모든 공격력(%)', a2: '모든 공격력(%)', accessory: '권능', skill1Img: '', skill1Pri: '', skill2Img: '', skill2Pri: '' }
+      ],
+      pet: { name: '', img: '' }
+    };
+    try {
+      await setDoc(doc(db, "guild_arena_db", itemId), newArena);
+    } catch(e) {
+      console.warn('결투장 자동 등록 실패:', e.code, e.message);
+    }
+  };
+
   function resetArenaForm(){
     document.getElementById('custom-arena-id').value = '';
     document.getElementById('custom-arena-name').value = '';
@@ -3617,6 +3643,7 @@ tip 조율자 팀 내 속공 3순위 필수</div>
       document.getElementById('arena-search-section').style.display = 'block';
       document.getElementById('arena-list-wrapper').style.display = 'block';
       renderArenaList('');
+      window.autoSaveSampleArenaDeck();
     }
   }
 
