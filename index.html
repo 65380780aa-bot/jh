@@ -918,6 +918,11 @@
       <input type="text" id="custom-arena-name" class="gcd-input" placeholder="예: 선란+윤건 하이브리드 덱" value="선란+윤건 하이브리드 덱">
       <label class="gcd-label">태그 (선택사항)</label>
       <input type="text" id="custom-arena-tag" class="gcd-input" placeholder="예: 속공 세팅" value="속공 세팅">
+      <div class="slot-input-grid" style="grid-template-columns: repeat(3,1fr);">
+        <div class="slot-input-box"><label>유형</label><input type="text" id="custom-arena-category" placeholder="예: 하이브리드" value="하이브리드"></div>
+        <div class="slot-input-box"><label>티어</label><input type="text" id="custom-arena-tier" placeholder="예: 0티어" value="0티어"></div>
+        <div class="slot-input-box"><label>픽률</label><input type="text" id="custom-arena-pickrate" placeholder="예: 42%" value="42%"></div>
+      </div>
 
       <label class="gcd-label" style="margin-top:10px; font-size:14px; color:#c2410c;">⚔️ 영웅 및 세팅 (최대 5명)</label>
       
@@ -2810,24 +2815,25 @@ tip 조율자 팀 내 속공 3순위 필수</div>
 
   // ── 영웅 능력치 관리 ──
   // ── 결투장 덱 관리 ──
-  // 관리자로 결투장 탭 들어올 때, "선란+윤건 하이브리드 덱"이 아직 없으면 자동으로 한 번 저장해줌 (수동 입력/저장 클릭 불필요)
+  // 관리자로 결투장 탭 들어올 때, "선란+윤건 하이브리드 덱"을 자동으로 저장/최신화해줌 (수동 입력/저장 클릭 불필요)
+  // 이미 같은 이름의 덱이 있으면 그 문서를 덮어써서 최신 내용으로 갱신함
   let arenaAutoSaveAttempted = false;
   window.autoSaveSampleArenaDeck = async function(){
     if(!isAdmin || arenaAutoSaveAttempted) return;
     arenaAutoSaveAttempted = true;
-    const already = arenaData.some(a => a.name === '선란+윤건 하이브리드 덱');
-    if(already) return;
-    const itemId = 'arena_' + Date.now();
+    const existing = arenaData.find(a => a.name === '선란+윤건 하이브리드 덱');
+    const itemId = existing ? existing.id : ('arena_' + Date.now());
     const newArena = {
       id: itemId, name: '선란+윤건 하이브리드 덱', tag: '속공 세팅',
+      category: '하이브리드', tier: '0티어', pickRate: '42%',
       heroes: [
-        { name: '선란', img: '', job: '암살자', gearSummary: '공공공공', notes: '모공 9000이상 치확 최대한 속공 제일 낮게 세팅\n\n암살자 or 선봉장', w1: '모든 공격력(%)', w2: '모든 공격력(%)', a1: '모든 공격력(%)', a2: '모든 공격력(%)', accessory: '권능', skill1Img: '', skill1Pri: '3', skill2Img: '', skill2Pri: '' },
-        { name: '하연', img: '', job: '조율자', gearSummary: '효적방받받', notes: '부불, 막기 최대한', w1: '효과 적중', w2: '방어력(%)', a1: '받는 피해 감소', a2: '받는 피해 감소', accessory: '부활', skill1Img: '', skill1Pri: '2', skill2Img: '', skill2Pri: '' },
-        { name: '윤건', img: '', job: '암살자', gearSummary: '공효적효저공', notes: '약,치 50 필수 효적 효저 최대한 | 부불, 부권 추천', w1: '모든 공격력(%)', w2: '효과 적중', a1: '효과 저항', a2: '모든 공격력(%)', accessory: '불사', skill1Img: '', skill1Pri: '1', skill2Img: '', skill2Pri: '' },
-        { name: '오르카', img: '', job: '추적자', gearSummary: '효적치확공공', notes: '효저100 효적 최대한, 부권 추천 권능 필수', w1: '효과 적중', w2: '치명타 확률', a1: '모든 공격력(%)', a2: '모든 공격력(%)', accessory: '권능', skill1Img: '', skill1Pri: '', skill2Img: '', skill2Pri: '' },
-        { name: '칼헤론', img: '', job: '주술사', gearSummary: '치확공공공', notes: '속공 최대한 땡기기, 효저 100필수, 권불 추천', w1: '치명타 확률', w2: '모든 공격력(%)', a1: '모든 공격력(%)', a2: '모든 공격력(%)', accessory: '권능', skill1Img: '', skill1Pri: '', skill2Img: '', skill2Pri: '' }
+        { name: '선란', img: (existing?.heroes?.[0]?.img) || '', job: '암살자', gearSummary: '공공공공', notes: '모공 9000이상 치확 최대한 속공 제일 낮게 세팅\n\n암살자 or 선봉장', w1: '모든 공격력(%)', w2: '모든 공격력(%)', a1: '모든 공격력(%)', a2: '모든 공격력(%)', accessory: '권능', skill1Img: (existing?.heroes?.[0]?.skill1Img) || '', skill1Pri: '3', skill2Img: (existing?.heroes?.[0]?.skill2Img) || '', skill2Pri: '' },
+        { name: '하연', img: (existing?.heroes?.[1]?.img) || '', job: '조율자', gearSummary: '효적방받받', notes: '부불, 막기 최대한', w1: '효과 적중', w2: '방어력(%)', a1: '받는 피해 감소', a2: '받는 피해 감소', accessory: '부활', skill1Img: (existing?.heroes?.[1]?.skill1Img) || '', skill1Pri: '2', skill2Img: (existing?.heroes?.[1]?.skill2Img) || '', skill2Pri: '' },
+        { name: '윤건', img: (existing?.heroes?.[2]?.img) || '', job: '암살자', gearSummary: '공효적효저공', notes: '약,치 50 필수 효적 효저 최대한 | 부불, 부권 추천', w1: '모든 공격력(%)', w2: '효과 적중', a1: '효과 저항', a2: '모든 공격력(%)', accessory: '불사', skill1Img: (existing?.heroes?.[2]?.skill1Img) || '', skill1Pri: '1', skill2Img: (existing?.heroes?.[2]?.skill2Img) || '', skill2Pri: '' },
+        { name: '오르카', img: (existing?.heroes?.[3]?.img) || '', job: '추적자', gearSummary: '효적치확공공', notes: '효저100 효적 최대한, 부권 추천 권능 필수', w1: '효과 적중', w2: '치명타 확률', a1: '모든 공격력(%)', a2: '모든 공격력(%)', accessory: '권능', skill1Img: (existing?.heroes?.[3]?.skill1Img) || '', skill1Pri: '', skill2Img: (existing?.heroes?.[3]?.skill2Img) || '', skill2Pri: '' },
+        { name: '칼헤론', img: (existing?.heroes?.[4]?.img) || '', job: '주술사', gearSummary: '치확공공공', notes: '속공 최대한 땡기기, 효저 100필수, 권불 추천', w1: '치명타 확률', w2: '모든 공격력(%)', a1: '모든 공격력(%)', a2: '모든 공격력(%)', accessory: '권능', skill1Img: (existing?.heroes?.[4]?.skill1Img) || '', skill1Pri: '', skill2Img: (existing?.heroes?.[4]?.skill2Img) || '', skill2Pri: '' }
       ],
-      pet: { name: '', img: '' }
+      pet: existing?.pet || { name: '', img: '' }
     };
     try {
       await setDoc(doc(db, "guild_arena_db", itemId), newArena);
@@ -2840,6 +2846,9 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     document.getElementById('custom-arena-id').value = '';
     document.getElementById('custom-arena-name').value = '';
     document.getElementById('custom-arena-tag').value = '';
+    document.getElementById('custom-arena-category').value = '';
+    document.getElementById('custom-arena-tier').value = '';
+    document.getElementById('custom-arena-pickrate').value = '';
     for(let i=0; i<5; i++){
       document.getElementById(`arena-hero-name-${i}`).value = '';
       document.getElementById(`arena-hero-img-${i}`).value = '';
@@ -2876,6 +2885,9 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     const editId = document.getElementById('custom-arena-id').value;
     const itemId = editId || ('arena_' + Date.now());
     const tag = document.getElementById('custom-arena-tag').value.trim();
+    const category = document.getElementById('custom-arena-category').value.trim();
+    const tier = document.getElementById('custom-arena-tier').value.trim();
+    const pickRate = document.getElementById('custom-arena-pickrate').value.trim();
 
     const heroes = [];
     for(let i=0; i<5; i++){
@@ -2904,7 +2916,7 @@ tip 조율자 팀 내 속공 3순위 필수</div>
       img: document.getElementById('arena-pet-img').value.trim()
     };
 
-    const newArena = { id: itemId, name: name, tag: tag, heroes: heroes, pet: pet };
+    const newArena = { id: itemId, name: name, tag: tag, category: category, tier: tier, pickRate: pickRate, heroes: heroes, pet: pet };
 
     try {
       await setDoc(doc(db, "guild_arena_db", itemId), newArena);
@@ -2925,6 +2937,9 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     document.getElementById('custom-arena-id').value = item.id;
     document.getElementById('custom-arena-name').value = item.name || '';
     document.getElementById('custom-arena-tag').value = item.tag || '';
+    document.getElementById('custom-arena-category').value = item.category || '';
+    document.getElementById('custom-arena-tier').value = item.tier || '';
+    document.getElementById('custom-arena-pickrate').value = item.pickRate || '';
     const heroes = item.heroes || [];
     for(let i=0; i<5; i++){
       const h = heroes[i] || {};
@@ -2991,6 +3006,11 @@ tip 조율자 팀 내 속공 3순위 필수</div>
       return `
         <div class="list-item" style="grid-template-columns: 1fr auto; cursor:pointer;" onclick="window.openArenaDetail('${item.id}')">
           <div>
+            <div style="display:flex; gap:6px; margin-bottom:6px; flex-wrap:wrap; align-items:center;">
+              ${item.category ? `<span style="font-size:11px; font-weight:900; color:#241a05; background:#ffb648; padding:2px 10px; border-radius:999px;">${esc(item.category)}</span>` : ''}
+              ${item.tier ? `<span style="font-size:11px; font-weight:800; color:var(--ink); background:var(--bg); border:1px solid var(--border); padding:2px 8px; border-radius:999px;">${esc(item.tier)}</span>` : ''}
+              ${item.pickRate ? `<span style="font-size:11px; font-weight:800; color:var(--blue); background:var(--blue-soft); padding:2px 8px; border-radius:999px;">픽률 ${esc(item.pickRate)}</span>` : ''}
+            </div>
             <div style="font-weight:900; font-size:15px; color:var(--ink); margin-bottom:6px;">${esc(item.name)}${item.tag ? `<span style="font-size:11px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:2px 8px; border-radius:2px; margin-left:8px;">${esc(item.tag)}</span>` : ''}</div>
             <div style="display:flex; gap:6px;">${iconsHtml}</div>
           </div>
@@ -3079,6 +3099,11 @@ tip 조율자 팀 내 속공 3순위 필수</div>
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
           <button class="btn-mini-edit" onclick="window.closeArenaDetail()" style="margin-left:0;">← 목록으로</button>
           <div>${editControlsHtml}</div>
+        </div>
+        <div style="display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; align-items:center;">
+          ${item.category ? `<span style="font-size:12px; font-weight:900; color:#241a05; background:#ffb648; padding:4px 12px; border-radius:999px;">${esc(item.category)}</span>` : ''}
+          ${item.tier ? `<span style="font-size:12px; font-weight:800; color:var(--ink); background:var(--bg); border:1px solid var(--border); padding:4px 10px; border-radius:999px;">${esc(item.tier)}</span>` : ''}
+          ${item.pickRate ? `<span style="font-size:12px; font-weight:800; color:var(--blue); background:var(--blue-soft); padding:4px 10px; border-radius:999px;">픽률 ${esc(item.pickRate)}</span>` : ''}
         </div>
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
           <div style="font-size:20px; font-weight:900; color:var(--ink);">${esc(item.name)}</div>
