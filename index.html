@@ -3056,6 +3056,30 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     }
   };
 
+  // 목록 미리보기용: 배치 위치(pos) 기준으로 흩어진 배열 + 펫 + 우선순위 스킬 있는 영웅에 작은 숫자 뱃지
+  function buildArenaPreviewHtml(item){
+    const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const posGridMap = { 1: { col: 1, row: 2 }, 2: { col: 2, row: 1 }, 3: { col: 2, row: 2 }, 4: { col: 2, row: 3 }, 5: { col: 2, row: 4 } };
+    const heroes = (item.heroes || []).filter(h => h.name || h.img);
+    const gridHtml = heroes.map((h, idx) => {
+      const g = posGridMap[h.pos] || posGridMap[idx + 1] || { col: 1, row: 1 };
+      const pri = h.skill1Pri || h.skill2Pri || h.skill3Pri || '';
+      return `
+        <div style="grid-column:${g.col}; grid-row:${g.row}; position:relative; text-align:center;">
+          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:36px; height:36px; border-radius:4px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:36px; height:36px; border-radius:4px; background:var(--bg); border:1px solid var(--border);"></div>`}
+          ${pri ? `<span style="position:absolute; bottom:-3px; right:-3px; background:var(--orange); color:#fff; font-size:8px; font-weight:900; width:13px; height:13px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(pri)}</span>` : ''}
+        </div>
+      `;
+    }).join('');
+    const petHtml = (item.pet && item.pet.img) ? `<img referrerpolicy="no-referrer" src="${item.pet.img}" style="width:36px; height:36px; border-radius:4px; object-fit:cover; border:2px solid var(--orange);">` : '';
+    return `
+      <div style="display:flex; gap:14px; align-items:center;">
+        <div style="display:grid; grid-template-columns: repeat(2, 36px); grid-template-rows: repeat(4, 36px); gap:4px;">${gridHtml}</div>
+        ${petHtml ? `<div style="text-align:center;">${petHtml}<div style="font-size:9px; font-weight:800; color:var(--text-dim); margin-top:1px;">펫</div></div>` : ''}
+      </div>
+    `;
+  }
+
   function renderArenaList(query){
     const q = (query || '').trim();
     const filtered = q ? arenaData.filter(a => (a.name || '').includes(q)) : arenaData;
@@ -3068,12 +3092,7 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     }
     wrap.innerHTML = filtered.map(item => {
       const isOpen = currentArenaDetailId === item.id;
-      const heroes = item.heroes || [];
-      const iconsHtml = heroes.filter(h => h.name || h.img).map(h => `
-        <div style="text-align:center;">
-          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:40px; height:40px; border-radius:4px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:40px; height:40px; border-radius:4px; background:var(--bg); border:1px solid var(--border);"></div>`}
-        </div>
-      `).join('');
+      const previewHtml = buildArenaPreviewHtml(item);
       const rowHtml = `
         <div class="list-item" style="grid-template-columns: 1fr auto; cursor:pointer; ${isOpen ? 'border-color:var(--red); border-bottom-left-radius:0; border-bottom-right-radius:0; border-bottom:none; margin-bottom:0;' : ''}" onclick="window.openArenaDetail('${item.id}')">
           <div>
@@ -3083,7 +3102,7 @@ tip 조율자 팀 내 속공 3순위 필수</div>
               ${item.pickRate ? `<span style="font-size:11px; font-weight:800; color:var(--blue); background:var(--blue-soft); padding:2px 8px; border-radius:999px;">픽률 ${esc(item.pickRate)}</span>` : ''}
             </div>
             <div style="font-weight:900; font-size:15px; color:var(--ink); margin-bottom:6px;">${esc(item.name)}${item.tag ? `<span style="font-size:11px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:2px 8px; border-radius:2px; margin-left:8px;">${esc(item.tag)}</span>` : ''}</div>
-            <div style="display:flex; gap:6px;">${iconsHtml}</div>
+            ${previewHtml}
           </div>
           <button class="detail-btn ${isOpen ? 'active-btn' : ''}" style="width:auto; padding:10px 18px;" onclick="event.stopPropagation(); window.openArenaDetail('${item.id}')">${isOpen ? '닫기 ▲' : '상세 보기'}</button>
         </div>
