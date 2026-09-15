@@ -346,11 +346,11 @@
   <div class="top-nav">
     <div class="logo"></div>
     <div class="nav-links">
-      <div id="tab-total" class="nav-link active-total">⚔️ 공격덱</div>
+      <div id="tab-total" class="nav-link">⚔️ 공격덱</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
-      <div id="tab-arena" class="nav-link">🏟️ 결투장</div>
+      <div id="tab-arena" class="nav-link active">🏟️ 결투장</div>
     </div>
-    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 7명</div>
+    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 3명</div>
     <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
   </div>
 
@@ -373,7 +373,7 @@
 
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
-      <button class="add-btn" id="toggle-add-btn" style="display: flex;">+ 덱 추가하기</button>
+      <button class="add-btn" id="toggle-add-btn" style="display: flex;">+ 결투장 덱 추가하기</button>
       <button class="add-btn" id="show-deeplink-table-btn" style="display: flex; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
     </div>
 
@@ -680,7 +680,63 @@
         <button id="close-load-skill-modal-btn" style="position:absolute; top:16px; right:16px; background:#1c2436; color:var(--ink); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-weight:800; cursor:pointer;">닫기 ✕</button>
         <h2 style="margin:0 0 6px 0; font-size:18px; font-weight:900;">⚔️ 스킬 이미지 불러오기</h2>
         <p style="font-size:13px; color:var(--text-dim); margin:0 0 12px 0;">이전에 등록해둔 스킬 이미지 중 하나를 골라 이 칸에만 채워넣어요.</p>
-        <div id="load-skill-list"></div>
+        <div id="load-skill-list">
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/andudqlrja.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0; font-size:11px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">선란 스킬</div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSkill(0)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/qhddnjfans.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0; font-size:11px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">하연 스킬</div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSkill(1)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/tlsthrdustk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0; font-size:11px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">윤건 스킬</div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSkill(2)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/Rmxsoqhf-Rk.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0; font-size:11px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">아리스 스킬</div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSkill(3)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/rkdrhgksrjarur.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0; font-size:11px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">팔라누스 스킬</div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSkill(4)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/dhksqurgksgkawjd.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0; font-size:11px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">클레미스 스킬</div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSkill(5)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    
+      <div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/tjqfldmlwhdbf.webp" style="width:36px; height:36px; border-radius:8px; object-fit:cover; flex-shrink:0;">
+          <div style="min-width:0; font-size:11px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">클레미스 스킬</div>
+        </div>
+        <button type="button" class="btn-mini-edit" onclick="window.applyLoadSkill(6)" style="white-space:nowrap;">📥 불러오기</button>
+      </div>
+    </div>
       </div>
     </div>
 
@@ -939,7 +995,7 @@
       <div style="border:1px solid var(--border); border-radius:4px; padding:12px; margin-bottom:12px; background:var(--bg);">
         <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:10px;">
           <div style="width:56px; flex-shrink:0;">
-            <img id="arena-hero-preview-0" src="" style="width:56px; height:56px; border-radius:6px; object-fit:cover; border:1px solid var(--border); background:var(--card); display:none;">
+            <img id="arena-hero-preview-0" src="./index_files/dkfltm.webp" style="width: 56px; height: 56px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border); background: var(--card); display: none;">
           </div>
           <div style="flex:1;">
             <div style="display:flex; gap:6px; margin-bottom:6px;">
@@ -970,8 +1026,8 @@
         <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 (같은 줄 안에서는 숫자 작을수록 왼쪽)</label>
         <div style="display:flex; gap:6px; align-items:center;">
           <select id="arena-hero-row-0" class="gcd-select" style="margin:0; width:90px;">
-            <option value="bottom" >아래 줄</option>
-            <option value="top" selected>위 줄</option>
+            <option value="bottom">아래 줄</option>
+            <option value="top" selected="">위 줄</option>
           </select>
           <input type="text" id="arena-hero-pos-0" class="gcd-input" placeholder="예: 1" value="1" style="margin:0; width:70px;">
         </div>
@@ -979,7 +1035,7 @@
       <div style="border:1px solid var(--border); border-radius:4px; padding:12px; margin-bottom:12px; background:var(--bg);">
         <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:10px;">
           <div style="width:56px; flex-shrink:0;">
-            <img id="arena-hero-preview-1" src="" style="width:56px; height:56px; border-radius:6px; object-fit:cover; border:1px solid var(--border); background:var(--card); display:none;">
+            <img id="arena-hero-preview-1" src="./index_files/vkffksntm.webp" style="width: 56px; height: 56px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border); background: var(--card); display: none;">
           </div>
           <div style="flex:1;">
             <div style="display:flex; gap:6px; margin-bottom:6px;">
@@ -1008,8 +1064,8 @@
         <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 (같은 줄 안에서는 숫자 작을수록 왼쪽)</label>
         <div style="display:flex; gap:6px; align-items:center;">
           <select id="arena-hero-row-1" class="gcd-select" style="margin:0; width:90px;">
-            <option value="bottom" selected>아래 줄</option>
-            <option value="top" >위 줄</option>
+            <option value="bottom" selected="">아래 줄</option>
+            <option value="top">위 줄</option>
           </select>
           <input type="text" id="arena-hero-pos-1" class="gcd-input" placeholder="예: 2" value="2" style="margin:0; width:70px;">
         </div>
@@ -1017,7 +1073,7 @@
       <div style="border:1px solid var(--border); border-radius:4px; padding:12px; margin-bottom:12px; background:var(--bg);">
         <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:10px;">
           <div style="width:56px; flex-shrink:0;">
-            <img id="arena-hero-preview-2" src="" style="width:56px; height:56px; border-radius:6px; object-fit:cover; border:1px solid var(--border); background:var(--card); display:none;">
+            <img id="arena-hero-preview-2" src="./index_files/rpfflentm.webp" style="width: 56px; height: 56px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border); background: var(--card); display: none;">
           </div>
           <div style="flex:1;">
             <div style="display:flex; gap:6px; margin-bottom:6px;">
@@ -1046,8 +1102,8 @@
         <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 (같은 줄 안에서는 숫자 작을수록 왼쪽)</label>
         <div style="display:flex; gap:6px; align-items:center;">
           <select id="arena-hero-row-2" class="gcd-select" style="margin:0; width:90px;">
-            <option value="bottom" selected>아래 줄</option>
-            <option value="top" >위 줄</option>
+            <option value="bottom" selected="">아래 줄</option>
+            <option value="top">위 줄</option>
           </select>
           <input type="text" id="arena-hero-pos-2" class="gcd-input" placeholder="예: 3" value="3" style="margin:0; width:70px;">
         </div>
@@ -1055,7 +1111,7 @@
       <div style="border:1px solid var(--border); border-radius:4px; padding:12px; margin-bottom:12px; background:var(--bg);">
         <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:10px;">
           <div style="width:56px; flex-shrink:0;">
-            <img id="arena-hero-preview-3" src="" style="width:56px; height:56px; border-radius:6px; object-fit:cover; border:1px solid var(--border); background:var(--card); display:none;">
+            <img id="arena-hero-preview-3" src="./index_files/gkdus.webp" style="width: 56px; height: 56px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border); background: var(--card); display: none;">
           </div>
           <div style="flex:1;">
             <div style="display:flex; gap:6px; margin-bottom:6px;">
@@ -1084,8 +1140,8 @@
         <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 (같은 줄 안에서는 숫자 작을수록 왼쪽)</label>
         <div style="display:flex; gap:6px; align-items:center;">
           <select id="arena-hero-row-3" class="gcd-select" style="margin:0; width:90px;">
-            <option value="bottom" selected>아래 줄</option>
-            <option value="top" >위 줄</option>
+            <option value="bottom" selected="">아래 줄</option>
+            <option value="top">위 줄</option>
           </select>
           <input type="text" id="arena-hero-pos-3" class="gcd-input" placeholder="예: 4" value="4" style="margin:0; width:70px;">
         </div>
@@ -1093,7 +1149,7 @@
       <div style="border:1px solid var(--border); border-radius:4px; padding:12px; margin-bottom:12px; background:var(--bg);">
         <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:10px;">
           <div style="width:56px; flex-shrink:0;">
-            <img id="arena-hero-preview-4" src="" style="width:56px; height:56px; border-radius:6px; object-fit:cover; border:1px solid var(--border); background:var(--card); display:none;">
+            <img id="arena-hero-preview-4" src="./index_files/fkemrmflem.webp" style="width: 56px; height: 56px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border); background: var(--card); display: none;">
           </div>
           <div style="flex:1;">
             <div style="display:flex; gap:6px; margin-bottom:6px;">
@@ -1122,8 +1178,8 @@
         <label class="gcd-label" style="margin:8px 0 4px;">📍 배치 (같은 줄 안에서는 숫자 작을수록 왼쪽)</label>
         <div style="display:flex; gap:6px; align-items:center;">
           <select id="arena-hero-row-4" class="gcd-select" style="margin:0; width:90px;">
-            <option value="bottom" selected>아래 줄</option>
-            <option value="top" >위 줄</option>
+            <option value="bottom" selected="">아래 줄</option>
+            <option value="top">위 줄</option>
           </select>
           <input type="text" id="arena-hero-pos-4" class="gcd-input" placeholder="예: 5" value="5" style="margin:0; width:70px;">
         </div>
@@ -1435,13 +1491,13 @@
     </div>
 
     <!-- 검색 바 -->
-    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: block;">⚔️ 길드전 공격 구성 덱</div>
-    <div id="tot-subtabs" style="display: flex; gap: 8px; margin-bottom: 10px;">
+    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: block;">🏟️ 결투장</div>
+    <div id="tot-subtabs" style="display: none; gap: 8px; margin-bottom: 10px;">
       <div id="tot-subtab-공덱" class="tot-subtab-link active" data-type="공덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(255, 237, 213); color: rgb(194, 65, 12);">공덱</div>
       <div id="tot-subtab-마덱" class="tot-subtab-link" data-type="마덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">마덱</div>
       <div id="tot-subtab-방덱" class="tot-subtab-link" data-type="방덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">방덱</div>
     </div>
-    <div class="gcd-search-box" id="gcd-search-section" style="padding: 16px 24px; display: block;">
+    <div class="gcd-search-box" id="gcd-search-section" style="padding: 16px 24px; display: none;">
       <div class="search-row">
         <input type="text" id="gcd-heroes-input" class="gcd-input" style="margin:0;" placeholder="방어 영웅 추가... (예: 루디)">
         <button id="gcd-search-btn" class="gcd-btn-search">🔍 검색</button>
@@ -1450,15 +1506,253 @@
 
     <!-- 리스트 영역 -->
     <!-- 결투장 탭 전용 검색 + 리스트 -->
-    <div class="gcd-search-box" id="arena-search-section" style="padding: 16px 24px; display: none;">
+    <div class="gcd-search-box" id="arena-search-section" style="padding: 16px 24px; display: block;">
       <div class="search-row">
         <input type="text" id="arena-search-input" class="gcd-input" style="margin:0;" placeholder="덱 이름으로 검색...">
         <button id="arena-search-btn" class="gcd-btn-search">🔍 검색</button>
       </div>
     </div>
-    <div id="arena-list-wrapper" style="display: none;"></div>
+    <div id="arena-list-wrapper" style="display: block;">
+        <div class="list-item" style="grid-template-columns: 1fr auto; cursor:pointer; " onclick="window.openArenaDetail('arena_1789451822941_xjwh')">
+          <div>
+            <div style="display:flex; gap:6px; margin-bottom:6px; flex-wrap:wrap; align-items:center;">
+              <span style="font-size:12px; font-weight:900; color:#241a05; background:#ffb648; padding:3px 11px; border-radius:999px;">방덱</span>
+              <span style="font-size:12px; font-weight:900; color:var(--ink); background:var(--bg); border:1px solid var(--border); padding:3px 9px; border-radius:999px;">0티어</span>
+              <span style="font-size:12px; font-weight:900; color:var(--blue); background:var(--blue-soft); padding:3px 9px; border-radius:999px;">픽률 32%</span>
+              <span style="font-size:12px; font-weight:900; color:var(--orange); background:var(--orange-soft); padding:3px 9px; border-radius:2px;">내실 세팅</span>
+            </div>
+            <div style="font-weight:900; font-size:16px; color:var(--ink); margin-bottom:6px;">방덱</div>
+            
+      <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap;">
+        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+          <div style="display:flex; gap:6px; justify-content:center;">
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/rpfflentm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/vkffksntm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      </div>
+          <div style="display:flex; gap:6px;">
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/fkemrmflem.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      </div>
+        </div>
+        <span style="width:1px; height:44px; background:var(--border);"></span><div style="text-align:center; flex-shrink:0;"><img referrerpolicy="no-referrer" src="./index_files/fn(1).png" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);"></div>
+        <span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">
+      <div style="text-align:center; flex-shrink:0;">
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+          
+            <div style="position:relative; width:40px; height:40px;">
+              <img referrerpolicy="no-referrer" src="./index_files/Rmxsoqhf-Rk.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">1</span>
+            </div>
+          
+          <img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
+        </div>
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">아리스</div>
+      </div>
+    
+      <div style="text-align:center; flex-shrink:0;">
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+          
+            <div style="position:relative; width:40px; height:40px;">
+              <img referrerpolicy="no-referrer" src="./index_files/qhddnjfans.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">2</span>
+            </div>
+          
+          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
+        </div>
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">하연</div>
+      </div>
+    
+      <div style="text-align:center; flex-shrink:0;">
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+          
+            <div style="position:relative; width:40px; height:40px;">
+              <img referrerpolicy="no-referrer" src="./index_files/rkdrhgksrjarur.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">3</span>
+            </div>
+          
+          <img referrerpolicy="no-referrer" src="./index_files/vkffksntm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
+        </div>
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">팔라누스</div>
+      </div>
+    </div>
+      </div>
+    
+          </div>
+          <button class="detail-btn " style="width:auto; padding:10px 18px;" onclick="event.stopPropagation(); window.openArenaDetail('arena_1789451822941_xjwh')">상세 보기</button>
+        </div>
+      
+        <div class="list-item" style="grid-template-columns: 1fr auto; cursor:pointer; " onclick="window.openArenaDetail('arena_1789468161818_8tpe')">
+          <div>
+            <div style="display:flex; gap:6px; margin-bottom:6px; flex-wrap:wrap; align-items:center;">
+              <span style="font-size:12px; font-weight:900; color:#241a05; background:#ffb648; padding:3px 11px; border-radius:999px;">하이브리드</span>
+              <span style="font-size:12px; font-weight:900; color:var(--ink); background:var(--bg); border:1px solid var(--border); padding:3px 9px; border-radius:999px;">0티어</span>
+              <span style="font-size:12px; font-weight:900; color:var(--blue); background:var(--blue-soft); padding:3px 9px; border-radius:999px;">픽률 42%</span>
+              <span style="font-size:12px; font-weight:900; color:var(--orange); background:var(--orange-soft); padding:3px 9px; border-radius:2px;">속공 세팅</span>
+            </div>
+            <div style="font-weight:900; font-size:16px; color:var(--ink); margin-bottom:6px;">선란+윤건 하이브리드 덱</div>
+            
+      <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap;">
+        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+          <div style="display:flex; gap:6px; justify-content:center;">
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      </div>
+          <div style="display:flex; gap:6px;">
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/dbsrjs(1).webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      </div>
+        </div>
+        <span style="width:1px; height:44px; background:var(--border);"></span><div style="text-align:center; flex-shrink:0;"><img referrerpolicy="no-referrer" src="./index_files/2026-08-15-004940(1).png" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);"></div>
+        <span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">
+      <div style="text-align:center; flex-shrink:0;">
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+          
+            <div style="position:relative; width:40px; height:40px;">
+              <img referrerpolicy="no-referrer" src="./index_files/tlsthrdustk.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">1</span>
+            </div>
+          
+          <img referrerpolicy="no-referrer" src="./index_files/dbsrjs(1).webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
+        </div>
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">윤건</div>
+      </div>
+    
+      <div style="text-align:center; flex-shrink:0;">
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+          
+            <div style="position:relative; width:40px; height:40px;">
+              <img referrerpolicy="no-referrer" src="./index_files/qhddnjfans.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">2</span>
+            </div>
+          
+          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
+        </div>
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">하연</div>
+      </div>
+    
+      <div style="text-align:center; flex-shrink:0;">
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+          
+            <div style="position:relative; width:40px; height:40px;">
+              <img referrerpolicy="no-referrer" src="./index_files/andudqlrja.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">3</span>
+            </div>
+          
+          <img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
+        </div>
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">선란</div>
+      </div>
+    </div>
+      </div>
+    
+          </div>
+          <button class="detail-btn " style="width:auto; padding:10px 18px;" onclick="event.stopPropagation(); window.openArenaDetail('arena_1789468161818_8tpe')">상세 보기</button>
+        </div>
+      
+        <div class="list-item" style="grid-template-columns: 1fr auto; cursor:pointer; " onclick="window.openArenaDetail('arena_1789451828094_ilqo')">
+          <div>
+            <div style="display:flex; gap:6px; margin-bottom:6px; flex-wrap:wrap; align-items:center;">
+              <span style="font-size:12px; font-weight:900; color:#241a05; background:#ffb648; padding:3px 11px; border-radius:999px;">방덱</span>
+              <span style="font-size:12px; font-weight:900; color:var(--ink); background:var(--bg); border:1px solid var(--border); padding:3px 9px; border-radius:999px;">0티어</span>
+              <span style="font-size:12px; font-weight:900; color:var(--blue); background:var(--blue-soft); padding:3px 9px; border-radius:999px;">픽률 10%</span>
+              <span style="font-size:12px; font-weight:900; color:var(--orange); background:var(--orange-soft); padding:3px 9px; border-radius:2px;">내실 세팅</span>
+            </div>
+            <div style="font-weight:900; font-size:16px; color:var(--ink); margin-bottom:6px;">효저 방덱</div>
+            
+      <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap;">
+        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+          <div style="display:flex; gap:6px; justify-content:center;">
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/fnel.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      </div>
+          <div style="display:flex; gap:6px;">
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/vkffksntm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      
+        <div style="text-align:center; flex-shrink:0;">
+          <img referrerpolicy="no-referrer" src="./index_files/flsk.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+        </div>
+      </div>
+        </div>
+        <span style="width:1px; height:44px; background:var(--border);"></span><div style="text-align:center; flex-shrink:0;"><img referrerpolicy="no-referrer" src="./index_files/vkdlzm(1).png" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);"></div>
+        <span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">
+      <div style="text-align:center; flex-shrink:0;">
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+          
+            <div style="position:relative; width:40px; height:40px;">
+              <img referrerpolicy="no-referrer" src="./index_files/dhksqurgksgkawjd.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">2</span>
+            </div>
+          
+            <div style="position:relative; width:40px; height:40px;">
+              <img referrerpolicy="no-referrer" src="./index_files/tjqfldmlwhdbf.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">1</span>
+            </div>
+          
+          <img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
+        </div>
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">클레미스</div>
+      </div>
+    
+      <div style="text-align:center; flex-shrink:0;">
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+          
+            <div style="position:relative; width:40px; height:40px;">
+              <img referrerpolicy="no-referrer" src="./index_files/qhddnjfans.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">3</span>
+            </div>
+          
+          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
+        </div>
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">하연</div>
+      </div>
+    </div>
+      </div>
+    
+          </div>
+          <button class="detail-btn " style="width:auto; padding:10px 18px;" onclick="event.stopPropagation(); window.openArenaDetail('arena_1789451828094_ilqo')">상세 보기</button>
+        </div>
+      </div>
 
-    <div id="list-wrapper" style="display: block;">
+    <div id="list-wrapper" style="display: none;">
       <div class="list-header" id="list-header" style="display: grid;">
         <div>구분</div>
         <div>영웅 구성</div>
@@ -1476,91 +1770,11 @@
         <div><span class="badge atk">ATK</span></div>
         <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" alt="하연"><span>하연</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item active-item">
+      </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
         <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
-        <div><button class="detail-btn active-btn">접기 ▲</button></div>
-      </div><div class="accordion-content">
-            <div class="gcd-result-card">
-              <div class="gcd-res-target">
-                <span style="font-size:18px; color:var(--ink); font-weight:900;">⚔️ [ 여포 · 오르카 · 칼헤론 ] 카운터</span>
-                <span>
-            <button class="btn-mini-edit" onclick="window.editDeckItem('tot_1788615298183')">✏️ 수정</button>
-            <button class="btn-mini-del" onclick="window.deleteDeckItem('tot_1788615298183')">🗑️ 삭제</button>
-          </span>
-              </div>
-              <div class="gcd-info-block gcd-atk-block">
-                <div class="title">⚔️ 카운터 상세 공략</div>
-                
-              <div class="gcd-atk-card-item">
-                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
-                  <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                    <span style="font-size:11px; background:var(--red-soft); color:var(--red); padding:2px 8px; border-radius:6px;">밸런스 진형</span>
-                  </span>
-                </div>
-                
-                <div class="counter-body-formation-row">
-                  
-                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">
-      <div class="formation-board">
-        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="hero"></div><div class="formation-slot-name">여포</div></div><div class="formation-slot-wrap"><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/qmfkswm.webp" alt="hero"></div><div class="formation-slot-name">브란즈&amp;브란셀</div></div></div>
-        <div class="formation-row-label">전열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="hero"></div><div class="formation-slot-name">칼헤론</div></div></div>
-        
-      </div>
-    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img referrerpolicy="no-referrer" src="./index_files/dlfls.png" alt="이린"></div><div class="formation-slot-name">이린</div></div></div></div></div></div>
-                </div>
-                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">- 여포
-장비 : 추적자
-세팅 : 효저 최대한 챙기기
-
-- 칼헤론
-세팅 : 팀 내 공격력 1순위 필수
-
-- 브란즈&amp;브란셀
-장비 : 추적자, 조율자
-세팅 : 약공 효저 땡기기
-tip 조율자 팀 내 속공 3순위 필수</div>
-              </div>
-            
-              <div class="gcd-atk-card-item">
-                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
-                  <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                    <span style="font-size:11px; background:var(--red-soft); color:var(--red); padding:2px 8px; border-radius:6px;">기본 진형</span>
-                  </span>
-                </div>
-                
-                <div class="counter-body-formation-row">
-                  
-              <div class="counter-order-side">
-                <div><span class="counter-order-label">스킬순서</span>연희2 실베1 실베2</div>
-                
-                <div><span class="counter-order-label">속공순서</span>속공 필수로 따야함 ★★★</div>
-              </div>
-            
-                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">
-      <div class="formation-board">
-        <div class="formation-row-label">후열</div><div class="formation-slots"><div class="formation-slot-wrap"><div class="ring-pair"><div class="ring-item"><img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl(1).webp" alt="권능"><span class="ring-name">권능</span></div><div class="ring-item"><img referrerpolicy="no-referrer" src="./index_files/6tjdqnftk.webp" alt="불사"><span class="ring-name">불사</span></div></div><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/dusgml.webp" alt="hero"></div><div class="formation-slot-name">연희</div></div><div class="formation-slot-wrap"><div class="ring-pair"><div class="ring-item"><img referrerpolicy="no-referrer" src="./index_files/6tjdrnjsrl(1).webp" alt="권능"><span class="ring-name">권능</span></div><div class="ring-item"><img referrerpolicy="no-referrer" src="./index_files/6tjdqnftk.webp" alt="불사"><span class="ring-name">불사</span></div></div><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/vmfpdldi.webp" alt="hero"></div><div class="formation-slot-name">프레이야</div></div><div class="formation-slot-wrap"><div class="ring-pair"><div class="ring-item"><img referrerpolicy="no-referrer" src="./index_files/6tjdqnghkf(1).webp" alt="부활+불사"><span class="ring-name">부활+불사</span></div></div><div class="formation-slot"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" alt="hero"></div><div class="formation-slot-name">실베스타</div></div></div>
-        
-        
-      </div>
-    <div class="pet-display-wrap"><div class="pet-display-label">🐾 펫</div><div class="pet-display-items"><div class="pet-display-item"><div class="formation-slot pet-slot"><img referrerpolicy="no-referrer" src="./index_files/zmfl.png" alt="크리"></div><div class="formation-slot-name">크리</div></div></div></div></div></div>
-                </div>
-                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">- 연희 
-장비 : 암살자 치치공공
-
-- 프레이야
-장비 : 조율자 
-세팅 : 효저100, 적당한 효적
-★ 팀 내 공격력 1순위 필수
-
-- 실베스타
-장비 : 추적자 효약공공
-세팅 : 효적이 높을수록 좋음</div>
-              </div>
-            
-              </div>
-            </div>
-          </div><div class="list-item">
+        <div><button class="detail-btn">상세 공략 열기</button></div>
+      </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
         <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
@@ -3218,50 +3432,64 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     const topHeroes = heroes.filter(h => h.row === 'top');
     const bottomHeroes = heroes.filter(h => h.row !== 'top');
     const iconHtml = (h, size) => {
+      if(!h.img) return '';
       return `
         <div style="text-align:center; flex-shrink:0;">
-          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:${size}px; height:${size}px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:${size}px; height:${size}px; border-radius:6px; background:var(--bg); border:1px solid var(--border);"></div>`}
+          <img referrerpolicy="no-referrer" src="${h.img}" style="width:${size}px; height:${size}px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
         </div>
       `;
     };
     const petHtml = (item.pet && item.pet.img) ? `<img referrerpolicy="no-referrer" src="${item.pet.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);">` : '';
 
-    // 스킬 예약 (우선순위 숫자 작은 순서대로) — 펫 옆에 표시
-    const getMinPri = (h) => {
-      const nums = [h.skill1Pri, h.skill2Pri, h.skill3Pri].map(p => parseInt(p, 10)).filter(n => !isNaN(n));
-      return nums.length ? Math.min(...nums) : Infinity;
-    };
-    const skillHeroes = heroes.filter(h => h.skill1Img || h.skill2Img || h.skill3Img).slice().sort((a, b) => getMinPri(a) - getMinPri(b));
-    const skillOrderHtml = skillHeroes.map(h => `
+    // 스킬 예약 (우선순위 숫자 작은 순서대로) — 펫 옆에 표시. 영웅별로 묶지 않고 스킬 하나당 한 칸씩, 같은 영웅이 여러 번 나올 수 있음
+    const skillEntries = [];
+    heroes.forEach(h => {
+      [[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].forEach(([simg, pri]) => {
+        if(simg) skillEntries.push({ img: simg, pri, name: h.name, heroImg: h.img });
+      });
+    });
+    const priNum = (pri) => { const n = parseInt(pri, 10); return isNaN(n) ? Infinity : n; };
+    skillEntries.sort((a, b) => priNum(a.pri) - priNum(b.pri));
+    const skillOrderHtml = skillEntries.map(e => `
       <div style="text-align:center; flex-shrink:0;">
-        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-          ${[[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].map(([simg, pri]) => simg ? `
-            <div style="position:relative; width:40px; height:40px;">
-              <img referrerpolicy="no-referrer" src="${simg}" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-              ${pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(pri)}</span>` : ''}
-            </div>
-          ` : '').join('')}
-          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">` : ''}
+        <div style="position:relative; width:40px; height:40px;">
+          <img referrerpolicy="no-referrer" src="${e.img}" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+          ${e.pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(e.pri)}</span>` : ''}
         </div>
-        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">${esc(h.name)}</div>
+        ${e.heroImg ? `<img referrerpolicy="no-referrer" src="${e.heroImg}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:4px;">` : ''}
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">${esc(e.name)}</div>
       </div>
     `).join('');
 
+    const hasTopHero = topHeroes.some(h => h.img);
+    const hasBottomHero = bottomHeroes.some(h => h.img);
+    if(!hasTopHero && !hasBottomHero && !petHtml && !skillOrderHtml) return '';
+
     return `
       <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap;">
+        ${(hasTopHero || hasBottomHero) ? `
         <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          <div style="display:flex; gap:6px; justify-content:center;">${topHeroes.map(h => iconHtml(h, 52)).join('')}</div>
-          <div style="display:flex; gap:6px;">${bottomHeroes.map(h => iconHtml(h, 52)).join('')}</div>
+          ${hasTopHero ? `<div style="display:flex; gap:6px; justify-content:center;">${topHeroes.map(h => iconHtml(h, 52)).join('')}</div>` : ''}
+          ${hasBottomHero ? `<div style="display:flex; gap:6px;">${bottomHeroes.map(h => iconHtml(h, 52)).join('')}</div>` : ''}
         </div>
+        ` : ''}
         ${petHtml ? `<span style="width:1px; height:44px; background:var(--border);"></span><div style="text-align:center; flex-shrink:0;">${petHtml}</div>` : ''}
         ${skillOrderHtml ? `<span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">${skillOrderHtml}</div>` : ''}
       </div>
     `;
   }
 
+  function arenaHasAnyImage(item){
+    const heroes = item.heroes || [];
+    if(heroes.some(h => h.img)) return true;
+    if(item.pet && item.pet.img) return true;
+    return false;
+  }
+
   function renderArenaList(query){
     const q = (query || '').trim();
-    const filtered = q ? arenaData.filter(a => (a.name || '').includes(q)) : arenaData;
+    let filtered = q ? arenaData.filter(a => (a.name || '').includes(q)) : arenaData;
+    filtered = filtered.filter(arenaHasAnyImage);
     const wrap = document.getElementById('arena-list-wrapper');
     if(!wrap) return;
     const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
