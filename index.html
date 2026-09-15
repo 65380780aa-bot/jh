@@ -2440,7 +2440,18 @@
                 <input type="text" class="gcd-input ${prefix}-slot-ring2-name-${i}" value="${(slots[i]?.ring2Name || '').replace(/"/g,'&quot;')}" placeholder="반지2 이름" style="margin:0;">
                 <input type="text" class="gcd-input ${prefix}-slot-ring2-${i}" value="${slots[i]?.ring2 || ''}" placeholder="반지2 이미지 URL" style="margin:0;">
               </div>
-              <textarea class="gcd-textarea ${prefix}-slot-info-${i}" placeholder="클릭 시 나올 상세 정보 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;">${slots[i]?.info || ''}</textarea>
+              <div style="display:flex; gap:6px; margin-top:8px;">
+                <input type="text" class="gcd-input ${prefix}-slot-job-${i}" value="${(slots[i]?.job || '').replace(/"/g,'&quot;')}" placeholder="직업 (예: 암살자)" style="margin:0; width:110px;">
+                <input type="text" class="gcd-input ${prefix}-slot-gearsum-${i}" value="${(slots[i]?.gearSummary || '').replace(/"/g,'&quot;')}" placeholder="장비 옵션 요약 (예: 공공공공)" style="margin:0; flex:1;">
+              </div>
+              <div class="slot-input-grid" style="grid-template-columns: repeat(2, 1fr); margin-top:6px;">
+                <div class="slot-input-box"><label>무기1</label><input type="text" class="gcd-input ${prefix}-slot-w1-${i}" value="${(slots[i]?.w1 || '').replace(/"/g,'&quot;')}" placeholder="예: 모든 공격력(%)"></div>
+                <div class="slot-input-box"><label>무기2</label><input type="text" class="gcd-input ${prefix}-slot-w2-${i}" value="${(slots[i]?.w2 || '').replace(/"/g,'&quot;')}" placeholder="예: 치명타 확률"></div>
+                <div class="slot-input-box"><label>방어구1</label><input type="text" class="gcd-input ${prefix}-slot-a1-${i}" value="${(slots[i]?.a1 || '').replace(/"/g,'&quot;')}" placeholder="예: 효과 적중"></div>
+                <div class="slot-input-box"><label>방어구2</label><input type="text" class="gcd-input ${prefix}-slot-a2-${i}" value="${(slots[i]?.a2 || '').replace(/"/g,'&quot;')}" placeholder="예: 받는 피해 감소"></div>
+              </div>
+              <input type="text" class="gcd-input ${prefix}-slot-acc-${i}" value="${(slots[i]?.accessory || '').replace(/"/g,'&quot;')}" placeholder="장신구 (예: 권능)" style="margin-top:6px;">
+              <textarea class="gcd-textarea ${prefix}-slot-info-${i}" placeholder="세팅 디테일 메모 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;">${slots[i]?.info || ''}</textarea>
             </div>
           </div>
         `;
@@ -2507,6 +2518,13 @@
             ring2: box.querySelector(`.${prefix}-slot-ring2-${k}`)?.value || '',
             ring1Name: box.querySelector(`.${prefix}-slot-ring1-name-${k}`)?.value || '',
             ring2Name: box.querySelector(`.${prefix}-slot-ring2-name-${k}`)?.value || '',
+            job: box.querySelector(`.${prefix}-slot-job-${k}`)?.value || '',
+            gearSummary: box.querySelector(`.${prefix}-slot-gearsum-${k}`)?.value || '',
+            w1: box.querySelector(`.${prefix}-slot-w1-${k}`)?.value || '',
+            w2: box.querySelector(`.${prefix}-slot-w2-${k}`)?.value || '',
+            a1: box.querySelector(`.${prefix}-slot-a1-${k}`)?.value || '',
+            a2: box.querySelector(`.${prefix}-slot-a2-${k}`)?.value || '',
+            accessory: box.querySelector(`.${prefix}-slot-acc-${k}`)?.value || '',
             info: box.querySelector(`.${prefix}-slot-info-${k}`).value
           });
         }
@@ -3076,6 +3094,13 @@
           ring2: box.querySelector(`.t-slot-ring2-${k}`)?.value || '',
           ring1Name: box.querySelector(`.t-slot-ring1-name-${k}`)?.value || '',
           ring2Name: box.querySelector(`.t-slot-ring2-name-${k}`)?.value || '',
+          job: box.querySelector(`.t-slot-job-${k}`)?.value || '',
+          gearSummary: box.querySelector(`.t-slot-gearsum-${k}`)?.value || '',
+          w1: box.querySelector(`.t-slot-w1-${k}`)?.value || '',
+          w2: box.querySelector(`.t-slot-w2-${k}`)?.value || '',
+          a1: box.querySelector(`.t-slot-a1-${k}`)?.value || '',
+          a2: box.querySelector(`.t-slot-a2-${k}`)?.value || '',
+          accessory: box.querySelector(`.t-slot-acc-${k}`)?.value || '',
           info: box.querySelector(`.t-slot-info-${k}`).value
         });
       }
@@ -3432,64 +3457,50 @@
     const topHeroes = heroes.filter(h => h.row === 'top');
     const bottomHeroes = heroes.filter(h => h.row !== 'top');
     const iconHtml = (h, size) => {
-      if(!h.img) return '';
       return `
         <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="${h.img}" style="width:${size}px; height:${size}px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:${size}px; height:${size}px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : `<div style="width:${size}px; height:${size}px; border-radius:6px; background:var(--bg); border:1px solid var(--border);"></div>`}
         </div>
       `;
     };
     const petHtml = (item.pet && item.pet.img) ? `<img referrerpolicy="no-referrer" src="${item.pet.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);">` : '';
 
-    // 스킬 예약 (우선순위 숫자 작은 순서대로) — 펫 옆에 표시. 영웅별로 묶지 않고 스킬 하나당 한 칸씩, 같은 영웅이 여러 번 나올 수 있음
-    const skillEntries = [];
-    heroes.forEach(h => {
-      [[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].forEach(([simg, pri]) => {
-        if(simg) skillEntries.push({ img: simg, pri, name: h.name, heroImg: h.img });
-      });
-    });
-    const priNum = (pri) => { const n = parseInt(pri, 10); return isNaN(n) ? Infinity : n; };
-    skillEntries.sort((a, b) => priNum(a.pri) - priNum(b.pri));
-    const skillOrderHtml = skillEntries.map(e => `
+    // 스킬 예약 (우선순위 숫자 작은 순서대로) — 펫 옆에 표시
+    const getMinPri = (h) => {
+      const nums = [h.skill1Pri, h.skill2Pri, h.skill3Pri].map(p => parseInt(p, 10)).filter(n => !isNaN(n));
+      return nums.length ? Math.min(...nums) : Infinity;
+    };
+    const skillHeroes = heroes.filter(h => h.skill1Img || h.skill2Img || h.skill3Img).slice().sort((a, b) => getMinPri(a) - getMinPri(b));
+    const skillOrderHtml = skillHeroes.map(h => `
       <div style="text-align:center; flex-shrink:0;">
-        <div style="position:relative; width:40px; height:40px;">
-          <img referrerpolicy="no-referrer" src="${e.img}" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-          ${e.pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(e.pri)}</span>` : ''}
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
+          ${[[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].map(([simg, pri]) => simg ? `
+            <div style="position:relative; width:40px; height:40px;">
+              <img referrerpolicy="no-referrer" src="${simg}" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+              ${pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(pri)}</span>` : ''}
+            </div>
+          ` : '').join('')}
+          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">` : ''}
         </div>
-        ${e.heroImg ? `<img referrerpolicy="no-referrer" src="${e.heroImg}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:4px;">` : ''}
-        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">${esc(e.name)}</div>
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">${esc(h.name)}</div>
       </div>
     `).join('');
 
-    const hasTopHero = topHeroes.some(h => h.img);
-    const hasBottomHero = bottomHeroes.some(h => h.img);
-    if(!hasTopHero && !hasBottomHero && !petHtml && !skillOrderHtml) return '';
-
     return `
       <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap;">
-        ${(hasTopHero || hasBottomHero) ? `
         <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          ${hasTopHero ? `<div style="display:flex; gap:6px; justify-content:center;">${topHeroes.map(h => iconHtml(h, 52)).join('')}</div>` : ''}
-          ${hasBottomHero ? `<div style="display:flex; gap:6px;">${bottomHeroes.map(h => iconHtml(h, 52)).join('')}</div>` : ''}
+          <div style="display:flex; gap:6px; justify-content:center;">${topHeroes.map(h => iconHtml(h, 52)).join('')}</div>
+          <div style="display:flex; gap:6px;">${bottomHeroes.map(h => iconHtml(h, 52)).join('')}</div>
         </div>
-        ` : ''}
         ${petHtml ? `<span style="width:1px; height:44px; background:var(--border);"></span><div style="text-align:center; flex-shrink:0;">${petHtml}</div>` : ''}
         ${skillOrderHtml ? `<span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">${skillOrderHtml}</div>` : ''}
       </div>
     `;
   }
 
-  function arenaHasAnyImage(item){
-    const heroes = item.heroes || [];
-    if(heroes.some(h => h.img)) return true;
-    if(item.pet && item.pet.img) return true;
-    return false;
-  }
-
   function renderArenaList(query){
     const q = (query || '').trim();
-    let filtered = q ? arenaData.filter(a => (a.name || '').includes(q)) : arenaData;
-    filtered = filtered.filter(arenaHasAnyImage);
+    const filtered = q ? arenaData.filter(a => (a.name || '').includes(q)) : arenaData;
     const wrap = document.getElementById('arena-list-wrapper');
     if(!wrap) return;
     const esc = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -3653,6 +3664,13 @@
           ring2: (box.querySelector(`.t-slot-ring2-${k}`)?.value || '').trim(),
           ring1Name: (box.querySelector(`.t-slot-ring1-name-${k}`)?.value || '').trim(),
           ring2Name: (box.querySelector(`.t-slot-ring2-name-${k}`)?.value || '').trim(),
+          job: (box.querySelector(`.t-slot-job-${k}`)?.value || '').trim(),
+          gearSummary: (box.querySelector(`.t-slot-gearsum-${k}`)?.value || '').trim(),
+          w1: (box.querySelector(`.t-slot-w1-${k}`)?.value || '').trim(),
+          w2: (box.querySelector(`.t-slot-w2-${k}`)?.value || '').trim(),
+          a1: (box.querySelector(`.t-slot-a1-${k}`)?.value || '').trim(),
+          a2: (box.querySelector(`.t-slot-a2-${k}`)?.value || '').trim(),
+          accessory: (box.querySelector(`.t-slot-acc-${k}`)?.value || '').trim(),
           info: box.querySelector(`.t-slot-info-${k}`).value.trim()
         });
       }
@@ -4085,6 +4103,35 @@
                 ${c.speedOrder ? `<div><span class="counter-order-label">속공순서</span>${c.speedOrder}</div>` : ''}
               </div>
             ` : '';
+            const escGear = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            const gearHeroes = slots.filter(h => h && (h.name || h.img));
+            const gearCardsHtml = gearHeroes.map(h => `
+              <div style="border:1px solid var(--border); border-radius:4px; padding:14px; background:var(--card);">
+                <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+                  ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:44px; height:44px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : ''}
+                  <div style="flex:1;">
+                    <div style="font-weight:900; font-size:14px; color:var(--ink);">${escGear(h.name)}</div>
+                    ${h.gearSummary ? `<div style="font-size:11px; color:var(--text-dim); font-weight:700;">${escGear(h.gearSummary)}</div>` : ''}
+                  </div>
+                  ${h.job ? `<span style="font-size:11px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:3px 8px; border-radius:2px; white-space:nowrap;">${escGear(h.job)}</span>` : ''}
+                </div>
+                ${h.info ? `<div style="font-size:12.5px; font-weight:700; color:var(--ink); line-height:1.7; background:var(--bg); border-radius:3px; padding:8px; margin-bottom:8px; white-space:pre-line;">${escGear(h.info)}</div>` : ''}
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-bottom:8px;">
+                  ${[['무기1', h.w1], ['무기2', h.w2], ['방어구1', h.a1], ['방어구2', h.a2]].map(([label, val]) => val ? `
+                    <div style="background:var(--bg); border-radius:3px; padding:6px 8px; text-align:center;">
+                      <div style="font-size:10px; color:var(--text-dim); font-weight:700;">${label}</div>
+                      <div style="font-size:12px; font-weight:800; color:var(--ink);">${escGear(val)}</div>
+                    </div>
+                  ` : '').join('')}
+                </div>
+                ${h.accessory ? `
+                  <div style="background:var(--bg); border-radius:3px; padding:6px 8px; text-align:center;">
+                    <div style="font-size:10px; color:var(--text-dim); font-weight:700;">장신구</div>
+                    <div style="font-size:12px; font-weight:800; color:var(--ink);">${escGear(h.accessory)}</div>
+                  </div>
+                ` : ''}
+              </div>
+            `).join('');
             let cardHtml = `
               <div class="gcd-atk-card-item">
                 <div class="gcd-atk-card-title" style="justify-content:flex-end;">
@@ -4098,6 +4145,7 @@
                   <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">${boardHtml}${petHtml}</div></div>
                 </div>
                 <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">${c.body || ''}</div>
+                ${gearCardsHtml ? `<div style="font-weight:900; font-size:13px; color:var(--ink); margin:14px 0 8px;">🗡️ 전원 장비 · 세팅 디테일</div><div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:10px;">${gearCardsHtml}</div>` : ''}
               </div>
             `;
             countersHtml += cardHtml;
