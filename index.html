@@ -1858,6 +1858,7 @@ tip 조율자 팀 내 속공 3순위 필수</div>
   let totData = [];
   let arenaData = []; // 결투장 덱 DB (Firestore guild_arena_db)
   let currentArenaDetailId = null;
+  let arenaAutoSaveAttempted = false; // 자동등록/중복정리는 실제 Firestore 데이터가 도착한 뒤에만 실행 (레이스 컨디션 방지)
   let statsData = {}; // { "atk_4_0": { wins: 3, losses: 1, isStandard: true } } - 카운터 조합별 승/패 기록 + ⭐정석 파훼덱 수동 태그
 
   const adminBtn = document.getElementById('admin-mode-btn');
@@ -2051,6 +2052,9 @@ tip 조율자 팀 내 속공 3순위 필수</div>
       snap.forEach(d => { let data = d.data(); if(data && data.id) map.set(data.id, data); });
       arenaData = Array.from(map.values()).sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ko-KR'));
       if(currentMode === 'ARENA') renderArenaList(document.getElementById('arena-search-input')?.value || '');
+      // 자동등록/중복정리는 반드시 arenaData가 실제로 채워진 뒤(=이 콜백 안)에서만 실행.
+      // 탭 클릭 시점에 실행하면 arenaData가 아직 빈 배열일 수 있어 중복 생성/정리 누락 버그가 생김.
+      if(isAdmin && window.autoSaveSampleArenaDeck) window.autoSaveSampleArenaDeck();
     });
 
     // 딥링크: 주소 끝에 ?deck=키워드 를 붙이면 해당 조합을 자동으로 찾아서 펼쳐줌.
@@ -2944,8 +2948,6 @@ tip 조율자 팀 내 속공 3순위 필수</div>
   // ── 결투장 덱 관리 ──
   // 관리자로 결투장 탭 들어올 때, 아래 SAMPLE_ARENA_DECKS에 정의된 덱들을 자동으로 저장/최신화해줌 (수동 입력/저장 클릭 불필요)
   // 이미 같은 이름의 덱이 있으면 그 문서를 덮어써서 최신 내용으로 갱신함 (이미지처럼 직접 채운 부분은 보존)
-  let arenaAutoSaveAttempted = false;
-
   function heroDef(name, job, gearSummary, notes, w1, w2, a1, a2, accessory, skill1Pri, skill2Pri, pos, row, existingHero){
     return {
       name, job, gearSummary, notes, w1, w2, a1, a2, accessory,
@@ -3003,10 +3005,34 @@ tip 조율자 팀 내 속공 3순위 필수</div>
   window.autoSaveSampleArenaDeck = async function(){
     if(!isAdmin || arenaAutoSaveAttempted) return;
     arenaAutoSaveAttempted = true;
+
+    // 1) 같은 이름으로 중복 등록된 덱 정리 — 영웅 이미지가 가장 많이 채워진 것 하나만 남기고 나머지는 삭제
+    const byName = new Map();
+    arenaData.forEach(a => {
+      const key = a.name || '';
+      if(!byName.has(key)) byName.set(key, []);
+      byName.get(key).push(a);
+    });
+    const imgCount = (a) => (a.heroes || []).filter(h => h.img).length;
+    for(const [name, list] of byName){
+      if(list.length <= 1) continue;
+      const sorted = list.slice().sort((a, b) => imgCount(b) - imgCount(a));
+      const keep = sorted[0];
+      const toDelete = sorted.slice(1);
+      for(const d of toDelete){
+        try {
+          await deleteDoc(doc(db, "guild_arena_db", d.id));
+        } catch(e) {
+          console.warn(`중복 결투장 덱 삭제 실패 (${name}):`, e.code, e.message);
+        }
+      }
+    }
+
+    // 2) 샘플 덱이 아예 없으면 한 번만 자동 생성 (이미 있으면 절대 덮어쓰지 않음)
     for(const deckDef of SAMPLE_ARENA_DECKS){
       const existing = arenaData.find(a => a.name === deckDef.name);
       if(existing) continue; // 이미 등록되어 있으면(수정했을 수도 있으니) 절대 덮어쓰지 않음 — 딱 한 번만 자동 생성
-      const itemId = 'arena_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+      const itemId = arenaIdFromName(deckDef.name);
       const newArena = {
         id: itemId, name: deckDef.name, tag: deckDef.tag,
         category: deckDef.category, tier: deckDef.tier, pickRate: deckDef.pickRate,
@@ -3061,12 +3087,25 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     if(img){ prev.src = img; prev.style.display = 'block'; } else { prev.style.display = 'none'; }
   };
 
+  function arenaIdFromName(name){
+    // 이름을 그대로 문서 ID로 써서, 같은 이름이면 항상 같은 문서를 가리키게 함(구조적으로 중복 생성이 불가능해짐)
+    return 'arena_' + name.trim().replace(/[\/\.\s]+/g, '_').slice(0, 400);
+  }
+
   document.getElementById('save-custom-arena-btn').onclick = async function(){
     if(!isAdmin) return;
     const name = document.getElementById('custom-arena-name').value.trim();
     if(!name){ alert('덱 이름을 입력해주세요!'); return; }
     const editId = document.getElementById('custom-arena-id').value;
-    const itemId = editId || ('arena_' + Date.now());
+    const itemId = editId || arenaIdFromName(name);
+    // 새로 추가하는 중인데 같은 이름의 덱이 이미 있으면(=같은 id를 가리키게 됨), 실수로 덮어쓰는 걸 막기 위해 한 번 확인
+    if(!editId){
+      const sameNameExisting = arenaData.find(a => a.id === itemId);
+      if(sameNameExisting){
+        const ok = confirm(`"${name}" 이름의 덱이 이미 있어요!\n\n계속 저장하면 그 기존 덱(이미지 등 이미 넣어둔 내용 포함)을 지금 이 화면 내용으로 완전히 덮어써요.\n\n같은 이름으로 새로 만들려던 게 아니라면 취소하시고, 목록에서 기존 덱을 "✏️ 수정"으로 여세요.`);
+        if(!ok) return;
+      }
+    }
     const tag = document.getElementById('custom-arena-tag').value.trim();
     const category = document.getElementById('custom-arena-category').value.trim();
     const tier = document.getElementById('custom-arena-tier').value.trim();
@@ -3195,26 +3234,27 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     const skillHeroes = heroes.filter(h => h.skill1Img || h.skill2Img || h.skill3Img).slice().sort((a, b) => getMinPri(a) - getMinPri(b));
     const skillOrderHtml = skillHeroes.map(h => `
       <div style="text-align:center; flex-shrink:0;">
-        <div style="display:flex; gap:2px;">
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
           ${[[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].map(([simg, pri]) => simg ? `
-            <div style="position:relative;">
-              <img referrerpolicy="no-referrer" src="${simg}" style="width:28px; height:28px; border-radius:5px; object-fit:cover; border:1px solid var(--border);">
-              ${pri ? `<span style="position:absolute; bottom:-3px; right:-3px; background:var(--orange); color:#fff; font-size:8px; font-weight:900; width:13px; height:13px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(pri)}</span>` : ''}
+            <div style="position:relative; width:40px; height:40px;">
+              <img referrerpolicy="no-referrer" src="${simg}" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
+              ${pri ? `<span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${esc(pri)}</span>` : ''}
             </div>
           ` : '').join('')}
+          ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">` : ''}
         </div>
-        <div style="font-size:9px; font-weight:800; color:var(--text-dim); margin-top:2px;">${esc(h.name)}</div>
+        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">${esc(h.name)}</div>
       </div>
     `).join('');
 
     return `
-      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap;">
         <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
           <div style="display:flex; gap:6px; justify-content:center;">${topHeroes.map(h => iconHtml(h, 52)).join('')}</div>
           <div style="display:flex; gap:6px;">${bottomHeroes.map(h => iconHtml(h, 52)).join('')}</div>
         </div>
         ${petHtml ? `<span style="width:1px; height:44px; background:var(--border);"></span><div style="text-align:center; flex-shrink:0;">${petHtml}</div>` : ''}
-        ${skillOrderHtml ? `<span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:4px; align-items:center;">${skillOrderHtml}</div>` : ''}
+        ${skillOrderHtml ? `<span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">${skillOrderHtml}</div>` : ''}
       </div>
     `;
   }
@@ -3345,9 +3385,6 @@ tip 조율자 팀 내 속공 3순위 필수</div>
           ${item.pickRate ? `<span style="font-size:12px; font-weight:800; color:var(--blue); background:var(--blue-soft); padding:4px 10px; border-radius:999px;">픽률 ${esc(item.pickRate)}</span>` : ''}
           ${item.tag ? `<span style="font-size:12px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:4px 10px; border-radius:2px;">${esc(item.tag)}</span>` : ''}
         </div>
-
-        <div style="font-weight:900; font-size:14px; color:var(--ink); margin-bottom:10px;">⚡ 스킬 예약</div>
-        <div style="display:flex; gap:20px; overflow-x:auto; padding-bottom:8px; margin-bottom:24px;">${skillRowHtml}</div>
 
         <div style="font-weight:900; font-size:14px; color:var(--ink); margin-bottom:10px;">🗡️ 전원 장비 · 세팅 디테일</div>
         <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:12px; margin-bottom:24px;">${gearCardsHtml}</div>
@@ -3901,7 +3938,6 @@ tip 조율자 팀 내 속공 3순위 필수</div>
       document.getElementById('arena-search-section').style.display = 'block';
       document.getElementById('arena-list-wrapper').style.display = 'block';
       renderArenaList('');
-      window.autoSaveSampleArenaDeck();
     }
   }
 
