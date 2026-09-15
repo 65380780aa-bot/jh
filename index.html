@@ -2940,12 +2940,13 @@ tip 조율자 팀 내 속공 3순위 필수</div>
     arenaAutoSaveAttempted = true;
     for(const deckDef of SAMPLE_ARENA_DECKS){
       const existing = arenaData.find(a => a.name === deckDef.name);
-      const itemId = existing ? existing.id : ('arena_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6));
+      if(existing) continue; // 이미 등록되어 있으면(수정했을 수도 있으니) 절대 덮어쓰지 않음 — 딱 한 번만 자동 생성
+      const itemId = 'arena_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
       const newArena = {
         id: itemId, name: deckDef.name, tag: deckDef.tag,
         category: deckDef.category, tier: deckDef.tier, pickRate: deckDef.pickRate,
-        heroes: deckDef.heroBuilders(existing?.heroes),
-        pet: existing?.pet || { name: '', img: '' }
+        heroes: deckDef.heroBuilders(null),
+        pet: { name: '', img: '' }
       };
       try {
         await setDoc(doc(db, "guild_arena_db", itemId), newArena);
