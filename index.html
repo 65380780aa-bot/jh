@@ -192,6 +192,7 @@
     .gcd-spec{ border-left-color: #3d6690; } .gcd-spec .title{ color:#3d6690; }
     
     .gcd-atk-block{ border-left-color: var(--red); } .gcd-atk-block .title{ color:var(--red); }
+    .gcd-info-block.gcd-atk-block{ border: none; background: transparent; padding: 18px 0; }
     .gcd-tot-block{ border-left-color: var(--orange); } .gcd-tot-block .title{ color:var(--orange); }
     
     .gcd-atk-card-item{ 
@@ -4190,7 +4191,7 @@
               </div>
             `).join('');
             const gearCardsHtml = gearHeroes.map(h => `
-              <div style="border:1px solid var(--border); border-radius:4px; padding:14px; background:var(--card);">
+              <div style="border-radius:4px; padding:14px; background:var(--bg);">
                 <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
                   ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:44px; height:44px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : ''}
                   <div style="flex:1;">
@@ -4198,10 +4199,10 @@
                   </div>
                   ${h.job ? `<span style="font-size:11px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:3px 8px; border-radius:2px; white-space:nowrap;">${escGear(h.job)}</span>` : ''}
                 </div>
-                ${h.info ? `<div style="font-size:12.5px; font-weight:700; color:var(--ink); line-height:1.7; background:var(--bg); border-radius:3px; padding:8px; margin-bottom:8px; white-space:pre-line;">${escGear(h.info)}</div>` : ''}
+                ${h.info ? `<div style="font-size:12.5px; font-weight:700; color:var(--ink); line-height:1.7; background:var(--card); border-radius:3px; padding:8px; margin-bottom:8px; white-space:pre-line;">${escGear(h.info)}</div>` : ''}
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-bottom:8px;">
                   ${[['무기1', h.w1], ['무기2', h.w2], ['방어구1', h.a1], ['방어구2', h.a2]].map(([label, val]) => val ? `
-                    <div style="background:var(--bg); border-radius:3px; padding:6px 8px; text-align:center;">
+                    <div style="background:var(--card); border-radius:3px; padding:6px 8px; text-align:center;">
                       <div style="font-size:10px; color:var(--text-dim); font-weight:700;">${label}</div>
                       <div style="font-size:12px; font-weight:800; color:var(--ink);">${escGear(val)}</div>
                     </div>
@@ -4218,7 +4219,7 @@
                 </div>
                 ${generateVideoEmbedHtml(c.videoUrl)}
                 <div class="counter-body-formation-row">
-                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap; gap:16px;">${boardHtml}${petHtml}${skillOrderHtmlGear ? `<span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">${skillOrderHtmlGear}</div>` : ''}</div></div>
+                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap; gap:16px;">${boardHtml}${petHtml}${skillOrderHtmlGear ? `<span style="width:1px; height:44px; background:var(--border);"></span><div class="pet-display-wrap"><div class="pet-display-label">⚡ 스킬 순서</div><div style="display:flex; gap:12px; align-items:center;">${skillOrderHtmlGear}</div></div>` : ''}</div></div>
                 </div>
                 <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">${c.body || ''}</div>
                 ${gearCardsHtml ? `<div style="font-weight:900; font-size:13px; color:var(--ink); margin:14px 0 8px;">🗡️ 전원 장비 · 세팅 디테일</div><div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:10px;">${gearCardsHtml}</div>` : ''}
