@@ -126,8 +126,10 @@
     .pick-rank-select { font-size:11px; font-weight:800; border:1px solid var(--border); border-radius:5px; padding:3px 4px; background:#fff; cursor:pointer; flex-shrink:0; }
     .pick-note-input { flex:1 1 auto; min-width:100px; max-width:280px; margin-left:auto; margin-right:16px; font-size:12px; font-weight:600; border:1px solid var(--border); border-radius:5px; padding:6px 10px; background:#fff; color:var(--ink); }
     .pick-note-text { font-size:14px; font-weight:600; color:#374151; margin-left:auto; margin-right:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
-    .video-guild-pill { cursor:pointer; padding:7px 16px; border-radius:16px; font-size:13px; font-weight:800; background:#f3f4f6; color:#4b5563; border:none; }
+    .video-guild-pill { cursor:pointer; padding:7px 16px; border-radius:3px; font-size:13px; font-weight:800; background:#f3f4f6; color:#4b5563; border:none; width:100%; }
     .video-guild-pill.active { background:#fed7aa; color:#c2410c; }
+    .video-season-pill { cursor:pointer; padding:8px 18px; border-radius:3px; font-size:14px; font-weight:900; background:#e7eef4; color:#3d6690; border:none; }
+    .video-season-pill.active { background:#3d6690; color:#ffffff; }
     
     .hero-comp { display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 900; color: var(--ink); flex-wrap: wrap; }
     .hero-comp-icons { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
@@ -1563,11 +1565,16 @@
         <div><span class="badge atk">ATK</span></div>
         <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div></div>
+      </div></div></div>
 
     <!-- 영상 분석 탭 -->
     <div id="video-wrapper" style="display:none;">
-      <div id="video-guild-tabs" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;"></div>
+      <div id="video-season-tabs" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;"></div>
+      <div style="position:relative; margin-bottom:16px;">
+        <input type="text" id="video-search-input" class="gcd-input" style="width:100%; box-sizing:border-box;" placeholder="🔍 등록된 영상 제목으로 전체 검색...">
+        <div id="video-search-results" style="display:none; position:absolute; top:100%; left:0; right:0; background:var(--card); border:1px solid var(--border); border-radius:3px; margin-top:4px; max-height:320px; overflow-y:auto; z-index:50;"></div>
+      </div>
+      <div id="video-guild-tabs" style="display:grid; grid-template-columns:repeat(6, 1fr); gap:8px; margin-bottom:20px;"></div>
       <div id="video-list-area"></div>
     </div>
 
@@ -1598,261 +1605,6 @@
   let auth; // Firebase Auth 인스턴스
   let db; // Firestore 인스턴스 - try 블록 밖에서도 쓸 수 있도록 최상위 스코프에 선언
 
-  // 원본 공격덱 8개 데이터 전체 복구 (슬롯 구조 기반 지원)
-  const INITIAL_ATK_DB = [
-    { 
-      id: 'atk_1', 
-      name: "밀리아 · 스쿨드 · 실베스타", 
-      keywords: ["밀리아", "스쿨드", "실베스타", "밀ส실"], 
-      counters: [
-        {
-          title: "1. 라드그리드 · 손오공 · 아리스 (루)",
-          formation: "밸런스 진형",
-          slots: [
-            { img: "스쿨드", info: "스쿨드 상세 세팅" },
-            { img: "실베스타", info: "실베스타 상세 세팅" },
-            { img: "", info: "" },
-            { img: "", info: "" },
-            { img: "밀리아", info: "밀리아 상세 세팅" },
-            { img: "", info: "" },
-            { img: "", info: "" },
-            { img: "", info: "" }
-          ],
-          body: "• <b>스킬 순서:</b> 오공2 아리스2 오공1<br>• <b>손오공:</b> 추적자 약공받받 극딜<br>• <b>아리스:</b> 추적자 or 암살자 약치 받받 막기최대+극딜<br>• <b>라드그리드:</b> 성기사 극탱"
-        }
-      ]
-    },
-    { 
-      id: 'atk_2', 
-      name: "여포 · 오르카 · 칼헤른", 
-      keywords: ["여포", "오르카", "칼헤른", "칼헤론", "여올칼"], 
-      counters: [
-        { 
-          title: "1. 여포 · 브란즈&브란셀 · 칼헤른", 
-          formation: "기본 진형", 
-          slots: [
-            { img: "여포", info: "" }, { img: "칼헤른", info: "" }, { img: "", info: "" }, { img: "", info: "" },
-            { img: "브란즈&브란셀", info: "" }, { img: "", info: "" }, { img: "", info: "" }, { img: "", info: "" }
-          ],
-          body: "• <b>스킬 순서:</b> 여포1 쁘2 여포2<br>• <b>특이사항:</b> 브란즈&브란셀 조율자 세팅" 
-        }
-      ] 
-    },
-    { 
-      id: 'atk_3', 
-      name: "아리스 방덱 (+루디,겔리두스,클레미스)", 
-      keywords: ["아리스", "겔리두스", "루디", "클레미스", "겔", "겔2-1", "아겔루"], 
-      counters: [
-        { 
-          title: "1. 오목 · 실베스타 · 레긴레이프 (유)", 
-          formation: "기본 진형", 
-          slots: [
-            { img: "오목", info: "" }, { img: "실베스타", info: "" }, { img: "", info: "" }, { img: "", info: "" },
-            { img: "레긴레이프", info: "" }, { img: "", info: "" }, { img: "", info: "" }, { img: "", info: "" }
-          ],
-          body: "• <b>스킬 순서:</b> 오목1 실베스타2-1<br>• <b>오목, 실베스타:</b> 약치치 극딜세팅<br>• <b>레긴레이프:</b> 효저100 극딜세팅<br>• <b>참고:</b> 루디 겔리두스 아리스 상대로 특히 좋으며 클레미스 포함 시 약간 애매" 
-        }
-      ] 
-    },
-    { 
-      id: 'atk_4', 
-      name: "린 · 손오공 · 초선", 
-      keywords: ["린", "손오공", "초선", "오공"], 
-      counters: [
-        { 
-          title: "1. 오목 · 실베스타 · 레긴레이프 (유)", 
-          formation: "밸런스 진형", 
-          slots: [
-            { img: "오목", info: "" }, { img: "실베스타", info: "" }, { img: "", info: "" }, { img: "", info: "" },
-            { img: "레긴레이프", info: "" }, { img: "", info: "" }, { img: "", info: "" }, { img: "", info: "" }
-          ],
-          body: "• <b>스킬 순서:</b> 오목1 실베스타2-1 or 실베스타2 오목1 실베스타1<br>• <b>오목, 실베스타:</b> 약치치 극딜세팅<br>• <b>레긴레이프:</b> 효저100 극딜세팅<br>• <b>참고:</b> 선턴 여부, 적 스킬 순서에 따라 스킬 순서 바뀜" 
-        }
-      ] 
-    },
-    { 
-      id: 'atk_5', 
-      name: "여포 · 클레미스 · 칼헤른", 
-      keywords: ["여포", "클레미스", "칼헤른", "칼헤론", "여클칼"], 
-      counters: [
-        { 
-          title: "1. 라드그리드 · 겔리두스 · 클레미스 · 파이크 (루)", 
-          formation: "보호 진형", 
-          slots: [
-            { img: "겔리두스", info: "" }, { img: "클레미스", info: "" }, { img: "", info: "" }, { img: "", info: "" },
-            { img: "라드그리드", info: "" }, { img: "파이크", info: "" }, { img: "", info: "" }, { img: "", info: "" }
-          ],
-          body: "• <b>스킬 순서:</b> 클레미스1 겔리두스2 클레미스2" 
-        }
-      ] 
-    },
-    { 
-      id: 'atk_6', 
-      name: "선란 · 클레미스 · 델론즈", 
-      keywords: ["선란", "클레미스", "델론즈", "선클델"], 
-      counters: [
-        { 
-          title: "1. 동영 · 멜키르 · 실베스타 or 연희", 
-          formation: "기본 진형", 
-          slots: [
-            { img: "동영", info: "" }, { img: "멜키르", info: "" }, { img: "", info: "" }, { img: "", info: "" },
-            { img: "실베스타", info: "" }, { img: "", info: "" }, { img: "", info: "" }, { img: "", info: "" }
-          ],
-          body: "• <b>참고:</b> 동영+멜키르 장신구 완전 상급" 
-        }
-      ] 
-    },
-    { 
-      id: 'atk_7', 
-      name: "선란 · 델론즈 · 라드그리드", 
-      keywords: ["선란", "델론즈", "라드그리드", "선델라드", "선델란드"], 
-      counters: [
-        { 
-          title: "1. 선란 · 델론즈 · 라드그리드", 
-          formation: "공격 진형", 
-          slots: [
-            { img: "선란", info: "" }, { img: "델론즈", info: "" }, { img: "라드그리드", info: "" }, { img: "", info: "" },
-            { img: "", info: "" }, { img: "", info: "" }, { img: "", info: "" }, { img: "", info: "" }
-          ],
-          body: "• <b>참고:</b> 선란 공격 우위" 
-        }
-      ] 
-    },
-    { 
-      id: 'atk_8', 
-      name: "연희 · 동영 · 프레이야", 
-      keywords: ["연희", "동영", "프레이야", "연동프"], 
-      counters: [
-        { title: "추천 덱 정보 없음", formation: "기본 진형", slots: Array(8).fill({img: "", info: ""}), body: "추천 덱 정보 없음" }
-      ] 
-    }
-  ].sort((a,b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
-
-  // 원본 방어덱 8개 데이터 전체 복구
-  const INITIAL_DEF_DB = [
-    {
-      id: 'def_1',
-      name: "밀리아 · 스쿨드 · 실베스타",
-      keywords: ["밀리아", "스쿨드", "실베스타", "밀ส실"],
-      pos: "스쿨드2, 실베스타2-1\n(밀리아 후열)",
-      ring: "밀리아: 철벽 쌀먹\n스쿨드: 권불\n실베스타: 대랄 + 불사(기합)",
-      gear: "밀리아: 수호(탄성60) or 수문\n스쿨드: 주술(전뢰)\n실베스타: 추적",
-      spec: "속 300 이상의 극속 권장\n(안될 시 극내실 권장)",
-      formation: "기본 진형",
-      backSlots: ["스쿨드", "실베스타", "", ""],
-      frontSlots: ["밀리아", "", "", ""]
-    },
-    {
-      id: 'def_2',
-      name: "여포 · 오르카 · 칼헤른",
-      keywords: ["여포", "오르카", "칼헤른", "칼헤론", "여올칼"],
-      pos: "여포1, 칼헤른1, 여포2\n(또는 칼헤른 위치 조율)",
-      ring: "여포: 권불\n칼헤른: 불사\n오르카: 권능",
-      gear: "여포: 암살\n오르카: 추적\n칼헤른: 주술(전뢰)",
-      spec: "속 250~270 속내실 권장",
-      formation: "밸런스 진형",
-      backSlots: ["오르카", "칼헤른", "", ""],
-      frontSlots: ["여포", "", "", ""]
-    },
-    {
-      id: 'def_3',
-      name: "아리스 · 겔리두스 · 루디",
-      keywords: ["아리스", "겔리두스", "루디", "겔", "겔2-1", "아겔루"],
-      pos: "루디1 겔리두스2-1\n또는 루디1 겔리두스2 아리스2",
-      ring: "루디: 대권\n겔리두스: 대불\n아리스: 불권",
-      gear: "루디: 방어/효저 세팅\n겔리두스: 주술\n아리스: 내실",
-      spec: "극내실 필수\n루디: 효저(조율자)\n겔리두스: 4초업 (주술 기준 방 2200 이상)",
-      formation: "보호 진형",
-      backSlots: ["겔리두스", "", "", ""],
-      frontSlots: ["아리스", "루디", "", ""]
-    },
-    {
-      id: 'def_4',
-      name: "루디 · 아리스 · 클레미스",
-      keywords: ["루디", "아리스", "클레미스", "루아클"],
-      pos: "루디1 클레미스1-2\n(아리스 겔리두스 루디 불가 시 대체)",
-      ring: "루디: 대권\n클레미스: 불권\n아리스: 불권",
-      gear: "루디: 효저/조율자\n클레미스: 효저/조율자\n아리스: 추적자",
-      spec: "루디 & 클레미스: 효저 필수 (조율자 권장)\n아리스: 약공 100 추적자 권장",
-      formation: "보호 진형",
-      backSlots: ["클레미스", "", "", ""],
-      frontSlots: ["루디", "아리스", "", ""]
-    },
-    {
-      id: 'def_5',
-      name: "린 · 손오공 · 초선",
-      keywords: ["린", "손오공", "초선", "오공"],
-      pos: "린2 오공2 초선2\n초선2 린2 오공2\n오공2 린2 오공1",
-      ring: "상세 장신구 세팅을 업데이트해 주세요.",
-      gear: "린: 추적자(추천) or 수문장\n손오공: 추적자\n초선: 성기사",
-      spec: "린: 약치받받 딜탱세팅, 효효받받 극탱세팅, 극속공 세팅\n손오공: 약공받받 극딜세팅, 극막기세팅, 극속세팅\n초선: 극탱세팅, 극속세팅",
-      formation: "기본 진형",
-      backSlots: ["손오공", "초선", "", ""],
-      frontSlots: ["린", "", "", ""]
-    },
-    {
-      id: 'def_6',
-      name: "선란 · 클레미스 · 델론즈",
-      keywords: ["선란", "클레미스", "델론즈", "선클델"],
-      pos: "선란2-1 델론즈2",
-      ring: "선란: 권기\n클레미스: 불사\n델론즈: 불부",
-      gear: "선란: 선봉(or 암살)\n클레미스: 수문(or 성기사)\n델론즈: 추적",
-      spec: "선란: 극내실(공퍼 최대)\n클레미스: 수문 속공 or 성기사 내실\n델론즈: 추적 속공(속 90대 속내실)",
-      formation: "공격 진형",
-      backSlots: ["클레미스", "델론즈", "", ""],
-      frontSlots: ["선란", "", "", ""]
-    },
-    {
-      id: 'def_7',
-      name: "선란 · 델론즈 · 라드그리드",
-      keywords: ["선란", "델론즈", "라드그리드", "선델라드", "선델란드"],
-      pos: "선란2-1 델론즈2\n(선란 클레미스 델론즈 불가 시 대체)",
-      ring: "선란: 권기 or 권불\n델론즈: 불부\n라드그리드: 불권",
-      gear: "선란: 선봉\n델론즈: 추적\n라드그리드: 추적",
-      spec: "선란: 극내실 공퍼 최대\n델론즈: 속공\n라드그리드: 속공",
-      formation: "공격 진형",
-      backSlots: ["델론즈", "라드그리드", "", ""],
-      frontSlots: ["선란", "", "", ""]
-    },
-    {
-      id: 'def_8',
-      name: "연희 · 동영 · 프레이야",
-      keywords: ["연희", "동영", "프레이야", "연동프"],
-      pos: "연희2 프레이야2 연희1",
-      ring: "연희: 권불(기합)\n동영: 부불 or 권불\n프레이야: 권불(기합)",
-      gear: "연희: 추적\n동영: 복수자\n프레이야: 추적자",
-      spec: "극속공 세팅 필수",
-      formation: "밸런스 진형",
-      backSlots: ["동영", "프레이야", "", ""],
-      frontSlots: ["연희", "", "", ""]
-    }
-  ].sort((a,b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
-
-  // 총력덱 기본 데이터 (4가지 진형 선택 및 8개 슬롯 이미지주소/개별상세정보 지원)
-  const INITIAL_TOT_DB = [
-    { 
-      id: 'tot_1', 
-      name: "공덱", 
-      keywords: ["총력전", "공덱"], 
-      counters: [
-        {
-          title: "공덱 - 여포 사용",
-          formation: "기본 진형",
-          slots: [
-            { img: "", info: "후열 1 상세 정보\n- 줄바꿈 테스트" },
-            { img: "", info: "" },
-            { img: "", info: "" },
-            { img: "", info: "" },
-            { img: "", info: "" },
-            { img: "", info: "" },
-            { img: "", info: "" },
-            { img: "", info: "" }
-          ],
-          body: "선란2 선란1 델론즈2\n펫 제오 or 이린"
-        }
-      ]
-    }
-  ].sort((a,b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
 
   let currentMode = 'ATK'; // 기본 화면 공격덱
   let atkSubFilter = '공덱'; // 공격덱 하위 탭: 공덱 / 마덱 / 방덱
@@ -1862,7 +1614,9 @@
   let defData = [];
   let totData = [];
   let arenaData = []; // 결투장 덱 DB (Firestore guild_arena_db)
-  let videoGuildNames = Array.from({length: 18}, (_, i) => `길드${i+1}`); // 영상 분석 탭의 18개 길드 이름 (관리자가 수정 가능)
+  let videoSeasons = ['시즌1']; // 영상 분석 탭의 시즌 목록 (관리자가 추가/이름변경 가능)
+  let selectedSeasonIdx = 0;
+  let videoGuildNamesBySeason = [Array.from({length: 18}, () => '')]; // 시즌별 18개 길드 이름 (기본은 빈칸)
   let videoData = []; // 길드별 패배 영상 목록 (Firestore guild_loss_videos)
   let selectedVideoGuildIndex = 0;
   let currentArenaDetailId = null;
@@ -1898,7 +1652,7 @@
       document.getElementById('atk-notice-edit-btn').style.display = 'none';
       document.getElementById('atk-notice-edit-area').style.display = 'none';
     }
-    if (currentMode === 'VIDEO' && typeof renderVideoGuildTabs === 'function') { renderVideoGuildTabs(); renderVideoList(); }
+    if (currentMode === 'VIDEO' && typeof renderVideoGuildTabs === 'function') { renderVideoSeasonTabs(); renderVideoGuildTabs(); renderVideoList(); }
   }
 
   adminBtn.onclick = function() {
@@ -2136,11 +1890,29 @@
       if(isAdmin && window.autoSaveSampleArenaDeck) window.autoSaveSampleArenaDeck();
     });
 
-    // 🎥 영상 분석 탭: 18개 길드 이름(관리자가 수정 가능) + 길드별 패배 영상 목록
+    // 🎥 영상 분석 탭: 시즌 목록 + 시즌별 18개 길드 이름(관리자가 수정 가능) + 길드별 패배 영상 목록
+    onSnapshot(doc(db, "meta", "video_seasons"), (snap) => {
+      try {
+        if (snap.exists() && Array.isArray(snap.data().list) && snap.data().list.length > 0) {
+          videoSeasons = snap.data().list;
+          if (selectedSeasonIdx >= videoSeasons.length) selectedSeasonIdx = 0;
+        }
+        if (currentMode === 'VIDEO') { renderVideoSeasonTabs(); renderVideoGuildTabs(); }
+      } catch (e) {
+        console.error('video_seasons onSnapshot error:', e);
+      }
+    }, (err) => {
+      console.error('video_seasons onSnapshot failed:', err);
+    });
     onSnapshot(doc(db, "meta", "video_guild_names"), (snap) => {
       try {
-        if (snap.exists() && Array.isArray(snap.data().names) && snap.data().names.length === 18) {
-          videoGuildNames = snap.data().names;
+        const d = snap.exists() ? snap.data() : null;
+        if (d && Array.isArray(d.bySeason) && d.bySeason.length > 0) {
+          // 새 구조: 시즌별로 18개씩
+          videoGuildNamesBySeason = d.bySeason.map(entry => (entry && Array.isArray(entry.names) && entry.names.length === 18) ? entry.names : Array.from({length:18}, () => ''));
+        } else if (d && Array.isArray(d.names) && d.names.length === 18) {
+          // 예전 구조(시즌 구분 없던 시절) 호환: 0번 시즌으로 취급
+          videoGuildNamesBySeason = [d.names];
         }
         if (currentMode === 'VIDEO') renderVideoGuildTabs();
       } catch (e) {
@@ -3969,14 +3741,106 @@
   // 🎥 영상 분석 탭 ------------------------------------------------------
   function escVid(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+  function renderVideoSeasonTabs() {
+    const box = document.getElementById('video-season-tabs');
+    if (!box) return;
+    box.innerHTML = '';
+    for (let i = 0; i < videoSeasons.length; i++) {
+      const wrap = document.createElement('div');
+      wrap.style.display = 'flex';
+      wrap.style.alignItems = 'center';
+      wrap.style.gap = '2px';
+
+      const pillBtn = document.createElement('button');
+      pillBtn.type = 'button';
+      pillBtn.className = 'video-season-pill' + (i === selectedSeasonIdx ? ' active' : '');
+      pillBtn.textContent = videoSeasons[i];
+      pillBtn.dataset.idx = String(i);
+      pillBtn.onclick = function() {
+        selectedSeasonIdx = Number(this.dataset.idx);
+        selectedVideoGuildIndex = 0;
+        renderVideoSeasonTabs();
+        renderVideoGuildTabs();
+        renderVideoList();
+      };
+      wrap.appendChild(pillBtn);
+
+      if (isAdmin) {
+        const renameBtn = document.createElement('button');
+        renameBtn.type = 'button';
+        renameBtn.title = '시즌명 수정';
+        renameBtn.textContent = '✏️';
+        renameBtn.style.border = 'none';
+        renameBtn.style.background = 'none';
+        renameBtn.style.cursor = 'pointer';
+        renameBtn.style.fontSize = '12px';
+        renameBtn.style.padding = '4px';
+        renameBtn.style.opacity = '.6';
+        renameBtn.dataset.idx = String(i);
+        renameBtn.onclick = function(e) {
+          e.stopPropagation();
+          window.renameVideoSeason(Number(this.dataset.idx));
+        };
+        wrap.appendChild(renameBtn);
+      }
+
+      box.appendChild(wrap);
+    }
+    if (isAdmin) {
+      const addBtn = document.createElement('button');
+      addBtn.type = 'button';
+      addBtn.className = 'video-season-pill';
+      addBtn.style.background = '#dcfce7';
+      addBtn.style.color = '#16a34a';
+      addBtn.textContent = '+ 시즌 추가';
+      addBtn.onclick = () => window.addVideoSeason();
+      box.appendChild(addBtn);
+    }
+  }
+
+  window.addVideoSeason = async function() {
+    if (!isAdmin) return;
+    const name = prompt('새 시즌 이름을 입력하세요', '시즌' + (videoSeasons.length + 1));
+    if (name === null) return;
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    const newSeasons = videoSeasons.concat([trimmed]);
+    const newGuildNamesBySeason = videoGuildNamesBySeason.concat([Array.from({length:18}, () => '')]);
+    try {
+      await setDoc(doc(db, "meta", "video_seasons"), { list: newSeasons }, { merge: true });
+      await setDoc(doc(db, "meta", "video_guild_names"), { bySeason: newGuildNamesBySeason.map(names => ({ names })) });
+    } catch (e) {
+      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+    }
+  };
+
+  window.renameVideoSeason = async function(idx) {
+    if (!isAdmin) return;
+    const current = videoSeasons[idx] || '';
+    const next = prompt('시즌 이름을 입력하세요', current);
+    if (next === null) return;
+    const trimmed = next.trim();
+    if (!trimmed) return;
+    const newSeasons = videoSeasons.slice();
+    newSeasons[idx] = trimmed;
+    try {
+      await setDoc(doc(db, "meta", "video_seasons"), { list: newSeasons }, { merge: true });
+    } catch (e) {
+      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+    }
+  };
+
   function renderVideoGuildTabs() {
     const box = document.getElementById('video-guild-tabs');
     if (!box) return;
+    const namesForSeason = videoGuildNamesBySeason[selectedSeasonIdx] || Array.from({length:18}, () => '');
     box.innerHTML = '';
-    for (let i = 0; i < videoGuildNames.length; i++) {
-      const name = videoGuildNames[i];
+    for (let i = 0; i < namesForSeason.length; i++) {
+      const name = namesForSeason[i];
       let cnt = 0;
-      for (let j = 0; j < videoData.length; j++) { if (videoData[j].guildIndex === i) cnt++; }
+      for (let j = 0; j < videoData.length; j++) {
+        if (videoData[j].guildIndex === i && (videoData[j].seasonIdx || 0) === selectedSeasonIdx) cnt++;
+      }
 
       const wrap = document.createElement('div');
       wrap.style.display = 'flex';
@@ -4020,15 +3884,17 @@
 
   window.renameVideoGuild = async function(idx) {
     if (!isAdmin) return;
-    const current = videoGuildNames[idx] || '';
+    const namesForSeason = (videoGuildNamesBySeason[selectedSeasonIdx] || Array.from({length:18}, () => '')).slice();
+    const current = namesForSeason[idx] || '';
     const next = prompt('길드 이름을 입력하세요', current);
     if (next === null) return;
     const trimmed = next.trim();
     if (!trimmed) return;
-    const newNames = videoGuildNames.slice();
-    newNames[idx] = trimmed;
+    namesForSeason[idx] = trimmed;
+    const newBySeason = videoGuildNamesBySeason.slice();
+    newBySeason[selectedSeasonIdx] = namesForSeason;
     try {
-      await setDoc(doc(db, "meta", "video_guild_names"), { names: newNames }, { merge: true });
+      await setDoc(doc(db, "meta", "video_guild_names"), { bySeason: newBySeason.map(names => ({ names })) });
     } catch (e) {
       alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
     }
@@ -4037,17 +3903,17 @@
   function renderVideoList() {
     const area = document.getElementById('video-list-area');
     if (!area) return;
-    const guildName = videoGuildNames[selectedVideoGuildIndex] || '';
-    const list = videoData.filter(v => v.guildIndex === selectedVideoGuildIndex);
+    const guildName = (videoGuildNamesBySeason[selectedSeasonIdx] || [])[selectedVideoGuildIndex] || '';
+    const list = videoData.filter(v => v.guildIndex === selectedVideoGuildIndex && (v.seasonIdx || 0) === selectedSeasonIdx);
 
-    const addBtnHtml = isAdmin ? `<button type="button" id="video-add-open-btn" class="add-btn" style="margin-bottom:16px;">+ ${escVid(guildName)} 패배 영상 추가</button>` : '';
+    const addBtnHtml = isAdmin ? `<button type="button" id="video-add-open-btn" class="add-btn" style="margin-bottom:16px;">+ 영상추가</button>` : '';
     const formHtml = isAdmin ? `
       <div id="video-add-form" style="display:none; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:16px;">
         <input type="hidden" id="video-edit-id" value="">
         <label class="gcd-label">유튜브 링크</label>
         <input type="text" id="video-url-input" class="gcd-input" placeholder="예: https://youtu.be/XXXXXXXXXXX">
-        <label class="gcd-label" style="margin-top:10px;">날짜 (선택)</label>
-        <input type="text" id="video-date-input" class="gcd-input" placeholder="예: 9/20">
+        <label class="gcd-label" style="margin-top:10px;">제목</label>
+        <input type="text" id="video-title-input" class="gcd-input" placeholder="예: 9/20 결투장 A조 패배">
         <label class="gcd-label" style="margin-top:10px;">메모 (상대 덱, 패인 분석 등)</label>
         <textarea id="video-memo-input" class="gcd-textarea" style="height:70px;" placeholder="상대 덱 구성이나 패배 원인을 적어주세요"></textarea>
         <div style="display:flex; gap:8px; margin-top:10px;">
@@ -4058,9 +3924,9 @@
     ` : '';
 
     const itemsHtml = list.length ? list.map(v => `
-      <div class="gcd-result-card" style="margin-bottom:14px;">
+      <div class="gcd-result-card" id="video-item-${v.id}" style="margin-bottom:14px;">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;">
-          <div style="font-weight:800; color:var(--ink);">${v.date ? escVid(v.date) + ' · ' : ''}${escVid(guildName)}전 패배 영상</div>
+          <div style="font-weight:800; color:var(--ink);">${escVid(v.title || (guildName + '전 패배 영상'))}</div>
           ${isAdmin ? `
             <div style="display:flex; gap:6px;">
               <button type="button" class="btn-mini-edit video-edit-btn" data-id="${v.id}">✏️ 수정</button>
@@ -4080,7 +3946,7 @@
     if (openBtn) openBtn.onclick = () => {
       document.getElementById('video-edit-id').value = '';
       document.getElementById('video-url-input').value = '';
-      document.getElementById('video-date-input').value = '';
+      document.getElementById('video-title-input').value = '';
       document.getElementById('video-memo-input').value = '';
       document.getElementById('video-add-form').style.display = 'block';
     };
@@ -4091,14 +3957,17 @@
       const url = document.getElementById('video-url-input').value.trim();
       if (!url) { alert('유튜브 링크를 입력해주세요.'); return; }
       if (!getYoutubeEmbedUrl(url)) { alert('올바른 유튜브 링크가 아니에요.'); return; }
+      const title = document.getElementById('video-title-input').value.trim();
+      if (!title) { alert('제목을 입력해주세요.'); return; }
       const editId = document.getElementById('video-edit-id').value;
       const id = editId || ('video_' + Date.now());
       const existing = editId ? videoData.find(v => v.id === editId) : null;
       const data = {
         id,
         guildIndex: selectedVideoGuildIndex,
+        seasonIdx: selectedSeasonIdx,
         videoUrl: url,
-        date: document.getElementById('video-date-input').value.trim(),
+        title: title,
         memo: document.getElementById('video-memo-input').value.trim(),
         createdAt: existing ? (existing.createdAt || Date.now()) : Date.now()
       };
@@ -4116,7 +3985,7 @@
         document.getElementById('video-add-form').style.display = 'block';
         document.getElementById('video-edit-id').value = v.id;
         document.getElementById('video-url-input').value = v.videoUrl || '';
-        document.getElementById('video-date-input').value = v.date || '';
+        document.getElementById('video-title-input').value = v.title || '';
         document.getElementById('video-memo-input').value = v.memo || '';
       };
     });
@@ -4127,6 +3996,78 @@
         catch (e) { alert('⚠️ 삭제 실패! (원인: ' + e.code + ' - ' + e.message + ')'); }
       };
     });
+  }
+
+  function wireVideoSearch() {
+    const input = document.getElementById('video-search-input');
+    const resultsBox = document.getElementById('video-search-results');
+    if (!input || !resultsBox) return;
+
+    function renderResults(query) {
+      const q = query.trim().toLowerCase();
+      if (!q) { resultsBox.style.display = 'none'; resultsBox.innerHTML = ''; return; }
+      // 제목 기준으로 전체 시즌을 다 뒤져서 검색하고, 같은 영상(같은 id)이 중복으로 안 뜨게 정리
+      const seen = new Set();
+      const matches = [];
+      videoData.forEach(v => {
+        if (seen.has(v.id)) return;
+        const title = v.title || '';
+        if (title.toLowerCase().includes(q)) {
+          seen.add(v.id);
+          matches.push(v);
+        }
+      });
+      if (!matches.length) {
+        resultsBox.innerHTML = `<div style="padding:14px; color:var(--text-dim); font-size:13px;">검색 결과가 없습니다.</div>`;
+        resultsBox.style.display = 'block';
+        return;
+      }
+      resultsBox.innerHTML = matches.map(v => {
+        const sIdx = v.seasonIdx || 0;
+        const gName = (videoGuildNamesBySeason[sIdx] || [])[v.guildIndex] || '';
+        const sName = videoSeasons[sIdx] || ('시즌' + (sIdx + 1));
+        return `
+          <div class="video-search-result-item" data-id="${v.id}" data-guild-idx="${v.guildIndex}" data-season-idx="${sIdx}" style="padding:10px 14px; border-bottom:1px solid var(--border); cursor:pointer; font-size:13px;">
+            <span style="font-weight:800; color:var(--ink);">${escVid(v.title || '')}</span>
+            <span style="color:var(--text-dim); margin-left:8px;">[${escVid(gName)}] · ${escVid(sName)}</span>
+          </div>
+        `;
+      }).join('');
+      resultsBox.style.display = 'block';
+      resultsBox.querySelectorAll('.video-search-result-item').forEach(row => {
+        row.onclick = () => {
+          const targetId = row.dataset.id;
+          const targetGuildIdx = Number(row.dataset.guildIdx);
+          const targetSeasonIdx = Number(row.dataset.seasonIdx);
+          selectedSeasonIdx = targetSeasonIdx;
+          selectedVideoGuildIndex = targetGuildIdx;
+          input.value = '';
+          resultsBox.style.display = 'none';
+          renderVideoSeasonTabs();
+          renderVideoGuildTabs();
+          renderVideoList();
+          setTimeout(() => {
+            const el = document.getElementById('video-item-' + targetId);
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              el.style.outline = '3px solid var(--red)';
+              setTimeout(() => { el.style.outline = 'none'; }, 2000);
+            }
+          }, 50);
+        };
+      });
+    }
+
+    input.oninput = (e) => renderResults(e.target.value);
+    input.onfocus = (e) => { if (e.target.value.trim()) renderResults(e.target.value); };
+    if (!window.__videoSearchOutsideClickWired) {
+      window.__videoSearchOutsideClickWired = true;
+      document.addEventListener('click', (e) => {
+        const rb = document.getElementById('video-search-results');
+        const si = document.getElementById('video-search-input');
+        if (rb && !rb.contains(e.target) && e.target !== si) rb.style.display = 'none';
+      });
+    }
   }
 
   function generateFormationBoardBySlots(slots = [], boardUniqueId = 'board', keepEmpty = false, backCount = 4, frontCount = 4) {
@@ -4557,12 +4498,14 @@
       renderList();
     } else if(mode === 'VIDEO'){
       document.getElementById('tab-video').classList.add('active');
-      document.getElementById('gcd-mode-title').textContent = '🎥 길드전 패배 영상 분석';
+      document.getElementById('gcd-mode-title').textContent = '🎥 길드전 영상 분석';
       document.getElementById('gcd-mode-title').style.display = 'block';
       document.getElementById('video-wrapper').style.display = 'block';
       try {
+        renderVideoSeasonTabs();
         renderVideoGuildTabs();
         renderVideoList();
+        wireVideoSearch();
       } catch (e) {
         console.error('VIDEO tab render error:', e);
         document.getElementById('video-guild-tabs').innerHTML = `<div style="color:red; font-weight:800;">⚠️ 오류: ${(e && e.message) || e}</div>`;
