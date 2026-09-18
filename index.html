@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <!-- saved from url=(0036)https://index-ebon-omega.vercel.app/ -->
 <html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>도면</title>
@@ -1468,8 +1471,8 @@
         <label class="gcd-label" style="margin-top:10px;">🎥 영상 링크 (유튜브 - 카드에서 바로 재생됨, 선택사항)</label>
         <input type="text" class="gcd-input t-video" value="" placeholder="예: https://youtu.be/XXXXXXXXXXX 또는 https://www.youtube.com/watch?v=XXXXXXXXXXX">
 
-        <label class="gcd-label" style="margin-top:10px;">상세 공략 내용 (줄바꿈 가능)</label>
-        <textarea class="gcd-textarea t-body" style="height:60px;" placeholder="스킬 순서 및 세팅"></textarea>
+        <label class="gcd-label" style="margin-top:10px; display:none;">상세 공략 내용 (줄바꿈 가능)</label>
+        <textarea class="gcd-textarea t-body" style="height:60px; display:none;" placeholder="스킬 순서 및 세팅"></textarea>
       </div></div>
         <button type="button" id="add-tot-card-btn" class="gcd-btn-action" style="background:#ea580c; margin-top:8px;">+ 카운터 조합 추가하기</button>
       </div>
@@ -2198,6 +2201,43 @@
     }
   });
 
+  // 모바일에서 화면을 껐다 켜거나 다른 앱 갔다 오면(백그라운드 복귀) 실시간 구독(onSnapshot) 연결 자체가
+  // 끊겨서 안 살아나는 경우가 있어서, 단순 재렌더로는 해결이 안 됨. 화면이 다시 보일 때마다
+  // Firestore에서 최신 데이터를 직접 다시 받아와서(getDocs) 화면을 갱신함.
+  async function forceRefreshData() {
+    try {
+      const [atkSnap, defSnap, totSnap] = await Promise.all([
+        getDocs(collection(db, "guild_atk_db")),
+        getDocs(collection(db, "guild_def_db")),
+        getDocs(collection(db, "guild_total_db"))
+      ]);
+      let atkMap = new Map();
+      atkSnap.forEach(d => { let data = d.data(); if(data && data.id) atkMap.set(data.id, data); });
+      let newAtkData = Array.from(atkMap.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
+
+      let defMap = new Map();
+      defSnap.forEach(d => { let data = d.data(); if(data && data.id) defMap.set(data.id, data); });
+      let newDefData = Array.from(defMap.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
+
+      let totMap = new Map();
+      totSnap.forEach(d => { let data = d.data(); if(data && data.id) totMap.set(data.id, data); });
+      let newTotData = Array.from(totMap.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
+
+      // 방어 코드: 네트워크 불안정 등으로 결과가 비정상적으로 텅 비어서 오면(원래 데이터가 있었는데)
+      // 화면을 잘못 비워버리지 않도록, 기존에 데이터가 있었는데 새로 받은 게 비어있으면 무시하고 기존 값 유지
+      if (newAtkData.length > 0 || atkData.length === 0) atkData = newAtkData;
+      if (newDefData.length > 0 || defData.length === 0) defData = newDefData;
+      if (newTotData.length > 0 || totData.length === 0) totData = newTotData;
+
+      if (currentMode === 'DEF' || currentMode === 'TOTAL') renderList();
+    } catch (e) {
+      console.error('forceRefreshData failed', e);
+    }
+  }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) forceRefreshData(); });
+  window.addEventListener('pageshow', () => { forceRefreshData(); });
+  window.addEventListener('focus', () => { forceRefreshData(); });
+
   function getFullAtkDB(){ return atkData; }
   function getFullDefDB(){ return defData; }
   function getFullTotDB(){ return totData; }
@@ -2340,8 +2380,8 @@
         <label class="gcd-label" style="margin-top:10px;">🎥 영상 링크 (유튜브 - 카드에서 바로 재생됨, 선택사항)</label>
         <input type="text" class="gcd-input ${prefix}-video" value="${(c.videoUrl || '').replace(/"/g,'&quot;')}" placeholder="예: https://youtu.be/XXXXXXXXXXX 또는 https://www.youtube.com/watch?v=XXXXXXXXXXX">
 
-        <label class="gcd-label" style="margin-top:10px;">상세 공략 내용 (줄바꿈 가능)</label>
-        <textarea class="gcd-textarea ${prefix}-body" style="height:60px;" placeholder="스킬 순서 및 세팅">${c.body || ''}</textarea>
+        <label class="gcd-label" style="margin-top:10px; display:none;">상세 공략 내용 (줄바꿈 가능)</label>
+        <textarea class="gcd-textarea ${prefix}-body" style="height:60px; display:none;" placeholder="스킬 순서 및 세팅">${c.body || ''}</textarea>
       `;
       container.appendChild(box);
     });
