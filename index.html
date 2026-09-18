@@ -3815,11 +3815,11 @@
       let isActive = activeDeckName === item.name;
       let isPicked = !!item.isPicked;
       let rowClass = isActive ? 'list-item active-item' : 'list-item';
-      if (isPicked) rowClass += ' picked-item';
+      if (currentMode === 'DEF' && isPicked) rowClass += ' picked-item';
       let btnClass = isActive ? 'detail-btn active-btn' : 'detail-btn';
       let btnText = isActive ? '접기 ▲' : '상세 공략 열기';
-      let pickedBadgeHtml = isPicked ? `<span class="picked-badge">✅ 채택</span>` : '';
-      let pickToggleHtml = isAdmin ? `<button class="pick-toggle-btn${isPicked ? ' active' : ''}" title="${isPicked ? '채택 해제' : '이 조합 채택 표시'}">${isPicked ? '✅' : '⬜'}</button>` : '';
+      let pickedBadgeHtml = (currentMode === 'DEF' && isPicked) ? `<span class="picked-badge">✅ 채택</span>` : '';
+      let pickToggleHtml = (currentMode === 'DEF' && isAdmin) ? `<button class="pick-toggle-btn${isPicked ? ' active' : ''}" title="${isPicked ? '채택 해제' : '이 조합 채택 표시'}">${isPicked ? '✅' : '⬜'}</button>` : '';
       
       const div = document.createElement('div');
       div.className = rowClass;
