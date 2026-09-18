@@ -113,14 +113,16 @@
     .badge.tot { background: var(--orange-soft); color: var(--orange); }
 
     .list-item.picked-item { border-left: 3px solid #22c55e; background: #f4fdf6; }
+    .list-item.picked-item-norank { border-left: 3px solid #94a3b8; background: #f1f5f9; }
     .picked-badge { display:inline-flex; align-items:center; gap:3px; font-size:11px; font-weight:800; color:#16a34a; background:#dcfce7; padding:3px 8px; border-radius:999px; white-space:nowrap; flex-shrink:0; }
     .pick-toggle-btn { border:1px solid var(--border); background:#fff; border-radius:5px; width:28px; height:28px; font-size:14px; line-height:1; cursor:pointer; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; padding:0; }
     .pick-toggle-btn:hover { border-color:#22c55e; }
     .pick-toggle-btn.active { background:#22c55e; border-color:#22c55e; }
     .rank-badge { display:inline-flex; align-items:center; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; flex-shrink:0; color:#fff; background:#2563eb; }
+    .rank-badge.no-rank { background:#9ca3af; }
     .pick-rank-select { font-size:11px; font-weight:800; border:1px solid var(--border); border-radius:5px; padding:3px 4px; background:#fff; cursor:pointer; flex-shrink:0; }
     .pick-note-input { flex:1 1 auto; min-width:100px; max-width:280px; margin-left:auto; margin-right:16px; font-size:12px; font-weight:600; border:1px solid var(--border); border-radius:5px; padding:6px 10px; background:#fff; color:var(--ink); }
-    .pick-note-text { font-size:14px; font-weight:800; color:#374151; background:#fef3c7; padding:4px 10px; border-radius:6px; margin-left:auto; margin-right:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
+    .pick-note-text { font-size:14px; font-weight:800; color:#374151; margin-left:auto; margin-right:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
     
     .hero-comp { display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 900; color: var(--ink); flex-wrap: wrap; }
     .hero-comp-icons { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
@@ -377,7 +379,7 @@
         <span>📢 길드전 및 총력전 세팅</span>
         <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display: inline-block;">✏️ 수정</button>
       </div>
-      <div id="notice-content">★★ 공격덱에 없는 부분은 시트지 활용 부탁드립니다.<br><br>데이터 수집 중입니다.<br><br>보시다가 애매하거나 추가해야 할 문의사항 있을 시 운영진 문의<br></div>
+      <div id="notice-content" style="font-weight:800;">★★ 공격덱에 없는 부분은 시트지 활용 부탁드립니다.<br><br>데이터 수집 중입니다.<br><br>보시다가 애매하거나 추가해야 할 문의사항 있을 시 운영진 문의<br></div>
       <div id="notice-edit-area" style="display:none; margin-top:8px;">
         <textarea id="notice-edit-textarea" class="gcd-input" style="width:100%; height:140px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
         <div style="display:flex; gap:8px; margin-top:8px;">
@@ -3858,12 +3860,12 @@
 
       let isActive = activeDeckName === item.name;
       let isPicked = !!item.isPicked;
+      let pickRank = item.pickRank || null;
       let rowClass = isActive ? 'list-item active-item' : 'list-item';
-      if (currentMode === 'DEF' && isPicked) rowClass += ' picked-item';
+      if (currentMode === 'DEF' && isPicked) rowClass += pickRank ? ' picked-item' : ' picked-item-norank';
       let btnClass = isActive ? 'detail-btn active-btn' : 'detail-btn';
       let btnText = isActive ? '접기 ▲' : '상세 공략 열기';
       let pickedBadgeHtml = (currentMode === 'DEF' && isPicked) ? `<span class="picked-badge">✅ 채택</span>` : '';
-      let pickRank = item.pickRank || null;
       let rankBadgeHtml = (currentMode === 'DEF' && isPicked && pickRank) ? `<span class="rank-badge">${pickRank}위</span>` : '';
       let pickToggleHtml = (currentMode === 'DEF' && isAdmin) ? `<button class="pick-toggle-btn${isPicked ? ' active' : ''}" title="${isPicked ? '채택 해제' : '이 조합 채택 표시'}">${isPicked ? '✅' : '⬜'}</button>` : '';
       let rankSelectHtml = (currentMode === 'DEF' && isAdmin && isPicked) ? `<select class="pick-rank-select" title="순위 지정"><option value="">순위</option>${[1,2,3,4,5,6,7,8,9,10].map(n => `<option value="${n}"${pickRank === n ? ' selected' : ''}>${n}위</option>`).join('')}</select>` : '';
