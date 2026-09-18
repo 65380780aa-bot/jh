@@ -119,8 +119,8 @@
     .pick-toggle-btn.active { background:#22c55e; border-color:#22c55e; }
     .rank-badge { display:inline-flex; align-items:center; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; flex-shrink:0; color:#fff; background:#2563eb; }
     .pick-rank-select { font-size:11px; font-weight:800; border:1px solid var(--border); border-radius:5px; padding:3px 4px; background:#fff; cursor:pointer; flex-shrink:0; }
-    .pick-note-input { flex:1 1 auto; min-width:100px; max-width:280px; margin-left:auto; font-size:12px; font-weight:600; border:1px solid var(--border); border-radius:5px; padding:6px 10px; background:#fff; color:var(--ink); }
-    .pick-note-text { font-size:12px; font-weight:700; color:var(--text-dim); margin-left:auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
+    .pick-note-input { flex:1 1 auto; min-width:100px; max-width:280px; margin-left:auto; margin-right:16px; font-size:12px; font-weight:600; border:1px solid var(--border); border-radius:5px; padding:6px 10px; background:#fff; color:var(--ink); }
+    .pick-note-text { font-size:14px; font-weight:800; color:#374151; background:#fef3c7; padding:4px 10px; border-radius:6px; margin-left:auto; margin-right:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
     
     .hero-comp { display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 900; color: var(--ink); flex-wrap: wrap; }
     .hero-comp-icons { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
@@ -2723,7 +2723,7 @@
         });
       });
     });
-    return Array.from(pool.values());
+    return Array.from(pool.values()).sort((a, b) => (a.heroName || '').localeCompare((b.heroName || ''), 'ko'));
   }
 
   function renderLoadSkillList(){
