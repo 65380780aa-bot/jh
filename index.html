@@ -1627,7 +1627,7 @@
   let arenaData = []; // 결투장 덱 DB (Firestore guild_arena_db)
   let videoSeasons = ['메이저 S1']; // 영상 분석 탭의 시즌 목록 (관리자가 추가/이름변경 가능)
   let selectedSeasonIdx = 0;
-  let videoGuildNamesBySeason = [Array.from({length: 18}, () => '')]; // 시즌별 18개 길드 이름 (기본은 빈칸)
+  let videoGuildNamesBySeason = [Array.from({length: 18}, () => '길드명')]; // 시즌별 18개 길드 이름 (기본은 "길드명", 관리자가 ✏️로 실제 이름 입력)
   let videoData = []; // 길드별 패배 영상 목록 (Firestore guild_loss_videos)
   let selectedVideoGuildIndex = 0;
   let currentArenaDetailId = null;
@@ -1920,7 +1920,7 @@
         const d = snap.exists() ? snap.data() : null;
         if (d && Array.isArray(d.bySeason) && d.bySeason.length > 0) {
           // 새 구조: 시즌별로 18개씩
-          videoGuildNamesBySeason = d.bySeason.map(entry => (entry && Array.isArray(entry.names) && entry.names.length === 18) ? entry.names : Array.from({length:18}, () => ''));
+          videoGuildNamesBySeason = d.bySeason.map(entry => (entry && Array.isArray(entry.names) && entry.names.length === 18) ? entry.names : Array.from({length:18}, () => '길드명'));
         } else if (d && Array.isArray(d.names) && d.names.length === 18) {
           // 예전 구조(시즌 구분 없던 시절) 호환: 0번 시즌으로 취급
           videoGuildNamesBySeason = [d.names];
@@ -3793,6 +3793,25 @@
           window.renameVideoSeason(Number(this.dataset.idx));
         };
         wrap.appendChild(renameBtn);
+
+        if (videoSeasons.length > 1) {
+          const delBtn = document.createElement('button');
+          delBtn.type = 'button';
+          delBtn.title = '시즌 삭제';
+          delBtn.textContent = '🗑️';
+          delBtn.style.border = 'none';
+          delBtn.style.background = 'none';
+          delBtn.style.cursor = 'pointer';
+          delBtn.style.fontSize = '12px';
+          delBtn.style.padding = '4px';
+          delBtn.style.opacity = '.6';
+          delBtn.dataset.idx = String(i);
+          delBtn.onclick = function(e) {
+            e.stopPropagation();
+            window.deleteVideoSeason(Number(this.dataset.idx));
+          };
+          wrap.appendChild(delBtn);
+        }
       }
 
       box.appendChild(wrap);
@@ -3831,7 +3850,7 @@
     if (!isAdmin) return;
     openSeasonNameModal('메이저 S' + (videoSeasons.length + 1), async (trimmed) => {
       const newSeasons = videoSeasons.concat([trimmed]);
-      const newGuildNamesBySeason = videoGuildNamesBySeason.concat([Array.from({length:18}, () => '')]);
+      const newGuildNamesBySeason = videoGuildNamesBySeason.concat([Array.from({length:18}, () => '길드명')]);
       try {
         await setDoc(doc(db, "meta", "video_seasons"), { list: newSeasons }, { merge: true });
         await setDoc(doc(db, "meta", "video_guild_names"), { bySeason: newGuildNamesBySeason.map(names => ({ names })) });
@@ -3855,10 +3874,46 @@
     });
   };
 
+  window.deleteVideoSeason = async function(idx) {
+    if (!isAdmin) return;
+    if (videoSeasons.length <= 1) { alert('마지막 남은 시즌은 삭제할 수 없어요.'); return; }
+    const seasonName = videoSeasons[idx] || '';
+    const videosInSeason = videoData.filter(v => (v.seasonIdx || 0) === idx);
+    const confirmMsg = videosInSeason.length
+      ? `"${seasonName}" 시즌을 삭제할까요?\n이 시즌에 등록된 영상 ${videosInSeason.length}개도 같이 삭제돼요. 이 작업은 되돌릴 수 없어요.`
+      : `"${seasonName}" 시즌을 삭제할까요?`;
+    if (!confirm(confirmMsg)) return;
+
+    try {
+      // 1) 해당 시즌 영상들 전부 삭제
+      for (const v of videosInSeason) {
+        await deleteDoc(doc(db, "guild_loss_videos", v.id));
+      }
+      // 2) 삭제된 시즌보다 뒤에 있던 시즌들의 영상은 seasonIdx를 하나씩 앞당겨줌 (배열 인덱스가 하나 당겨지므로)
+      const videosAfter = videoData.filter(v => (v.seasonIdx || 0) > idx);
+      for (const v of videosAfter) {
+        await setDoc(doc(db, "guild_loss_videos", v.id), { seasonIdx: (v.seasonIdx || 0) - 1 }, { merge: true });
+      }
+      // 3) 시즌 목록 / 시즌별 길드명 목록에서도 해당 시즌 제거
+      const newSeasons = videoSeasons.slice();
+      newSeasons.splice(idx, 1);
+      const newGuildNamesBySeason = videoGuildNamesBySeason.slice();
+      newGuildNamesBySeason.splice(idx, 1);
+      await setDoc(doc(db, "meta", "video_seasons"), { list: newSeasons }, { merge: true });
+      await setDoc(doc(db, "meta", "video_guild_names"), { bySeason: newGuildNamesBySeason.map(names => ({ names })) });
+
+      if (selectedSeasonIdx >= newSeasons.length) selectedSeasonIdx = newSeasons.length - 1;
+      else if (selectedSeasonIdx > idx) selectedSeasonIdx -= 1;
+      selectedVideoGuildIndex = 0;
+    } catch (e) {
+      alert('⚠️ 삭제 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+    }
+  };
+
   function renderVideoGuildTabs() {
     const box = document.getElementById('video-guild-tabs');
     if (!box) return;
-    const namesForSeason = videoGuildNamesBySeason[selectedSeasonIdx] || Array.from({length:18}, () => '');
+    const namesForSeason = videoGuildNamesBySeason[selectedSeasonIdx] || Array.from({length:18}, () => '길드명');
     box.innerHTML = '';
     for (let i = 0; i < namesForSeason.length; i++) {
       const name = namesForSeason[i];
@@ -3909,7 +3964,7 @@
 
   window.renameVideoGuild = async function(idx) {
     if (!isAdmin) return;
-    const namesForSeason = (videoGuildNamesBySeason[selectedSeasonIdx] || Array.from({length:18}, () => '')).slice();
+    const namesForSeason = (videoGuildNamesBySeason[selectedSeasonIdx] || Array.from({length:18}, () => '길드명')).slice();
     const current = namesForSeason[idx] || '';
     const next = prompt('길드 이름을 입력하세요', current);
     if (next === null) return;
