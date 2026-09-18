@@ -385,7 +385,7 @@
 
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
-      <button class="add-btn" id="toggle-add-btn" style="display: flex;">+ 결투장 덱 추가하기</button>
+      <button class="add-btn" id="toggle-add-btn" style="display: flex;">+ 덱 추가하기</button>
       <button class="add-btn" id="show-deeplink-table-btn" style="display: flex; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
     </div>
 
@@ -4122,7 +4122,7 @@
 
     if(mode === 'DEF'){
       document.getElementById('tab-def').classList.add('active');
-      if(isAdmin) toggleAddBtn.style.display = 'flex';
+      if(isAdmin){ toggleAddBtn.style.display = 'flex'; toggleAddBtn.textContent = '+ 덱 추가하기'; }
       document.getElementById('gcd-mode-title').textContent = '🛡️ 길드전 방어 구성 덱';
       document.getElementById('gcd-mode-title').style.display = 'block';
       document.getElementById('gcd-search-section').style.display = 'block';
@@ -4131,7 +4131,7 @@
       renderList();
     } else if(mode === 'TOTAL'){
       document.getElementById('tab-total').classList.add('active-total');
-      if(isAdmin) toggleAddBtn.style.display = 'flex';
+      if(isAdmin){ toggleAddBtn.style.display = 'flex'; toggleAddBtn.textContent = '+ 덱 추가하기'; }
       document.getElementById('gcd-mode-title').textContent = '⚔️ 길드전 공격 구성 덱';
       document.getElementById('gcd-mode-title').style.display = 'block';
       document.getElementById('tot-subtabs').style.display = 'flex';
