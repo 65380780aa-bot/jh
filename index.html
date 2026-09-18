@@ -52,7 +52,7 @@
     .add-btn:hover { transform: scale(1.05); }
 
     /* 공지 및 폼 영역 */
-    .gcd-notice-box { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 3px; padding: 12px 16px; margin-bottom: 24px; font-size: 13px; line-height: 1.5; color: var(--ink); }
+    .gcd-notice-box { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 3px; padding: 12px 16px; margin-bottom: 24px; font-size: 14px; line-height: 1.5; color: var(--ink); }
     .gcd-notice-title { font-weight: 900; color: var(--red); margin-bottom: 4px; }
     .gcd-search-box { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(43,42,38,0.05); }
     .gcd-quick-title { font-size: 15px; font-weight: 900; margin-bottom: 16px; color: var(--ink); }
@@ -122,7 +122,7 @@
     .rank-badge.no-rank { background:#9ca3af; }
     .pick-rank-select { font-size:11px; font-weight:800; border:1px solid var(--border); border-radius:5px; padding:3px 4px; background:#fff; cursor:pointer; flex-shrink:0; }
     .pick-note-input { flex:1 1 auto; min-width:100px; max-width:280px; margin-left:auto; margin-right:16px; font-size:12px; font-weight:600; border:1px solid var(--border); border-radius:5px; padding:6px 10px; background:#fff; color:var(--ink); }
-    .pick-note-text { font-size:14px; font-weight:800; color:#374151; margin-left:auto; margin-right:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
+    .pick-note-text { font-size:14px; font-weight:600; color:#374151; margin-left:auto; margin-right:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
     
     .hero-comp { display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 900; color: var(--ink); flex-wrap: wrap; }
     .hero-comp-icons { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
@@ -366,7 +366,6 @@
     <div class="nav-links">
       <div id="tab-total" class="nav-link active-total">⚔️ 공격덱</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
-      <div id="tab-arena" class="nav-link">🏟️ 결투장</div>
     </div>
     <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 4명</div>
     <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
@@ -374,12 +373,12 @@
 
   <div class="container">
     
-    <div class="gcd-notice-box">
+    <div class="gcd-notice-box" style="display:none;">
       <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
         <span>📢 길드전 및 총력전 세팅</span>
         <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display: inline-block;">✏️ 수정</button>
       </div>
-      <div id="notice-content" style="font-weight:800;">★★ 공격덱에 없는 부분은 시트지 활용 부탁드립니다.<br><br>데이터 수집 중입니다.<br><br>보시다가 애매하거나 추가해야 할 문의사항 있을 시 운영진 문의<br></div>
+      <div id="notice-content">★★ 공격덱에 없는 부분은 시트지 활용 부탁드립니다.<br><br>데이터 수집 중입니다.<br><br>보시다가 애매하거나 추가해야 할 문의사항 있을 시 운영진 문의<br></div>
       <div id="notice-edit-area" style="display:none; margin-top:8px;">
         <textarea id="notice-edit-textarea" class="gcd-input" style="width:100%; height:140px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
         <div style="display:flex; gap:8px; margin-top:8px;">
@@ -1492,6 +1491,36 @@
       </div>
     </div>
 
+    <div id="def-notice-box" class="gcd-notice-box" style="display:none; margin-bottom:20px;">
+      <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>📢 방어덱 공지</span>
+        <button type="button" id="def-notice-edit-btn" class="btn-mini-edit" style="display:none;">✏️ 수정</button>
+      </div>
+      <div id="def-notice-content"></div>
+      <div id="def-notice-edit-area" style="display:none; margin-top:8px;">
+        <textarea id="def-notice-edit-textarea" class="gcd-input" style="width:100%; height:100px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button type="button" id="def-notice-save-btn" class="add-btn" style="background:#16a34a;">저장</button>
+          <button type="button" id="def-notice-cancel-btn" class="add-btn" style="background:#6b7280;">취소</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="atk-notice-box" class="gcd-notice-box" style="display:none; margin-bottom:20px;">
+      <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>📢 공격덱 공지</span>
+        <button type="button" id="atk-notice-edit-btn" class="btn-mini-edit" style="display:none;">✏️ 수정</button>
+      </div>
+      <div id="atk-notice-content"></div>
+      <div id="atk-notice-edit-area" style="display:none; margin-top:8px;">
+        <textarea id="atk-notice-edit-textarea" class="gcd-input" style="width:100%; height:100px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button type="button" id="atk-notice-save-btn" class="add-btn" style="background:#16a34a;">저장</button>
+          <button type="button" id="atk-notice-cancel-btn" class="add-btn" style="background:#6b7280;">취소</button>
+        </div>
+      </div>
+    </div>
+
     <!-- 리스트 영역 -->
     <!-- 결투장 탭 전용 검색 + 리스트 -->
     <div class="gcd-search-box" id="arena-search-section" style="padding: 16px 24px; display: none;">
@@ -1837,6 +1866,8 @@
       toggleAddBtn.style.display = 'flex';
       showDeeplinkTableBtn.style.display = 'flex';
       document.getElementById('notice-edit-btn').style.display = 'inline-block';
+      document.getElementById('def-notice-edit-btn').style.display = 'inline-block';
+      document.getElementById('atk-notice-edit-btn').style.display = 'inline-block';
     } else {
       adminBtn.innerHTML = "🔒 관리자";
       adminBtn.classList.remove('admin-on');
@@ -1847,6 +1878,10 @@
       document.getElementById('gcd-add-arena-section').style.display = 'none';
       document.getElementById('notice-edit-btn').style.display = 'none';
       document.getElementById('notice-edit-area').style.display = 'none';
+      document.getElementById('def-notice-edit-btn').style.display = 'none';
+      document.getElementById('def-notice-edit-area').style.display = 'none';
+      document.getElementById('atk-notice-edit-btn').style.display = 'none';
+      document.getElementById('atk-notice-edit-area').style.display = 'none';
     }
   }
 
@@ -1980,6 +2015,70 @@
       }
     };
 
+    // 📢 방어덱 전용 공지사항 (검색창 대신 표시)
+    const defNoticeRef = doc(db, "meta", "notice_def");
+    let currentDefNoticeText = '';
+    function renderDefNoticeContent() {
+      document.getElementById('def-notice-content').innerHTML = renderNoticeText(currentDefNoticeText);
+    }
+    onSnapshot(defNoticeRef, (snap) => {
+      currentDefNoticeText = (snap.exists() && typeof snap.data().text === 'string') ? snap.data().text : '';
+      renderDefNoticeContent();
+    });
+    document.getElementById('def-notice-edit-btn').onclick = function() {
+      if (!isAdmin) return;
+      document.getElementById('def-notice-edit-textarea').value = currentDefNoticeText;
+      document.getElementById('def-notice-content').style.display = 'none';
+      document.getElementById('def-notice-edit-area').style.display = 'block';
+    };
+    document.getElementById('def-notice-cancel-btn').onclick = function() {
+      document.getElementById('def-notice-edit-area').style.display = 'none';
+      document.getElementById('def-notice-content').style.display = 'block';
+    };
+    document.getElementById('def-notice-save-btn').onclick = async function() {
+      if (!isAdmin) return;
+      const newText = document.getElementById('def-notice-edit-textarea').value;
+      try {
+        await setDoc(defNoticeRef, { text: newText }, { merge: true });
+        document.getElementById('def-notice-edit-area').style.display = 'none';
+        document.getElementById('def-notice-content').style.display = 'block';
+      } catch (e) {
+        alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+      }
+    };
+
+    // 📢 공격덱 전용 공지사항 (검색창 대신 표시)
+    const atkNoticeRef = doc(db, "meta", "notice_atk");
+    let currentAtkNoticeText = '';
+    function renderAtkNoticeContent() {
+      document.getElementById('atk-notice-content').innerHTML = renderNoticeText(currentAtkNoticeText);
+    }
+    onSnapshot(atkNoticeRef, (snap) => {
+      currentAtkNoticeText = (snap.exists() && typeof snap.data().text === 'string') ? snap.data().text : '';
+      renderAtkNoticeContent();
+    });
+    document.getElementById('atk-notice-edit-btn').onclick = function() {
+      if (!isAdmin) return;
+      document.getElementById('atk-notice-edit-textarea').value = currentAtkNoticeText;
+      document.getElementById('atk-notice-content').style.display = 'none';
+      document.getElementById('atk-notice-edit-area').style.display = 'block';
+    };
+    document.getElementById('atk-notice-cancel-btn').onclick = function() {
+      document.getElementById('atk-notice-edit-area').style.display = 'none';
+      document.getElementById('atk-notice-content').style.display = 'block';
+    };
+    document.getElementById('atk-notice-save-btn').onclick = async function() {
+      if (!isAdmin) return;
+      const newText = document.getElementById('atk-notice-edit-textarea').value;
+      try {
+        await setDoc(atkNoticeRef, { text: newText }, { merge: true });
+        document.getElementById('atk-notice-edit-area').style.display = 'none';
+        document.getElementById('atk-notice-content').style.display = 'block';
+      } catch (e) {
+        alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+      }
+    };
+
     // NOTE: Firestore가 유일한 원본(source of truth)입니다.
     // 예전엔 snap이 비어있으면 INITIAL_*_DB로 자동 대체했는데, 이것도 같은 이유로 위험해서
     // 이제는 Firestore가 실제로 준 데이터만 그대로 보여줍니다 (판단해서 대체하지 않음).
@@ -2105,7 +2204,6 @@
 
   document.getElementById('tab-def').onclick = () => switchMode('DEF');
   document.getElementById('tab-total').onclick = () => switchMode('TOTAL');
-  document.getElementById('tab-arena').onclick = () => switchMode('ARENA');
 
   function setTotSubFilter(type){
     totSubFilter = type;
@@ -3979,7 +4077,6 @@
           detailDiv.innerHTML = `
             <div class="gcd-result-card">
               <div class="gcd-res-target">
-                <span style="font-size:18px; color:var(--ink); font-weight:900;">⚔️ [ ${item.name} ] 카운터</span>
                 <span>${editControlsHtml}</span>
               </div>
               <div class="gcd-info-block gcd-atk-block">
@@ -4052,7 +4149,6 @@
           detailDiv.innerHTML = `
             <div class="gcd-result-card">
               <div class="gcd-res-target">
-                <span style="font-size:18px; color:var(--ink); font-weight:900;">🛡️ [ ${item.name} ] 세팅</span>
                 <span>${editControlsHtml}</span>
               </div>
               <div class="gcd-info-block gcd-atk-block">
@@ -4152,7 +4248,6 @@
           detailDiv.innerHTML = `
             <div class="gcd-result-card">
               <div class="gcd-res-target">
-                <span style="font-size:18px; color:var(--ink); font-weight:900;">⚔️ [ ${item.name} ] 카운터</span>
                 <span>${editControlsHtml}</span>
               </div>
               <div class="gcd-info-block gcd-atk-block">
@@ -4180,6 +4275,8 @@
 
     document.getElementById('list-wrapper').style.display = 'none';
     document.getElementById('gcd-search-section').style.display = 'none';
+    document.getElementById('def-notice-box').style.display = 'none';
+    document.getElementById('atk-notice-box').style.display = 'none';
     document.getElementById('gcd-mode-title').style.display = 'none';
     document.getElementById('tot-subtabs').style.display = 'none';
     document.getElementById('arena-search-section').style.display = 'none';
@@ -4190,7 +4287,8 @@
       if(isAdmin){ toggleAddBtn.style.display = 'flex'; toggleAddBtn.textContent = '+ 덱 추가하기'; }
       document.getElementById('gcd-mode-title').textContent = '🛡️ 길드전 방어 구성 덱';
       document.getElementById('gcd-mode-title').style.display = 'block';
-      document.getElementById('gcd-search-section').style.display = 'block';
+      document.getElementById('def-notice-box').style.display = 'block';
+      document.getElementById('def-notice-edit-btn').style.display = isAdmin ? 'inline-block' : 'none';
       document.getElementById('list-wrapper').style.display = 'block';
       document.getElementById('list-header').style.display = 'grid';
       renderList();
@@ -4200,18 +4298,11 @@
       document.getElementById('gcd-mode-title').textContent = '⚔️ 길드전 공격 구성 덱';
       document.getElementById('gcd-mode-title').style.display = 'block';
       document.getElementById('tot-subtabs').style.display = 'flex';
-      document.getElementById('gcd-search-section').style.display = 'block';
+      document.getElementById('atk-notice-box').style.display = 'block';
+      document.getElementById('atk-notice-edit-btn').style.display = isAdmin ? 'inline-block' : 'none';
       document.getElementById('list-wrapper').style.display = 'block';
       document.getElementById('list-header').style.display = 'grid';
       renderList();
-    } else if(mode === 'ARENA'){
-      document.getElementById('tab-arena').classList.add('active');
-      if(isAdmin){ toggleAddBtn.style.display = 'flex'; toggleAddBtn.textContent = '+ 결투장 덱 추가하기'; }
-      document.getElementById('gcd-mode-title').textContent = '🏟️ 결투장';
-      document.getElementById('gcd-mode-title').style.display = 'block';
-      document.getElementById('arena-search-section').style.display = 'block';
-      document.getElementById('arena-list-wrapper').style.display = 'block';
-      renderArenaList('');
     }
   }
 
