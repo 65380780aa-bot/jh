@@ -1625,7 +1625,7 @@
   let defData = [];
   let totData = [];
   let arenaData = []; // 결투장 덱 DB (Firestore guild_arena_db)
-  let videoSeasons = ['시즌1']; // 영상 분석 탭의 시즌 목록 (관리자가 추가/이름변경 가능)
+  let videoSeasons = ['메이저 S1']; // 영상 분석 탭의 시즌 목록 (관리자가 추가/이름변경 가능)
   let selectedSeasonIdx = 0;
   let videoGuildNamesBySeason = [Array.from({length: 18}, () => '')]; // 시즌별 18개 길드 이름 (기본은 빈칸)
   let videoData = []; // 길드별 패배 영상 목록 (Firestore guild_loss_videos)
@@ -3829,7 +3829,7 @@
 
   window.addVideoSeason = async function() {
     if (!isAdmin) return;
-    openSeasonNameModal('시즌' + (videoSeasons.length + 1), async (trimmed) => {
+    openSeasonNameModal('메이저 S' + (videoSeasons.length + 1), async (trimmed) => {
       const newSeasons = videoSeasons.concat([trimmed]);
       const newGuildNamesBySeason = videoGuildNamesBySeason.concat([Array.from({length:18}, () => '')]);
       try {
@@ -4050,7 +4050,7 @@
       resultsBox.innerHTML = matches.map(v => {
         const sIdx = v.seasonIdx || 0;
         const gName = (videoGuildNamesBySeason[sIdx] || [])[v.guildIndex] || '';
-        const sName = videoSeasons[sIdx] || ('시즌' + (sIdx + 1));
+        const sName = videoSeasons[sIdx] || ('메이저 S' + (sIdx + 1));
         return `
           <div class="video-search-result-item" data-id="${v.id}" data-guild-idx="${v.guildIndex}" data-season-idx="${sIdx}" style="padding:10px 14px; border-bottom:1px solid var(--border); cursor:pointer; font-size:13px;">
             <span style="font-weight:800; color:var(--ink);">${escVid(v.title || '')}</span>
