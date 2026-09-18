@@ -119,6 +119,8 @@
     .pick-toggle-btn.active { background:#22c55e; border-color:#22c55e; }
     .rank-badge { display:inline-flex; align-items:center; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; flex-shrink:0; color:#fff; background:#2563eb; }
     .pick-rank-select { font-size:11px; font-weight:800; border:1px solid var(--border); border-radius:5px; padding:3px 4px; background:#fff; cursor:pointer; flex-shrink:0; }
+    .pick-note-input { flex:1 1 auto; min-width:100px; max-width:280px; margin-left:auto; font-size:12px; font-weight:600; border:1px solid var(--border); border-radius:5px; padding:6px 10px; background:#fff; color:var(--ink); }
+    .pick-note-text { font-size:12px; font-weight:700; color:var(--text-dim); margin-left:auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
     
     .hero-comp { display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 900; color: var(--ink); flex-wrap: wrap; }
     .hero-comp-icons { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
@@ -3679,6 +3681,17 @@
     }
   };
 
+  window.saveListNote = async function(type, id, note) {
+    if (!isAdmin) return;
+    const colName = type === 'ATK' ? "guild_atk_db" : (type === 'DEF' ? "guild_def_db" : "guild_total_db");
+    try {
+      await setDoc(doc(db, colName, String(id)), { listNote: note || null }, { merge: true });
+    } catch (e) {
+      console.error("List note save failed:", e);
+      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+    }
+  };
+
   window.toggleStandardTag = async function(key) {
     if (!isAdmin) return;
     const current = !!(statsData[key] && statsData[key].isStandard);
@@ -3847,12 +3860,20 @@
       let rankBadgeHtml = (currentMode === 'DEF' && isPicked && pickRank) ? `<span class="rank-badge">${pickRank}위</span>` : '';
       let pickToggleHtml = (currentMode === 'DEF' && isAdmin) ? `<button class="pick-toggle-btn${isPicked ? ' active' : ''}" title="${isPicked ? '채택 해제' : '이 조합 채택 표시'}">${isPicked ? '✅' : '⬜'}</button>` : '';
       let rankSelectHtml = (currentMode === 'DEF' && isAdmin && isPicked) ? `<select class="pick-rank-select" title="순위 지정"><option value="">순위</option>${[1,2,3,4,5,6,7,8,9,10].map(n => `<option value="${n}"${pickRank === n ? ' selected' : ''}>${n}위</option>`).join('')}</select>` : '';
+      let noteHtml = '';
+      if (currentMode === 'DEF') {
+        if (isAdmin) {
+          noteHtml = `<input type="text" class="pick-note-input" placeholder="메모 입력" value="${escName(item.listNote || '')}">`;
+        } else if (item.listNote) {
+          noteHtml = `<span class="pick-note-text">${escName(item.listNote)}</span>`;
+        }
+      }
       
       const div = document.createElement('div');
       div.className = rowClass;
       div.innerHTML = `
         <div>${badgeHtml}</div>
-        <div class="hero-comp">${pickedBadgeHtml}${rankBadgeHtml}${heroesHtml}${pickToggleHtml}${rankSelectHtml}</div>
+        <div class="hero-comp">${pickedBadgeHtml}${rankBadgeHtml}${heroesHtml}${pickToggleHtml}${rankSelectHtml}${noteHtml}</div>
         <div><button class="${btnClass}">${btnText}</button></div>
       `;
       div.querySelector('.detail-btn').onclick = () => renderGuide(item);
@@ -3860,6 +3881,12 @@
       if (pickBtn) pickBtn.onclick = (e) => { e.stopPropagation(); window.togglePickedItem(currentMode, item.id); };
       const rankSelect = div.querySelector('.pick-rank-select');
       if (rankSelect) rankSelect.onchange = (e) => { e.stopPropagation(); window.setPickRank(currentMode, item.id, e.target.value); };
+      const noteInput = div.querySelector('.pick-note-input');
+      if (noteInput) {
+        noteInput.onclick = (e) => e.stopPropagation();
+        noteInput.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); noteInput.blur(); } };
+        noteInput.onblur = (e) => { window.saveListNote(currentMode, item.id, e.target.value.trim()); };
+      }
       listContainer.appendChild(div);
 
       if(isActive) {
