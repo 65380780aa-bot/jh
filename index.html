@@ -74,6 +74,7 @@
 
     .counter-builder-box { background: var(--red-soft); border: 1px solid #e2c6bc; border-radius: 4px; padding: 16px; margin-bottom: 16px; }
     .tot-builder-box { background: var(--orange-soft); border: 1px solid #e2d6ba; border-radius: 4px; padding: 16px; margin-bottom: 16px; }
+    .def-builder-box { background: var(--blue-soft); border: 1px solid #b9d3ea; border-radius: 4px; padding: 16px; margin-bottom: 16px; }
 
     /* 검색 박스 */
     .search-row { display: flex; gap: 12px; align-items: center; }
@@ -110,6 +111,12 @@
     .badge.def { background: var(--blue-soft); color: var(--blue); }
     .badge.atk { background: var(--red-soft); color: var(--red); }
     .badge.tot { background: var(--orange-soft); color: var(--orange); }
+
+    .list-item.picked-item { border-left: 3px solid #22c55e; background: #f4fdf6; }
+    .picked-badge { display:inline-flex; align-items:center; gap:3px; font-size:11px; font-weight:800; color:#16a34a; background:#dcfce7; padding:3px 8px; border-radius:999px; white-space:nowrap; flex-shrink:0; }
+    .pick-toggle-btn { border:1px solid var(--border); background:#fff; border-radius:5px; width:28px; height:28px; font-size:14px; line-height:1; cursor:pointer; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; padding:0; }
+    .pick-toggle-btn:hover { border-color:#22c55e; }
+    .pick-toggle-btn.active { background:#22c55e; border-color:#22c55e; }
     
     .hero-comp { display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 900; color: var(--ink); flex-wrap: wrap; }
     .hero-comp-icons { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
@@ -351,11 +358,11 @@
   <div class="top-nav">
     <div class="logo"></div>
     <div class="nav-links">
-      <div id="tab-total" class="nav-link">⚔️ 공격덱</div>
+      <div id="tab-total" class="nav-link active-total">⚔️ 공격덱</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
-      <div id="tab-arena" class="nav-link active">🏟️ 결투장</div>
+      <div id="tab-arena" class="nav-link">🏟️ 결투장</div>
     </div>
-    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 3명</div>
+    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 4명</div>
     <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
   </div>
 
@@ -948,46 +955,11 @@
         <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 3</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('def', 2)">📥</button></div><input type="text" id="def-title-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-title-img-2" placeholder="이미지 URL"></div>
         <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 4</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('def', 3)">📥</button></div><input type="text" id="def-title-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-title-img-3" placeholder="이미지 URL"></div>
       </div>
-      
-      <label class="gcd-label">📍 진형 선택</label>
-      <select id="custom-def-formation" class="gcd-select">
-        <option value="기본 진형">기본 진형</option>
-        <option value="밸런스 진형">밸런스 진형</option>
-        <option value="공격 진형">공격 진형</option>
-        <option value="보호 진형">보호 진형</option>
-      </select>
 
-      <label class="gcd-label" style="display:flex; justify-content:space-between; align-items:center;">
-        <span>🐾 펫 (선택사항 — 진형판 옆에 표시됨)</span>
-        <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadDefPetModal()">📥 불러오기</button>
-      </label>
-      <div class="slot-input-grid" style="grid-template-columns: repeat(2, 1fr);">
-        <div class="slot-input-box"><label>펫 이름</label><input type="text" id="custom-def-pet-name" placeholder="이름"></div>
-        <div class="slot-input-box"><label>펫 이미지 URL</label><input type="text" id="custom-def-pet-img" placeholder="이미지 URL"></div>
-      </div>
+      <label class="gcd-label" style="font-size:14px; color:#1d4ed8; margin-top:12px;">🛡️ 방어 세팅 구성 (공격덱과 동일한 방식 — 1개만 등록됨)</label>
+      <div id="def-cards-container"></div>
 
-      <label class="gcd-label">📍 후열 영웅 (최대 4칸, 이름은 이미지 밑에 표시됨)</label>
-      <div class="slot-input-grid" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('back', 0)">📥영웅</button></div><input type="text" id="def-back-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-0" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 0, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 0, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-0" placeholder="반지1 이름"><input type="text" id="def-back-ring1-0" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-0" placeholder="반지2 이름"><input type="text" id="def-back-ring2-0" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('back', 1)">📥영웅</button></div><input type="text" id="def-back-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-1" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 1, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 1, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-1" placeholder="반지1 이름"><input type="text" id="def-back-ring1-1" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-1" placeholder="반지2 이름"><input type="text" id="def-back-ring2-1" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 3</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('back', 2)">📥영웅</button></div><input type="text" id="def-back-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-2" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 2, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 2, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-2" placeholder="반지1 이름"><input type="text" id="def-back-ring1-2" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-2" placeholder="반지2 이름"><input type="text" id="def-back-ring2-2" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">후열 4</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('back', 3)">📥영웅</button></div><input type="text" id="def-back-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-back-3" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 3, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('back', 3, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-back-ring1-name-3" placeholder="반지1 이름"><input type="text" id="def-back-ring1-3" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-back-ring2-name-3" placeholder="반지2 이름"><input type="text" id="def-back-ring2-3" placeholder="반지2 이미지 URL"></div></div>
-      </div>
-
-      <label class="gcd-label">📍 전열 영웅 (최대 4칸, 이름은 이미지 밑에 표시됨)</label>
-      <div class="slot-input-grid" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('front', 0)">📥영웅</button></div><input type="text" id="def-front-name-0" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-0" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 0, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 0, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-0" placeholder="반지1 이름"><input type="text" id="def-front-ring1-0" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-0" placeholder="반지2 이름"><input type="text" id="def-front-ring2-0" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('front', 1)">📥영웅</button></div><input type="text" id="def-front-name-1" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-1" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 1, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 1, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-1" placeholder="반지1 이름"><input type="text" id="def-front-ring1-1" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-1" placeholder="반지2 이름"><input type="text" id="def-front-ring2-1" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 3</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('front', 2)">📥영웅</button></div><input type="text" id="def-front-name-2" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-2" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 2, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 2, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-2" placeholder="반지1 이름"><input type="text" id="def-front-ring1-2" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-2" placeholder="반지2 이름"><input type="text" id="def-front-ring2-2" placeholder="반지2 이미지 URL"></div></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><label style="margin-bottom:0;">전열 4</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefSlotModal('front', 3)">📥영웅</button></div><input type="text" id="def-front-name-3" placeholder="이름" style="margin-bottom:4px;"><input type="text" id="def-front-3" placeholder="이미지 URL" style="margin-bottom:6px;"><div style="display:flex; justify-content:flex-end; margin-bottom:2px; gap:4px;"><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 3, 1)">📥반지1</button><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadDefRingModal('front', 3, 2)">📥반지2</button></div><div style="display:flex; gap:6px; margin-bottom:6px;"><input type="text" id="def-front-ring1-name-3" placeholder="반지1 이름"><input type="text" id="def-front-ring1-3" placeholder="반지1 이미지 URL"></div><div style="display:flex; gap:6px;"><input type="text" id="def-front-ring2-name-3" placeholder="반지2 이름"><input type="text" id="def-front-ring2-3" placeholder="반지2 이미지 URL"></div></div>
-      </div>
-
-      <label class="gcd-label" style="margin-top:10px;">⚡ 스킬순서 / 속공순서 (진형판 왼쪽에 표시됨, 선택사항)</label>
-      <input type="text" id="custom-def-skillorder" class="gcd-input" placeholder="스킬순서 (예: 오공2 아리스2 오공1)" style="margin:0 0 6px 0;">
-      <input type="text" id="custom-def-speedorder" class="gcd-input" placeholder="속공순서 (예: ①&gt;②&gt;③)" style="margin:0;">
-      <label class="gcd-label" style="margin-top:10px;">상세 공략 내용 (줄바꿈 가능)</label>
-      <textarea id="custom-def-body" class="gcd-textarea" style="height:120px;"></textarea>
-      <button id="save-custom-def-btn" class="gcd-btn-action" style="background:#1d4ed8;">💾 방어 세팅 저장</button>
+      <button id="save-custom-def-btn" class="gcd-btn-action" style="background:#1d4ed8; margin-top:16px;">💾 방어덱 전체 저장</button>
     </div>
 
 
@@ -1501,13 +1473,13 @@
     </div>
 
     <!-- 검색 바 -->
-    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: block;">🏟️ 결투장</div>
-    <div id="tot-subtabs" style="display: none; gap: 8px; margin-bottom: 10px;">
+    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: block;">⚔️ 길드전 공격 구성 덱</div>
+    <div id="tot-subtabs" style="display: flex; gap: 8px; margin-bottom: 10px;">
       <div id="tot-subtab-공덱" class="tot-subtab-link active" data-type="공덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(255, 237, 213); color: rgb(194, 65, 12);">공덱</div>
       <div id="tot-subtab-마덱" class="tot-subtab-link" data-type="마덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">마덱</div>
       <div id="tot-subtab-방덱" class="tot-subtab-link" data-type="방덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">방덱</div>
     </div>
-    <div class="gcd-search-box" id="gcd-search-section" style="padding: 16px 24px; display: none;">
+    <div class="gcd-search-box" id="gcd-search-section" style="padding: 16px 24px; display: block;">
       <div class="search-row">
         <input type="text" id="gcd-heroes-input" class="gcd-input" style="margin:0;" placeholder="방어 영웅 추가... (예: 루디)">
         <button id="gcd-search-btn" class="gcd-btn-search">🔍 검색</button>
@@ -1516,253 +1488,15 @@
 
     <!-- 리스트 영역 -->
     <!-- 결투장 탭 전용 검색 + 리스트 -->
-    <div class="gcd-search-box" id="arena-search-section" style="padding: 16px 24px; display: block;">
+    <div class="gcd-search-box" id="arena-search-section" style="padding: 16px 24px; display: none;">
       <div class="search-row">
         <input type="text" id="arena-search-input" class="gcd-input" style="margin:0;" placeholder="덱 이름으로 검색...">
         <button id="arena-search-btn" class="gcd-btn-search">🔍 검색</button>
       </div>
     </div>
-    <div id="arena-list-wrapper" style="display: block;">
-        <div class="list-item" style="grid-template-columns: 1fr auto; cursor:pointer; " onclick="window.openArenaDetail('arena_1789451822941_xjwh')">
-          <div>
-            <div style="display:flex; gap:6px; margin-bottom:6px; flex-wrap:wrap; align-items:center;">
-              <span style="font-size:12px; font-weight:900; color:#241a05; background:#ffb648; padding:3px 11px; border-radius:999px;">방덱</span>
-              <span style="font-size:12px; font-weight:900; color:var(--ink); background:var(--bg); border:1px solid var(--border); padding:3px 9px; border-radius:999px;">0티어</span>
-              <span style="font-size:12px; font-weight:900; color:var(--blue); background:var(--blue-soft); padding:3px 9px; border-radius:999px;">픽률 32%</span>
-              <span style="font-size:12px; font-weight:900; color:var(--orange); background:var(--orange-soft); padding:3px 9px; border-radius:2px;">내실 세팅</span>
-            </div>
-            <div style="font-weight:900; font-size:16px; color:var(--ink); margin-bottom:6px;">방덱</div>
-            
-      <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap;">
-        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          <div style="display:flex; gap:6px; justify-content:center;">
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/rpfflentm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/vkffksntm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      </div>
-          <div style="display:flex; gap:6px;">
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/fkemrmflem.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      </div>
-        </div>
-        <span style="width:1px; height:44px; background:var(--border);"></span><div style="text-align:center; flex-shrink:0;"><img referrerpolicy="no-referrer" src="./index_files/fn(1).png" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);"></div>
-        <span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">
-      <div style="text-align:center; flex-shrink:0;">
-        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-          
-            <div style="position:relative; width:40px; height:40px;">
-              <img referrerpolicy="no-referrer" src="./index_files/Rmxsoqhf-Rk.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">1</span>
-            </div>
-          
-          <img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
-        </div>
-        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">아리스</div>
-      </div>
-    
-      <div style="text-align:center; flex-shrink:0;">
-        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-          
-            <div style="position:relative; width:40px; height:40px;">
-              <img referrerpolicy="no-referrer" src="./index_files/qhddnjfans.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">2</span>
-            </div>
-          
-          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
-        </div>
-        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">하연</div>
-      </div>
-    
-      <div style="text-align:center; flex-shrink:0;">
-        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-          
-            <div style="position:relative; width:40px; height:40px;">
-              <img referrerpolicy="no-referrer" src="./index_files/rkdrhgksrjarur.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">3</span>
-            </div>
-          
-          <img referrerpolicy="no-referrer" src="./index_files/vkffksntm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
-        </div>
-        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">팔라누스</div>
-      </div>
-    </div>
-      </div>
-    
-          </div>
-          <button class="detail-btn " style="width:auto; padding:10px 18px;" onclick="event.stopPropagation(); window.openArenaDetail('arena_1789451822941_xjwh')">상세 보기</button>
-        </div>
-      
-        <div class="list-item" style="grid-template-columns: 1fr auto; cursor:pointer; " onclick="window.openArenaDetail('arena_1789468161818_8tpe')">
-          <div>
-            <div style="display:flex; gap:6px; margin-bottom:6px; flex-wrap:wrap; align-items:center;">
-              <span style="font-size:12px; font-weight:900; color:#241a05; background:#ffb648; padding:3px 11px; border-radius:999px;">하이브리드</span>
-              <span style="font-size:12px; font-weight:900; color:var(--ink); background:var(--bg); border:1px solid var(--border); padding:3px 9px; border-radius:999px;">0티어</span>
-              <span style="font-size:12px; font-weight:900; color:var(--blue); background:var(--blue-soft); padding:3px 9px; border-radius:999px;">픽률 42%</span>
-              <span style="font-size:12px; font-weight:900; color:var(--orange); background:var(--orange-soft); padding:3px 9px; border-radius:2px;">속공 세팅</span>
-            </div>
-            <div style="font-weight:900; font-size:16px; color:var(--ink); margin-bottom:6px;">선란+윤건 하이브리드 덱</div>
-            
-      <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap;">
-        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          <div style="display:flex; gap:6px; justify-content:center;">
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      </div>
-          <div style="display:flex; gap:6px;">
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/dbsrjs(1).webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      </div>
-        </div>
-        <span style="width:1px; height:44px; background:var(--border);"></span><div style="text-align:center; flex-shrink:0;"><img referrerpolicy="no-referrer" src="./index_files/2026-08-15-004940(1).png" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);"></div>
-        <span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">
-      <div style="text-align:center; flex-shrink:0;">
-        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-          
-            <div style="position:relative; width:40px; height:40px;">
-              <img referrerpolicy="no-referrer" src="./index_files/tlsthrdustk.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">1</span>
-            </div>
-          
-          <img referrerpolicy="no-referrer" src="./index_files/dbsrjs(1).webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
-        </div>
-        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">윤건</div>
-      </div>
-    
-      <div style="text-align:center; flex-shrink:0;">
-        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-          
-            <div style="position:relative; width:40px; height:40px;">
-              <img referrerpolicy="no-referrer" src="./index_files/qhddnjfans.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">2</span>
-            </div>
-          
-          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
-        </div>
-        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">하연</div>
-      </div>
-    
-      <div style="text-align:center; flex-shrink:0;">
-        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-          
-            <div style="position:relative; width:40px; height:40px;">
-              <img referrerpolicy="no-referrer" src="./index_files/andudqlrja.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">3</span>
-            </div>
-          
-          <img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
-        </div>
-        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">선란</div>
-      </div>
-    </div>
-      </div>
-    
-          </div>
-          <button class="detail-btn " style="width:auto; padding:10px 18px;" onclick="event.stopPropagation(); window.openArenaDetail('arena_1789468161818_8tpe')">상세 보기</button>
-        </div>
-      
-        <div class="list-item" style="grid-template-columns: 1fr auto; cursor:pointer; " onclick="window.openArenaDetail('arena_1789451828094_ilqo')">
-          <div>
-            <div style="display:flex; gap:6px; margin-bottom:6px; flex-wrap:wrap; align-items:center;">
-              <span style="font-size:12px; font-weight:900; color:#241a05; background:#ffb648; padding:3px 11px; border-radius:999px;">방덱</span>
-              <span style="font-size:12px; font-weight:900; color:var(--ink); background:var(--bg); border:1px solid var(--border); padding:3px 9px; border-radius:999px;">0티어</span>
-              <span style="font-size:12px; font-weight:900; color:var(--blue); background:var(--blue-soft); padding:3px 9px; border-radius:999px;">픽률 10%</span>
-              <span style="font-size:12px; font-weight:900; color:var(--orange); background:var(--orange-soft); padding:3px 9px; border-radius:2px;">내실 세팅</span>
-            </div>
-            <div style="font-weight:900; font-size:16px; color:var(--ink); margin-bottom:6px;">효저 방덱</div>
-            
-      <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap;">
-        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
-          <div style="display:flex; gap:6px; justify-content:center;">
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/fnel.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      </div>
-          <div style="display:flex; gap:6px;">
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/vkffksntm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      
-        <div style="text-align:center; flex-shrink:0;">
-          <img referrerpolicy="no-referrer" src="./index_files/flsk.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-        </div>
-      </div>
-        </div>
-        <span style="width:1px; height:44px; background:var(--border);"></span><div style="text-align:center; flex-shrink:0;"><img referrerpolicy="no-referrer" src="./index_files/vkdlzm(1).png" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:2px solid var(--orange);"></div>
-        <span style="width:1px; height:44px; background:var(--border);"></span><div style="display:flex; gap:12px; align-items:center;">
-      <div style="text-align:center; flex-shrink:0;">
-        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-          
-            <div style="position:relative; width:40px; height:40px;">
-              <img referrerpolicy="no-referrer" src="./index_files/dhksqurgksgkawjd.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">2</span>
-            </div>
-          
-            <div style="position:relative; width:40px; height:40px;">
-              <img referrerpolicy="no-referrer" src="./index_files/tjqfldmlwhdbf.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">1</span>
-            </div>
-          
-          <img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
-        </div>
-        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">클레미스</div>
-      </div>
-    
-      <div style="text-align:center; flex-shrink:0;">
-        <div style="display:flex; flex-direction:column; gap:4px; align-items:center;">
-          
-            <div style="position:relative; width:40px; height:40px;">
-              <img referrerpolicy="no-referrer" src="./index_files/qhddnjfans.webp" style="width:40px; height:40px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">
-              <span style="position:absolute; bottom:-4px; right:-4px; background:var(--orange); color:#fff; font-size:9px; font-weight:900; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;">3</span>
-            </div>
-          
-          <img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" style="width:52px; height:52px; border-radius:6px; object-fit:cover; border:1px solid var(--border); margin-top:2px;">
-        </div>
-        <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">하연</div>
-      </div>
-    </div>
-      </div>
-    
-          </div>
-          <button class="detail-btn " style="width:auto; padding:10px 18px;" onclick="event.stopPropagation(); window.openArenaDetail('arena_1789451828094_ilqo')">상세 보기</button>
-        </div>
-      </div>
+    <div id="arena-list-wrapper" style="display: none;"><p style="text-align:center; color:var(--text-dim); padding:30px 0;">등록된 결투장 덱이 없습니다.</p></div>
 
-    <div id="list-wrapper" style="display: none;">
+    <div id="list-wrapper" style="display: block;">
       <div class="list-header" id="list-header" style="display: grid;">
         <div>구분</div>
         <div>영웅 구성</div>
@@ -1778,7 +1512,7 @@
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" alt="하연"><span>하연</span></div></div></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/gkdus(1).webp" alt="하연"><span>하연</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div><div class="list-item">
         <div><span class="badge atk">ATK</span></div>
@@ -2470,7 +2204,7 @@
       }
 
       const box = document.createElement('div');
-      box.className = prefix === 'c' ? 'counter-builder-box' : 'tot-builder-box';
+      box.className = prefix === 'c' ? 'counter-builder-box' : (prefix === 'd' ? 'def-builder-box' : 'tot-builder-box');
       box.dataset.cid = c.cid || genCid();
       box.innerHTML = `
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
@@ -2510,7 +2244,7 @@
   }
 
   window.removeBuilderCard = function(prefix, idx) {
-    const boxClass = prefix === 'c' ? 'counter-builder-box' : 'tot-builder-box';
+    const boxClass = prefix === 'c' ? 'counter-builder-box' : (prefix === 'd' ? 'def-builder-box' : 'tot-builder-box');
     const boxes = document.querySelectorAll('.' + boxClass);
     if(boxes.length <= 1) { alert('최소 1개의 조합은 있어야 합니다.'); return; }
     let currentCounters = [];
@@ -2697,7 +2431,7 @@
     loadSlotTargetMode = 'box';
     loadSlotTargetBox = box;
     loadSlotTargetIndex = index;
-    loadSlotPrefix = box.classList.contains('tot-builder-box') ? 't' : 'c';
+    loadSlotPrefix = box.classList.contains('def-builder-box') ? 'd' : (box.classList.contains('tot-builder-box') ? 't' : 'c');
     document.getElementById('load-slot-search').value = '';
     renderLoadSlotList('');
     document.getElementById('load-slot-modal-overlay').style.display = 'flex';
@@ -2810,7 +2544,7 @@
     loadRingTargetBox = box;
     loadRingTargetIndex = index;
     loadRingSlotNum = slotNum || 1;
-    loadRingPrefix = box.classList.contains('tot-builder-box') ? 't' : 'c';
+    loadRingPrefix = box.classList.contains('def-builder-box') ? 'd' : (box.classList.contains('tot-builder-box') ? 't' : 'c');
     document.getElementById('load-ring-search').value = '';
     renderLoadRingList('');
     document.getElementById('load-ring-modal-overlay').style.display = 'flex';
@@ -2921,7 +2655,7 @@
     loadPetTargetMode = 'box';
     loadPetTargetBox = box;
     loadPetTargetIndex = index;
-    loadPetPrefix = box.classList.contains('tot-builder-box') ? 't' : 'c';
+    loadPetPrefix = box.classList.contains('def-builder-box') ? 'd' : (box.classList.contains('tot-builder-box') ? 't' : 'c');
     document.getElementById('load-pet-search').value = '';
     renderLoadPetList('');
     document.getElementById('load-pet-modal-overlay').style.display = 'flex';
@@ -3222,28 +2956,12 @@
     document.getElementById('custom-def-id').value = '';
     document.getElementById('custom-def-name').value = '';
     document.getElementById('custom-def-keywords').value = '';
-    document.getElementById('custom-def-skillorder').value = '';
-    document.getElementById('custom-def-speedorder').value = '';
-    document.getElementById('custom-def-body').value = '';
-    document.getElementById('custom-def-formation').value = '기본 진형';
     for(let i=0; i<4; i++) {
-      document.getElementById(`def-back-${i}`).value = '';
-      document.getElementById(`def-front-${i}`).value = '';
-      document.getElementById(`def-back-name-${i}`).value = '';
-      document.getElementById(`def-front-name-${i}`).value = '';
-      document.getElementById(`def-back-ring1-${i}`).value = '';
-      document.getElementById(`def-back-ring2-${i}`).value = '';
-      document.getElementById(`def-front-ring1-${i}`).value = '';
-      document.getElementById(`def-front-ring2-${i}`).value = '';
-      document.getElementById(`def-back-ring1-name-${i}`).value = '';
-      document.getElementById(`def-back-ring2-name-${i}`).value = '';
-      document.getElementById(`def-front-ring1-name-${i}`).value = '';
-      document.getElementById(`def-front-ring2-name-${i}`).value = '';
       document.getElementById(`def-title-name-${i}`).value = '';
       document.getElementById(`def-title-img-${i}`).value = '';
     }
-    document.getElementById('custom-def-pet-name').value = '';
-    document.getElementById('custom-def-pet-img').value = '';
+    renderCounterBuilder('def-cards-container', [], 'd');
+    document.getElementById('def-form-title').textContent = '➕ 방어덱 추가';
   }
 
   function resetTotForm(){
@@ -3811,6 +3529,95 @@
     renderList();
   };
 
+  document.getElementById('save-custom-def-btn').onclick = async function(){
+    if(!isAdmin) return;
+    let name = document.getElementById('custom-def-name').value.trim();
+    const keywordsStr = document.getElementById('custom-def-keywords').value.trim();
+    const editId = document.getElementById('custom-def-id').value;
+
+    // 대표 영웅 이름을 안 넣었으면, 조합의 슬롯 이름(자동 생성된 조합 타이틀)에서 이름을 가져옴
+    if(!name) {
+      const firstTitle = document.querySelector('.def-builder-box .d-title')?.value.trim() || '';
+      name = firstTitle.replace(/^\d+\.\s*/, '');
+      if(name) document.getElementById('custom-def-name').value = name;
+    }
+    if(!name && keywordsStr) {
+      name = keywordsStr.split(',')[0].trim();
+      document.getElementById('custom-def-name').value = name;
+    }
+
+    if(!name || !keywordsStr){ alert('영웅 이름(대표 영웅 이미지 칸)이나 키워드 중 최소 하나는 입력해주세요!'); return; }
+
+    const builderBoxes = document.querySelectorAll('.def-builder-box');
+    let counters = [];
+    builderBoxes.forEach(box => {
+      let slots = [];
+      for(let k=0; k<8; k++) {
+        slots.push({
+          name: (box.querySelector(`.d-slot-name-${k}`)?.value || '').trim(),
+          img: box.querySelector(`.d-slot-img-${k}`).value.trim(),
+          ring1: (box.querySelector(`.d-slot-ring1-${k}`)?.value || '').trim(),
+          ring2: (box.querySelector(`.d-slot-ring2-${k}`)?.value || '').trim(),
+          ring1Name: (box.querySelector(`.d-slot-ring1-name-${k}`)?.value || '').trim(),
+          ring2Name: (box.querySelector(`.d-slot-ring2-name-${k}`)?.value || '').trim(),
+          job: (box.querySelector(`.d-slot-job-${k}`)?.value || '').trim(),
+          w1: (box.querySelector(`.d-slot-w1-${k}`)?.value || '').trim(),
+          w2: (box.querySelector(`.d-slot-w2-${k}`)?.value || '').trim(),
+          a1: (box.querySelector(`.d-slot-a1-${k}`)?.value || '').trim(),
+          a2: (box.querySelector(`.d-slot-a2-${k}`)?.value || '').trim(),
+          skill1Img: (box.querySelector(`.d-slot-skill1-img-${k}`)?.value || '').trim(),
+          skill1Pri: (box.querySelector(`.d-slot-skill1-pri-${k}`)?.value || '').trim(),
+          skill2Img: (box.querySelector(`.d-slot-skill2-img-${k}`)?.value || '').trim(),
+          skill2Pri: (box.querySelector(`.d-slot-skill2-pri-${k}`)?.value || '').trim(),
+          skill3Img: (box.querySelector(`.d-slot-skill3-img-${k}`)?.value || '').trim(),
+          skill3Pri: (box.querySelector(`.d-slot-skill3-pri-${k}`)?.value || '').trim(),
+          info: box.querySelector(`.d-slot-info-${k}`).value.trim()
+        });
+      }
+      counters.push({
+        title: box.querySelector('.d-title').value.trim() || '조합',
+        formation: box.querySelector('.d-form').value,
+        slots: slots,
+        body: box.querySelector('.d-body').value.trim(),
+        videoUrl: (box.querySelector('.d-video')?.value || '').trim(),
+        pet: [
+          {
+            name: (box.querySelector('.d-pet-name-0')?.value || '').trim(),
+            img: (box.querySelector('.d-pet-img-0')?.value || '').trim()
+          },
+          {
+            name: (box.querySelector('.d-pet-name-1')?.value || '').trim(),
+            img: (box.querySelector('.d-pet-img-1')?.value || '').trim()
+          }
+        ]
+      });
+    });
+    // 방어덱은 조합을 딱 1개만 허용 — 혹시 여러 개가 있어도 첫 번째만 저장
+    counters = counters.slice(0, 1);
+
+    const itemId = editId || ('def_' + Date.now());
+    let titleHeroes = [];
+    for(let i=0; i<4; i++) {
+      titleHeroes.push({
+        name: document.getElementById(`def-title-name-${i}`).value.trim(),
+        img: document.getElementById(`def-title-img-${i}`).value.trim()
+      });
+    }
+    const newDeck = { id: itemId, name: name, keywords: keywordsStr.split(',').map(s=>s.trim()).filter(Boolean), counters: counters, titleHeroes: titleHeroes };
+
+    const idx = defData.findIndex(item => item.id == itemId);
+    if(idx !== -1) defData[idx] = newDeck; else defData.push(newDeck);
+
+    defData.sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
+    try {
+      if(window.saveToFirestore) await window.saveToFirestore('DEF', itemId, newDeck);
+    } catch(e) { renderList(); return; }
+
+    resetDefForm(); document.getElementById('gcd-add-def-section').style.display = 'none'; toggleAddBtn.textContent = '+ 덱 추가하기';
+    activeDeckName = null; alert('저장되었습니다!');
+    renderList();
+  };
+
   // 영웅 클릭 시 상세 정보 토글 (클릭 시 나타나고 다시 누르면 닫힘)
   window.toggleHeroInfo = function(boardId, slotIdx) {
     const targetPopup = document.getElementById(`popup_${boardId}_${slotIdx}`);
@@ -3844,6 +3651,20 @@
     let cls = pct >= 70 ? 'wr-good' : (pct >= 40 ? 'wr-mid' : 'wr-bad');
     return `<span class="winrate-badge ${cls}">승률 ${pct}% (${wins}승 ${losses}패)</span>`;
   }
+
+  window.togglePickedItem = async function(type, id) {
+    if (!isAdmin) return;
+    const colName = type === 'ATK' ? "guild_atk_db" : (type === 'DEF' ? "guild_def_db" : "guild_total_db");
+    const list = type === 'ATK' ? getFullAtkDB() : (type === 'DEF' ? getFullDefDB() : getFullTotDB());
+    const item = list.find(d => String(d.id) === String(id));
+    const current = !!(item && item.isPicked);
+    try {
+      await setDoc(doc(db, colName, String(id)), { isPicked: !current }, { merge: true });
+    } catch (e) {
+      console.error("Picked tag save failed:", e);
+      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+    }
+  };
 
   window.toggleStandardTag = async function(key) {
     if (!isAdmin) return;
@@ -3992,18 +3813,24 @@
       else badgeHtml = `<span class="badge atk">ATK</span>`;
 
       let isActive = activeDeckName === item.name;
+      let isPicked = !!item.isPicked;
       let rowClass = isActive ? 'list-item active-item' : 'list-item';
+      if (isPicked) rowClass += ' picked-item';
       let btnClass = isActive ? 'detail-btn active-btn' : 'detail-btn';
       let btnText = isActive ? '접기 ▲' : '상세 공략 열기';
+      let pickedBadgeHtml = isPicked ? `<span class="picked-badge">✅ 채택</span>` : '';
+      let pickToggleHtml = isAdmin ? `<button class="pick-toggle-btn${isPicked ? ' active' : ''}" title="${isPicked ? '채택 해제' : '이 조합 채택 표시'}">${isPicked ? '✅' : '⬜'}</button>` : '';
       
       const div = document.createElement('div');
       div.className = rowClass;
       div.innerHTML = `
         <div>${badgeHtml}</div>
-        <div class="hero-comp">${heroesHtml}</div>
+        <div class="hero-comp">${pickedBadgeHtml}${heroesHtml}${pickToggleHtml}</div>
         <div><button class="${btnClass}">${btnText}</button></div>
       `;
       div.querySelector('.detail-btn').onclick = () => renderGuide(item);
+      const pickBtn = div.querySelector('.pick-toggle-btn');
+      if (pickBtn) pickBtn.onclick = (e) => { e.stopPropagation(); window.togglePickedItem(currentMode, item.id); };
       listContainer.appendChild(div);
 
       if(isActive) {
@@ -4097,46 +3924,75 @@
             </div>
           `;
         } else if (currentMode === 'DEF') {
-          let slots = [...(item.backSlots || []), ...(item.frontSlots || [])].map((img, i) => {
-            let names = [...(item.backSlotNames || []), ...(item.frontSlotNames || [])];
-            let ring1s = [...(item.backSlotRing1 || []), ...(item.frontSlotRing1 || [])];
-            let ring2s = [...(item.backSlotRing2 || []), ...(item.frontSlotRing2 || [])];
-            let ring1Names = [...(item.backSlotRing1Name || []), ...(item.frontSlotRing1Name || [])];
-            let ring2Names = [...(item.backSlotRing2Name || []), ...(item.frontSlotRing2Name || [])];
-            return { img, info: "", name: names[i] || "", ring1: ring1s[i] || "", ring2: ring2s[i] || "", ring1Name: ring1Names[i] || "", ring2Name: ring2Names[i] || "" };
+          let defCountersHtml = '';
+          (item.counters || []).forEach((c, cIdx) => {
+            let slots = c.slots || Array(8).fill({img: "", info: ""});
+            let boardHtml = generateFormationBoardBySlots(slots, `${item.id}_def_${cIdx}`);
+            let petHtml = generatePetDisplay(c.pet);
+            const escGear = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            const gearHeroes = slots.filter(h => h && (h.name || h.img));
+            const priNumGear = (pri) => { const n = parseInt(pri, 10); return isNaN(n) ? Infinity : n; };
+            const skillEntriesGear = [];
+            gearHeroes.forEach(h => {
+              [[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].forEach(([simg, pri]) => {
+                if(simg) skillEntriesGear.push({ img: simg, pri, name: h.name, heroImg: h.img });
+              });
+            });
+            skillEntriesGear.sort((a, b) => priNumGear(a.pri) - priNumGear(b.pri));
+            const skillOrderHtmlGear = skillEntriesGear.map(e => `
+              <div style="text-align:center; flex-shrink:0;">
+                <div class="skillorder-icon-wrap">
+                  <img referrerpolicy="no-referrer" src="${e.img}" class="skillorder-icon-img">
+                  ${e.pri ? `<span style="position:absolute; bottom:-5px; right:-5px; background:var(--orange); color:#fff; font-size:12px; font-weight:900; width:21px; height:21px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${escGear(e.pri)}</span>` : ''}
+                </div>
+                <div style="font-size:11px; font-weight:800; margin-top:4px; color:var(--ink);">${escGear(e.name)}</div>
+              </div>
+            `).join('');
+            const gearCardsHtml = gearHeroes.map(h => `
+              <div style="border-radius:4px; padding:14px; background:var(--bg);">
+                <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+                  ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:44px; height:44px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : ''}
+                  <div style="flex:1;">
+                    <div style="font-weight:900; font-size:14px; color:var(--ink);">${escGear(h.name)}</div>
+                  </div>
+                  ${h.job ? `<span style="font-size:11px; font-weight:800; color:var(--orange); background:var(--orange-soft); padding:3px 8px; border-radius:2px; white-space:nowrap;">${escGear(h.job)}</span>` : ''}
+                </div>
+                ${h.info ? `<div style="font-size:12.5px; font-weight:700; color:var(--ink); line-height:1.7; background:var(--card); border-radius:3px; padding:8px; margin-bottom:8px; white-space:pre-line;">${escGear(h.info)}</div>` : ''}
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-bottom:8px;">
+                  ${[['무기1', h.w1], ['무기2', h.w2], ['방어구1', h.a1], ['방어구2', h.a2]].map(([label, val]) => val ? `
+                    <div style="background:var(--card); border-radius:3px; padding:6px 8px; text-align:center;">
+                      <div style="font-size:10px; color:var(--text-dim); font-weight:700;">${label}</div>
+                      <div style="font-size:12px; font-weight:800; color:var(--ink);">${escGear(val)}</div>
+                    </div>
+                  ` : '').join('')}
+                </div>
+              </div>
+            `).join('');
+            defCountersHtml += `
+              <div class="gcd-atk-card-item">
+                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
+                  <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+                    <span style="font-size:11px; background:var(--red-soft); color:var(--red); padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
+                  </span>
+                </div>
+                ${generateVideoEmbedHtml(c.videoUrl)}
+                <div class="counter-body-formation-row">
+                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap; gap:16px;">${boardHtml}${petHtml}${skillOrderHtmlGear ? `<span style="width:1px; height:44px; background:var(--border);"></span><div class="pet-display-wrap"><div class="pet-display-label">⚡ 스킬 순서</div><div style="display:flex; gap:12px; align-items:center;">${skillOrderHtmlGear}</div></div>` : ''}</div></div>
+                </div>
+                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">${c.body || ''}</div>
+                ${gearCardsHtml ? `<div style="font-weight:900; font-size:13px; color:var(--ink); margin:14px 0 8px;">🗡️ 전원 장비 · 세팅 디테일</div><div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:10px;">${gearCardsHtml}</div>` : ''}
+              </div>
+            `;
           });
-          let boardHtml = generateFormationBoardBySlots(slots, `${item.id}_def`);
-          let petHtml = generatePetDisplay(item.pet);
-          // 하위호환: 예전 방식(pos/ring/gear/spec)으로 저장된 기존 덱도 그대로 보이도록 처리.
-          // 새로 저장/수정하면 skillOrder/speedOrder/body 형식으로 바뀜.
-          let skillOrderVal = item.skillOrder || item.pos || '';
-          let speedOrderVal = item.speedOrder || '';
-          let bodyVal = item.body || [
-            item.ring ? `💍 전반 장신구 세팅\n${item.ring}` : '',
-            item.gear ? `🛡️ 영웅별 추천 세트\n${item.gear}` : '',
-            item.spec ? `⚡ 권장 스펙\n${item.spec}` : ''
-          ].filter(Boolean).join('\n\n');
-          let orderSideHtml = (skillOrderVal || speedOrderVal) ? `
-            <div class="counter-order-side">
-              ${skillOrderVal ? `<div><span class="counter-order-label">스킬순서</span>${skillOrderVal}</div>` : ''}
-              ${speedOrderVal ? `<div><span class="counter-order-label">속공순서</span>${speedOrderVal}</div>` : ''}
-            </div>
-          ` : '';
           detailDiv.innerHTML = `
             <div class="gcd-result-card">
               <div class="gcd-res-target">
                 <span style="font-size:18px; color:var(--ink); font-weight:900;">🛡️ [ ${item.name} ] 세팅</span>
                 <span>${editControlsHtml}</span>
               </div>
-              <div class="gcd-atk-card-item" style="margin-top:0;">
-                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
-                  <span style="font-size:11px; background:var(--red-soft); color:var(--red); padding:2px 8px; border-radius:6px;">${item.formation || '기본 진형'}</span>
-                </div>
-                <div class="counter-body-formation-row">
-                  ${orderSideHtml}
-                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">${boardHtml}${petHtml}</div></div>
-                </div>
-                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">${bodyVal}</div>
+              <div class="gcd-info-block gcd-atk-block">
+                <div class="title">🛡️ 방어 상세 공략</div>
+                ${defCountersHtml}
               </div>
             </div>
           `;
@@ -4353,52 +4209,41 @@
       const item = defData.find(d => d.id == id);
       if(!item) return;
       document.getElementById('custom-def-id').value = item.id;
-      document.getElementById('custom-def-name').value = item.name;
       document.getElementById('custom-def-keywords').value = item.keywords ? item.keywords.join(', ') : '';
-      document.getElementById('custom-def-formation').value = item.formation || '기본 진형';
-      document.getElementById('custom-def-skillorder').value = item.skillOrder || item.pos || '';
-      document.getElementById('custom-def-speedorder').value = item.speedOrder || '';
-      document.getElementById('custom-def-body').value = item.body || [
-        item.ring ? `💍 전반 장신구 세팅\n${item.ring}` : '',
-        item.gear ? `🛡️ 영웅별 추천 세트\n${item.gear}` : '',
-        item.spec ? `⚡ 권장 스펙\n${item.spec}` : ''
-      ].filter(Boolean).join('\n\n');
-      
-      let bArr = item.backSlots || [];
-      let fArr = item.frontSlots || [];
-      let bNameArr = item.backSlotNames || [];
-      let fNameArr = item.frontSlotNames || [];
-      let bRing1Arr = item.backSlotRing1 || [];
-      let bRing2Arr = item.backSlotRing2 || [];
-      let fRing1Arr = item.frontSlotRing1 || [];
-      let fRing2Arr = item.frontSlotRing2 || [];
-      let bRing1NameArr = item.backSlotRing1Name || [];
-      let bRing2NameArr = item.backSlotRing2Name || [];
-      let fRing1NameArr = item.frontSlotRing1Name || [];
-      let fRing2NameArr = item.frontSlotRing2Name || [];
-      for(let i=0; i<4; i++) {
-        document.getElementById(`def-back-${i}`).value = bArr[i] || '';
-        document.getElementById(`def-front-${i}`).value = fArr[i] || '';
-        document.getElementById(`def-back-name-${i}`).value = bNameArr[i] || '';
-        document.getElementById(`def-front-name-${i}`).value = fNameArr[i] || '';
-        document.getElementById(`def-back-ring1-${i}`).value = bRing1Arr[i] || '';
-        document.getElementById(`def-back-ring2-${i}`).value = bRing2Arr[i] || '';
-        document.getElementById(`def-front-ring1-${i}`).value = fRing1Arr[i] || '';
-        document.getElementById(`def-front-ring2-${i}`).value = fRing2Arr[i] || '';
-        document.getElementById(`def-back-ring1-name-${i}`).value = bRing1NameArr[i] || '';
-        document.getElementById(`def-back-ring2-name-${i}`).value = bRing2NameArr[i] || '';
-        document.getElementById(`def-front-ring1-name-${i}`).value = fRing1NameArr[i] || '';
-        document.getElementById(`def-front-ring2-name-${i}`).value = fRing2NameArr[i] || '';
-      }
       let defThArr = item.titleHeroes || [];
       for(let i=0; i<4; i++) {
         document.getElementById(`def-title-name-${i}`).value = defThArr[i]?.name || '';
         document.getElementById(`def-title-img-${i}`).value = defThArr[i]?.img || '';
       }
-      document.getElementById('custom-def-pet-name').value = item.pet?.name || '';
-      document.getElementById('custom-def-pet-img').value = item.pet?.img || '';
+      const syncedNamesDef = defThArr.map(h => (h?.name || '').trim()).filter(Boolean);
+      document.getElementById('custom-def-name').value = syncedNamesDef.length > 0 ? syncedNamesDef.join(' · ') : item.name;
 
-      document.getElementById('def-form-title').textContent = '✏️ 방어 세팅 덱 수정';
+      // 하위호환: 예전(후열/전열 슬롯 직접 저장) 방식으로 저장된 기존 덱도 새 카운터 형식으로 변환해서 보여줌
+      let defCounters = item.counters;
+      if(!defCounters && (item.backSlots || item.frontSlots)) {
+        let sArr = [...(item.backSlots || []), ...(item.frontSlots || [])];
+        let nArr = [...(item.backSlotNames || []), ...(item.frontSlotNames || [])];
+        let r1Arr = [...(item.backSlotRing1 || []), ...(item.frontSlotRing1 || [])];
+        let r2Arr = [...(item.backSlotRing2 || []), ...(item.frontSlotRing2 || [])];
+        let r1NameArr = [...(item.backSlotRing1Name || []), ...(item.frontSlotRing1Name || [])];
+        let r2NameArr = [...(item.backSlotRing2Name || []), ...(item.frontSlotRing2Name || [])];
+        while(sArr.length < 8) sArr.push('');
+        const legacyBody = item.body || [
+          item.ring ? `💍 전반 장신구 세팅\n${item.ring}` : '',
+          item.gear ? `🛡️ 영웅별 추천 세트\n${item.gear}` : '',
+          item.spec ? `⚡ 권장 스펙\n${item.spec}` : ''
+        ].filter(Boolean).join('\n\n');
+        defCounters = [{
+          title: item.name || '방어 세팅',
+          formation: item.formation || '기본 진형',
+          slots: sArr.map((img, i) => ({ img, name: nArr[i] || '', ring1: r1Arr[i] || '', ring2: r2Arr[i] || '', ring1Name: r1NameArr[i] || '', ring2Name: r2NameArr[i] || '', info: '' })),
+          body: [item.skillOrder || item.pos ? `스킬순서: ${item.skillOrder || item.pos}` : '', item.speedOrder ? `속공순서: ${item.speedOrder}` : '', legacyBody].filter(Boolean).join('\n\n'),
+          pet: [{ name: item.pet?.name || '', img: item.pet?.img || '' }, { name: '', img: '' }]
+        }];
+      }
+      renderCounterBuilder('def-cards-container', defCounters || [], 'd');
+
+      document.getElementById('def-form-title').textContent = '✏️ 방어덱 수정';
       document.getElementById('gcd-add-def-section').style.display = 'block';
       toggleAddBtn.textContent = '닫기';
       window.scrollTo({ top: 0, behavior: 'smooth' });
