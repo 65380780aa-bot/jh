@@ -2426,7 +2426,7 @@
   }
 
   window.openLoadSlotModal = function(btn, index){
-    const box = btn.closest('.counter-builder-box, .tot-builder-box');
+    const box = btn.closest('.counter-builder-box, .tot-builder-box, .def-builder-box');
     if(!box) return;
     loadSlotTargetMode = 'box';
     loadSlotTargetBox = box;
@@ -2538,7 +2538,7 @@
   }
 
   window.openLoadRingModal = function(btn, index, slotNum){
-    const box = btn.closest('.counter-builder-box, .tot-builder-box');
+    const box = btn.closest('.counter-builder-box, .tot-builder-box, .def-builder-box');
     if(!box) return;
     loadRingTargetMode = 'box';
     loadRingTargetBox = box;
@@ -2650,7 +2650,7 @@
   }
 
   window.openLoadPetModal = function(btn, index){
-    const box = btn.closest('.counter-builder-box, .tot-builder-box');
+    const box = btn.closest('.counter-builder-box, .tot-builder-box, .def-builder-box');
     if(!box) return;
     loadPetTargetMode = 'box';
     loadPetTargetBox = box;
