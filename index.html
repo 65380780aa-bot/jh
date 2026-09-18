@@ -126,6 +126,8 @@
     .pick-rank-select { font-size:11px; font-weight:800; border:1px solid var(--border); border-radius:5px; padding:3px 4px; background:#fff; cursor:pointer; flex-shrink:0; }
     .pick-note-input { flex:1 1 auto; min-width:100px; max-width:280px; margin-left:auto; margin-right:16px; font-size:12px; font-weight:600; border:1px solid var(--border); border-radius:5px; padding:6px 10px; background:#fff; color:var(--ink); }
     .pick-note-text { font-size:14px; font-weight:600; color:#374151; margin-left:auto; margin-right:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
+    .video-guild-pill { cursor:pointer; padding:7px 16px; border-radius:16px; font-size:13px; font-weight:800; background:#f3f4f6; color:#4b5563; border:none; }
+    .video-guild-pill.active { background:#fed7aa; color:#c2410c; }
     
     .hero-comp { display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 900; color: var(--ink); flex-wrap: wrap; }
     .hero-comp-icons { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
@@ -369,6 +371,7 @@
     <div class="nav-links">
       <div id="tab-total" class="nav-link active-total">⚔️ 공격덱</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
+      <div id="tab-video" class="nav-link">🎥 영상 분석</div>
     </div>
     <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 4명</div>
     <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
@@ -1562,6 +1565,12 @@
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div></div>
 
+    <!-- 영상 분석 탭 -->
+    <div id="video-wrapper" style="display:none;">
+      <div id="video-guild-tabs" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;"></div>
+      <div id="video-list-area"></div>
+    </div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getFirestore, collection, onSnapshot, setDoc, doc, deleteDoc, getDocs, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -1853,6 +1862,9 @@
   let defData = [];
   let totData = [];
   let arenaData = []; // 결투장 덱 DB (Firestore guild_arena_db)
+  let videoGuildNames = Array.from({length: 18}, (_, i) => `길드${i+1}`); // 영상 분석 탭의 18개 길드 이름 (관리자가 수정 가능)
+  let videoData = []; // 길드별 패배 영상 목록 (Firestore guild_loss_videos)
+  let selectedVideoGuildIndex = 0;
   let currentArenaDetailId = null;
   let arenaAutoSaveAttempted = false; // 자동등록/중복정리는 실제 Firestore 데이터가 도착한 뒤에만 실행 (레이스 컨디션 방지)
   let statsData = {}; // { "atk_4_0": { wins: 3, losses: 1, isStandard: true } } - 카운터 조합별 승/패 기록 + ⭐정석 파훼덱 수동 태그
@@ -1886,6 +1898,7 @@
       document.getElementById('atk-notice-edit-btn').style.display = 'none';
       document.getElementById('atk-notice-edit-area').style.display = 'none';
     }
+    if (currentMode === 'VIDEO' && typeof renderVideoGuildTabs === 'function') { renderVideoGuildTabs(); renderVideoList(); }
   }
 
   adminBtn.onclick = function() {
@@ -2123,6 +2136,40 @@
       if(isAdmin && window.autoSaveSampleArenaDeck) window.autoSaveSampleArenaDeck();
     });
 
+    // 🎥 영상 분석 탭: 18개 길드 이름(관리자가 수정 가능) + 길드별 패배 영상 목록
+    onSnapshot(doc(db, "meta", "video_guild_names"), (snap) => {
+      try {
+        if (snap.exists() && Array.isArray(snap.data().names) && snap.data().names.length === 18) {
+          videoGuildNames = snap.data().names;
+        }
+        if (currentMode === 'VIDEO') renderVideoGuildTabs();
+      } catch (e) {
+        console.error('video_guild_names onSnapshot error:', e);
+        const box = document.getElementById('video-guild-tabs');
+        if (box) box.innerHTML = `<div style="color:red; font-weight:800; white-space:pre-wrap;">⚠️ 길드명 로딩 오류: ${(e && e.message) || e}</div>`;
+      }
+    }, (err) => {
+      console.error('video_guild_names onSnapshot failed:', err);
+      const box = document.getElementById('video-guild-tabs');
+      if (box) box.innerHTML = `<div style="color:red; font-weight:800; white-space:pre-wrap;">⚠️ 길드명 구독 실패: ${err.code} - ${err.message}</div>`;
+    });
+    onSnapshot(collection(db, "guild_loss_videos"), (snap) => {
+      try {
+        let list = [];
+        snap.forEach(d => { let data = d.data(); if(data && data.id) list.push(data); });
+        videoData = list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        if (currentMode === 'VIDEO') { renderVideoGuildTabs(); renderVideoList(); }
+      } catch (e) {
+        console.error('guild_loss_videos onSnapshot error:', e);
+        const box = document.getElementById('video-guild-tabs');
+        if (box) box.innerHTML = `<div style="color:red; font-weight:800; white-space:pre-wrap;">⚠️ 영상 목록 로딩 오류: ${(e && e.message) || e}</div>`;
+      }
+    }, (err) => {
+      console.error('guild_loss_videos onSnapshot failed:', err);
+      const box = document.getElementById('video-guild-tabs');
+      if (box) box.innerHTML = `<div style="color:red; font-weight:800; white-space:pre-wrap;">⚠️ 영상 목록 구독 실패: ${err.code} - ${err.message}</div>`;
+    });
+
     // 딥링크: 주소 끝에 ?deck=키워드 를 붙이면 해당 조합을 자동으로 찾아서 펼쳐줌.
     // 예: https://내사이트주소/?deck=밀스실  -> "밀스실" 키워드가 등록된 덱을 찾아서 바로 열어줌.
     // 카톡 오픈채팅봇 "질문 및 답변"에 /명령어 -> 이 주소 형태로 등록해서 씀.
@@ -2244,6 +2291,7 @@
 
   document.getElementById('tab-def').onclick = () => switchMode('DEF');
   document.getElementById('tab-total').onclick = () => switchMode('TOTAL');
+  document.getElementById('tab-video').onclick = () => switchMode('VIDEO');
 
   function setTotSubFilter(type){
     totSubFilter = type;
@@ -3918,6 +3966,169 @@
     `;
   }
 
+  // 🎥 영상 분석 탭 ------------------------------------------------------
+  function escVid(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function renderVideoGuildTabs() {
+    const box = document.getElementById('video-guild-tabs');
+    if (!box) return;
+    box.innerHTML = '';
+    for (let i = 0; i < videoGuildNames.length; i++) {
+      const name = videoGuildNames[i];
+      let cnt = 0;
+      for (let j = 0; j < videoData.length; j++) { if (videoData[j].guildIndex === i) cnt++; }
+
+      const wrap = document.createElement('div');
+      wrap.style.display = 'flex';
+      wrap.style.alignItems = 'center';
+      wrap.style.gap = '2px';
+
+      const pillBtn = document.createElement('button');
+      pillBtn.type = 'button';
+      pillBtn.className = 'video-guild-pill' + (i === selectedVideoGuildIndex ? ' active' : '');
+      pillBtn.textContent = cnt > 0 ? (name + ' (' + cnt + ')') : name;
+      pillBtn.dataset.idx = String(i);
+      pillBtn.onclick = function() {
+        selectedVideoGuildIndex = Number(this.dataset.idx);
+        renderVideoGuildTabs();
+        renderVideoList();
+      };
+      wrap.appendChild(pillBtn);
+
+      if (isAdmin) {
+        const renameBtn = document.createElement('button');
+        renameBtn.type = 'button';
+        renameBtn.title = '길드명 수정';
+        renameBtn.textContent = '✏️';
+        renameBtn.style.border = 'none';
+        renameBtn.style.background = 'none';
+        renameBtn.style.cursor = 'pointer';
+        renameBtn.style.fontSize = '12px';
+        renameBtn.style.padding = '4px';
+        renameBtn.style.opacity = '.6';
+        renameBtn.dataset.idx = String(i);
+        renameBtn.onclick = function(e) {
+          e.stopPropagation();
+          window.renameVideoGuild(Number(this.dataset.idx));
+        };
+        wrap.appendChild(renameBtn);
+      }
+
+      box.appendChild(wrap);
+    }
+  }
+
+  window.renameVideoGuild = async function(idx) {
+    if (!isAdmin) return;
+    const current = videoGuildNames[idx] || '';
+    const next = prompt('길드 이름을 입력하세요', current);
+    if (next === null) return;
+    const trimmed = next.trim();
+    if (!trimmed) return;
+    const newNames = videoGuildNames.slice();
+    newNames[idx] = trimmed;
+    try {
+      await setDoc(doc(db, "meta", "video_guild_names"), { names: newNames }, { merge: true });
+    } catch (e) {
+      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+    }
+  };
+
+  function renderVideoList() {
+    const area = document.getElementById('video-list-area');
+    if (!area) return;
+    const guildName = videoGuildNames[selectedVideoGuildIndex] || '';
+    const list = videoData.filter(v => v.guildIndex === selectedVideoGuildIndex);
+
+    const addBtnHtml = isAdmin ? `<button type="button" id="video-add-open-btn" class="add-btn" style="margin-bottom:16px;">+ ${escVid(guildName)} 패배 영상 추가</button>` : '';
+    const formHtml = isAdmin ? `
+      <div id="video-add-form" style="display:none; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:16px;">
+        <input type="hidden" id="video-edit-id" value="">
+        <label class="gcd-label">유튜브 링크</label>
+        <input type="text" id="video-url-input" class="gcd-input" placeholder="예: https://youtu.be/XXXXXXXXXXX">
+        <label class="gcd-label" style="margin-top:10px;">날짜 (선택)</label>
+        <input type="text" id="video-date-input" class="gcd-input" placeholder="예: 9/20">
+        <label class="gcd-label" style="margin-top:10px;">메모 (상대 덱, 패인 분석 등)</label>
+        <textarea id="video-memo-input" class="gcd-textarea" style="height:70px;" placeholder="상대 덱 구성이나 패배 원인을 적어주세요"></textarea>
+        <div style="display:flex; gap:8px; margin-top:10px;">
+          <button type="button" id="video-save-btn" class="add-btn" style="background:#16a34a;">저장</button>
+          <button type="button" id="video-cancel-btn" class="add-btn" style="background:#6b7280;">취소</button>
+        </div>
+      </div>
+    ` : '';
+
+    const itemsHtml = list.length ? list.map(v => `
+      <div class="gcd-result-card" style="margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;">
+          <div style="font-weight:800; color:var(--ink);">${v.date ? escVid(v.date) + ' · ' : ''}${escVid(guildName)}전 패배 영상</div>
+          ${isAdmin ? `
+            <div style="display:flex; gap:6px;">
+              <button type="button" class="btn-mini-edit video-edit-btn" data-id="${v.id}">✏️ 수정</button>
+              <button type="button" class="btn-mini-edit video-del-btn" data-id="${v.id}" style="color:var(--red);">🗑️ 삭제</button>
+            </div>
+          ` : ''}
+        </div>
+        ${v.memo ? `<div style="margin-top:8px; white-space:pre-line; line-height:1.6; color:var(--ink);">${escVid(v.memo)}</div>` : ''}
+        ${generateVideoEmbedHtml(v.videoUrl)}
+      </div>
+    `).join('') : `<p style="text-align:center; color:var(--text-dim); padding:30px 0;">등록된 영상이 없습니다.</p>`;
+
+    area.innerHTML = addBtnHtml + formHtml + itemsHtml;
+    if (!isAdmin) return;
+
+    const openBtn = document.getElementById('video-add-open-btn');
+    if (openBtn) openBtn.onclick = () => {
+      document.getElementById('video-edit-id').value = '';
+      document.getElementById('video-url-input').value = '';
+      document.getElementById('video-date-input').value = '';
+      document.getElementById('video-memo-input').value = '';
+      document.getElementById('video-add-form').style.display = 'block';
+    };
+    const cancelBtn = document.getElementById('video-cancel-btn');
+    if (cancelBtn) cancelBtn.onclick = () => { document.getElementById('video-add-form').style.display = 'none'; };
+    const saveBtn = document.getElementById('video-save-btn');
+    if (saveBtn) saveBtn.onclick = async () => {
+      const url = document.getElementById('video-url-input').value.trim();
+      if (!url) { alert('유튜브 링크를 입력해주세요.'); return; }
+      if (!getYoutubeEmbedUrl(url)) { alert('올바른 유튜브 링크가 아니에요.'); return; }
+      const editId = document.getElementById('video-edit-id').value;
+      const id = editId || ('video_' + Date.now());
+      const existing = editId ? videoData.find(v => v.id === editId) : null;
+      const data = {
+        id,
+        guildIndex: selectedVideoGuildIndex,
+        videoUrl: url,
+        date: document.getElementById('video-date-input').value.trim(),
+        memo: document.getElementById('video-memo-input').value.trim(),
+        createdAt: existing ? (existing.createdAt || Date.now()) : Date.now()
+      };
+      try {
+        await setDoc(doc(db, "guild_loss_videos", id), data);
+        document.getElementById('video-add-form').style.display = 'none';
+      } catch (e) {
+        alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+      }
+    };
+    area.querySelectorAll('.video-edit-btn').forEach(btn => {
+      btn.onclick = () => {
+        const v = videoData.find(x => x.id === btn.dataset.id);
+        if (!v) return;
+        document.getElementById('video-add-form').style.display = 'block';
+        document.getElementById('video-edit-id').value = v.id;
+        document.getElementById('video-url-input').value = v.videoUrl || '';
+        document.getElementById('video-date-input').value = v.date || '';
+        document.getElementById('video-memo-input').value = v.memo || '';
+      };
+    });
+    area.querySelectorAll('.video-del-btn').forEach(btn => {
+      btn.onclick = async () => {
+        if (!confirm('이 영상을 삭제할까요?')) return;
+        try { await deleteDoc(doc(db, "guild_loss_videos", btn.dataset.id)); }
+        catch (e) { alert('⚠️ 삭제 실패! (원인: ' + e.code + ' - ' + e.message + ')'); }
+      };
+    });
+  }
+
   function generateFormationBoardBySlots(slots = [], boardUniqueId = 'board', keepEmpty = false, backCount = 4, frontCount = 4) {
     let backItemsRaw = slots.slice(0, backCount).map((s, idx) => ({ ...s, idx }));
     let frontItemsRaw = slots.slice(backCount, backCount + frontCount).map((s, idx) => ({ ...s, idx: idx + backCount }));
@@ -4321,6 +4532,7 @@
     document.getElementById('tot-subtabs').style.display = 'none';
     document.getElementById('arena-search-section').style.display = 'none';
     document.getElementById('arena-list-wrapper').style.display = 'none';
+    document.getElementById('video-wrapper').style.display = 'none';
 
     if(mode === 'DEF'){
       document.getElementById('tab-def').classList.add('active');
@@ -4343,6 +4555,18 @@
       document.getElementById('list-wrapper').style.display = 'block';
       document.getElementById('list-header').style.display = 'grid';
       renderList();
+    } else if(mode === 'VIDEO'){
+      document.getElementById('tab-video').classList.add('active');
+      document.getElementById('gcd-mode-title').textContent = '🎥 길드전 패배 영상 분석';
+      document.getElementById('gcd-mode-title').style.display = 'block';
+      document.getElementById('video-wrapper').style.display = 'block';
+      try {
+        renderVideoGuildTabs();
+        renderVideoList();
+      } catch (e) {
+        console.error('VIDEO tab render error:', e);
+        document.getElementById('video-guild-tabs').innerHTML = `<div style="color:red; font-weight:800;">⚠️ 오류: ${(e && e.message) || e}</div>`;
+      }
     }
   }
 
