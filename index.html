@@ -117,6 +117,12 @@
     .pick-toggle-btn { border:1px solid var(--border); background:#fff; border-radius:5px; width:28px; height:28px; font-size:14px; line-height:1; cursor:pointer; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; padding:0; }
     .pick-toggle-btn:hover { border-color:#22c55e; }
     .pick-toggle-btn.active { background:#22c55e; border-color:#22c55e; }
+    .rank-badge { display:inline-flex; align-items:center; font-size:11px; font-weight:900; padding:3px 9px; border-radius:999px; white-space:nowrap; flex-shrink:0; color:#fff; }
+    .rank-badge.rank-1 { background:#eab308; }
+    .rank-badge.rank-2 { background:#9ca3af; }
+    .rank-badge.rank-3 { background:#b45309; }
+    .rank-badge.rank-x { background:#64748b; }
+    .pick-rank-select { font-size:11px; font-weight:800; border:1px solid var(--border); border-radius:5px; padding:3px 4px; background:#fff; cursor:pointer; flex-shrink:0; }
     
     .hero-comp { display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 900; color: var(--ink); flex-wrap: wrap; }
     .hero-comp-icons { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
@@ -3666,6 +3672,17 @@
     }
   };
 
+  window.setPickRank = async function(type, id, rank) {
+    if (!isAdmin) return;
+    const colName = type === 'ATK' ? "guild_atk_db" : (type === 'DEF' ? "guild_def_db" : "guild_total_db");
+    try {
+      await setDoc(doc(db, colName, String(id)), { pickRank: rank ? Number(rank) : null }, { merge: true });
+    } catch (e) {
+      console.error("Pick rank save failed:", e);
+      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+    }
+  };
+
   window.toggleStandardTag = async function(key) {
     if (!isAdmin) return;
     const current = !!(statsData[key] && statsData[key].isStandard);
@@ -3798,6 +3815,10 @@
       currentDB = currentDB.map((item, idx) => ({ item, idx })).sort((a, b) => {
         const pa = a.item.isPicked ? 1 : 0, pb = b.item.isPicked ? 1 : 0;
         if (pa !== pb) return pb - pa; // 채택된 항목이 위로
+        if (pa === 1 && pb === 1) {
+          const ra = a.item.pickRank || 999, rb = b.item.pickRank || 999;
+          if (ra !== rb) return ra - rb; // 순위 지정된 항목이 위로, 낮은 숫자가 먼저
+        }
         return a.idx - b.idx; // 나머지는 기존 순서 유지
       }).map(x => x.item);
     }
@@ -3826,18 +3847,23 @@
       let btnClass = isActive ? 'detail-btn active-btn' : 'detail-btn';
       let btnText = isActive ? '접기 ▲' : '상세 공략 열기';
       let pickedBadgeHtml = (currentMode === 'DEF' && isPicked) ? `<span class="picked-badge">✅ 채택</span>` : '';
+      let pickRank = item.pickRank || null;
+      let rankBadgeHtml = (currentMode === 'DEF' && isPicked && pickRank) ? `<span class="rank-badge rank-${pickRank <= 3 ? pickRank : 'x'}">${pickRank}위</span>` : '';
       let pickToggleHtml = (currentMode === 'DEF' && isAdmin) ? `<button class="pick-toggle-btn${isPicked ? ' active' : ''}" title="${isPicked ? '채택 해제' : '이 조합 채택 표시'}">${isPicked ? '✅' : '⬜'}</button>` : '';
+      let rankSelectHtml = (currentMode === 'DEF' && isAdmin && isPicked) ? `<select class="pick-rank-select" title="순위 지정"><option value="">순위</option>${[1,2,3,4,5].map(n => `<option value="${n}"${pickRank === n ? ' selected' : ''}>${n}위</option>`).join('')}</select>` : '';
       
       const div = document.createElement('div');
       div.className = rowClass;
       div.innerHTML = `
         <div>${badgeHtml}</div>
-        <div class="hero-comp">${pickedBadgeHtml}${heroesHtml}${pickToggleHtml}</div>
+        <div class="hero-comp">${pickedBadgeHtml}${rankBadgeHtml}${heroesHtml}${pickToggleHtml}${rankSelectHtml}</div>
         <div><button class="${btnClass}">${btnText}</button></div>
       `;
       div.querySelector('.detail-btn').onclick = () => renderGuide(item);
       const pickBtn = div.querySelector('.pick-toggle-btn');
       if (pickBtn) pickBtn.onclick = (e) => { e.stopPropagation(); window.togglePickedItem(currentMode, item.id); };
+      const rankSelect = div.querySelector('.pick-rank-select');
+      if (rankSelect) rankSelect.onchange = (e) => { e.stopPropagation(); window.setPickRank(currentMode, item.id, e.target.value); };
       listContainer.appendChild(div);
 
       if(isActive) {
