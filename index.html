@@ -3608,6 +3608,13 @@
       });
     }
     const newDeck = { id: itemId, name: name, keywords: keywordsStr.split(',').map(s=>s.trim()).filter(Boolean), counters: counters, titleHeroes: titleHeroes };
+    // 채택 체크/순위/메모는 이 폼에 없는 값이라 기존 값을 그대로 이어붙여서 저장(덮어쓰기로 초기화되는 것 방지)
+    const existingDefItem = defData.find(item => item.id == itemId);
+    if (existingDefItem) {
+      if (existingDefItem.isPicked !== undefined) newDeck.isPicked = existingDefItem.isPicked;
+      if (existingDefItem.pickRank !== undefined) newDeck.pickRank = existingDefItem.pickRank;
+      if (existingDefItem.listNote !== undefined) newDeck.listNote = existingDefItem.listNote;
+    }
 
     const idx = defData.findIndex(item => item.id == itemId);
     if(idx !== -1) defData[idx] = newDeck; else defData.push(newDeck);
