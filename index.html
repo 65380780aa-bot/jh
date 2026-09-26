@@ -126,12 +126,6 @@
     .pick-rank-select { font-size:11px; font-weight:800; border:1px solid var(--border); border-radius:5px; padding:3px 4px; background:#fff; cursor:pointer; flex-shrink:0; }
     .pick-note-input { flex:1 1 auto; min-width:100px; max-width:280px; margin-left:auto; margin-right:16px; font-size:12px; font-weight:600; border:1px solid var(--border); border-radius:5px; padding:6px 10px; background:#fff; color:var(--ink); }
     .pick-note-text { font-size:14px; font-weight:600; color:#374151; margin-left:auto; margin-right:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
-    .video-guild-pill { cursor:pointer; padding:8px 14px; border-radius:6px; font-size:13px; font-weight:800; background:#ffffff; color:var(--ink); border:1px solid var(--border); width:100%; transition:all 0.15s; }
-    .video-guild-pill:hover { border-color:var(--blue); }
-    .video-guild-pill.active { background:var(--blue); color:#ffffff; border-color:var(--blue); }
-    .video-season-pill { cursor:pointer; padding:9px 20px; border-radius:6px; font-size:14px; font-weight:900; background:#ffffff; color:var(--blue); border:1.5px solid var(--blue); white-space:pre-line; word-break:keep-all; line-height:1.3; text-align:center; transition:all 0.15s; }
-    .video-season-pill.active { background:var(--blue); color:#ffffff; }
-    
     .hero-comp { display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 900; color: var(--ink); flex-wrap: wrap; }
     .hero-comp-icons { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
     .hero-comp-icon-item { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; }
@@ -372,9 +366,8 @@
   <div class="top-nav">
     <div class="logo"></div>
     <div class="nav-links">
-      <div id="tab-total" class="nav-link">⚔️ 공격덱</div>
+      <div id="tab-total" class="nav-link active">⚔️ 공격덱</div>
       <div id="tab-def" class="nav-link">🛡️ 방어덱</div>
-      <div id="tab-video" class="nav-link active">🎥 영상 분석</div>
     </div>
     <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 23명</div>
     <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
@@ -399,7 +392,7 @@
 
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
-      <button class="add-btn" id="toggle-add-btn" style="display: flex;">+ 덱 추가하기</button>
+      <button class="add-btn" id="toggle-add-btn" style="display: none;">+ 덱 추가하기</button>
       <button class="add-btn" id="show-deeplink-table-btn" style="display: flex; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
     </div>
 
@@ -1591,7 +1584,7 @@
     </div>
 
     <!-- 검색 바 -->
-    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: block;">🎥 길드전 영상 분석</div>
+    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: block;">⚔️ 길드전 공격 구성 덱</div>
     <div id="tot-subtabs" style="display: none; gap: 8px; margin-bottom: 10px;">
       <div id="tot-subtab-공덱" class="tot-subtab-link" data-type="공덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">공덱</div>
       <div id="tot-subtab-마덱" class="tot-subtab-link" data-type="마덱" style="cursor: pointer; padding: 6px 14px; border-radius: 16px; font-size: 13px; font-weight: 800; background: rgb(243, 244, 246); color: rgb(75, 85, 99);">마덱</div>
@@ -1672,96 +1665,6 @@
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div></div></div>
 
-    <!-- 영상 분석 탭 -->
-    <div id="video-wrapper" style="display: block;">
-      <div id="video-season-tabs" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;"><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-season-pill active" data-idx="0">메이저 S1
-176위</button><button type="button" title="시즌명 수정" data-idx="0" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><button type="button" style="cursor: pointer; padding: 9px 20px; border-radius: 6px; font-size: 14px; font-weight: 900; background: rgb(255, 255, 255); color: var(--text-dim); border: 1.5px dashed var(--border);">+ 시즌 추가</button></div>
-      <div style="position:relative; margin-bottom:16px;">
-        <input type="text" id="video-search-input" class="gcd-input" style="width:100%; box-sizing:border-box;" placeholder="🔍 등록된 영상 제목으로 전체 검색...">
-        <div id="video-search-results" style="display: none; position: absolute; top: 100%; left: 0px; right: 0px; background: var(--card); border: 1px solid var(--border); border-radius: 3px; margin-top: 4px; max-height: 320px; overflow-y: auto; z-index: 50;">
-          <div class="video-search-result-item" data-id="video_1790430343458" data-guild-idx="0" data-season-idx="0" style="padding:10px 14px; border-bottom:1px solid var(--border); cursor:pointer; font-size:13px;">
-            <span style="font-weight:800; color:var(--ink);">미드보러왔단다 루겔아 vs 현이마마 라오아</span>
-            <span style="color:var(--text-dim); margin-left:8px;">[지옥] · 메이저 S1
-176위</span>
-          </div>
-        </div>
-      </div>
-      <div id="video-guild-tabs" style="display:grid; grid-template-columns:repeat(6, 1fr); gap:8px; margin-bottom:20px;"><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill active" data-idx="0">지옥 (3)</button><button type="button" title="길드명 수정" data-idx="0" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="1">길드명</button><button type="button" title="길드명 수정" data-idx="1" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="2">길드명</button><button type="button" title="길드명 수정" data-idx="2" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="3">길드명</button><button type="button" title="길드명 수정" data-idx="3" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="4">길드명</button><button type="button" title="길드명 수정" data-idx="4" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="5">길드명</button><button type="button" title="길드명 수정" data-idx="5" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="6">길드명</button><button type="button" title="길드명 수정" data-idx="6" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="7">길드명</button><button type="button" title="길드명 수정" data-idx="7" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="8">길드명</button><button type="button" title="길드명 수정" data-idx="8" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="9">길드명</button><button type="button" title="길드명 수정" data-idx="9" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="10">길드명</button><button type="button" title="길드명 수정" data-idx="10" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="11">길드명</button><button type="button" title="길드명 수정" data-idx="11" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="12">길드명</button><button type="button" title="길드명 수정" data-idx="12" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="13">길드명</button><button type="button" title="길드명 수정" data-idx="13" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="14">길드명</button><button type="button" title="길드명 수정" data-idx="14" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="15">길드명</button><button type="button" title="길드명 수정" data-idx="15" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="16">길드명</button><button type="button" title="길드명 수정" data-idx="16" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div><div style="display: flex; align-items: center; gap: 2px;"><button type="button" class="video-guild-pill" data-idx="17">길드명</button><button type="button" title="길드명 수정" data-idx="17" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: none; cursor: pointer; font-size: 12px; padding: 4px; opacity: 0.6;">✏️</button></div></div>
-      <div id="video-list-area"><button type="button" id="video-add-open-btn" class="add-btn" style="margin-bottom:16px;">+ 영상추가</button>
-      <div id="video-add-form" style="display:none; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:16px;">
-        <input type="hidden" id="video-edit-id" value="">
-        <label class="gcd-label">유튜브 링크</label>
-        <input type="text" id="video-url-input" class="gcd-input" placeholder="예: https://youtu.be/XXXXXXXXXXX">
-        <label class="gcd-label" style="margin-top:10px;">제목</label>
-        <input type="text" id="video-title-input" class="gcd-input" placeholder="예: 9/20 결투장 A조 패배">
-        <label class="gcd-label" style="margin-top:10px;">메모 (상대 덱, 패인 분석 등)</label>
-        <textarea id="video-memo-input" class="gcd-textarea" style="height:70px;" placeholder="상대 덱 구성이나 패배 원인을 적어주세요"></textarea>
-        <div style="display:flex; gap:8px; margin-top:10px;">
-          <button type="button" id="video-save-btn" class="add-btn" style="background:#16a34a;">저장</button>
-          <button type="button" id="video-cancel-btn" class="add-btn" style="background:#6b7280;">취소</button>
-        </div>
-      </div>
-    
-      <div class="gcd-result-card" id="video-item-video_1790430507109" style="margin-bottom:14px;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;">
-          <div class="video-title-toggle" data-id="video_1790430507109" style="font-weight:800; color:var(--ink); cursor:pointer; display:flex; align-items:center; gap:6px; flex:1;">
-            <span style="color:var(--text-dim); font-size:12px; transition:transform .15s;">▶</span>
-            <span>선델하 vs 여선하 [미드보러왔단다 vs 이차원]</span>
-          </div>
-          
-            <div style="display:flex; gap:6px;">
-              <button type="button" class="btn-mini-edit video-edit-btn" data-id="video_1790430507109">✏️ 수정</button>
-              <button type="button" class="btn-mini-edit video-del-btn" data-id="video_1790430507109" style="color:var(--red);">🗑️ 삭제</button>
-            </div>
-          
-        </div>
-        
-      </div>
-    
-      <div class="gcd-result-card" id="video-item-video_1790430424901" style="margin-bottom:14px;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;">
-          <div class="video-title-toggle" data-id="video_1790430424901" style="font-weight:800; color:var(--ink); cursor:pointer; display:flex; align-items:center; gap:6px; flex:1;">
-            <span style="color:var(--text-dim); font-size:12px; transition:transform .15s;">▶</span>
-            <span>밀스실 vs 선발칼 [미드보러왔단다 vs 조이스크림]</span>
-          </div>
-          
-            <div style="display:flex; gap:6px;">
-              <button type="button" class="btn-mini-edit video-edit-btn" data-id="video_1790430424901">✏️ 수정</button>
-              <button type="button" class="btn-mini-edit video-del-btn" data-id="video_1790430424901" style="color:var(--red);">🗑️ 삭제</button>
-            </div>
-          
-        </div>
-        
-      </div>
-    
-      <div class="gcd-result-card" id="video-item-video_1790430343458" style="margin-bottom:14px;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;">
-          <div class="video-title-toggle" data-id="video_1790430343458" style="font-weight:800; color:var(--ink); cursor:pointer; display:flex; align-items:center; gap:6px; flex:1;">
-            <span style="color:var(--text-dim); font-size:12px; transition:transform .15s;">▶</span>
-            <span>루겔아 vs 라오아 [미드보러왔단다 vs 현이마마]</span>
-          </div>
-          
-            <div style="display:flex; gap:6px;">
-              <button type="button" class="btn-mini-edit video-edit-btn" data-id="video_1790430343458">✏️ 수정</button>
-              <button type="button" class="btn-mini-edit video-del-btn" data-id="video_1790430343458" style="color:var(--red);">🗑️ 삭제</button>
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-    </div>
-
-    <div id="video-season-name-modal-overlay" style="display:none; position:fixed; inset:0px; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:20px;">
-      <div style="background:var(--card); color:var(--ink); border:1px solid var(--border); border-radius:14px; max-width:400px; width:100%; padding:24px;">
-        <label class="gcd-label">시즌 이름 (Enter로 줄바꿈 가능)</label>
-        <textarea id="video-season-name-textarea" class="gcd-textarea" style="height:80px; width:100%; box-sizing:border-box; margin-top:8px;"></textarea>
-        <div style="display:flex; gap:8px; margin-top:14px;">
-          <button type="button" id="video-season-name-save-btn" class="add-btn" style="background:#16a34a;">저장</button>
-          <button type="button" id="video-season-name-cancel-btn" class="add-btn" style="background:#6b7280;">취소</button>
-        </div>
-      </div>
-    </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -1799,12 +1702,6 @@
   let defData = [];
   let totData = [];
   let arenaData = []; // 결투장 덱 DB (Firestore guild_arena_db)
-  let videoSeasons = ['메이저 S1']; // 영상 분석 탭의 시즌 목록 (관리자가 추가/이름변경 가능)
-  let selectedSeasonIdx = 0;
-  let videoGuildNamesBySeason = [Array.from({length: 18}, () => '길드명')]; // 시즌별 18개 길드 이름 (기본은 "길드명", 관리자가 ✏️로 실제 이름 입력)
-  let videoData = []; // 길드별 패배 영상 목록 (Firestore guild_loss_videos)
-  let selectedVideoGuildIndex = 0;
-  let expandedVideoIds = new Set(); // 제목을 클릭해서 펼쳐놓은 영상 id 목록 (기본은 제목만 보이고 접혀있음)
   let currentArenaDetailId = null;
   let arenaAutoSaveAttempted = false; // 자동등록/중복정리는 실제 Firestore 데이터가 도착한 뒤에만 실행 (레이스 컨디션 방지)
   let statsData = {}; // { "atk_4_0": { wins: 3, losses: 1, isStandard: true } } - 카운터 조합별 승/패 기록 + ⭐정석 파훼덱 수동 태그
@@ -1838,7 +1735,6 @@
       document.getElementById('atk-notice-edit-btn').style.display = 'none';
       document.getElementById('atk-notice-edit-area').style.display = 'none';
     }
-    if (currentMode === 'VIDEO' && typeof renderVideoGuildTabs === 'function') { renderVideoSeasonTabs(); renderVideoGuildTabs(); renderVideoList(); }
   }
 
   adminBtn.onclick = function() {
@@ -2076,58 +1972,6 @@
       if(isAdmin && window.autoSaveSampleArenaDeck) window.autoSaveSampleArenaDeck();
     });
 
-    // 🎥 영상 분석 탭: 시즌 목록 + 시즌별 18개 길드 이름(관리자가 수정 가능) + 길드별 패배 영상 목록
-    onSnapshot(doc(db, "meta", "video_seasons"), (snap) => {
-      try {
-        if (snap.exists() && Array.isArray(snap.data().list) && snap.data().list.length > 0) {
-          videoSeasons = snap.data().list;
-          if (selectedSeasonIdx >= videoSeasons.length) selectedSeasonIdx = 0;
-        }
-        if (currentMode === 'VIDEO') { renderVideoSeasonTabs(); renderVideoGuildTabs(); }
-      } catch (e) {
-        console.error('video_seasons onSnapshot error:', e);
-      }
-    }, (err) => {
-      console.error('video_seasons onSnapshot failed:', err);
-    });
-    onSnapshot(doc(db, "meta", "video_guild_names"), (snap) => {
-      try {
-        const d = snap.exists() ? snap.data() : null;
-        if (d && Array.isArray(d.bySeason) && d.bySeason.length > 0) {
-          // 새 구조: 시즌별로 18개씩
-          videoGuildNamesBySeason = d.bySeason.map(entry => (entry && Array.isArray(entry.names) && entry.names.length === 18) ? entry.names : Array.from({length:18}, () => '길드명'));
-        } else if (d && Array.isArray(d.names) && d.names.length === 18) {
-          // 예전 구조(시즌 구분 없던 시절) 호환: 0번 시즌으로 취급
-          videoGuildNamesBySeason = [d.names];
-        }
-        if (currentMode === 'VIDEO') renderVideoGuildTabs();
-      } catch (e) {
-        console.error('video_guild_names onSnapshot error:', e);
-        const box = document.getElementById('video-guild-tabs');
-        if (box) box.innerHTML = `<div style="color:red; font-weight:800; white-space:pre-wrap;">⚠️ 길드명 로딩 오류: ${(e && e.message) || e}</div>`;
-      }
-    }, (err) => {
-      console.error('video_guild_names onSnapshot failed:', err);
-      const box = document.getElementById('video-guild-tabs');
-      if (box) box.innerHTML = `<div style="color:red; font-weight:800; white-space:pre-wrap;">⚠️ 길드명 구독 실패: ${err.code} - ${err.message}</div>`;
-    });
-    onSnapshot(collection(db, "guild_loss_videos"), (snap) => {
-      try {
-        let list = [];
-        snap.forEach(d => { let data = d.data(); if(data && data.id) list.push(data); });
-        videoData = list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-        if (currentMode === 'VIDEO') { renderVideoGuildTabs(); renderVideoList(); }
-      } catch (e) {
-        console.error('guild_loss_videos onSnapshot error:', e);
-        const box = document.getElementById('video-guild-tabs');
-        if (box) box.innerHTML = `<div style="color:red; font-weight:800; white-space:pre-wrap;">⚠️ 영상 목록 로딩 오류: ${(e && e.message) || e}</div>`;
-      }
-    }, (err) => {
-      console.error('guild_loss_videos onSnapshot failed:', err);
-      const box = document.getElementById('video-guild-tabs');
-      if (box) box.innerHTML = `<div style="color:red; font-weight:800; white-space:pre-wrap;">⚠️ 영상 목록 구독 실패: ${err.code} - ${err.message}</div>`;
-    });
-
     // 딥링크: 주소 끝에 ?deck=키워드 를 붙이면 해당 조합을 자동으로 찾아서 펼쳐줌.
     // 예: https://내사이트주소/?deck=밀스실  -> "밀스실" 키워드가 등록된 덱을 찾아서 바로 열어줌.
     // 카톡 오픈채팅봇 "질문 및 답변"에 /명령어 -> 이 주소 형태로 등록해서 씀.
@@ -2249,7 +2093,6 @@
 
   document.getElementById('tab-def').onclick = () => switchMode('DEF');
   document.getElementById('tab-total').onclick = () => switchMode('TOTAL');
-  document.getElementById('tab-video').onclick = () => switchMode('VIDEO');
 
   function setTotSubFilter(type){
     totSubFilter = type;
@@ -3924,422 +3767,6 @@
     `;
   }
 
-  // 🎥 영상 분석 탭 ------------------------------------------------------
-  function escVid(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-  function renderVideoSeasonTabs() {
-    const box = document.getElementById('video-season-tabs');
-    if (!box) return;
-    box.innerHTML = '';
-    for (let i = 0; i < videoSeasons.length; i++) {
-      const wrap = document.createElement('div');
-      wrap.style.display = 'flex';
-      wrap.style.alignItems = 'center';
-      wrap.style.gap = '2px';
-
-      const pillBtn = document.createElement('button');
-      pillBtn.type = 'button';
-      pillBtn.className = 'video-season-pill' + (i === selectedSeasonIdx ? ' active' : '');
-      pillBtn.textContent = videoSeasons[i];
-      pillBtn.dataset.idx = String(i);
-      pillBtn.onclick = function() {
-        selectedSeasonIdx = Number(this.dataset.idx);
-        selectedVideoGuildIndex = 0;
-        renderVideoSeasonTabs();
-        renderVideoGuildTabs();
-        renderVideoList();
-      };
-      wrap.appendChild(pillBtn);
-
-      if (isAdmin) {
-        const renameBtn = document.createElement('button');
-        renameBtn.type = 'button';
-        renameBtn.title = '시즌명 수정';
-        renameBtn.textContent = '✏️';
-        renameBtn.style.border = 'none';
-        renameBtn.style.background = 'none';
-        renameBtn.style.cursor = 'pointer';
-        renameBtn.style.fontSize = '12px';
-        renameBtn.style.padding = '4px';
-        renameBtn.style.opacity = '.6';
-        renameBtn.dataset.idx = String(i);
-        renameBtn.onclick = function(e) {
-          e.stopPropagation();
-          window.renameVideoSeason(Number(this.dataset.idx));
-        };
-        wrap.appendChild(renameBtn);
-
-        if (videoSeasons.length > 1) {
-          const delBtn = document.createElement('button');
-          delBtn.type = 'button';
-          delBtn.title = '시즌 삭제';
-          delBtn.textContent = '🗑️';
-          delBtn.style.border = 'none';
-          delBtn.style.background = 'none';
-          delBtn.style.cursor = 'pointer';
-          delBtn.style.fontSize = '12px';
-          delBtn.style.padding = '4px';
-          delBtn.style.opacity = '.6';
-          delBtn.dataset.idx = String(i);
-          delBtn.onclick = function(e) {
-            e.stopPropagation();
-            window.deleteVideoSeason(Number(this.dataset.idx));
-          };
-          wrap.appendChild(delBtn);
-        }
-      }
-
-      box.appendChild(wrap);
-    }
-    if (isAdmin) {
-      const addBtn = document.createElement('button');
-      addBtn.type = 'button';
-      addBtn.style.cssText = 'cursor:pointer; padding:9px 20px; border-radius:6px; font-size:14px; font-weight:900; background:#ffffff; color:var(--text-dim); border:1.5px dashed var(--border);';
-      addBtn.textContent = '+ 시즌 추가';
-      addBtn.onclick = () => window.addVideoSeason();
-      box.appendChild(addBtn);
-    }
-  }
-
-  function openSeasonNameModal(initialValue, onSave) {
-    const overlay = document.getElementById('video-season-name-modal-overlay');
-    const textarea = document.getElementById('video-season-name-textarea');
-    const saveBtn = document.getElementById('video-season-name-save-btn');
-    const cancelBtn = document.getElementById('video-season-name-cancel-btn');
-    textarea.value = initialValue || '';
-    overlay.style.display = 'flex';
-    textarea.focus();
-    const close = () => { overlay.style.display = 'none'; };
-    saveBtn.onclick = () => {
-      const trimmed = textarea.value.replace(/\n{3,}/g, '\n\n').trim();
-      if (!trimmed) return;
-      close();
-      onSave(trimmed);
-    };
-    cancelBtn.onclick = close;
-  }
-
-  window.addVideoSeason = async function() {
-    if (!isAdmin) return;
-    openSeasonNameModal('메이저 S' + (videoSeasons.length + 1), async (trimmed) => {
-      const newSeasons = videoSeasons.concat([trimmed]);
-      const newGuildNamesBySeason = videoGuildNamesBySeason.concat([Array.from({length:18}, () => '길드명')]);
-      try {
-        await setDoc(doc(db, "meta", "video_seasons"), { list: newSeasons }, { merge: true });
-        await setDoc(doc(db, "meta", "video_guild_names"), { bySeason: newGuildNamesBySeason.map(names => ({ names })) });
-      } catch (e) {
-        alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
-      }
-    });
-  };
-
-  window.renameVideoSeason = async function(idx) {
-    if (!isAdmin) return;
-    const current = videoSeasons[idx] || '';
-    openSeasonNameModal(current, async (trimmed) => {
-      const newSeasons = videoSeasons.slice();
-      newSeasons[idx] = trimmed;
-      try {
-        await setDoc(doc(db, "meta", "video_seasons"), { list: newSeasons }, { merge: true });
-      } catch (e) {
-        alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
-      }
-    });
-  };
-
-  window.deleteVideoSeason = async function(idx) {
-    if (!isAdmin) return;
-    if (videoSeasons.length <= 1) { alert('마지막 남은 시즌은 삭제할 수 없어요.'); return; }
-    const seasonName = videoSeasons[idx] || '';
-    const videosInSeason = videoData.filter(v => (v.seasonIdx || 0) === idx);
-    const confirmMsg = videosInSeason.length
-      ? `"${seasonName}" 시즌을 삭제할까요?\n이 시즌에 등록된 영상 ${videosInSeason.length}개도 같이 삭제돼요. 이 작업은 되돌릴 수 없어요.`
-      : `"${seasonName}" 시즌을 삭제할까요?`;
-    if (!confirm(confirmMsg)) return;
-
-    try {
-      // 1) 해당 시즌 영상들 전부 삭제
-      for (const v of videosInSeason) {
-        await deleteDoc(doc(db, "guild_loss_videos", v.id));
-      }
-      // 2) 삭제된 시즌보다 뒤에 있던 시즌들의 영상은 seasonIdx를 하나씩 앞당겨줌 (배열 인덱스가 하나 당겨지므로)
-      const videosAfter = videoData.filter(v => (v.seasonIdx || 0) > idx);
-      for (const v of videosAfter) {
-        await setDoc(doc(db, "guild_loss_videos", v.id), { seasonIdx: (v.seasonIdx || 0) - 1 }, { merge: true });
-      }
-      // 3) 시즌 목록 / 시즌별 길드명 목록에서도 해당 시즌 제거
-      const newSeasons = videoSeasons.slice();
-      newSeasons.splice(idx, 1);
-      const newGuildNamesBySeason = videoGuildNamesBySeason.slice();
-      newGuildNamesBySeason.splice(idx, 1);
-      await setDoc(doc(db, "meta", "video_seasons"), { list: newSeasons }, { merge: true });
-      await setDoc(doc(db, "meta", "video_guild_names"), { bySeason: newGuildNamesBySeason.map(names => ({ names })) });
-
-      if (selectedSeasonIdx >= newSeasons.length) selectedSeasonIdx = newSeasons.length - 1;
-      else if (selectedSeasonIdx > idx) selectedSeasonIdx -= 1;
-      selectedVideoGuildIndex = 0;
-    } catch (e) {
-      alert('⚠️ 삭제 실패! (원인: ' + e.code + ' - ' + e.message + ')');
-    }
-  };
-
-  function renderVideoGuildTabs() {
-    const box = document.getElementById('video-guild-tabs');
-    if (!box) return;
-    const namesForSeason = videoGuildNamesBySeason[selectedSeasonIdx] || Array.from({length:18}, () => '길드명');
-    box.innerHTML = '';
-    for (let i = 0; i < namesForSeason.length; i++) {
-      const name = namesForSeason[i];
-      let cnt = 0;
-      for (let j = 0; j < videoData.length; j++) {
-        if (videoData[j].guildIndex === i && (videoData[j].seasonIdx || 0) === selectedSeasonIdx) cnt++;
-      }
-
-      const wrap = document.createElement('div');
-      wrap.style.display = 'flex';
-      wrap.style.alignItems = 'center';
-      wrap.style.gap = '2px';
-
-      const pillBtn = document.createElement('button');
-      pillBtn.type = 'button';
-      pillBtn.className = 'video-guild-pill' + (i === selectedVideoGuildIndex ? ' active' : '');
-      pillBtn.textContent = cnt > 0 ? (name + ' (' + cnt + ')') : name;
-      pillBtn.dataset.idx = String(i);
-      pillBtn.onclick = function() {
-        selectedVideoGuildIndex = Number(this.dataset.idx);
-        renderVideoGuildTabs();
-        renderVideoList();
-      };
-      wrap.appendChild(pillBtn);
-
-      if (isAdmin) {
-        const renameBtn = document.createElement('button');
-        renameBtn.type = 'button';
-        renameBtn.title = '길드명 수정';
-        renameBtn.textContent = '✏️';
-        renameBtn.style.border = 'none';
-        renameBtn.style.background = 'none';
-        renameBtn.style.cursor = 'pointer';
-        renameBtn.style.fontSize = '12px';
-        renameBtn.style.padding = '4px';
-        renameBtn.style.opacity = '.6';
-        renameBtn.dataset.idx = String(i);
-        renameBtn.onclick = function(e) {
-          e.stopPropagation();
-          window.renameVideoGuild(Number(this.dataset.idx));
-        };
-        wrap.appendChild(renameBtn);
-      }
-
-      box.appendChild(wrap);
-    }
-  }
-
-  window.renameVideoGuild = async function(idx) {
-    if (!isAdmin) return;
-    const namesForSeason = (videoGuildNamesBySeason[selectedSeasonIdx] || Array.from({length:18}, () => '길드명')).slice();
-    const current = namesForSeason[idx] || '';
-    const next = prompt('길드 이름을 입력하세요', current);
-    if (next === null) return;
-    const trimmed = next.trim();
-    if (!trimmed) return;
-    namesForSeason[idx] = trimmed;
-    const newBySeason = videoGuildNamesBySeason.slice();
-    newBySeason[selectedSeasonIdx] = namesForSeason;
-    try {
-      await setDoc(doc(db, "meta", "video_guild_names"), { bySeason: newBySeason.map(names => ({ names })) });
-    } catch (e) {
-      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
-    }
-  };
-
-  function renderVideoList() {
-    const area = document.getElementById('video-list-area');
-    if (!area) return;
-    const guildName = (videoGuildNamesBySeason[selectedSeasonIdx] || [])[selectedVideoGuildIndex] || '';
-    const list = videoData.filter(v => v.guildIndex === selectedVideoGuildIndex && (v.seasonIdx || 0) === selectedSeasonIdx);
-
-    const addBtnHtml = isAdmin ? `<button type="button" id="video-add-open-btn" class="add-btn" style="margin-bottom:16px;">+ 영상추가</button>` : '';
-    const formHtml = isAdmin ? `
-      <div id="video-add-form" style="display:none; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:16px;">
-        <input type="hidden" id="video-edit-id" value="">
-        <label class="gcd-label">유튜브 링크</label>
-        <input type="text" id="video-url-input" class="gcd-input" placeholder="예: https://youtu.be/XXXXXXXXXXX">
-        <label class="gcd-label" style="margin-top:10px;">제목</label>
-        <input type="text" id="video-title-input" class="gcd-input" placeholder="예: 9/20 결투장 A조 패배">
-        <label class="gcd-label" style="margin-top:10px;">메모 (상대 덱, 패인 분석 등)</label>
-        <textarea id="video-memo-input" class="gcd-textarea" style="height:70px;" placeholder="상대 덱 구성이나 패배 원인을 적어주세요"></textarea>
-        <div style="display:flex; gap:8px; margin-top:10px;">
-          <button type="button" id="video-save-btn" class="add-btn" style="background:#16a34a;">저장</button>
-          <button type="button" id="video-cancel-btn" class="add-btn" style="background:#6b7280;">취소</button>
-        </div>
-      </div>
-    ` : '';
-
-    const itemsHtml = list.length ? list.map(v => {
-      const isOpen = expandedVideoIds.has(v.id);
-      return `
-      <div class="gcd-result-card" id="video-item-${v.id}" style="margin-bottom:14px;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;">
-          <div class="video-title-toggle" data-id="${v.id}" style="font-weight:800; color:var(--ink); cursor:pointer; display:flex; align-items:center; gap:6px; flex:1;">
-            <span style="color:var(--text-dim); font-size:12px; transition:transform .15s;">${isOpen ? '▼' : '▶'}</span>
-            <span>${escVid(v.title || (guildName + '전 패배 영상'))}</span>
-          </div>
-          ${isAdmin ? `
-            <div style="display:flex; gap:6px;">
-              <button type="button" class="btn-mini-edit video-edit-btn" data-id="${v.id}">✏️ 수정</button>
-              <button type="button" class="btn-mini-edit video-del-btn" data-id="${v.id}" style="color:var(--red);">🗑️ 삭제</button>
-            </div>
-          ` : ''}
-        </div>
-        ${isOpen ? `
-          ${v.memo ? `<div style="margin-top:8px; white-space:pre-line; line-height:1.6; color:var(--ink);">${escVid(v.memo)}</div>` : ''}
-          ${generateVideoEmbedHtml(v.videoUrl)}
-        ` : ''}
-      </div>
-    `;
-    }).join('') : `<p style="text-align:center; color:var(--text-dim); padding:30px 0;">등록된 영상이 없습니다.</p>`;
-
-    area.innerHTML = addBtnHtml + formHtml + itemsHtml;
-    if (!isAdmin) return;
-
-    const openBtn = document.getElementById('video-add-open-btn');
-    if (openBtn) openBtn.onclick = () => {
-      document.getElementById('video-edit-id').value = '';
-      document.getElementById('video-url-input').value = '';
-      document.getElementById('video-title-input').value = '';
-      document.getElementById('video-memo-input').value = '';
-      document.getElementById('video-add-form').style.display = 'block';
-    };
-    const cancelBtn = document.getElementById('video-cancel-btn');
-    if (cancelBtn) cancelBtn.onclick = () => { document.getElementById('video-add-form').style.display = 'none'; };
-    const saveBtn = document.getElementById('video-save-btn');
-    if (saveBtn) saveBtn.onclick = async () => {
-      const url = document.getElementById('video-url-input').value.trim();
-      if (!url) { alert('유튜브 링크를 입력해주세요.'); return; }
-      if (!getYoutubeEmbedUrl(url)) { alert('올바른 유튜브 링크가 아니에요.'); return; }
-      const title = document.getElementById('video-title-input').value.trim();
-      if (!title) { alert('제목을 입력해주세요.'); return; }
-      const editId = document.getElementById('video-edit-id').value;
-      const id = editId || ('video_' + Date.now());
-      const existing = editId ? videoData.find(v => v.id === editId) : null;
-      const data = {
-        id,
-        guildIndex: selectedVideoGuildIndex,
-        seasonIdx: selectedSeasonIdx,
-        videoUrl: url,
-        title: title,
-        memo: document.getElementById('video-memo-input').value.trim(),
-        createdAt: existing ? (existing.createdAt || Date.now()) : Date.now()
-      };
-      try {
-        await setDoc(doc(db, "guild_loss_videos", id), data);
-        document.getElementById('video-add-form').style.display = 'none';
-      } catch (e) {
-        alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
-      }
-    };
-    area.querySelectorAll('.video-title-toggle').forEach(el => {
-      el.onclick = () => {
-        const id = el.dataset.id;
-        if (expandedVideoIds.has(id)) expandedVideoIds.delete(id);
-        else expandedVideoIds.add(id);
-        renderVideoList();
-      };
-    });
-    area.querySelectorAll('.video-edit-btn').forEach(btn => {
-      btn.onclick = () => {
-        const v = videoData.find(x => x.id === btn.dataset.id);
-        if (!v) return;
-        document.getElementById('video-add-form').style.display = 'block';
-        document.getElementById('video-edit-id').value = v.id;
-        document.getElementById('video-url-input').value = v.videoUrl || '';
-        document.getElementById('video-title-input').value = v.title || '';
-        document.getElementById('video-memo-input').value = v.memo || '';
-      };
-    });
-    area.querySelectorAll('.video-del-btn').forEach(btn => {
-      btn.onclick = async () => {
-        if (!confirm('이 영상을 삭제할까요?')) return;
-        try { await deleteDoc(doc(db, "guild_loss_videos", btn.dataset.id)); }
-        catch (e) { alert('⚠️ 삭제 실패! (원인: ' + e.code + ' - ' + e.message + ')'); }
-      };
-    });
-  }
-
-  function wireVideoSearch() {
-    const input = document.getElementById('video-search-input');
-    const resultsBox = document.getElementById('video-search-results');
-    if (!input || !resultsBox) return;
-
-    function renderResults(query) {
-      const q = query.trim().toLowerCase();
-      if (!q) { resultsBox.style.display = 'none'; resultsBox.innerHTML = ''; return; }
-      // 제목 기준으로 전체 시즌을 다 뒤져서 검색하고, 같은 영상(같은 id)이 중복으로 안 뜨게 정리
-      const seen = new Set();
-      const matches = [];
-      videoData.forEach(v => {
-        if (seen.has(v.id)) return;
-        const title = v.title || '';
-        if (title.toLowerCase().includes(q)) {
-          seen.add(v.id);
-          matches.push(v);
-        }
-      });
-      if (!matches.length) {
-        resultsBox.innerHTML = `<div style="padding:14px; color:var(--text-dim); font-size:13px;">검색 결과가 없습니다.</div>`;
-        resultsBox.style.display = 'block';
-        return;
-      }
-      resultsBox.innerHTML = matches.map(v => {
-        const sIdx = v.seasonIdx || 0;
-        const gName = (videoGuildNamesBySeason[sIdx] || [])[v.guildIndex] || '';
-        const sName = videoSeasons[sIdx] || ('메이저 S' + (sIdx + 1));
-        return `
-          <div class="video-search-result-item" data-id="${v.id}" data-guild-idx="${v.guildIndex}" data-season-idx="${sIdx}" style="padding:10px 14px; border-bottom:1px solid var(--border); cursor:pointer; font-size:13px;">
-            <span style="font-weight:800; color:var(--ink);">${escVid(v.title || '')}</span>
-            <span style="color:var(--text-dim); margin-left:8px;">[${escVid(gName)}] · ${escVid(sName)}</span>
-          </div>
-        `;
-      }).join('');
-      resultsBox.style.display = 'block';
-      resultsBox.querySelectorAll('.video-search-result-item').forEach(row => {
-        row.onclick = () => {
-          const targetId = row.dataset.id;
-          const targetGuildIdx = Number(row.dataset.guildIdx);
-          const targetSeasonIdx = Number(row.dataset.seasonIdx);
-          selectedSeasonIdx = targetSeasonIdx;
-          selectedVideoGuildIndex = targetGuildIdx;
-          expandedVideoIds.add(targetId);
-          input.value = '';
-          resultsBox.style.display = 'none';
-          renderVideoSeasonTabs();
-          renderVideoGuildTabs();
-          renderVideoList();
-          setTimeout(() => {
-            const el = document.getElementById('video-item-' + targetId);
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              el.style.outline = '3px solid var(--red)';
-              setTimeout(() => { el.style.outline = 'none'; }, 2000);
-            }
-          }, 50);
-        };
-      });
-    }
-
-    input.oninput = (e) => renderResults(e.target.value);
-    input.onfocus = (e) => { if (e.target.value.trim()) renderResults(e.target.value); };
-    if (!window.__videoSearchOutsideClickWired) {
-      window.__videoSearchOutsideClickWired = true;
-      document.addEventListener('click', (e) => {
-        const rb = document.getElementById('video-search-results');
-        const si = document.getElementById('video-search-input');
-        if (rb && !rb.contains(e.target) && e.target !== si) rb.style.display = 'none';
-      });
-    }
-  }
-
   function generateFormationBoardBySlots(slots = [], boardUniqueId = 'board', keepEmpty = false, backCount = 4, frontCount = 4) {
     let backItemsRaw = slots.slice(0, backCount).map((s, idx) => ({ ...s, idx }));
     let frontItemsRaw = slots.slice(backCount, backCount + frontCount).map((s, idx) => ({ ...s, idx: idx + backCount }));
@@ -4743,7 +4170,6 @@
     document.getElementById('tot-subtabs').style.display = 'none';
     document.getElementById('arena-search-section').style.display = 'none';
     document.getElementById('arena-list-wrapper').style.display = 'none';
-    document.getElementById('video-wrapper').style.display = 'none';
 
     if(mode === 'DEF'){
       document.getElementById('tab-def').classList.add('active');
@@ -4766,20 +4192,6 @@
       document.getElementById('list-wrapper').style.display = 'block';
       document.getElementById('list-header').style.display = 'grid';
       renderList();
-    } else if(mode === 'VIDEO'){
-      document.getElementById('tab-video').classList.add('active');
-      document.getElementById('gcd-mode-title').textContent = '🎥 길드전 영상 분석';
-      document.getElementById('gcd-mode-title').style.display = 'block';
-      document.getElementById('video-wrapper').style.display = 'block';
-      try {
-        renderVideoSeasonTabs();
-        renderVideoGuildTabs();
-        renderVideoList();
-        wireVideoSearch();
-      } catch (e) {
-        console.error('VIDEO tab render error:', e);
-        document.getElementById('video-guild-tabs').innerHTML = `<div style="color:red; font-weight:800;">⚠️ 오류: ${(e && e.message) || e}</div>`;
-      }
     }
   }
 
