@@ -1,7 +1,12 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "proxy": {
-    "entrypoint": "middleware.js",
-    "matcher": "/"
-  }
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "Pragma", "value": "no-cache" },
+        { "key": "Expires", "value": "0" }
+      ]
+    }
+  ]
 }
