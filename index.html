@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0014)about:internet -->
+<!-- saved from url=(0043)file:///C:/Users/65380/Downloads/index.html -->
 <html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -76,6 +76,12 @@
       color: #1d4ed8;
       border-color: #1d4ed8;
       box-shadow: 0 2px 6px rgba(29,78,216,0.18);
+    }
+    .tot-section-pill.active-atkdeck {
+      background: linear-gradient(135deg, var(--red-soft), #f3d4ca);
+      color: var(--red);
+      border-color: var(--red);
+      box-shadow: 0 2px 6px rgba(177,80,58,0.18);
     }
     @media (max-width: 480px) {
       .tot-section-pill { padding: 8px 14px; font-size: 13px; }
@@ -154,6 +160,7 @@
     table.route-table th, table.route-table td { border: 1px solid var(--border); padding: 6px 8px; text-align: center; vertical-align: middle; }
     table.route-table thead th { background: #15803d; color: #fff; font-size: 13px; font-weight: 900; white-space: nowrap; }
     table.route-table thead th.route-table-corner { background: #f9f8f4; }
+    table.route-table thead th.route-table-divider-col { background: #fff; }
     table.route-table .route-table-cat { background: #f0fdf4; font-weight: 900; color: #15803d; font-size: 13px; white-space: nowrap; }
     table.route-table .route-table-divider-col {
       width: 7px;
@@ -259,6 +266,85 @@
     .hero-comp-icon-item span { font-size: 12px; font-weight: 800; color: var(--ink); white-space: nowrap; }
     .hero-comp-icon-item .hero-comp-icon-ring { font-size: 10.5px; font-weight: 700; color: #15803d; white-space: nowrap; }
     .hero-comp-keywords { font-size: 13px; font-weight: 800; color: var(--ink); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; white-space: normal; }
+    /* 카운터덱 탭: 영웅 아이콘을 누르면 그 영웅의 상세 장비 카드로 이동 — 클릭 가능함을 표시 */
+    .hero-comp-icon-clickable { cursor: pointer; border-radius: 6px; transition: background 0.15s ease; }
+    .hero-comp-icon-clickable:hover img { outline: 2px solid var(--orange); outline-offset: 1px; }
+    .hero-gear-highlight { animation: heroGearFlash 1.6s ease; }
+    @keyframes heroGearFlash {
+      0% { box-shadow: 0 0 0 3px var(--orange); background: var(--orange-soft); }
+      100% { box-shadow: none; }
+    }
+    /* 카운터덱 탭: 행 제목(이름표), 상세 안의 구성 영웅 서브 영역, '공격 가능한 덱' 패널 */
+    .counter-row-title { font-size: 16px; font-weight: 900; color: var(--ink); }
+    .counter-row-title-wrap { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .counter-row-title-img-empty { width: 46px; height: 46px; border-radius: 4px; border: 1px dashed var(--border); background: var(--bg); }
+    .counter-row-title-img-row { margin-top: 4px; display: flex; gap: 4px; align-items: center; }
+    .counter-row-title-img-input { font-size: 11px; width: 90px; padding: 3px 6px; border: 1px solid var(--border); border-radius: 4px; }
+    .counter-row-title-img-load-btn { font-size: 11px; padding: 3px 6px; white-space: nowrap; }
+    .counter-sub-icons { padding: 16px 24px 4px; }
+    .counter-sub-icons-label { font-size: 11px; font-weight: 800; color: var(--text-dim); margin-bottom: 8px; }
+    .attackable-deck-entry { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--border); }
+    .attackable-deck-entry:first-of-type { border-top: none; }
+    .attackable-deck-icons { display: flex; gap: 8px; flex-wrap: wrap; }
+    .attackable-slot-preview { width: 46px; height: 46px; border-radius: 4px; object-fit: cover; border: 1px solid var(--border); background: var(--bg); }
+    .attackable-slot-preview-empty { display: flex; }
+    .attackable-slot-edit { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .attackable-slot-img-row { display: flex; gap: 4px; align-items: center; }
+    .attackable-slot-img-input { font-size: 11px; width: 70px; padding: 4px 6px; border: 1px solid var(--border); border-radius: 4px; }
+    .attackable-slot-load-btn { font-size: 11px; padding: 4px 6px; white-space: nowrap; }
+
+    /* 공격덱 탭: "공격 시 → 상대 방어덱" 가독성 좋은 2열 표 */
+    .atkdeck-table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .atkdeck-table th { background: var(--orange-soft); color: var(--orange); font-size: 13px; font-weight: 800; padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--border); }
+    .atkdeck-table td { padding: 12px 10px; font-size: 15px; font-weight: 800; color: var(--ink); border-bottom: 1px solid var(--border); text-align: center; }
+    .atkdeck-table tbody tr:last-child td { border-bottom: none; }
+    .atkdeck-table tbody tr:hover td { background: var(--bg); }
+    .atkdeck-table td.atkdeck-arrow { width: 36px; color: var(--red); font-weight: 900; font-size: 16px; }
+    .atkdeck-table th.atkdeck-arrow-head { color: var(--red); font-size: 14px; font-weight: 800; white-space: nowrap; }
+    .atkdeck-arrow-head-arrow { font-size: 14px; font-weight: 800; }
+    .atkdeck-table .atkdeck-atk { color: var(--blue); }
+    .atkdeck-table .atkdeck-def { color: var(--ink); font-size: 15px; font-weight: 800; }
+    .atkdeck-icons-row { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+    .atkdeck-icon-preview { width: 48px; height: 48px; border-radius: 4px; object-fit: cover; border: 1px solid var(--border); background: var(--bg); }
+    .atkdeck-icon-preview-empty { display: block; }
+    .atkdeck-icon-edit { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .atkdeck-icon-img-row { display: flex; gap: 4px; align-items: center; }
+    .atkdeck-icon-input, .atkdeck-defdeck-icon-input { font-size: 11px; width: 66px; padding: 3px 5px; border: 1px solid var(--border); border-radius: 4px; }
+    .atkdeck-icon-load-btn, .atkdeck-defdeck-icon-load-btn { font-size: 11px; padding: 3px 5px; white-space: nowrap; }
+    .atkdeck-text-input { font-size: 14px; font-weight: 800; width: 100%; max-width: 160px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 6px; text-align: center; }
+    .atkdeck-combo-block { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .atkdeck-memo-input { font-size: 14px; font-weight: 600; width: 100%; max-width: 150px; padding: 4px 6px; border: 1px solid var(--border); border-radius: 5px; text-align: center; color: var(--ink); }
+    .atkdeck-memo-text { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .atkdeck-atk-memo2-input { max-width: 150px; }
+    .atkdeck-memo2-text { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .atkdeck-icon-clickable { cursor: pointer; border-radius: 6px; transition: background 0.15s; }
+    .atkdeck-icon-clickable:hover { background: var(--orange-soft); }
+    .atkdeck-icon-clickable:hover .atkdeck-icon-preview { outline: 2px solid var(--orange); outline-offset: 1px; }
+    .atkdeck-detail-row td { text-align: left; background: var(--bg); padding: 14px 16px; }
+    .atkdeck-guide-card { max-width: 340px; margin: 0 auto; background: #faf3e6; border: 1px solid #e8dcc2; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .atkdeck-guide-header { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
+    .atkdeck-guide-portrait { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); flex-shrink: 0; }
+    .atkdeck-guide-badge { flex: 1; min-width: 0; }
+    .atkdeck-guide-badge-text { background: #eee6fb; color: #6b4fa0; font-size: 14px; font-weight: 800; padding: 8px 14px; border-radius: 999px; text-align: center; }
+    .atkdeck-guide-badge-input { width: 100%; box-sizing: border-box; background: #eee6fb; color: #6b4fa0; font-size: 14px; font-weight: 800; padding: 8px 14px; border-radius: 999px; text-align: center; border: 1px solid #d9c9f2; }
+    .atkdeck-guide-statline-text { font-size: 13px; font-weight: 700; color: var(--ink); text-align: center; white-space: pre-line; }
+    .atkdeck-guide-statline-input { width: 100%; box-sizing: border-box; min-height: 52px; font-size: 13px; font-weight: 700; color: var(--ink); text-align: center; padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; resize: vertical; font-family: inherit; line-height: 1.5; }
+    .atkdeck-guide-grid { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .atkdeck-guide-gearbox { background: #e9e3f8; border-radius: 10px; padding: 10px 8px; text-align: center; display: flex; flex-direction: column; gap: 4px; }
+    .atkdeck-guide-gear-label { font-size: 12px; font-weight: 800; color: #6b4fa0; }
+    .atkdeck-guide-gear-value { font-size: 12px; font-weight: 600; color: var(--ink); }
+    .atkdeck-guide-gear-input { width: 100%; box-sizing: border-box; font-size: 12px; font-weight: 600; color: var(--ink); text-align: center; padding: 5px 6px; border: 1px solid var(--border); border-radius: 6px; }
+    .atkdeck-defdecks-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; align-items: flex-start; }
+    .atkdeck-defdeck-block { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 2px; }
+    .atkdeck-defdeck-block .atkdeck-icons-row { gap: 4px; }
+    .atkdeck-table td.atkdeck-defdecks-cell { padding-left: 6px; padding-right: 6px; }
+    .atkdeck-defdeck-del-btn { margin-top: 2px; }
+    .atkdeck-defdeck-add-btn { align-self: center; font-size: 12px; padding: 8px 14px; width: auto; }
+    @media (max-width:680px){
+      .atkdeck-table th, .atkdeck-table td { padding: 9px 6px; font-size: 13px; }
+      .atkdeck-defdecks-row { gap: 6px; }
+      .atkdeck-icon-preview { width: 38px; height: 38px; }
+    }
     .winrate-badge { display:inline-block; font-size:11px; font-weight:800; padding:3px 9px; border-radius:999px; white-space:nowrap; }
     .winrate-badge.wr-good { background:#e7f0e2; color:#3f6b2f; }
     .winrate-badge.wr-mid { background:#f4efe3; color:#8a6d3b; }
@@ -494,11 +580,10 @@
   <!-- 상단 네비게이션 바 -->
   <div class="top-nav">
     <div class="logo"></div>
-    <div class="nav-links">
-      <div id="tab-total" class="nav-link active active-total">길드전</div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); white-space:nowrap;">👥 오늘 0명</div>
+      <button id="admin-mode-btn" class="admin-btn">🔒 관리자</button>
     </div>
-    <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); margin-right:10px; white-space:nowrap;">👥 오늘 23명</div>
-    <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
   </div>
 
   <div class="container">
@@ -506,7 +591,7 @@
     <div class="gcd-notice-box" style="display:none;">
       <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
         <span>📢 길드전 및 총력전 세팅</span>
-        <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display: inline-block;">✏️ 수정</button>
+        <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display: none;">✏️ 수정</button>
       </div>
       <div id="notice-content">도면 길드전 내용 위주로 작성합니다.<br><br>길드전 해보신 후 피드백 적극 수용합니다.<br></div>
       <div id="notice-edit-area" style="display:none; margin-top:8px;">
@@ -521,7 +606,8 @@
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
       <button class="add-btn" id="toggle-add-btn" style="display: none;">+ 덱 추가하기</button>
-      <button class="add-btn" id="show-deeplink-table-btn" style="display: flex; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
+      <button class="add-btn" id="show-deeplink-table-btn" style="display: none; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
+      <button class="add-btn" id="wipe-old-counter-data-btn" style="display: none; background: #b91c1c;">🗑️ 예전 카운터덱 데이터 전체 삭제</button>
     </div>
 
     <!-- 딥링크 표 모달 -->
@@ -1099,415 +1185,23 @@
     </div>
 
 
-    <!-- 폼 영역 (공격덱 추가) -->
-    <div class="gcd-search-box" id="gcd-add-tot-section" style="display: none; background: rgb(255, 247, 237); border-color: rgb(254, 215, 170);">
-      <div class="gcd-quick-title" style="color:#c2410c;" id="tot-form-title">➕ 공격덱 추가</div>
-      <input type="hidden" id="custom-tot-id" value="">
-      <label class="gcd-label" style="display:none;">공격덱 이름 (대표 영웅 이름으로 자동 생성됨)</label>
-      <input type="text" id="custom-tot-name" class="gcd-input" readonly="" style="display:none;">
-      <label class="gcd-label">검색 키워드 (쉼표로 구분)</label>
-      <input type="text" id="custom-tot-keywords" class="gcd-input">
-
-      <label class="gcd-label">🏷️ 덱 구분</label>
-      <select id="custom-tot-type" class="gcd-select">
-        <option value="공덱" selected="">공덱</option>
-        <option value="마덱">마덱</option>
-        <option value="방덱">방덱</option>
-      </select>
-
-      <label class="gcd-label">🖼️ 목록에 표시할 대표 영웅 이미지 (최대 4명, 선택사항 — 안 넣으면 예전처럼 텍스트로 표시됨)</label>
-      <div class="slot-input-grid" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 1</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 0)">📥</button></div><input type="hidden" id="tot-title-name-0"><input type="text" id="tot-title-img-0" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 2</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 1)">📥</button></div><input type="hidden" id="tot-title-name-1"><input type="text" id="tot-title-img-1" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 3</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 2)">📥</button></div><input type="hidden" id="tot-title-name-2"><input type="text" id="tot-title-img-2" placeholder="이미지 URL"></div>
-        <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>영웅 4</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadTitleHeroModal('tot', 3)">📥</button></div><input type="hidden" id="tot-title-name-3"><input type="text" id="tot-title-img-3" placeholder="이미지 URL"></div>
-      </div>
-      
-      <div id="tot-counter-builder">
-        <label class="gcd-label" style="font-size:14px; color:#c2410c; margin-top:12px;">⚔️ 카운터 조합 구성 (여러 개 추가 가능)</label>
-        <div id="tot-cards-container"><div class="tot-builder-box" data-cid="cmuifwn03vpoadt">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <b>조합 #1</b>
-          <button type="button" class="btn-mini-del" onclick="window.removeBuilderCard('t', 0)">삭제</button>
-        </div>
-        <label class="gcd-label">조합 타이틀 (상대 조합 이름, 예: 라드그리드 · 손오공 · 아리스)</label>
-        <input type="text" class="gcd-input t-title" value="1. 조합 세트" placeholder="예: 1. 라드그리드 · 손오공 · 아리스">
-        
-        <label class="gcd-label">진형 선택</label>
-        <select class="gcd-select t-form">
-          <option value="기본 진형" selected="">기본 진형</option>
-          <option value="밸런스 진형">밸런스 진형</option>
-          <option value="공격 진형">공격 진형</option>
-          <option value="보호 진형">보호 진형</option>
-        </select>
-
-        <label class="gcd-label" style="margin-top:10px;">🛡️ 진형 슬롯별 영웅 이미지 및 개별 상세정보</label>
-        
-          <div class="slot-row-builder">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 1</label>
-              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 0)">📥 영웅 불러오기</button>
-            </div>
-            <div class="slot-row-grid">
-              <input type="text" class="gcd-input t-slot-name-0" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
-              <input type="text" class="gcd-input t-slot-img-0" value="" placeholder="이미지 주소(URL)" style="margin:0;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 0, 1)">📥 반지1 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring1-name-0" value="" placeholder="반지1 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring1-0" value="" placeholder="반지1 이미지 URL" style="margin:0;">
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 0, 2)">📥 반지2 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring2-name-0" value="" placeholder="반지2 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring2-0" value="" placeholder="반지2 이미지 URL" style="margin:0;">
-              </div>
-              <input type="text" class="gcd-input t-slot-job-0" value="" placeholder="직업 (예: 암살자)" style="margin-top:8px;">
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:6px;">
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w1-0-0')">📥</button></div><input type="text" id="t-w1-0-0" class="gcd-input t-slot-w1-0" value="" placeholder="예: 모든 공격력(%)"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w2-0-0')">📥</button></div><input type="text" id="t-w2-0-0" class="gcd-input t-slot-w2-0" value="" placeholder="예: 치명타 확률"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a1-0-0')">📥</button></div><input type="text" id="t-a1-0-0" class="gcd-input t-slot-a1-0" value="" placeholder="예: 효과 적중"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a2-0-0')">📥</button></div><input type="text" id="t-a2-0-0" class="gcd-input t-slot-a2-0" value="" placeholder="예: 받는 피해 감소"></div>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-size:10px; font-weight:800; color:#9ca3af;">⚡ 스킬 예약 (최대 3개, 우선순위 숫자)</span></div>
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:4px;">
-                <div class="slot-input-box"><label>스킬1 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill1-img-0-0" class="gcd-input t-slot-skill1-img-0" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill1-img-0-0')">📥</button><input type="text" class="gcd-input t-slot-skill1-pri-0" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill2-img-0-0" class="gcd-input t-slot-skill2-img-0" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill2-img-0-0')">📥</button><input type="text" class="gcd-input t-slot-skill2-pri-0" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill3-img-0-0" class="gcd-input t-slot-skill3-img-0" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill3-img-0-0')">📥</button><input type="text" class="gcd-input t-slot-skill3-pri-0" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-              </div>
-              <textarea class="gcd-textarea t-slot-info-0" placeholder="세팅 디테일 메모 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
-            </div>
-          </div>
-        
-          <div class="slot-row-builder">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 2</label>
-              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 1)">📥 영웅 불러오기</button>
-            </div>
-            <div class="slot-row-grid">
-              <input type="text" class="gcd-input t-slot-name-1" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
-              <input type="text" class="gcd-input t-slot-img-1" value="" placeholder="이미지 주소(URL)" style="margin:0;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 1, 1)">📥 반지1 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring1-name-1" value="" placeholder="반지1 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring1-1" value="" placeholder="반지1 이미지 URL" style="margin:0;">
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 1, 2)">📥 반지2 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring2-name-1" value="" placeholder="반지2 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring2-1" value="" placeholder="반지2 이미지 URL" style="margin:0;">
-              </div>
-              <input type="text" class="gcd-input t-slot-job-1" value="" placeholder="직업 (예: 암살자)" style="margin-top:8px;">
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:6px;">
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w1-0-1')">📥</button></div><input type="text" id="t-w1-0-1" class="gcd-input t-slot-w1-1" value="" placeholder="예: 모든 공격력(%)"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w2-0-1')">📥</button></div><input type="text" id="t-w2-0-1" class="gcd-input t-slot-w2-1" value="" placeholder="예: 치명타 확률"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a1-0-1')">📥</button></div><input type="text" id="t-a1-0-1" class="gcd-input t-slot-a1-1" value="" placeholder="예: 효과 적중"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a2-0-1')">📥</button></div><input type="text" id="t-a2-0-1" class="gcd-input t-slot-a2-1" value="" placeholder="예: 받는 피해 감소"></div>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-size:10px; font-weight:800; color:#9ca3af;">⚡ 스킬 예약 (최대 3개, 우선순위 숫자)</span></div>
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:4px;">
-                <div class="slot-input-box"><label>스킬1 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill1-img-0-1" class="gcd-input t-slot-skill1-img-1" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill1-img-0-1')">📥</button><input type="text" class="gcd-input t-slot-skill1-pri-1" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill2-img-0-1" class="gcd-input t-slot-skill2-img-1" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill2-img-0-1')">📥</button><input type="text" class="gcd-input t-slot-skill2-pri-1" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill3-img-0-1" class="gcd-input t-slot-skill3-img-1" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill3-img-0-1')">📥</button><input type="text" class="gcd-input t-slot-skill3-pri-1" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-              </div>
-              <textarea class="gcd-textarea t-slot-info-1" placeholder="세팅 디테일 메모 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
-            </div>
-          </div>
-        
-          <div class="slot-row-builder">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 3</label>
-              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 2)">📥 영웅 불러오기</button>
-            </div>
-            <div class="slot-row-grid">
-              <input type="text" class="gcd-input t-slot-name-2" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
-              <input type="text" class="gcd-input t-slot-img-2" value="" placeholder="이미지 주소(URL)" style="margin:0;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 2, 1)">📥 반지1 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring1-name-2" value="" placeholder="반지1 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring1-2" value="" placeholder="반지1 이미지 URL" style="margin:0;">
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 2, 2)">📥 반지2 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring2-name-2" value="" placeholder="반지2 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring2-2" value="" placeholder="반지2 이미지 URL" style="margin:0;">
-              </div>
-              <input type="text" class="gcd-input t-slot-job-2" value="" placeholder="직업 (예: 암살자)" style="margin-top:8px;">
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:6px;">
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w1-0-2')">📥</button></div><input type="text" id="t-w1-0-2" class="gcd-input t-slot-w1-2" value="" placeholder="예: 모든 공격력(%)"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w2-0-2')">📥</button></div><input type="text" id="t-w2-0-2" class="gcd-input t-slot-w2-2" value="" placeholder="예: 치명타 확률"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a1-0-2')">📥</button></div><input type="text" id="t-a1-0-2" class="gcd-input t-slot-a1-2" value="" placeholder="예: 효과 적중"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a2-0-2')">📥</button></div><input type="text" id="t-a2-0-2" class="gcd-input t-slot-a2-2" value="" placeholder="예: 받는 피해 감소"></div>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-size:10px; font-weight:800; color:#9ca3af;">⚡ 스킬 예약 (최대 3개, 우선순위 숫자)</span></div>
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:4px;">
-                <div class="slot-input-box"><label>스킬1 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill1-img-0-2" class="gcd-input t-slot-skill1-img-2" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill1-img-0-2')">📥</button><input type="text" class="gcd-input t-slot-skill1-pri-2" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill2-img-0-2" class="gcd-input t-slot-skill2-img-2" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill2-img-0-2')">📥</button><input type="text" class="gcd-input t-slot-skill2-pri-2" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill3-img-0-2" class="gcd-input t-slot-skill3-img-2" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill3-img-0-2')">📥</button><input type="text" class="gcd-input t-slot-skill3-pri-2" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-              </div>
-              <textarea class="gcd-textarea t-slot-info-2" placeholder="세팅 디테일 메모 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
-            </div>
-          </div>
-        
-          <div class="slot-row-builder">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 후열 4</label>
-              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 3)">📥 영웅 불러오기</button>
-            </div>
-            <div class="slot-row-grid">
-              <input type="text" class="gcd-input t-slot-name-3" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
-              <input type="text" class="gcd-input t-slot-img-3" value="" placeholder="이미지 주소(URL)" style="margin:0;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 3, 1)">📥 반지1 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring1-name-3" value="" placeholder="반지1 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring1-3" value="" placeholder="반지1 이미지 URL" style="margin:0;">
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 3, 2)">📥 반지2 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring2-name-3" value="" placeholder="반지2 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring2-3" value="" placeholder="반지2 이미지 URL" style="margin:0;">
-              </div>
-              <input type="text" class="gcd-input t-slot-job-3" value="" placeholder="직업 (예: 암살자)" style="margin-top:8px;">
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:6px;">
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w1-0-3')">📥</button></div><input type="text" id="t-w1-0-3" class="gcd-input t-slot-w1-3" value="" placeholder="예: 모든 공격력(%)"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w2-0-3')">📥</button></div><input type="text" id="t-w2-0-3" class="gcd-input t-slot-w2-3" value="" placeholder="예: 치명타 확률"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a1-0-3')">📥</button></div><input type="text" id="t-a1-0-3" class="gcd-input t-slot-a1-3" value="" placeholder="예: 효과 적중"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a2-0-3')">📥</button></div><input type="text" id="t-a2-0-3" class="gcd-input t-slot-a2-3" value="" placeholder="예: 받는 피해 감소"></div>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-size:10px; font-weight:800; color:#9ca3af;">⚡ 스킬 예약 (최대 3개, 우선순위 숫자)</span></div>
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:4px;">
-                <div class="slot-input-box"><label>스킬1 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill1-img-0-3" class="gcd-input t-slot-skill1-img-3" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill1-img-0-3')">📥</button><input type="text" class="gcd-input t-slot-skill1-pri-3" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill2-img-0-3" class="gcd-input t-slot-skill2-img-3" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill2-img-0-3')">📥</button><input type="text" class="gcd-input t-slot-skill2-pri-3" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill3-img-0-3" class="gcd-input t-slot-skill3-img-3" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill3-img-0-3')">📥</button><input type="text" class="gcd-input t-slot-skill3-pri-3" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-              </div>
-              <textarea class="gcd-textarea t-slot-info-3" placeholder="세팅 디테일 메모 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
-            </div>
-          </div>
-        
-          <div class="slot-row-builder">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 1</label>
-              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 4)">📥 영웅 불러오기</button>
-            </div>
-            <div class="slot-row-grid">
-              <input type="text" class="gcd-input t-slot-name-4" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
-              <input type="text" class="gcd-input t-slot-img-4" value="" placeholder="이미지 주소(URL)" style="margin:0;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 4, 1)">📥 반지1 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring1-name-4" value="" placeholder="반지1 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring1-4" value="" placeholder="반지1 이미지 URL" style="margin:0;">
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 4, 2)">📥 반지2 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring2-name-4" value="" placeholder="반지2 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring2-4" value="" placeholder="반지2 이미지 URL" style="margin:0;">
-              </div>
-              <input type="text" class="gcd-input t-slot-job-4" value="" placeholder="직업 (예: 암살자)" style="margin-top:8px;">
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:6px;">
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w1-0-4')">📥</button></div><input type="text" id="t-w1-0-4" class="gcd-input t-slot-w1-4" value="" placeholder="예: 모든 공격력(%)"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w2-0-4')">📥</button></div><input type="text" id="t-w2-0-4" class="gcd-input t-slot-w2-4" value="" placeholder="예: 치명타 확률"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a1-0-4')">📥</button></div><input type="text" id="t-a1-0-4" class="gcd-input t-slot-a1-4" value="" placeholder="예: 효과 적중"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a2-0-4')">📥</button></div><input type="text" id="t-a2-0-4" class="gcd-input t-slot-a2-4" value="" placeholder="예: 받는 피해 감소"></div>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-size:10px; font-weight:800; color:#9ca3af;">⚡ 스킬 예약 (최대 3개, 우선순위 숫자)</span></div>
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:4px;">
-                <div class="slot-input-box"><label>스킬1 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill1-img-0-4" class="gcd-input t-slot-skill1-img-4" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill1-img-0-4')">📥</button><input type="text" class="gcd-input t-slot-skill1-pri-4" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill2-img-0-4" class="gcd-input t-slot-skill2-img-4" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill2-img-0-4')">📥</button><input type="text" class="gcd-input t-slot-skill2-pri-4" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill3-img-0-4" class="gcd-input t-slot-skill3-img-4" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill3-img-0-4')">📥</button><input type="text" class="gcd-input t-slot-skill3-pri-4" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-              </div>
-              <textarea class="gcd-textarea t-slot-info-4" placeholder="세팅 디테일 메모 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
-            </div>
-          </div>
-        
-          <div class="slot-row-builder">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 2</label>
-              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 5)">📥 영웅 불러오기</button>
-            </div>
-            <div class="slot-row-grid">
-              <input type="text" class="gcd-input t-slot-name-5" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
-              <input type="text" class="gcd-input t-slot-img-5" value="" placeholder="이미지 주소(URL)" style="margin:0;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 5, 1)">📥 반지1 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring1-name-5" value="" placeholder="반지1 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring1-5" value="" placeholder="반지1 이미지 URL" style="margin:0;">
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 5, 2)">📥 반지2 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring2-name-5" value="" placeholder="반지2 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring2-5" value="" placeholder="반지2 이미지 URL" style="margin:0;">
-              </div>
-              <input type="text" class="gcd-input t-slot-job-5" value="" placeholder="직업 (예: 암살자)" style="margin-top:8px;">
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:6px;">
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w1-0-5')">📥</button></div><input type="text" id="t-w1-0-5" class="gcd-input t-slot-w1-5" value="" placeholder="예: 모든 공격력(%)"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w2-0-5')">📥</button></div><input type="text" id="t-w2-0-5" class="gcd-input t-slot-w2-5" value="" placeholder="예: 치명타 확률"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a1-0-5')">📥</button></div><input type="text" id="t-a1-0-5" class="gcd-input t-slot-a1-5" value="" placeholder="예: 효과 적중"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a2-0-5')">📥</button></div><input type="text" id="t-a2-0-5" class="gcd-input t-slot-a2-5" value="" placeholder="예: 받는 피해 감소"></div>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-size:10px; font-weight:800; color:#9ca3af;">⚡ 스킬 예약 (최대 3개, 우선순위 숫자)</span></div>
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:4px;">
-                <div class="slot-input-box"><label>스킬1 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill1-img-0-5" class="gcd-input t-slot-skill1-img-5" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill1-img-0-5')">📥</button><input type="text" class="gcd-input t-slot-skill1-pri-5" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill2-img-0-5" class="gcd-input t-slot-skill2-img-5" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill2-img-0-5')">📥</button><input type="text" class="gcd-input t-slot-skill2-pri-5" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill3-img-0-5" class="gcd-input t-slot-skill3-img-5" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill3-img-0-5')">📥</button><input type="text" class="gcd-input t-slot-skill3-pri-5" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-              </div>
-              <textarea class="gcd-textarea t-slot-info-5" placeholder="세팅 디테일 메모 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
-            </div>
-          </div>
-        
-          <div class="slot-row-builder">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 3</label>
-              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 6)">📥 영웅 불러오기</button>
-            </div>
-            <div class="slot-row-grid">
-              <input type="text" class="gcd-input t-slot-name-6" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
-              <input type="text" class="gcd-input t-slot-img-6" value="" placeholder="이미지 주소(URL)" style="margin:0;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 6, 1)">📥 반지1 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring1-name-6" value="" placeholder="반지1 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring1-6" value="" placeholder="반지1 이미지 URL" style="margin:0;">
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 6, 2)">📥 반지2 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring2-name-6" value="" placeholder="반지2 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring2-6" value="" placeholder="반지2 이미지 URL" style="margin:0;">
-              </div>
-              <input type="text" class="gcd-input t-slot-job-6" value="" placeholder="직업 (예: 암살자)" style="margin-top:8px;">
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:6px;">
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w1-0-6')">📥</button></div><input type="text" id="t-w1-0-6" class="gcd-input t-slot-w1-6" value="" placeholder="예: 모든 공격력(%)"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w2-0-6')">📥</button></div><input type="text" id="t-w2-0-6" class="gcd-input t-slot-w2-6" value="" placeholder="예: 치명타 확률"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a1-0-6')">📥</button></div><input type="text" id="t-a1-0-6" class="gcd-input t-slot-a1-6" value="" placeholder="예: 효과 적중"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a2-0-6')">📥</button></div><input type="text" id="t-a2-0-6" class="gcd-input t-slot-a2-6" value="" placeholder="예: 받는 피해 감소"></div>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-size:10px; font-weight:800; color:#9ca3af;">⚡ 스킬 예약 (최대 3개, 우선순위 숫자)</span></div>
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:4px;">
-                <div class="slot-input-box"><label>스킬1 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill1-img-0-6" class="gcd-input t-slot-skill1-img-6" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill1-img-0-6')">📥</button><input type="text" class="gcd-input t-slot-skill1-pri-6" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill2-img-0-6" class="gcd-input t-slot-skill2-img-6" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill2-img-0-6')">📥</button><input type="text" class="gcd-input t-slot-skill2-pri-6" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill3-img-0-6" class="gcd-input t-slot-skill3-img-6" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill3-img-0-6')">📥</button><input type="text" class="gcd-input t-slot-skill3-pri-6" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-              </div>
-              <textarea class="gcd-textarea t-slot-info-6" placeholder="세팅 디테일 메모 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
-            </div>
-          </div>
-        
-          <div class="slot-row-builder">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <label style="font-size:11px; font-weight:800; color:#374151; display:block;">📍 전열 4</label>
-              <button type="button" class="btn-mini-edit" style="font-size:11px; padding:3px 8px;" onclick="window.openLoadSlotModal(this, 7)">📥 영웅 불러오기</button>
-            </div>
-            <div class="slot-row-grid">
-              <input type="text" class="gcd-input t-slot-name-7" value="" placeholder="영웅 이름 (이미지 밑에 표시됨)" style="margin:0 0 6px 0;">
-              <input type="text" class="gcd-input t-slot-img-7" value="" placeholder="이미지 주소(URL)" style="margin:0;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지1</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 7, 1)">📥 반지1 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring1-name-7" value="" placeholder="반지1 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring1-7" value="" placeholder="반지1 이미지 URL" style="margin:0;">
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-                <span style="font-size:10px; font-weight:800; color:#9ca3af;">💍 반지2</span>
-                <button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadRingModal(this, 7, 2)">📥 반지2 불러오기</button>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-                <input type="text" class="gcd-input t-slot-ring2-name-7" value="" placeholder="반지2 이름" style="margin:0;">
-                <input type="text" class="gcd-input t-slot-ring2-7" value="" placeholder="반지2 이미지 URL" style="margin:0;">
-              </div>
-              <input type="text" class="gcd-input t-slot-job-7" value="" placeholder="직업 (예: 암살자)" style="margin-top:8px;">
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:6px;">
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w1-0-7')">📥</button></div><input type="text" id="t-w1-0-7" class="gcd-input t-slot-w1-7" value="" placeholder="예: 모든 공격력(%)"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>무기2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-w2-0-7')">📥</button></div><input type="text" id="t-w2-0-7" class="gcd-input t-slot-w2-7" value="" placeholder="예: 치명타 확률"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구1</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a1-0-7')">📥</button></div><input type="text" id="t-a1-0-7" class="gcd-input t-slot-a1-7" value="" placeholder="예: 효과 적중"></div>
-                <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>방어구2</label><button type="button" class="btn-mini-edit" style="font-size:9px; padding:2px 5px; margin-left:0;" onclick="window.openLoadGearTextModal('t-a2-0-7')">📥</button></div><input type="text" id="t-a2-0-7" class="gcd-input t-slot-a2-7" value="" placeholder="예: 받는 피해 감소"></div>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;"><span style="font-size:10px; font-weight:800; color:#9ca3af;">⚡ 스킬 예약 (최대 3개, 우선순위 숫자)</span></div>
-              <div class="slot-input-grid" style="grid-template-columns: 1fr; margin-top:4px;">
-                <div class="slot-input-box"><label>스킬1 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill1-img-0-7" class="gcd-input t-slot-skill1-img-7" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill1-img-0-7')">📥</button><input type="text" class="gcd-input t-slot-skill1-pri-7" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬2 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill2-img-0-7" class="gcd-input t-slot-skill2-img-7" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill2-img-0-7')">📥</button><input type="text" class="gcd-input t-slot-skill2-pri-7" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-                <div class="slot-input-box"><label>스킬3 이미지 / 순위</label><div style="display:flex; gap:4px;"><input type="text" id="t-skill3-img-0-7" class="gcd-input t-slot-skill3-img-7" value="" placeholder="이미지 URL" style="margin:0;"><button type="button" class="btn-mini-edit" style="margin:0; padding:0 8px;" onclick="window.openLoadSkillModal('t-skill3-img-0-7')">📥</button><input type="text" class="gcd-input t-slot-skill3-pri-7" value="" placeholder="#" style="margin:0; width:36px; text-align:center;"></div></div>
-              </div>
-              <textarea class="gcd-textarea t-slot-info-7" placeholder="세팅 디테일 메모 (엔터 줄바꿈 가능)" style="margin-top:6px; height:60px;"></textarea>
-            </div>
-          </div>
-        
-
-        <label class="gcd-label" style="margin-top:10px;">🐾 펫 (최대 2마리, 선택사항 — 진형판 옆에 표시됨)</label>
-        <div class="slot-input-grid" style="grid-template-columns: repeat(2, 1fr);">
-          <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>펫 1</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadPetModal(this, 0)">📥 불러오기</button></div><input type="hidden" class="gcd-input t-pet-name-0" value=""></div>
-          <div class="slot-input-box"><label>펫 1 이미지 URL</label><input type="text" class="gcd-input t-pet-img-0" value="" placeholder="이미지 URL"></div>
-          <div class="slot-input-box"><div style="display:flex; justify-content:space-between; align-items:center;"><label>펫 2</label><button type="button" class="btn-mini-edit" style="font-size:10px; padding:2px 6px;" onclick="window.openLoadPetModal(this, 1)">📥 불러오기</button></div><input type="hidden" class="gcd-input t-pet-name-1" value=""></div>
-          <div class="slot-input-box"><label>펫 2 이미지 URL</label><input type="text" class="gcd-input t-pet-img-1" value="" placeholder="이미지 URL"></div>
-        </div>
-
-        <label class="gcd-label" style="margin-top:10px;">🎥 영상 링크 (유튜브 - 카드에서 바로 재생됨, 선택사항)</label>
-        <input type="text" class="gcd-input t-video" value="" placeholder="예: https://youtu.be/XXXXXXXXXXX 또는 https://www.youtube.com/watch?v=XXXXXXXXXXX">
-
-        <label class="gcd-label" style="margin-top:10px; display:none;">상세 공략 내용 (줄바꿈 가능)</label>
-        <textarea class="gcd-textarea t-body" style="height:60px; display:none;" placeholder="스킬 순서 및 세팅"></textarea>
-      </div></div>
-        <button type="button" id="add-tot-card-btn" class="gcd-btn-action" style="background:#ea580c; margin-top:8px;">+ 카운터 조합 추가하기</button>
-      </div>
-
-      <button id="save-custom-tot-btn" class="gcd-btn-action" style="background:#ea580c; margin-top:16px;">💾 공격덱 전체 저장</button>
-    </div>
 
     <!-- 검색 바 -->
-    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: block;">⚔️ 길드전 공격 구성 덱</div>
+    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: none;">⚔️ 길드전 공격 구성 덱</div>
     <!-- 길드전 공격 하위 탭 (카운터 모음 / 공격 루트안) -->
-    <div id="tot-subtabs" style="display: none; gap: 8px; margin-bottom: 14px;">
-      <div id="tot-section-counter" class="tot-section-pill active-total">🎯 카운터덱</div>
-      <div id="tot-section-route" class="tot-section-pill">🗺️ 공격 루트</div>
-      <div id="tot-section-def" class="tot-section-pill">🛡️ 방어덱</div>
+    <div id="tot-subtabs" style="display: flex; gap: 8px; margin-bottom: 14px;">
+      <div id="tot-section-route" class="tot-section-pill active-total active-route">공격 루트</div>
+      <div id="tot-section-atkdeck" class="tot-section-pill">공격덱</div>
+      <div id="tot-section-def" class="tot-section-pill">방어덱</div>
     </div>
     <!-- 공격 루트안: 외성/내성/본성 × 1안~N안 스프레드시트 형태 표 -->
-    <div id="route-plan-list-wrapper" style="display: none;">
+    <div id="route-plan-list-wrapper" style="display: block;">
       <div id="route-notice-box" class="gcd-notice-box" style="display: block; margin-bottom: 20px;">
         <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
-          <span>📢 공격 루트안 공지</span>
+          <span>공지사항</span>
           <button type="button" id="route-notice-edit-btn" class="btn-mini-edit" style="display: none;">✏️ 수정</button>
         </div>
-        <div id="route-notice-content"></div>
+        <div id="route-notice-content">ⓐ 장신구 및 덱에 따라 하나 정해서 공격 권장드립니다.<br>ⓑ 특이사항 없을 시 루트대로 공격 진행 부탁드립니다.<br>ⓒ 카운터 모를 시 맨션주세요.<br>★★ 내성, 본성은 상황에 맞게 해주세요.<br><br>여포 6권불 탄지로 6권불 란드그리드 6불 &lt; 테스트 중 사용 금지</div>
         <div id="route-notice-edit-area" style="display:none; margin-top:8px;">
           <textarea id="route-notice-edit-textarea" class="gcd-input" style="width:100%; height:100px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
           <div style="display:flex; gap:8px; margin-top:8px;">
@@ -1519,7 +1213,214 @@
       <div class="route-table-toolbar" id="route-table-admin-toolbar" style="display:none;">
         <button type="button" id="route-table-edit-toggle-btn" class="gcd-btn-action" style="background:#2563eb; width:auto; padding:8px 16px;">✏️ 표 편집</button>
       </div>
-      <div id="route-table-wrap"></div>
+      <div id="route-table-wrap"><div class="route-table-group"><div class="route-table-scroller"><table class="route-table"><thead><tr><th class="route-table-corner"></th><th colspan="3" style="background:#15803d;">팀A</th><th class="route-table-divider-col"></th><th colspan="3" style="background:#1d4ed8;">팀B</th></tr></thead><tbody><tr><td class="route-table-cat" rowspan="1">외성</td><td class="route-table-cell"><div class="route-table-hero-name">라드그리드</div><div class="route-table-hero-tier">5부</div></td><td class="route-table-cell"><div class="route-table-hero-name">손오공</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-cell"><div class="route-table-hero-name">아리스</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-divider-col" rowspan="7"></td><td class="route-table-cell"><div class="route-table-hero-name">라드그리드</div><div class="route-table-hero-tier">5부</div></td><td class="route-table-cell"><div class="route-table-hero-name">손오공</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-cell"><div class="route-table-hero-name">아리스</div><div class="route-table-hero-tier">기합</div></td></tr><tr><td class="route-table-cat" rowspan="1">내성</td><td class="route-table-cell"><div class="route-table-hero-name">루디</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">겔리두스</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">클레미스</div><div class="route-table-hero-tier">5불</div></td><td class="route-table-cell"><div class="route-table-hero-name">루디</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">겔리두스</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">클레미스</div><div class="route-table-hero-tier">5불</div></td></tr><tr><td class="route-table-cat" rowspan="5">본성</td><td class="route-table-cell"><div class="route-table-hero-name">선란</div><div class="route-table-hero-tier">6권기</div></td><td class="route-table-cell"><div class="route-table-hero-name">하연</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">칼헤론</div><div class="route-table-hero-tier">6권불</div></td><td class="route-table-cell"><div class="route-table-hero-name">선란</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">하연</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">칼헤론</div><div class="route-table-hero-tier">6권불</div></td></tr><tr><td class="route-table-cell"><div class="route-table-hero-name">오목</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">동영</div><div class="route-table-hero-tier">X</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td><td class="route-table-cell"><div class="route-table-hero-name">헬레니아</div><div class="route-table-hero-tier">6부철</div></td><td class="route-table-cell"><div class="route-table-hero-name">겔리두스</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">하연</div><div class="route-table-hero-tier">6부</div></td></tr><tr><td class="route-table-cell"><div class="route-table-hero-name">밀리아</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">스쿨드</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td><td class="route-table-cell"><div class="route-table-hero-name">오목</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">동영</div><div class="route-table-hero-tier">X</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td></tr><tr><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell"><div class="route-table-hero-name">밀리아</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">스쿨드</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td></tr><tr><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell"><div class="route-table-hero-name">젠이츠</div><div class="route-table-hero-tier">6대권</div></td><td class="route-table-cell"><div class="route-table-hero-name">탄지로</div><div class="route-table-hero-tier">6권불</div></td><td class="route-table-cell"><div class="route-table-hero-name">아일린</div><div class="route-table-hero-tier">6권불</div></td></tr></tbody></table></div><div class="route-table-scroller"><table class="route-table"><thead><tr><th class="route-table-corner"></th><th colspan="3" style="background:#b45309;">팀C</th><th class="route-table-divider-col"></th><th colspan="3" style="background:#7e22ce;">팀D</th></tr></thead><tbody><tr><td class="route-table-cat" rowspan="2">외성</td><td class="route-table-cell"><div class="route-table-hero-name">라드그리드</div><div class="route-table-hero-tier">5부</div></td><td class="route-table-cell"><div class="route-table-hero-name">손오공</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-cell"><div class="route-table-hero-name">아리스</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-divider-col" rowspan="8"></td><td class="route-table-cell"><div class="route-table-hero-name">선란</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">발리스타</div><div class="route-table-hero-tier">5불권</div></td><td class="route-table-cell"><div class="route-table-hero-name">콜트(카일)</div><div class="route-table-hero-tier">5불권</div></td></tr><tr><td class="route-table-cell"><div class="route-table-hero-name">연희</div><div class="route-table-hero-tier">5불</div></td><td class="route-table-cell"><div class="route-table-hero-name">동영</div><div class="route-table-hero-tier">5불권</div></td><td class="route-table-cell"><div class="route-table-hero-name">실베스타</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">라드그리드</div><div class="route-table-hero-tier">5부</div></td><td class="route-table-cell"><div class="route-table-hero-name">손오공</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-cell"><div class="route-table-hero-name">아리스</div><div class="route-table-hero-tier">기합</div></td></tr><tr><td class="route-table-cat" rowspan="2">내성</td><td class="route-table-cell"><div class="route-table-hero-name">루디</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">겔리두스</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">클레미스</div><div class="route-table-hero-tier">5불</div></td><td class="route-table-cell"><div class="route-table-hero-name">루디</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">겔리두스</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">클레미스</div><div class="route-table-hero-tier">5불</div></td></tr><tr><td class="route-table-cell"><div class="route-table-hero-name">초선</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">밀리아</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td></tr><tr><td class="route-table-cat" rowspan="4">본성</td><td class="route-table-cell"><div class="route-table-hero-name">선란</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">하연</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">칼헤론</div><div class="route-table-hero-tier">6권불</div></td><td class="route-table-cell"><div class="route-table-hero-name">헬레니아</div><div class="route-table-hero-tier">6권기</div></td><td class="route-table-cell"><div class="route-table-hero-name">하연</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">아일린</div><div class="route-table-hero-tier">6권불</div></td></tr><tr><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell"><div class="route-table-hero-name">밀리아</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">스쿨드</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td></tr><tr><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell"><div class="route-table-hero-name">스쿨드</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">동영</div><div class="route-table-hero-tier">X</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td></tr><tr><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell"><div class="route-table-hero-name">오목</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">동영</div><div class="route-table-hero-tier">X</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td></tr></tbody></table></div></div></div>
+    </div>
+    <!-- 공격덱: "영웅 이미지 3장 + 공격 시 → 상대 방어덱" 목록. 관리자는 표 안에서 바로 입력/저장 -->
+    <div id="atkdeck-list-wrapper" style="display: none;">
+      <div id="atkdeck-notice-box" class="gcd-notice-box" style="margin-bottom: 20px;">
+        <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
+          <span>공지사항</span>
+          <button type="button" id="atkdeck-notice-edit-btn" class="btn-mini-edit" style="display: none;">✏️ 수정</button>
+        </div>
+        <div id="atkdeck-notice-content"></div>
+        <div id="atkdeck-notice-edit-area" style="display:none; margin-top:8px;">
+          <textarea id="atkdeck-notice-edit-textarea" class="gcd-input" style="width:100%; height:100px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
+          <div style="display:flex; gap:8px; margin-top:8px;">
+            <button type="button" id="atkdeck-notice-save-btn" class="add-btn" style="background:#16a34a;">저장</button>
+            <button type="button" id="atkdeck-notice-cancel-btn" class="add-btn" style="background:#6b7280;">취소</button>
+          </div>
+        </div>
+      </div>
+      <div class="search-row" style="margin-bottom: 14px;">
+        <input type="text" id="atkdeck-search-input" class="gcd-input" style="margin:0;" placeholder="🔍 영웅 이름으로 검색...">
+      </div>
+      <div id="atkdeck-table-wrap">
+      <table class="atkdeck-table">
+        <thead><tr><th>공격덱</th><th class="atkdeck-arrow-head"><span class="atkdeck-arrow-head-arrow">→</span> 공격</th><th>상대 방어덱</th></tr></thead>
+        <tbody><tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="0" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/fkemrmflem.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="0" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/dhrhd.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="0" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">라오아</div><div class="atkdeck-memo2-text">스킬 : 오공2 아리스1 오공1</div></div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            <div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/fnel.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/rpfflentm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">루겔아</div>
+          
+        </div><div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/image.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/tmznfem.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">밀실스</div>
+          
+        </div>
+            
+          </div>
+        </td>
+        
+      </tr><tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="1" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/DHAHR.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="1" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="1" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/fprls.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">목실레</div><div class="atkdeck-memo2-text">스킬 : 오목1 실베2 오2</div></div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            <div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/fnel.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/rpfflentm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">루겔아</div>
+          
+        </div>
+            
+          </div>
+        </td>
+        
+      </tr><tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="2" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="2" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/qkffltmxk.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="2" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">선발칼</div><div class="atkdeck-memo2-text">스킬 : 선란2 선란1 발리2</div></div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            <div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/image.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/tmznfem.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">밀실스</div>
+          
+        </div>
+            
+          </div>
+        </td>
+        
+      </tr><tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="3" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="3" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="3" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">여델칼</div><div class="atkdeck-memo2-text">스킬 : 여포1 여포2 델론즈2</div></div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            <div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">선델클</div>
+          
+        </div>
+            
+          </div>
+        </td>
+        
+      </tr><tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="4" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/fkemrmflem.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="4" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/dhrhd.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="4" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">라오클</div><div class="atkdeck-memo2-text">스킬 : 클레2 오공2 클레1</div></div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            <div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">선델클</div>
+          
+        </div>
+            
+          </div>
+        </td>
+        
+      </tr><tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="5" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/chtjs.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="5" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="5" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">초선델</div><div class="atkdeck-memo2-text">스킬 : 초선2 델론즈2 선란1</div></div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            <div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">선델클</div>
+          
+        </div>
+            
+          </div>
+        </td>
+        
+      </tr><tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="6" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/fnel.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="6" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/rpfflentm.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="6" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">루겔클</div><div class="atkdeck-memo2-text">스킬 : 클레1 루디2 겔두2</div></div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            <div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">선델오</div>
+          
+        </div>
+            
+          </div>
+        </td>
+        
+      </tr><tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="7" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/chtjs.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="7" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/ehddud.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="7" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/dbsrjs.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">초동윤</div><div class="atkdeck-memo2-text">스킬 : 초선2 윤건2 윤건1</div></div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            <div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">선델하</div>
+          
+        </div>
+            
+          </div>
+        </td>
+        
+      </tr><tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="8" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/dusgml.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="8" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/vmfpdldi.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="8" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">연프실</div><div class="atkdeck-memo2-text">스킬 : 연희2 실베1 실베2</div></div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            <div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">여올칼</div>
+          
+        </div>
+            
+          </div>
+        </td>
+        
+      </tr><tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="9" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/gpffpsldk.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="9" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="9" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/vkffksntm.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">헬하팔</div><div class="atkdeck-memo2-text">스킬 : 헬레1 헬레2 하연2</div></div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            <div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/dusgml.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/ehddud.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dbsrjs.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">연동윤</div>
+          
+        </div>
+            
+          </div>
+        </td>
+        
+      </tr><tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="10" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="10" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="10" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">선하칼</div><div class="atkdeck-memo2-text">스킬 : 선란1 하연2 선란2</div></div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            <div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/dbsrjs.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dusgml.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" class="atkdeck-icon-preview"></div>
+          <div class="atkdeck-memo-text">윤연하</div>
+          
+        </div>
+            
+          </div>
+        </td>
+        
+      </tr></tbody>
+      </table>
+      
+    </div>
     </div>
     <div class="gcd-search-box" id="gcd-search-section" style="padding: 16px 24px; display: none;">
       <div class="search-row">
@@ -1530,10 +1431,10 @@
 
     <div id="def-notice-box" class="gcd-notice-box" style="display: none; margin-bottom: 20px;">
       <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
-        <span>📢 방어덱 공지</span>
-        <button type="button" id="def-notice-edit-btn" class="btn-mini-edit" style="display: inline-block;">✏️ 수정</button>
+        <span>공지사항</span>
+        <button type="button" id="def-notice-edit-btn" class="btn-mini-edit" style="display: none;">✏️ 수정</button>
       </div>
-      <div id="def-notice-content">세팅 고정 → 덱 1위 - 4위<br>윤목하 또는 윤동목 사용 할 지 정하셔서 세팅해주시면됩니다.<br>4개 덱 외에 하나 뭐하실지 모르시겠다면 맨션주세요.<br>미리 수정 하신 분들은 프리셋 저장도 해놓으시면 편합니다 !<br><br>★ 기본 4덱 + a<br>윤동목 여선하 라겔아 밀스실 + a 덱<br><br>★ 4덱 동일 + a (윤목하 사용 시)<br>윤목하 여클칼 라겔아 밀스실 + a 덱</div>
+      <div id="def-notice-content"></div>
       <div id="def-notice-edit-area" style="display:none; margin-top:8px;">
         <textarea id="def-notice-edit-textarea" class="gcd-input" style="width:100%; height:100px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
         <div style="display:flex; gap:8px; margin-top:8px;">
@@ -1543,47 +1444,36 @@
       </div>
     </div>
 
-    <div id="atk-notice-box" class="gcd-notice-box" style="display: none; margin-bottom: 20px;">
-      <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
-        <span>📢 공격덱 공지</span>
-        <button type="button" id="atk-notice-edit-btn" class="btn-mini-edit" style="display: inline-block;">✏️ 수정</button>
-      </div>
-      <div id="atk-notice-content">운영진 호출해주세요.<br>ⓐ 영웅이 부족 할 경우<br>ⓑ 장신구 부족 할 경우<br>ⓒ 스펙이 안되는데 카운터 남은 경우</div>
-      <div id="atk-notice-edit-area" style="display:none; margin-top:8px;">
-        <textarea id="atk-notice-edit-textarea" class="gcd-input" style="width:100%; height:100px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
-        <div style="display:flex; gap:8px; margin-top:8px;">
-          <button type="button" id="atk-notice-save-btn" class="add-btn" style="background:#16a34a;">저장</button>
-          <button type="button" id="atk-notice-cancel-btn" class="add-btn" style="background:#6b7280;">취소</button>
-        </div>
-      </div>
-    </div>
-
     <!-- 리스트 영역 -->
     <div id="list-wrapper" style="display: none;">
-      <div class="list-header" id="list-header" style="display: grid;">
+      <div class="list-header" id="list-header" style="display: none;">
         <div>구분</div>
         <div>영웅 구성</div>
         <div style="text-align: center;">상세 공략 열기</div>
       </div>
-      <div id="gcd-deck-buttons"><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
+      <div id="gcd-deck-buttons"><div class="list-item picked-item">
+        <div><span class="badge def">DEF</span></div>
+        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><span class="rank-badge">1위</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dbsrjs.webp" alt="윤건"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/ehddud.webp" alt="동영"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/DHAHR.webp" alt="오목"></div></div><div class="hero-comp-keywords">내성, 본성</div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div></div></div>
+      </div><div class="list-item picked-item">
+        <div><span class="badge def">DEF</span></div>
+        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><span class="rank-badge">2위</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" alt="하연"></div></div><div class="hero-comp-keywords">내성</div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" alt="하연"><span>하연</span></div></div></div>
+      </div><div class="list-item picked-item">
+        <div><span class="badge def">DEF</span></div>
+        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><span class="rank-badge">3위</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/fkemrmflem.webp" alt="라드그리드"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/rpfflentm.webp" alt="겔리두스"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" alt="아리스"></div></div><div class="hero-comp-keywords">외성</div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
+      </div><div class="list-item picked-item">
+        <div><span class="badge def">DEF</span></div>
+        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><span class="rank-badge">4위</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/image.webp" alt="밀리아"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tmznfem.webp" alt="스쿨드"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" alt="실베스타"></div></div><div class="hero-comp-keywords">외성</div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item">
-        <div><span class="badge atk">ATK</span></div>
-        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
+      </div><div class="list-item picked-item-norank">
+        <div><span class="badge def">DEF</span></div>
+        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"></div></div><div class="hero-comp-keywords">외성, 내성</div></div></div>
+        <div><button class="detail-btn">상세 공략 열기</button></div>
+      </div><div class="list-item picked-item-norank">
+        <div><span class="badge def">DEF</span></div>
+        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dbsrjs.webp" alt="윤건"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/DHAHR.webp" alt="오목"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" alt="하연"></div></div><div class="hero-comp-keywords">내성, 본성</div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div></div></div>
 
@@ -1617,14 +1507,430 @@
 
 
   let currentMode = 'ATK'; // 기본 화면 공격덱
-  let totSection = 'counter'; // 길드전 공격 탭의 하위 탭: 'counter'(카운터 모음) / 'route'(공격 루트안)
+  let totSection = 'route'; // 길드전 공격 탭의 하위 탭: 'route'(공격 루트안) / 'atkdeck'(공격덱) / 'def'(방어덱)
   let atkSubFilter = '공덱'; // 공격덱 하위 탭: 공덱 / 마덱 / 방덱
   let activeDeckName = null;
-  let atkData = []; // Firestore 로딩 전까지는 비워둠 (예전 더미 데이터가 잠깐 보였다 바뀌는 깜빡임 방지)
+  let atkData = [];// Firestore 로딩 전까지는 비워둠 (예전 더미 데이터가 잠깐 보였다 바뀌는 깜빡임 방지)
   let defData = [];
   let totData = [];
+
+  // ⚔️ 공격덱 탭: "공격 시 → 상대 방어덱" 목록. 양쪽 다 영웅 이미지 3장씩 넣을 수 있고,
+  // 상대 방어덱 쪽은 "덱 추가"로 여러 개(덱마다 이미지 3장)를 한 줄에 같이 등록할 수 있음.
+  // db가 준비된 뒤(try 블록 안)에서 atkDeckListRef만 실제로 대입됨.
+  let atkDeckListRef = null;
+  const ATK_DECK_LIST_DEFAULT_LINES = [
+    '라오아 → 루겔아', '라오아 → 밀스실', '목실레 → 루겔아', '선발칼 → 밀스실',
+    '여델칼 → 선델클', '라오클 → 선델클', '초선델 → 선델클', '루겔클 → 선델오',
+    '초동윤 → 선델하', '연프실 → 여올칼', '선델클 → 여선클', '헬하팔 → 연동윤', '선하칼 → 윤연하'
+  ];
+  function makeEmptyAtkDetail(){ return { job: '', statLine: '', gear: ['', '', '', ''] }; }
+  function makeEmptyAtkIcons(){ return [{ img: '', detail: makeEmptyAtkDetail() }, { img: '', detail: makeEmptyAtkDetail() }, { img: '', detail: makeEmptyAtkDetail() }]; }
+  function atkDetailHasContent(d){
+    if (!d) return false;
+    if (typeof d === 'string') return !!d.trim();
+    return !!((d.job && d.job.trim()) || (d.statLine && d.statLine.trim()) || (d.gear || []).some(g => g && g.trim()));
+  }
+  const ATK_GEAR_LABELS = ['무기1', '무기2', '방어구1', '방어구2'];
+  function makeEmptyDefDeck(name){ return { name: name || '', icons: makeEmptyAtkIcons() }; }
+  function linesToAtkDeckRows(lines){
+    return lines.map(line => {
+      const parts = line.split('→');
+      const atk = (parts[0] || '').trim();
+      const defNames = (parts[1] || '').split(',').map(s => s.trim()).filter(Boolean);
+      return { atk, icons: makeEmptyAtkIcons(), defDecks: defNames.map(n => makeEmptyDefDeck(n)) };
+    }).filter(r => r.atk || r.defDecks.length);
+  }
+  let currentAtkDeckRows = [];
+  let loadAtkDeckRowTarget = null; // 공격덱 탭 표의 영웅 이미지 슬롯에서 '불러오기'를 눌렀을 때만 쓰는 타겟: { rIdx, sIdx, deckIdx }(deckIdx 없으면 공격 측 아이콘)
+  let atkDeckDetailOpenRows = new Map(); // 공격 영웅 아이콘을 눌러서 펼쳐놓은 상세공략: rIdx -> 열려있는 아이콘 슬롯 번호(sIdx)
+  let atkDeckSearchQuery = ''; // 공격덱 탭 검색창에 입력한 텍스트
+  function atkDeckRowMatchesQuery(r, q){
+    if ((r.atk || '').toLowerCase().includes(q)) return true;
+    if ((r.memo || '').toLowerCase().includes(q)) return true;
+    if (r.defDecks && r.defDecks.some(d => (d.name || '').toLowerCase().includes(q))) return true;
+    return false;
+  }
+  function escAtkDeck(s){ return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  async function saveAtkDeckRows(){
+    if (!isAdmin || !atkDeckListRef) return;
+    try {
+      await setDoc(atkDeckListRef, { rows: currentAtkDeckRows }, { merge: true });
+    } catch (e) {
+      console.error("Atk deck rows save failed:", e);
+      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+    }
+  }
+
+  function wireAtkDeckRowEvents(){
+    const wrap = document.getElementById('atkdeck-table-wrap');
+    function getGuideDetail(idx, sIdx){
+      const row = currentAtkDeckRows[idx];
+      const ic = row && row.icons && row.icons[sIdx];
+      if (!ic) return null;
+      if (!ic.detail || typeof ic.detail !== 'object') ic.detail = makeEmptyAtkDetail();
+      if (!ic.detail.gear || ic.detail.gear.length !== 4) ic.detail.gear = ['', '', '', ''];
+      return ic.detail;
+    }
+    wrap.querySelectorAll('.atkdeck-guide-badge-input').forEach(inp => {
+      inp.onclick = (e) => e.stopPropagation();
+      inp.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } };
+      inp.onblur = (e) => {
+        const d = getGuideDetail(parseInt(inp.getAttribute('data-row'), 10), parseInt(inp.getAttribute('data-slot'), 10));
+        if (!d) return;
+        d.job = e.target.value.trim();
+        saveAtkDeckRows();
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-guide-statline-input').forEach(inp => {
+      inp.onclick = (e) => e.stopPropagation();
+      inp.onblur = (e) => {
+        const d = getGuideDetail(parseInt(inp.getAttribute('data-row'), 10), parseInt(inp.getAttribute('data-slot'), 10));
+        if (!d) return;
+        d.statLine = e.target.value.trim();
+        saveAtkDeckRows();
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-guide-gear-input').forEach(inp => {
+      inp.onclick = (e) => e.stopPropagation();
+      inp.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } };
+      inp.onblur = (e) => {
+        const d = getGuideDetail(parseInt(inp.getAttribute('data-row'), 10), parseInt(inp.getAttribute('data-slot'), 10));
+        if (!d) return;
+        const gIdx = parseInt(inp.getAttribute('data-gear'), 10);
+        d.gear[gIdx] = e.target.value.trim();
+        saveAtkDeckRows();
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-icon-clickable').forEach(el => {
+      el.onclick = (e) => {
+        if (e.target.closest('input, button')) return;
+        const idx = parseInt(el.getAttribute('data-row'), 10);
+        const sIdx = parseInt(el.getAttribute('data-slot'), 10);
+        if (atkDeckDetailOpenRows.get(idx) === sIdx) atkDeckDetailOpenRows.delete(idx);
+        else atkDeckDetailOpenRows.set(idx, sIdx);
+        renderAtkDeckTable();
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-atk-memo-input').forEach(inp => {
+      inp.onclick = (e) => e.stopPropagation();
+      inp.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } };
+      inp.onblur = (e) => {
+        const idx = parseInt(inp.getAttribute('data-row'), 10);
+        if (!currentAtkDeckRows[idx]) return;
+        currentAtkDeckRows[idx].atk = e.target.value.trim();
+        saveAtkDeckRows();
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-atk-memo2-input').forEach(inp => {
+      inp.onclick = (e) => e.stopPropagation();
+      inp.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } };
+      inp.onblur = (e) => {
+        const idx = parseInt(inp.getAttribute('data-row'), 10);
+        if (!currentAtkDeckRows[idx]) return;
+        currentAtkDeckRows[idx].memo = e.target.value.trim();
+        saveAtkDeckRows();
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-defdeck-memo-input').forEach(inp => {
+      inp.onclick = (e) => e.stopPropagation();
+      inp.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } };
+      inp.onblur = (e) => {
+        const rIdx = parseInt(inp.getAttribute('data-row'), 10);
+        const dIdx = parseInt(inp.getAttribute('data-deck'), 10);
+        if (!currentAtkDeckRows[rIdx] || !currentAtkDeckRows[rIdx].defDecks[dIdx]) return;
+        currentAtkDeckRows[rIdx].defDecks[dIdx].name = e.target.value.trim();
+        saveAtkDeckRows();
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-icon-input').forEach(inp => {
+      inp.onclick = (e) => e.stopPropagation();
+      inp.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } };
+      inp.onblur = (e) => {
+        const rIdx = parseInt(inp.getAttribute('data-row'), 10);
+        const sIdx = parseInt(inp.getAttribute('data-slot'), 10);
+        if (!currentAtkDeckRows[rIdx]) return;
+        if (!currentAtkDeckRows[rIdx].icons) currentAtkDeckRows[rIdx].icons = makeEmptyAtkIcons();
+        const prevDetail = (currentAtkDeckRows[rIdx].icons[sIdx] && currentAtkDeckRows[rIdx].icons[sIdx].detail) || makeEmptyAtkDetail();
+        currentAtkDeckRows[rIdx].icons[sIdx] = { img: e.target.value.trim(), detail: prevDetail };
+        saveAtkDeckRows();
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-icon-load-btn').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const rIdx = parseInt(btn.getAttribute('data-row'), 10);
+        const sIdx = parseInt(btn.getAttribute('data-slot'), 10);
+        window.openLoadHeroModalForAtkDeckRow(rIdx, sIdx);
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-defdeck-icon-input').forEach(inp => {
+      inp.onclick = (e) => e.stopPropagation();
+      inp.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } };
+      inp.onblur = (e) => {
+        const rIdx = parseInt(inp.getAttribute('data-row'), 10);
+        const dIdx = parseInt(inp.getAttribute('data-deck'), 10);
+        const sIdx = parseInt(inp.getAttribute('data-slot'), 10);
+        const deck = currentAtkDeckRows[rIdx] && currentAtkDeckRows[rIdx].defDecks[dIdx];
+        if (!deck) return;
+        if (!deck.icons) deck.icons = makeEmptyAtkIcons();
+        deck.icons[sIdx] = { img: e.target.value.trim() };
+        saveAtkDeckRows();
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-defdeck-icon-load-btn').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const rIdx = parseInt(btn.getAttribute('data-row'), 10);
+        const dIdx = parseInt(btn.getAttribute('data-deck'), 10);
+        const sIdx = parseInt(btn.getAttribute('data-slot'), 10);
+        window.openLoadHeroModalForAtkDeckRow(rIdx, sIdx, dIdx);
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-defdeck-del-btn').forEach(btn => {
+      btn.onclick = () => {
+        const rIdx = parseInt(btn.getAttribute('data-row'), 10);
+        const dIdx = parseInt(btn.getAttribute('data-deck'), 10);
+        if (!currentAtkDeckRows[rIdx]) return;
+        if (!confirm('이 덱을 삭제할까요?')) return;
+        currentAtkDeckRows[rIdx].defDecks.splice(dIdx, 1);
+        saveAtkDeckRows();
+        renderAtkDeckTable();
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-defdeck-add-btn').forEach(btn => {
+      btn.onclick = () => {
+        const rIdx = parseInt(btn.getAttribute('data-row'), 10);
+        if (!currentAtkDeckRows[rIdx]) return;
+        if (!currentAtkDeckRows[rIdx].defDecks) currentAtkDeckRows[rIdx].defDecks = [];
+        currentAtkDeckRows[rIdx].defDecks.push(makeEmptyDefDeck());
+        saveAtkDeckRows();
+        renderAtkDeckTable();
+      };
+    });
+    wrap.querySelectorAll('.atkdeck-row-del').forEach(btn => {
+      btn.onclick = () => {
+        const idx = parseInt(btn.getAttribute('data-row'), 10);
+        if (!confirm('이 줄을 삭제할까요?')) return;
+        currentAtkDeckRows.splice(idx, 1);
+        saveAtkDeckRows();
+        renderAtkDeckTable();
+      };
+    });
+    const addBtn = document.getElementById('atkdeck-row-add-btn');
+    if (addBtn) {
+      addBtn.onclick = () => {
+        currentAtkDeckRows.push({ atk: '', memo: '', icons: makeEmptyAtkIcons(), defDecks: [makeEmptyDefDeck()] });
+        saveAtkDeckRows();
+        renderAtkDeckTable();
+      };
+    }
+  }
+
+  // 영웅 이미지 3개 슬롯 하나(공통) HTML 조각
+  function atkDeckIconSlotHtml(ic, inputClass, loadClass, dataAttrs){
+    if (isAdmin) {
+      return `<div class="atkdeck-icon-edit">
+        <div class="atkdeck-icon-img-row">
+          <input type="text" class="${inputClass}" ${dataAttrs} placeholder="이미지 URL" value="${escAtkDeck(ic.img || '')}">
+          <button type="button" class="btn-mini-edit ${loadClass}" ${dataAttrs} title="기존 영웅 이미지 불러오기">📥</button>
+        </div>
+        ${ic.img ? `<img referrerpolicy="no-referrer" src="${escAtkDeck(ic.img)}" class="atkdeck-icon-preview">` : `<div class="atkdeck-icon-preview atkdeck-icon-preview-empty"></div>`}
+      </div>`;
+    }
+    return ic.img ? `<img referrerpolicy="no-referrer" src="${escAtkDeck(ic.img)}" class="atkdeck-icon-preview">` : '';
+  }
+
+  // 영웅 한 명의 "직업군 뱃지 + 스탯 한 줄 + 장비 4칸" 상세공략 카드
+  function atkDeckGuideCardHtml(ic, rIdx, sIdx){
+    const d = (ic && ic.detail && typeof ic.detail === 'object') ? ic.detail : makeEmptyAtkDetail();
+    const job = d.job || '';
+    const statLine = d.statLine || '';
+    const gear = (d.gear && d.gear.length === 4) ? d.gear : ['', '', '', ''];
+
+    const badgeHtml = isAdmin
+      ? `<input type="text" class="atkdeck-guide-badge-input" data-row="${rIdx}" data-slot="${sIdx}" value="${escAtkDeck(job)}" placeholder="예: 암살자 or 선봉장">`
+      : `<div class="atkdeck-guide-badge-text">${escAtkDeck(job)}</div>`;
+
+    const statLineHtml = isAdmin
+      ? `<textarea class="atkdeck-guide-statline-input" data-row="${rIdx}" data-slot="${sIdx}" placeholder="예: 치확 100%&#10;공격력 치피 챙기기">${escAtkDeck(statLine)}</textarea>`
+      : (statLine ? `<div class="atkdeck-guide-statline-text">${escAtkDeck(statLine)}</div>` : '');
+
+    const gearHtml = ATK_GEAR_LABELS.map((label, gIdx) => {
+      const val = gear[gIdx] || '';
+      const valHtml = isAdmin
+        ? `<input type="text" class="atkdeck-guide-gear-input" data-row="${rIdx}" data-slot="${sIdx}" data-gear="${gIdx}" value="${escAtkDeck(val)}" placeholder="모든 공격력(%)">`
+        : `<div class="atkdeck-guide-gear-value">${escAtkDeck(val)}</div>`;
+      return `<div class="atkdeck-guide-gearbox">
+        <div class="atkdeck-guide-gear-label">${label}</div>
+        ${valHtml}
+      </div>`;
+    }).join('');
+
+    return `<div class="atkdeck-guide-card">
+      <div class="atkdeck-guide-header">
+        ${ic.img ? `<img referrerpolicy="no-referrer" src="${escAtkDeck(ic.img)}" class="atkdeck-guide-portrait">` : ''}
+        <div class="atkdeck-guide-badge">${badgeHtml}</div>
+      </div>
+      <div class="atkdeck-guide-grid">${gearHtml}</div>
+      ${statLineHtml}
+    </div>`;
+  }
+
+  function renderAtkDeckTable(){
+    const wrap = document.getElementById('atkdeck-table-wrap');
+    if (!wrap) return;
+    const rows = currentAtkDeckRows || [];
+    if (!rows.length && !isAdmin) {
+      wrap.innerHTML = `<p style="padding:20px; color:var(--text-dim); font-size:13px;">등록된 내용이 없습니다.</p>`;
+      return;
+    }
+    const searchQuery = (atkDeckSearchQuery || '').trim().toLowerCase();
+    let rowsHtml = rows.map((r, idx) => {
+      if (searchQuery && !atkDeckRowMatchesQuery(r, searchQuery)) return '';
+      const icons = (r.icons && r.icons.length ? r.icons : makeEmptyAtkIcons());
+      const iconsHtml = [0, 1, 2].map(i => {
+        const ic = icons[i] || { img: '', detail: makeEmptyAtkDetail() };
+        const slotHtml = atkDeckIconSlotHtml(ic, 'atkdeck-icon-input', 'atkdeck-icon-load-btn', `data-row="${idx}" data-slot="${i}"`);
+        const hasOwnDetail = atkDetailHasContent(ic.detail);
+        const slotClickable = isAdmin || hasOwnDetail;
+        if (!slotClickable) return slotHtml;
+        return `<div class="atkdeck-icon-clickable" data-row="${idx}" data-slot="${i}" title="클릭하면 이 영웅의 상세공략이 열려요">${slotHtml}</div>`;
+      }).join('');
+      const atkMemoHtml = isAdmin
+        ? `<input type="text" class="atkdeck-memo-input atkdeck-atk-memo-input" data-row="${idx}" value="${escAtkDeck(r.atk || '')}" placeholder="영웅 이름">`
+        : (r.atk ? `<div class="atkdeck-memo-text">${escAtkDeck(r.atk)}</div>` : '');
+      const atkMemo2Html = isAdmin
+        ? `<input type="text" class="atkdeck-memo-input atkdeck-atk-memo2-input" data-row="${idx}" value="${escAtkDeck(r.memo || '')}" placeholder="메모">`
+        : (r.memo ? `<div class="atkdeck-memo2-text">${escAtkDeck(r.memo)}</div>` : '');
+      const openSlotRaw = atkDeckDetailOpenRows.get(idx);
+      const isDetailOpen = openSlotRaw !== undefined && !!(icons[openSlotRaw] || isAdmin);
+      const openSlot = isDetailOpen ? openSlotRaw : null;
+
+      const defDecks = (r.defDecks && r.defDecks.length) ? r.defDecks : [];
+      const defDecksHtml = defDecks.map((d, dIdx) => {
+        const dIcons = (d.icons && d.icons.length ? d.icons : makeEmptyAtkIcons());
+        const dIconsHtml = [0, 1, 2].map(i => atkDeckIconSlotHtml(
+          dIcons[i] || { img: '' }, 'atkdeck-defdeck-icon-input', 'atkdeck-defdeck-icon-load-btn',
+          `data-row="${idx}" data-deck="${dIdx}" data-slot="${i}"`
+        )).join('');
+        const dMemoHtml = isAdmin
+          ? `<input type="text" class="atkdeck-memo-input atkdeck-defdeck-memo-input" data-row="${idx}" data-deck="${dIdx}" value="${escAtkDeck(d.name || '')}" placeholder="메모">`
+          : (d.name ? `<div class="atkdeck-memo-text">${escAtkDeck(d.name)}</div>` : '');
+        return `<div class="atkdeck-defdeck-block">
+          <div class="atkdeck-icons-row">${dIconsHtml}</div>
+          ${dMemoHtml}
+          ${isAdmin ? `<button type="button" class="btn-mini-del atkdeck-defdeck-del-btn" data-row="${idx}" data-deck="${dIdx}">🗑️</button>` : ''}
+        </div>`;
+      }).join('');
+
+      const mainRowHtml = `<tr>
+        <td class="atkdeck-atk-cell">
+          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row">${iconsHtml}</div>${atkMemoHtml}${atkMemo2Html}</div>
+        </td>
+        <td class="atkdeck-arrow">→</td>
+        <td class="atkdeck-defdecks-cell">
+          <div class="atkdeck-defdecks-row">
+            ${defDecksHtml}
+            ${isAdmin ? `<button type="button" class="add-btn atkdeck-defdeck-add-btn" data-row="${idx}">+ 덱 추가</button>` : ''}
+          </div>
+        </td>
+        ${isAdmin ? `<td><button type="button" class="btn-mini-del atkdeck-row-del" data-row="${idx}">🗑️</button></td>` : ''}
+      </tr>`;
+
+      const openIcon = isDetailOpen ? (icons[openSlot] || { img: '', detail: makeEmptyAtkDetail() }) : null;
+      const detailRowHtml = isDetailOpen ? `<tr class="atkdeck-detail-row"><td colspan="${isAdmin ? 4 : 3}">
+        ${atkDeckGuideCardHtml(openIcon, idx, openSlot)}
+      </td></tr>` : '';
+
+      return mainRowHtml + detailRowHtml;
+    }).join('');
+
+    if (searchQuery && !rowsHtml.trim()) {
+      rowsHtml = `<tr><td colspan="${isAdmin ? 4 : 3}" style="padding:20px; color:var(--text-dim); font-size:13px;">검색 결과가 없습니다.</td></tr>`;
+    }
+
+    wrap.innerHTML = `
+      <table class="atkdeck-table">
+        <thead><tr><th>공격덱</th><th class="atkdeck-arrow-head"><span class="atkdeck-arrow-head-arrow">→</span> 공격</th><th>상대 방어덱</th>${isAdmin ? '<th></th>' : ''}</tr></thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+      ${isAdmin ? `<button type="button" id="atkdeck-row-add-btn" class="add-btn" style="margin-top:12px; width:auto; padding:8px 16px;">+ 추가</button>` : ''}
+    `;
+
+    wireAtkDeckRowEvents();
+  }
+
+  window.openLoadHeroModalForAtkDeckRow = function(rIdx, sIdx, deckIdx){
+    loadAtkDeckRowTarget = { rIdx, sIdx, deckIdx };
+    document.getElementById('load-title-search').value = '';
+    renderLoadTitleList('');
+    document.getElementById('load-title-modal-overlay').style.display = 'flex';
+  };
+
+  function handleAtkDeckSnapshot(snap){
+    if (snap.exists() && Array.isArray(snap.data().rows)) {
+      currentAtkDeckRows = snap.data().rows.map(r => {
+        let defDecks;
+        if (Array.isArray(r.defDecks)) {
+          defDecks = r.defDecks.map(d => ({
+            name: d.name || '',
+            icons: [0, 1, 2].map(i => ({ img: (d.icons && d.icons[i] && d.icons[i].img) || '' }))
+          }));
+        } else if (typeof r.def === 'string') {
+          // 예전 버전(이미지 없이 "상대 방어덱" 텍스트 한 칸)에서 넘어온 데이터 마이그레이션
+          defDecks = r.def.split(',').map(s => s.trim()).filter(Boolean).map(n => makeEmptyDefDeck(n));
+        } else {
+          defDecks = [];
+        }
+        const icons = [0, 1, 2].map(i => {
+          const rawIc = r.icons && r.icons[i];
+          const rawDetail = rawIc && rawIc.detail;
+          let detail;
+          if (rawDetail && typeof rawDetail === 'object') {
+            detail = {
+              job: rawDetail.job || '',
+              statLine: rawDetail.statLine || '',
+              gear: (rawDetail.gear && rawDetail.gear.length === 4) ? rawDetail.gear : ['', '', '', '']
+            };
+          } else if (typeof rawDetail === 'string' && rawDetail) {
+            // 예전 버전(자유 텍스트 상세공략)에서 넘어온 데이터는 스탯 줄로 이전
+            detail = { job: '', statLine: rawDetail, gear: ['', '', '', ''] };
+          } else {
+            detail = makeEmptyAtkDetail();
+          }
+          return { img: (rawIc && rawIc.img) || '', detail };
+        });
+        // 그보다 더 예전 버전(줄 전체에 상세공략 하나)에서 넘어온 데이터는 첫 번째 영웅 슬롯으로 이전
+        if (typeof r.detail === 'string' && r.detail && !atkDetailHasContent(icons[0].detail)) {
+          icons[0].detail = { job: '', statLine: r.detail, gear: ['', '', '', ''] };
+        }
+        return {
+          atk: r.atk || '',
+          memo: r.memo || '',
+          icons,
+          defDecks
+        };
+      });
+    } else if (snap.exists() && typeof snap.data().text === 'string') {
+      // 더 예전의 텍스트 전용 버전 데이터 마이그레이션 (이미지 없이 저장돼있던 것)
+      currentAtkDeckRows = linesToAtkDeckRows(snap.data().text.split('\n').map(l => l.trim()).filter(Boolean));
+    } else {
+      currentAtkDeckRows = linesToAtkDeckRows(ATK_DECK_LIST_DEFAULT_LINES);
+    }
+    // 입력칸(텍스트/텍스트영역)에 포커스가 가 있는 동안엔 다시 그리지 않음.
+    // (안 그러면 저장 직후 onSnapshot이 돌아와서 표를 통째로 다시 그리는 바람에
+    //  Tab으로 다음 칸 이동하는 도중 포커스가 날아가 버림 - 값은 이미 메모리에 반영됐으므로 안전)
+    const atkDeckWrap = document.getElementById('atkdeck-table-wrap');
+    const activeEl = document.activeElement;
+    const isEditingAtkDeck = atkDeckWrap && activeEl && atkDeckWrap.contains(activeEl) &&
+      (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA');
+    if (isEditingAtkDeck) return;
+    renderAtkDeckTable();
+  }
   // 공격 루트안: 외성(택2)/내성(택2)/본성(택1) × N안 스프레드시트 표. Firestore guild_route_db/table 문서 하나에 전부 저장.
   const ROUTE_CATEGORIES = [ { key: '외성', pick: 2 }, { key: '내성', pick: 2 }, { key: '본성', pick: 1 } ];
+  const ROUTE_TEAM_COLORS = ['#15803d', '#1d4ed8', '#b45309', '#7e22ce', '#be123c', '#0f766e', '#b91c1c', '#4338ca'];
 
   // 처음 한 번, 관리자가 알려준 팀A~D 목록을 기본값으로 미리 채워둠 (아직 Firestore에 저장 전이라
   // guild_route_db/table 문서가 없을 때만 이 값이 보이고, 관리자가 "표 편집"에서 확인 후 저장해야 실제 반영됨).
@@ -1668,6 +1974,7 @@
   const adminBtn = document.getElementById('admin-mode-btn');
   const toggleAddBtn = document.getElementById('toggle-add-btn');
   const showDeeplinkTableBtn = document.getElementById('show-deeplink-table-btn');
+  const wipeOldCounterDataBtn = document.getElementById('wipe-old-counter-data-btn');
   const listContainer = document.getElementById('gcd-deck-buttons');
 
   function updateAdminUI() {
@@ -1676,26 +1983,27 @@
       adminBtn.classList.add('admin-on');
       toggleAddBtn.style.display = 'flex';
       showDeeplinkTableBtn.style.display = 'flex';
+      wipeOldCounterDataBtn.style.display = 'flex';
       document.getElementById('notice-edit-btn').style.display = 'inline-block';
       document.getElementById('def-notice-edit-btn').style.display = 'inline-block';
-      document.getElementById('atk-notice-edit-btn').style.display = 'inline-block';
       document.getElementById('route-notice-edit-btn').style.display = 'inline-block';
+      document.getElementById('atkdeck-notice-edit-btn').style.display = 'inline-block';
       document.getElementById('route-table-admin-toolbar').style.display = 'flex';
     } else {
       adminBtn.innerHTML = "🔒 관리자";
       adminBtn.classList.remove('admin-on');
       toggleAddBtn.style.display = 'none';
       showDeeplinkTableBtn.style.display = 'none';
+      wipeOldCounterDataBtn.style.display = 'none';
       document.getElementById('gcd-add-def-section').style.display = 'none';
-      document.getElementById('gcd-add-tot-section').style.display = 'none';
       document.getElementById('notice-edit-btn').style.display = 'none';
       document.getElementById('notice-edit-area').style.display = 'none';
       document.getElementById('def-notice-edit-btn').style.display = 'none';
       document.getElementById('def-notice-edit-area').style.display = 'none';
-      document.getElementById('atk-notice-edit-btn').style.display = 'none';
-      document.getElementById('atk-notice-edit-area').style.display = 'none';
       document.getElementById('route-notice-edit-btn').style.display = 'none';
       document.getElementById('route-notice-edit-area').style.display = 'none';
+      document.getElementById('atkdeck-notice-edit-btn').style.display = 'none';
+      document.getElementById('atkdeck-notice-edit-area').style.display = 'none';
       document.getElementById('route-table-admin-toolbar').style.display = 'none';
       routeTableEditMode = false;
     }
@@ -1735,7 +2043,7 @@
       isAdmin = !!user;
       updateAdminUI();
       // 현재 보고 있는 화면을 관리자 상태에 맞게 다시 그려줌
-      if (currentMode === 'ATK' || currentMode === 'DEF' || currentMode === 'TOTAL') renderList();
+      if (currentMode === 'ATK' || currentMode === 'DEF') renderList();
     });
 
     async function checkAndInitDB() {
@@ -1751,7 +2059,6 @@
       let map = {};
       snap.forEach(d => { map[d.id] = d.data(); });
       statsData = map;
-      if (currentMode === 'TOTAL') renderList();
     });
 
     // 방문자 카운터: 매일 자정 기준으로 초기화(날짜별로 별도 문서에 저장).
@@ -1863,38 +2170,6 @@
       }
     };
 
-    // 📢 공격덱 전용 공지사항 (검색창 대신 표시)
-    const atkNoticeRef = doc(db, "meta", "notice_atk");
-    let currentAtkNoticeText = '';
-    function renderAtkNoticeContent() {
-      document.getElementById('atk-notice-content').innerHTML = renderNoticeText(currentAtkNoticeText);
-    }
-    onSnapshot(atkNoticeRef, (snap) => {
-      currentAtkNoticeText = (snap.exists() && typeof snap.data().text === 'string') ? snap.data().text : '';
-      renderAtkNoticeContent();
-    });
-    document.getElementById('atk-notice-edit-btn').onclick = function() {
-      if (!isAdmin) return;
-      document.getElementById('atk-notice-edit-textarea').value = currentAtkNoticeText;
-      document.getElementById('atk-notice-content').style.display = 'none';
-      document.getElementById('atk-notice-edit-area').style.display = 'block';
-    };
-    document.getElementById('atk-notice-cancel-btn').onclick = function() {
-      document.getElementById('atk-notice-edit-area').style.display = 'none';
-      document.getElementById('atk-notice-content').style.display = 'block';
-    };
-    document.getElementById('atk-notice-save-btn').onclick = async function() {
-      if (!isAdmin) return;
-      const newText = document.getElementById('atk-notice-edit-textarea').value;
-      try {
-        await setDoc(atkNoticeRef, { text: newText }, { merge: true });
-        document.getElementById('atk-notice-edit-area').style.display = 'none';
-        document.getElementById('atk-notice-content').style.display = 'block';
-      } catch (e) {
-        alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
-      }
-    };
-
     // 📢 공격 루트안 전용 공지사항
     const routeNoticeRef = doc(db, "meta", "notice_route");
     let currentRouteNoticeText = '';
@@ -1927,34 +2202,58 @@
       }
     };
 
+    // ⚔️ 공격덱 탭: "공격 시 → 상대 방어덱" + 영웅 이미지 3장 목록 (아래 renderAtkDeckTable 등은 최상위 스코프에 정의돼있음)
+    atkDeckListRef = doc(db, "meta", "atk_deck_list");
+    onSnapshot(atkDeckListRef, handleAtkDeckSnapshot);
+
+    // 📢 공격덱 탭 전용 공지사항
+    const atkDeckNoticeRef = doc(db, "meta", "notice_atkdeck");
+    let currentAtkDeckNoticeText = '';
+    function renderAtkDeckNoticeContent() {
+      document.getElementById('atkdeck-notice-content').innerHTML = renderNoticeText(currentAtkDeckNoticeText);
+    }
+    onSnapshot(atkDeckNoticeRef, (snap) => {
+      currentAtkDeckNoticeText = (snap.exists() && typeof snap.data().text === 'string') ? snap.data().text : '';
+      renderAtkDeckNoticeContent();
+    });
+    document.getElementById('atkdeck-notice-edit-btn').onclick = function() {
+      if (!isAdmin) return;
+      document.getElementById('atkdeck-notice-edit-textarea').value = currentAtkDeckNoticeText;
+      document.getElementById('atkdeck-notice-content').style.display = 'none';
+      document.getElementById('atkdeck-notice-edit-area').style.display = 'block';
+    };
+    document.getElementById('atkdeck-notice-cancel-btn').onclick = function() {
+      document.getElementById('atkdeck-notice-edit-area').style.display = 'none';
+      document.getElementById('atkdeck-notice-content').style.display = 'block';
+    };
+    document.getElementById('atkdeck-notice-save-btn').onclick = async function() {
+      if (!isAdmin) return;
+      const newText = document.getElementById('atkdeck-notice-edit-textarea').value;
+      try {
+        await setDoc(atkDeckNoticeRef, { text: newText }, { merge: true });
+        document.getElementById('atkdeck-notice-edit-area').style.display = 'none';
+        document.getElementById('atkdeck-notice-content').style.display = 'block';
+      } catch (e) {
+        alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+      }
+    };
+    document.getElementById('atkdeck-search-input').oninput = function(e) {
+      atkDeckSearchQuery = e.target.value;
+      renderAtkDeckTable();
+    };
+
     // NOTE: Firestore가 유일한 원본(source of truth)입니다.
     // 예전엔 snap이 비어있으면 INITIAL_*_DB로 자동 대체했는데, 이것도 같은 이유로 위험해서
     // 이제는 Firestore가 실제로 준 데이터만 그대로 보여줍니다 (판단해서 대체하지 않음).
-    let atkLoadedOnce = false, defLoadedOnce = false, totLoadedOnce = false;
-    onSnapshot(collection(db, "guild_atk_db"), (snap) => {
-      let map = new Map();
-      snap.forEach(d => { let data = d.data(); if(data && data.id) map.set(data.id, data); });
-      atkData = Array.from(map.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
-      if(currentMode === 'ATK') renderList();
-      atkLoadedOnce = true;
-      tryDeepLink();
-    });
-
+    // 카운터덱(ATK)/총력덱(TOTAL) 탭은 제거되어 더 이상 화면에 쓰이지 않으므로,
+    // 그 두 컬렉션(guild_atk_db, guild_total_db)은 실시간 구독하지 않음 (불필요한 트래픽/렉 방지).
+    let defLoadedOnce = false;
     onSnapshot(collection(db, "guild_def_db"), (snap) => {
       let map = new Map();
       snap.forEach(d => { let data = d.data(); if(data && data.id) map.set(data.id, data); });
       defData = Array.from(map.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
       if(currentMode === 'DEF') renderList();
       defLoadedOnce = true;
-      tryDeepLink();
-    });
-
-    onSnapshot(collection(db, "guild_total_db"), (snap) => {
-      let map = new Map();
-      snap.forEach(d => { let data = d.data(); if(data && data.id) map.set(data.id, data); });
-      totData = Array.from(map.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
-      if(currentMode === 'TOTAL') renderList();
-      totLoadedOnce = true;
       tryDeepLink();
     });
 
@@ -1978,23 +2277,21 @@
                list.find(d => d.name === target);
       }
 
+      // 카운터덱(TOTAL) 탭은 제거되었으므로 더 이상 totData에서는 찾지 않음
       let found = findExactMatch(defData);
-      let foundType = 'DEF';
-      if (!found) { found = findExactMatch(totData); foundType = 'TOTAL'; }
 
       if (found) {
         deepLinkResolved = true;
-        if (foundType === 'TOTAL') totSection = 'counter';
-        switchMode(foundType);
+        switchMode('DEF');
         setTimeout(() => renderGuide(found), 80);
         return;
       }
 
       // 세 컬렉션 모두 로드가 끝났는데도 못 찾았으면 그때만 포기하고 기본 목록으로
-      if (atkLoadedOnce && defLoadedOnce && totLoadedOnce) {
+      if (defLoadedOnce) {
         deepLinkResolved = true;
         console.warn(`딥링크: "${target}" 키워드에 해당하는 덱을 찾지 못했습니다.`);
-        totSection = 'counter';
+        totSection = 'route';
         switchMode('TOTAL');
       }
     }
@@ -2040,8 +2337,8 @@
         switchMode('DEF');
       } else {
         // tab=total(기본) 뿐 아니라 예전 링크(tab=route, 공덱/마덱/방덱)도 모두 길드전 공격 탭으로 들어오고,
-        // section 값(또는 예전 tab=route)에 따라 카운터 모음 / 공격 루트안 하위 탭만 갈라줌
-        totSection = (sectionParam === 'route' || tabParam === 'route') ? 'route' : 'counter';
+        // section 값에 따라 하위 탭만 갈라줌 (카운터덱 탭은 제거되어 기본값은 공격 루트)
+        totSection = (sectionParam === 'atkdeck') ? 'atkdeck' : (sectionParam === 'def' ? 'def' : 'route');
         switchMode('TOTAL'); // 시작 시 길드전 공격 탭 활성화 (기본값)
       }
     }
@@ -2052,34 +2349,22 @@
   // Firestore에서 최신 데이터를 직접 다시 받아와서(getDocs) 화면을 갱신함.
   async function forceRefreshData() {
     try {
-      const [atkSnap, defSnap, totSnap, routeSnap] = await Promise.all([
-        getDocs(collection(db, "guild_atk_db")),
+      const [defSnap, routeSnap] = await Promise.all([
         getDocs(collection(db, "guild_def_db")),
-        getDocs(collection(db, "guild_total_db")),
         getDoc(doc(db, "guild_route_db", "table"))
       ]);
-      let atkMap = new Map();
-      atkSnap.forEach(d => { let data = d.data(); if(data && data.id) atkMap.set(data.id, data); });
-      let newAtkData = Array.from(atkMap.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
-
       let defMap = new Map();
       defSnap.forEach(d => { let data = d.data(); if(data && data.id) defMap.set(data.id, data); });
       let newDefData = Array.from(defMap.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
-
-      let totMap = new Map();
-      totSnap.forEach(d => { let data = d.data(); if(data && data.id) totMap.set(data.id, data); });
-      let newTotData = Array.from(totMap.values()).sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
 
       const newRouteTableData = (routeSnap.exists() && routeSnap.data() && Array.isArray(routeSnap.data().plans)) ? routeSnap.data() : defaultRouteTable();
 
       // 방어 코드: 네트워크 불안정 등으로 결과가 비정상적으로 텅 비어서 오면(원래 데이터가 있었는데)
       // 화면을 잘못 비워버리지 않도록, 기존에 데이터가 있었는데 새로 받은 게 비어있으면 무시하고 기존 값 유지
-      if (newAtkData.length > 0 || atkData.length === 0) atkData = newAtkData;
       if (newDefData.length > 0 || defData.length === 0) defData = newDefData;
-      if (newTotData.length > 0 || totData.length === 0) totData = newTotData;
       if (newRouteTableData.plans.length > 0 || routeTableData.plans.length === 0) routeTableData = newRouteTableData;
 
-      if (currentMode === 'DEF' || (currentMode === 'TOTAL' && totSection === 'counter')) renderList();
+      if (currentMode === 'DEF') renderList();
       if (currentMode === 'TOTAL' && totSection === 'route' && !routeTableEditMode) renderRouteTable();
     } catch (e) {
       console.error('forceRefreshData failed', e);
@@ -2093,27 +2378,20 @@
   function getFullDefDB(){ return defData; }
   function getFullTotDB(){ return totData; }
 
-  document.getElementById('tab-total').onclick = () => switchMode('TOTAL');
-  document.getElementById('tot-section-counter').onclick = () => setTotSection('counter');
   document.getElementById('tot-section-route').onclick = () => setTotSection('route');
+  document.getElementById('tot-section-atkdeck').onclick = () => setTotSection('atkdeck');
   document.getElementById('tot-section-def').onclick = () => setTotSection('def');
 
   toggleAddBtn.onclick = function(){
     if(!isAdmin) return;
     const defSec = document.getElementById('gcd-add-def-section');
-    const totSec = document.getElementById('gcd-add-tot-section');
 
     if(currentMode === 'DEF'){
       if(defSec.style.display === 'none'){ resetDefForm(); defSec.style.display = 'block'; toggleAddBtn.textContent = '닫기'; }
       else { defSec.style.display = 'none'; toggleAddBtn.textContent = '+ 덱 추가하기'; }
-    } else if(currentMode === 'TOTAL'){
-      if(totSection === 'counter'){
-        if(totSec.style.display === 'none'){ resetTotForm(); totSec.style.display = 'block'; toggleAddBtn.textContent = '닫기'; }
-        else { totSec.style.display = 'none'; toggleAddBtn.textContent = '+ 덱 추가하기'; }
-      }
-      // 공격 루트안(1안~5안)의 스크린샷 편집은 각 플랜 화면의 "✏️ 스크린샷 편집" 버튼으로 열기 때문에
-      // 이 공통 toggleAddBtn은 route 섹션에서는 숨겨져 있음 (updateTotSectionView 참고)
     }
+    // 공격 루트안/공격덱 탭은 각자 화면 안의 전용 버튼으로 편집하므로
+    // 이 공통 toggleAddBtn은 route/atkdeck 섹션에서는 숨겨져 있음 (updateTotSectionView 참고)
   };
 
   // 카운터 조합 승/패 통계 키 생성: cid(고유ID)가 있으면 그걸 쓰고, 없는 예전 데이터는 배열 인덱스로 폴백
@@ -2835,6 +3113,28 @@
   window.applyLoadTitleHero = function(idx){
     const h = loadTitleFiltered[idx];
     if(!h) return;
+    if (loadAtkDeckRowTarget) {
+      const { rIdx, sIdx, deckIdx } = loadAtkDeckRowTarget;
+      loadAtkDeckRowTarget = null;
+      document.getElementById('load-title-modal-overlay').style.display = 'none';
+      const row = currentAtkDeckRows[rIdx];
+      if (row) {
+        if (deckIdx === undefined || deckIdx === null) {
+          if (!row.icons) row.icons = makeEmptyAtkIcons();
+          const prevDetail = (row.icons[sIdx] && row.icons[sIdx].detail) || makeEmptyAtkDetail();
+          row.icons[sIdx] = { img: h.img || '', detail: prevDetail };
+        } else {
+          const deck = row.defDecks && row.defDecks[deckIdx];
+          if (deck) {
+            if (!deck.icons) deck.icons = makeEmptyAtkIcons();
+            deck.icons[sIdx] = { img: h.img || '' };
+          }
+        }
+        saveAtkDeckRows();
+        renderAtkDeckTable();
+      }
+      return;
+    }
     const nameEl = document.getElementById(`${loadTitleTargetPrefix}-title-name-${loadTitleTargetIndex}`);
     const imgEl = document.getElementById(`${loadTitleTargetPrefix}-title-img-${loadTitleTargetIndex}`);
     if(nameEl) { nameEl.value = h.name || ''; nameEl.dispatchEvent(new Event('input', { bubbles: true })); }
@@ -2846,55 +3146,6 @@
   document.getElementById('load-title-search').oninput = (e) => renderLoadTitleList(e.target.value);
   document.getElementById('close-load-title-modal-btn').onclick = function(){
     document.getElementById('load-title-modal-overlay').style.display = 'none';
-  };
-
-  document.getElementById('add-tot-card-btn').onclick = function() {
-    const boxes = document.querySelectorAll('.tot-builder-box');
-    let currentCounters = [];
-    boxes.forEach(box => {
-      let slots = [];
-      for(let k=0; k<8; k++) {
-        slots.push({
-          name: box.querySelector(`.t-slot-name-${k}`)?.value || '',
-          img: box.querySelector(`.t-slot-img-${k}`).value,
-          ring1: box.querySelector(`.t-slot-ring1-${k}`)?.value || '',
-          ring2: box.querySelector(`.t-slot-ring2-${k}`)?.value || '',
-          ring1Name: box.querySelector(`.t-slot-ring1-name-${k}`)?.value || '',
-          ring2Name: box.querySelector(`.t-slot-ring2-name-${k}`)?.value || '',
-          job: box.querySelector(`.t-slot-job-${k}`)?.value || '',
-          w1: box.querySelector(`.t-slot-w1-${k}`)?.value || '',
-          w2: box.querySelector(`.t-slot-w2-${k}`)?.value || '',
-          a1: box.querySelector(`.t-slot-a1-${k}`)?.value || '',
-          a2: box.querySelector(`.t-slot-a2-${k}`)?.value || '',
-          skill1Img: box.querySelector(`.t-slot-skill1-img-${k}`)?.value || '',
-          skill1Pri: box.querySelector(`.t-slot-skill1-pri-${k}`)?.value || '',
-          skill2Img: box.querySelector(`.t-slot-skill2-img-${k}`)?.value || '',
-          skill2Pri: box.querySelector(`.t-slot-skill2-pri-${k}`)?.value || '',
-          skill3Img: box.querySelector(`.t-slot-skill3-img-${k}`)?.value || '',
-          skill3Pri: box.querySelector(`.t-slot-skill3-pri-${k}`)?.value || '',
-          info: box.querySelector(`.t-slot-info-${k}`).value
-        });
-      }
-      currentCounters.push({
-        title: box.querySelector('.t-title').value,
-        formation: box.querySelector('.t-form').value,
-        slots: slots,
-        body: box.querySelector('.t-body').value,
-        videoUrl: box.querySelector('.t-video')?.value || '',
-        pet: [
-          {
-            name: box.querySelector('.t-pet-name-0')?.value || '',
-            img: box.querySelector('.t-pet-img-0')?.value || ''
-          },
-          {
-            name: box.querySelector('.t-pet-name-1')?.value || '',
-            img: box.querySelector('.t-pet-img-1')?.value || ''
-          }
-        ]
-      });
-    });
-    currentCounters.push({ title: "", formation: "기본 진형", slots: Array(8).fill({img: "", info: ""}), body: "" });
-    renderCounterBuilder('tot-cards-container', currentCounters, 't');
   };
 
   function resetAtkForm(){
@@ -2921,110 +3172,6 @@
     renderCounterBuilder('def-cards-container', [], 'd');
     document.getElementById('def-form-title').textContent = '➕ 방어덱 추가';
   }
-
-  function resetTotForm(){
-    document.getElementById('custom-tot-id').value = '';
-    document.getElementById('custom-tot-name').value = '';
-    document.getElementById('custom-tot-keywords').value = '';
-    document.getElementById('custom-tot-type').value = '공덱';
-    for(let i=0; i<4; i++) {
-      document.getElementById(`tot-title-name-${i}`).value = '';
-      document.getElementById(`tot-title-img-${i}`).value = '';
-    }
-    renderCounterBuilder('tot-cards-container', [], 't');
-    document.getElementById('tot-form-title').textContent = '➕ 공격덱 추가';
-  }
-
-  // ── 영웅 능력치 관리 ──
-  // 공격덱 저장
-  document.getElementById('save-custom-tot-btn').onclick = async function(){
-    if(!isAdmin) return;
-    let name = document.getElementById('custom-tot-name').value.trim();
-    const keywordsStr = document.getElementById('custom-tot-keywords').value.trim();
-    const editId = document.getElementById('custom-tot-id').value;
-
-    // 대표 영웅 이름을 안 넣었으면, 첫 번째 조합의 슬롯 이름(자동 생성된 조합 타이틀)에서 이름을 가져옴
-    if(!name) {
-      const firstTitle = document.querySelector('.tot-builder-box .t-title')?.value.trim() || '';
-      name = firstTitle.replace(/^\d+\.\s*/, '');
-      if(name) document.getElementById('custom-tot-name').value = name;
-    }
-    // 그래도 없으면 키워드를 이름으로 사용
-    if(!name && keywordsStr) {
-      name = keywordsStr.split(',')[0].trim();
-      document.getElementById('custom-tot-name').value = name;
-    }
-
-    if(!name || !keywordsStr){ alert('영웅 이름(대표 영웅 이미지 칸)이나 키워드 중 최소 하나는 입력해주세요!'); return; }
-
-    const builderBoxes = document.querySelectorAll('.tot-builder-box');
-    let counters = [];
-    builderBoxes.forEach(box => {
-      let slots = [];
-      for(let k=0; k<8; k++) {
-        slots.push({
-          name: (box.querySelector(`.t-slot-name-${k}`)?.value || '').trim(),
-          img: box.querySelector(`.t-slot-img-${k}`).value.trim(),
-          ring1: (box.querySelector(`.t-slot-ring1-${k}`)?.value || '').trim(),
-          ring2: (box.querySelector(`.t-slot-ring2-${k}`)?.value || '').trim(),
-          ring1Name: (box.querySelector(`.t-slot-ring1-name-${k}`)?.value || '').trim(),
-          ring2Name: (box.querySelector(`.t-slot-ring2-name-${k}`)?.value || '').trim(),
-          job: (box.querySelector(`.t-slot-job-${k}`)?.value || '').trim(),
-          w1: (box.querySelector(`.t-slot-w1-${k}`)?.value || '').trim(),
-          w2: (box.querySelector(`.t-slot-w2-${k}`)?.value || '').trim(),
-          a1: (box.querySelector(`.t-slot-a1-${k}`)?.value || '').trim(),
-          a2: (box.querySelector(`.t-slot-a2-${k}`)?.value || '').trim(),
-          skill1Img: (box.querySelector(`.t-slot-skill1-img-${k}`)?.value || '').trim(),
-          skill1Pri: (box.querySelector(`.t-slot-skill1-pri-${k}`)?.value || '').trim(),
-          skill2Img: (box.querySelector(`.t-slot-skill2-img-${k}`)?.value || '').trim(),
-          skill2Pri: (box.querySelector(`.t-slot-skill2-pri-${k}`)?.value || '').trim(),
-          skill3Img: (box.querySelector(`.t-slot-skill3-img-${k}`)?.value || '').trim(),
-          skill3Pri: (box.querySelector(`.t-slot-skill3-pri-${k}`)?.value || '').trim(),
-          info: box.querySelector(`.t-slot-info-${k}`).value.trim()
-        });
-      }
-      counters.push({
-        title: box.querySelector('.t-title').value.trim() || '조합',
-        formation: box.querySelector('.t-form').value,
-        slots: slots,
-        body: box.querySelector('.t-body').value.trim(),
-        videoUrl: (box.querySelector('.t-video')?.value || '').trim(),
-        pet: [
-          {
-            name: (box.querySelector('.t-pet-name-0')?.value || '').trim(),
-            img: (box.querySelector('.t-pet-img-0')?.value || '').trim()
-          },
-          {
-            name: (box.querySelector('.t-pet-name-1')?.value || '').trim(),
-            img: (box.querySelector('.t-pet-img-1')?.value || '').trim()
-          }
-        ]
-      });
-    });
-
-    const itemId = editId || ('tot_' + Date.now());
-    let titleHeroes = [];
-    for(let i=0; i<4; i++) {
-      titleHeroes.push({
-        name: document.getElementById(`tot-title-name-${i}`).value.trim(),
-        img: document.getElementById(`tot-title-img-${i}`).value.trim()
-      });
-    }
-    const deckType = document.getElementById('custom-tot-type').value || '공덱';
-    const newDeck = { id: itemId, name: name, keywords: keywordsStr.split(',').map(s=>s.trim()).filter(Boolean), counters: counters, titleHeroes: titleHeroes, deckType: deckType };
-
-    const idx = totData.findIndex(item => item.id == itemId);
-    if(idx !== -1) totData[idx] = newDeck; else totData.push(newDeck);
-    
-    totData.sort((a, b) => getDeckSortKey(a).localeCompare(getDeckSortKey(b), 'ko-KR'));
-    try {
-      if(window.saveToFirestore) await window.saveToFirestore('TOTAL', itemId, newDeck);
-    } catch(e) { renderList(); return; }
-
-    resetTotForm(); document.getElementById('gcd-add-tot-section').style.display = 'none'; toggleAddBtn.textContent = '+ 덱 추가하기';
-    activeDeckName = null; alert('저장되었습니다!');
-    renderList();
-  };
 
   document.getElementById('save-custom-def-btn').onclick = async function(){
     if(!isAdmin) return;
@@ -3321,7 +3468,7 @@
   function renderList(listToRender){
     listContainer.innerHTML = '';
 
-    let currentDB = listToRender || (currentMode === 'ATK' ? getFullAtkDB().filter(d => (d.deckType || '공덱') === atkSubFilter) : (currentMode === 'DEF' ? getFullDefDB() : getFullTotDB()));
+    let currentDB = listToRender || (currentMode === 'ATK' ? getFullAtkDB().filter(d => (d.deckType || '공덱') === atkSubFilter) : getFullDefDB());
     if (currentMode === 'DEF' && !listToRender) {
       currentDB = currentDB.map((item, idx) => ({ item, idx })).sort((a, b) => {
         const pa = a.item.isPicked ? 1 : 0, pb = b.item.isPicked ? 1 : 0;
@@ -3341,7 +3488,7 @@
       if (item.titleHeroes && item.titleHeroes.some(h => h.img)) {
         let iconsHtml = `<div class="hero-comp-icons">` + item.titleHeroes.filter(h => h.name || h.img).map(h => {
           let imgTag = h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" alt="${escName(h.name)}">` : '';
-          let nameSpan = (currentMode === 'TOTAL' || currentMode === 'DEF') ? '' : `<span>${escName(h.name)}</span>`;
+          let nameSpan = (currentMode === 'DEF') ? '' : `<span>${escName(h.name)}</span>`;
           return `<div class="hero-comp-icon-item">${imgTag}${nameSpan}</div>`;
         }).join('') + `</div>`;
         // 이미지만 있으면 어떤 덱인지 구분이 안 되니, 이미지 옆에 직접 적어둔 내용(검색 가능)을 같이 표시 — 관리자는 바로 수정 가능
@@ -3358,13 +3505,11 @@
       let badgeHtml = '';
       if(currentMode === 'ATK') badgeHtml = `<span class="badge atk">ATK</span>`;
       else if(currentMode === 'DEF') badgeHtml = `<span class="badge def">DEF</span>`;
-      // TOTAL(카운터 모음)은 뱃지 표시 안 함
 
       let isActive = activeDeckName === item.name;
       let isPicked = !!item.isPicked;
       let pickRank = item.pickRank || null;
       let rowClass = isActive ? 'list-item active-item' : 'list-item';
-      if (currentMode === 'TOTAL') rowClass += ' list-item-nobadge';
       if (currentMode === 'DEF' && isPicked) rowClass += pickRank ? ' picked-item' : ' picked-item-norank';
       let btnClass = isActive ? 'detail-btn active-btn' : 'detail-btn';
       let btnText = isActive ? '접기 ▲' : '상세 공략 열기';
@@ -3380,7 +3525,17 @@
         <div class="hero-comp">${pickedBadgeHtml}${rankBadgeHtml}${heroesHtml}${pickToggleHtml}${rankSelectHtml}</div>
         <div><button class="${btnClass}">${btnText}</button></div>
       `;
-      div.querySelector('.detail-btn').onclick = () => renderGuide(item);
+      div.querySelector('.detail-btn').onclick = () => {
+        activeDeckName = (activeDeckName === item.name) ? null : item.name;
+        renderList(listToRender);
+        setTimeout(() => {
+          const activeItem = document.querySelector('.list-item.active-item, .list-item.active-item-tot');
+          if(activeItem) {
+            const y = activeItem.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        }, 50);
+      };
       const pickBtn = div.querySelector('.pick-toggle-btn');
       if (pickBtn) pickBtn.onclick = (e) => { e.stopPropagation(); window.togglePickedItem(currentMode, item.id); };
       const rankSelect = div.querySelector('.pick-rank-select');
@@ -3550,101 +3705,6 @@
               </div>
             </div>
           `;
-        } else {
-          let countersHtml = '';
-          let cList = (item.counters || []).map((c, idx) => ({ c, idx }));
-          // 영상 있는 조합이 제일 위로 → 승률 높은 조합이 그 다음 (⭐정석 → 승률순 → 🚫비추천은 항상 맨 아래, 원래 저장 순서는 안 바뀜 - 화면 표시 순서만 바뀜)
-          cList.sort((a, b) => {
-            const va = !!(a.c.videoUrl && a.c.videoUrl.trim());
-            const vb = !!(b.c.videoUrl && b.c.videoUrl.trim());
-            if (va !== vb) return va ? -1 : 1; // 🎥 영상이 있는 조합이 항상 최상단
-            const keyA = getComboKey(item.id, a.c, a.idx), keyB = getComboKey(item.id, b.c, b.idx);
-            const sa = !!(statsData[keyA] && statsData[keyA].isStandard);
-            const sb = !!(statsData[keyB] && statsData[keyB].isStandard);
-            if (sa !== sb) return sa ? -1 : 1; // ⭐ 정석으로 지정된 조합이 항상 최상단
-            const na = !!(statsData[keyA] && statsData[keyA].isNotRecommended);
-            const nb = !!(statsData[keyB] && statsData[keyB].isNotRecommended);
-            if (na !== nb) return na ? 1 : -1; // 🚫 비추천으로 지정된 조합이 항상 최하단
-            const wa = getWinRate(keyA);
-            const wb = getWinRate(keyB);
-            if (wa.total === 0 && wb.total === 0) return 0;
-            if (wa.total === 0) return 1;
-            if (wb.total === 0) return -1;
-            if (wb.pct !== wa.pct) return wb.pct - wa.pct;
-            return wb.wins - wa.wins; // 승률 같으면 승수 많은 쪽이 위로
-          });
-          cList.forEach(({ c, idx: cIdx }, i) => {
-            let slots = c.slots || Array(8).fill({img: "", info: ""});
-            let boardHtml = generateFormationBoardBySlots(slots, `${item.id}_tot_${cIdx}`, false, 4, 4, true);
-            let petHtml = generatePetDisplay(c.pet, true);
-            let statsKey = getComboKey(item.id, c, cIdx);
-            let statsWr = getWinRate(statsKey);
-            let isStandard = !!(statsData[statsKey] && statsData[statsKey].isStandard);
-            let isNotRecommended = !!(statsData[statsKey] && statsData[statsKey].isNotRecommended);
-            const escGear = (s) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-            const gearHeroes = slots.filter(h => h && (h.name || h.img));
-            const priNumGear = (pri) => { const n = parseInt(pri, 10); return isNaN(n) ? Infinity : n; };
-            const skillEntriesGear = [];
-            gearHeroes.forEach(h => {
-              [[h.skill1Img, h.skill1Pri], [h.skill2Img, h.skill2Pri], [h.skill3Img, h.skill3Pri]].forEach(([simg, pri]) => {
-                if(simg) skillEntriesGear.push({ img: simg, pri, name: h.name, heroImg: h.img });
-              });
-            });
-            skillEntriesGear.sort((a, b) => priNumGear(a.pri) - priNumGear(b.pri));
-            const skillOrderHtmlGear = skillEntriesGear.map(e => `
-              <div style="text-align:center; flex-shrink:0;">
-                <div class="skillorder-icon-wrap">
-                  <img referrerpolicy="no-referrer" src="${e.img}" class="skillorder-icon-img">
-                  ${e.pri ? `<span style="position:absolute; bottom:-5px; right:-5px; background:var(--orange); color:#fff; font-size:12px; font-weight:900; width:21px; height:21px; border-radius:50%; display:flex; align-items:center; justify-content:center;">${escGear(e.pri)}</span>` : ''}
-                </div>
-              </div>
-            `).join('');
-            const gearCardsHtml = gearHeroes.map(h => `
-              <div style="border-radius:4px; padding:14px; background:var(--bg);">
-                <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
-                  ${h.img ? `<img referrerpolicy="no-referrer" src="${h.img}" style="width:44px; height:44px; border-radius:6px; object-fit:cover; border:1px solid var(--border);">` : ''}
-                  ${h.job ? `<span style="font-size:13px; font-weight:800; color:#6d28d9; background:#f3e8ff; padding:3px 8px; border-radius:2px; white-space:nowrap;">${escGear(h.job)}</span>` : ''}
-                </div>
-                ${h.info ? `<div style="font-size:12.5px; font-weight:700; color:var(--ink); line-height:1.7; background:var(--card); border-radius:3px; padding:8px; margin-bottom:8px; white-space:pre-line;">${escGear(h.info)}</div>` : ''}
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-bottom:8px;">
-                  ${[['무기1', h.w1], ['무기2', h.w2], ['방어구1', h.a1], ['방어구2', h.a2]].map(([label, val]) => val ? `
-                    <div style="background:var(--card); border-radius:3px; padding:6px 8px; text-align:center;">
-                      <div style="font-size:10px; color:var(--text-dim); font-weight:700;">${label}</div>
-                      <div style="font-size:12px; font-weight:800; color:var(--ink);">${escGear(val)}</div>
-                    </div>
-                  ` : '').join('')}
-                </div>
-              </div>
-            `).join('');
-            let cardHtml = `
-              <div class="gcd-atk-card-item">
-                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
-                  <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                    <span style="font-size:11px; background:var(--red-soft); color:var(--red); padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
-                  </span>
-                </div>
-                ${generateVideoEmbedHtml(c.videoUrl)}
-                <div class="counter-body-formation-row">
-                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap; gap:16px;">${boardHtml}${petHtml}${skillOrderHtmlGear ? `<span style="width:1px; height:44px; background:var(--border);"></span><div class="pet-display-wrap"><div class="pet-display-label">⚡ 스킬 순서</div><div style="display:flex; gap:12px; align-items:center;">${skillOrderHtmlGear}</div></div>` : ''}</div></div>
-                </div>
-                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">${c.body || ''}</div>
-                ${gearCardsHtml ? `<div style="font-weight:900; font-size:13px; color:var(--ink); margin:14px 0 8px;">🗡️ 전원 장비 · 세팅 디테일</div><div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:10px;">${gearCardsHtml}</div>` : ''}
-              </div>
-            `;
-            countersHtml += cardHtml;
-          });
-
-          detailDiv.innerHTML = `
-            <div class="gcd-result-card">
-              <div class="gcd-res-target">
-                <span>${editControlsHtml}</span>
-              </div>
-              <div class="gcd-info-block gcd-atk-block">
-                <div class="title">⚔️ 카운터 상세 공략</div>
-                ${countersHtml}
-              </div>
-            </div>
-          `;
         }
         listContainer.appendChild(detailDiv);
       }
@@ -3667,7 +3727,7 @@
 
   // 읽기 전용(일반 보기) 표 렌더링 — 이미지 없이 이름+세팅 텍스트만, rowspan으로 외성/내성/본성 묶음 표시
   // plans 중 일부(최대 2개)만 받아서 표 하나(<table>)를 만듦 — 안을 2개씩 묶어 줄바꿈 표시하는 데 사용
-  function buildRouteTableChunk(plans){
+  function buildRouteTableChunk(plans, startIdx){
     // plans가 2개 이상일 때, 안(팀) 사이에 가늘고 간격이 일정한 빨간 점선을 그어 구분함.
     // table border-collapse로 각 <td>마다 점선 테두리를 넣으면 줄(row) 경계마다 점선 간격이 끊겨서 들쭉날쭉해지므로,
     // 대신 전체 표 높이를 한 번에 덮는 rowspan 칸 하나에 반복 그라데이션 배경으로 점선을 그려서 간격을 일정하게 유지함.
@@ -3677,7 +3737,8 @@
     let headParts = [`<th class="route-table-corner"></th>`];
     plans.forEach((p, idx) => {
       if (idx > 0) headParts.push(`<th class="route-table-divider-col"></th>`);
-      headParts.push(`<th colspan="3">🗺️ ${escRoute(p.label)}</th>`);
+      const teamColor = ROUTE_TEAM_COLORS[(startIdx + idx) % ROUTE_TEAM_COLORS.length];
+      headParts.push(`<th colspan="3" style="background:${teamColor};">${escRoute(p.label)}</th>`);
     });
     const headHtml = headParts.join('');
 
@@ -3720,7 +3781,7 @@
     const PLANS_PER_ROW = 2;
     let groupsHtml = '';
     for (let i = 0; i < plans.length; i += PLANS_PER_ROW) {
-      groupsHtml += buildRouteTableChunk(plans.slice(i, i + PLANS_PER_ROW));
+      groupsHtml += buildRouteTableChunk(plans.slice(i, i + PLANS_PER_ROW), i);
     }
     return `<div class="route-table-group">${groupsHtml}</div>`;
   }
@@ -3857,31 +3918,27 @@
       l.classList.remove('active-route');
     });
     document.getElementById('gcd-add-def-section').style.display = 'none';
-    document.getElementById('gcd-add-tot-section').style.display = 'none';
     routeTableEditMode = false;
     toggleAddBtn.style.display = 'none';
 
     document.getElementById('list-wrapper').style.display = 'none';
     document.getElementById('gcd-search-section').style.display = 'none';
     document.getElementById('def-notice-box').style.display = 'none';
-    document.getElementById('atk-notice-box').style.display = 'none';
     document.getElementById('gcd-mode-title').style.display = 'none';
     document.getElementById('route-plan-list-wrapper').style.display = 'none';
     document.getElementById('tot-subtabs').style.display = 'none';
 
     if(mode === 'TOTAL'){
-      document.getElementById('tab-total').classList.add('active-total');
       document.getElementById('gcd-mode-title').style.display = 'none';
       document.getElementById('tot-subtabs').style.display = 'flex';
-      document.getElementById('atk-notice-edit-btn').style.display = isAdmin ? 'inline-block' : 'none';
       document.getElementById('route-notice-edit-btn').style.display = isAdmin ? 'inline-block' : 'none';
       document.getElementById('def-notice-edit-btn').style.display = isAdmin ? 'inline-block' : 'none';
       updateTotSectionView();
     }
   }
 
-  // 길드전 탭의 하위 탭(카운터덱 / 공격 루트 / 방어덱) 전환.
-  // currentMode가 'TOTAL'일 때 호출되며, 세 섹션 모두 DOM에는 항상 존재하고 display만 토글한다.
+  // 길드전 탭의 하위 탭(공격 루트 / 공격덱 / 방어덱) 전환.
+  // currentMode가 'TOTAL'일 때 호출되며, 섹션들은 DOM에는 항상 존재하고 display만 토글한다.
   // 방어덱 서브탭은 내부적으로 기존 DEF 모드 렌더링 로직(renderList의 뱃지/채택/순위 UI 등)을 그대로 재사용하기 위해
   // currentMode를 'DEF'로 맞춰준다.
   function setTotSection(section){
@@ -3889,38 +3946,42 @@
     currentMode = (section === 'def') ? 'DEF' : 'TOTAL';
     activeDeckName = null;
     // 하위 탭을 바꾸면 열려있던 추가/수정 폼은 닫아서 혼란을 방지
-    document.getElementById('gcd-add-tot-section').style.display = 'none';
     document.getElementById('gcd-add-def-section').style.display = 'none';
     routeTableEditMode = false;
     updateTotSectionView();
   }
 
   function updateTotSectionView(){
-    const showCounter = totSection === 'counter';
     const showRoute = totSection === 'route';
+    const showAtkDeck = totSection === 'atkdeck';
     const showDef = totSection === 'def';
 
-    document.getElementById('tot-section-counter').classList.toggle('active-total', showCounter);
     document.getElementById('tot-section-route').classList.toggle('active-route', showRoute);
+    document.getElementById('tot-section-atkdeck').classList.toggle('active-atkdeck', showAtkDeck);
     document.getElementById('tot-section-def').classList.toggle('active-def', showDef);
 
-    document.getElementById('gcd-search-section').style.display = (showCounter || showDef) ? 'block' : 'none';
-    document.getElementById('atk-notice-box').style.display = showCounter ? 'block' : 'none';
+    document.getElementById('gcd-search-section').style.display = showDef ? 'block' : 'none';
     document.getElementById('def-notice-box').style.display = showDef ? 'block' : 'none';
     document.getElementById('def-notice-edit-btn').style.display = (showDef && isAdmin) ? 'inline-block' : 'none';
-    document.getElementById('list-wrapper').style.display = (showCounter || showDef) ? 'block' : 'none';
-    document.getElementById('list-header').style.display = (showCounter || showDef) ? 'grid' : 'none';
+    document.getElementById('list-wrapper').style.display = showDef ? 'block' : 'none';
+    document.getElementById('list-header').style.display = showDef ? 'grid' : 'none';
 
     document.getElementById('route-plan-list-wrapper').style.display = showRoute ? 'block' : 'none';
 
-    if(isAdmin && (showCounter || showDef)){
+    document.getElementById('atkdeck-list-wrapper').style.display = showAtkDeck ? 'block' : 'none';
+    document.getElementById('atkdeck-notice-edit-btn').style.display = (showAtkDeck && isAdmin) ? 'inline-block' : 'none';
+    if (showAtkDeck) {
+      renderAtkDeckTable();
+    }
+
+    if(isAdmin && showDef){
       toggleAddBtn.style.display = 'flex';
       toggleAddBtn.textContent = '+ 덱 추가하기';
     } else {
       toggleAddBtn.style.display = 'none';
     }
 
-    if(showRoute) renderRouteTable(); else renderList();
+    if(showRoute) renderRouteTable(); else if(!showAtkDeck) renderList();
   }
 
   const input = document.getElementById('gcd-heroes-input');
@@ -3928,13 +3989,13 @@
   input.onkeypress = (e) => { if(e.key === 'Enter') searchGuide(); };
 
 function renderGuide(item){
-    if(activeDeckName === item.name){ 
-      activeDeckName = null; 
-      renderList(); 
-      return; 
+    if(activeDeckName === item.name){
+      activeDeckName = null;
+      renderList();
+      return;
     }
     activeDeckName = item.name;
-    renderList(); 
+    renderList();
 
     setTimeout(() => {
       const activeItem = document.querySelector('.list-item.active-item, .list-item.active-item-tot');
@@ -4020,26 +4081,6 @@ function renderGuide(item){
       document.getElementById('gcd-add-def-section').style.display = 'block';
       toggleAddBtn.textContent = '닫기';
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if(currentMode === 'TOTAL'){
-      const item = totData.find(d => d.id == id);
-      if(!item) return;
-      document.getElementById('custom-tot-id').value = item.id;
-      document.getElementById('custom-tot-keywords').value = item.keywords ? item.keywords.join(', ') : '';
-      document.getElementById('custom-tot-type').value = item.deckType || '공덱';
-      let thArrTot = item.titleHeroes || [];
-      for(let i=0; i<4; i++) {
-        document.getElementById(`tot-title-name-${i}`).value = thArrTot[i]?.name || '';
-        document.getElementById(`tot-title-img-${i}`).value = thArrTot[i]?.img || '';
-      }
-      const syncedNamesTot = thArrTot.map(h => (h?.name || '').trim()).filter(Boolean);
-      document.getElementById('custom-tot-name').value = syncedNamesTot.length > 0 ? syncedNamesTot.join(' · ') : item.name;
-
-      renderCounterBuilder('tot-cards-container', item.counters || [], 't');
-
-      document.getElementById('tot-form-title').textContent = '✏️ 공격덱 수정';
-      document.getElementById('gcd-add-tot-section').style.display = 'block';
-      toggleAddBtn.textContent = '닫기';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -4053,9 +4094,6 @@ function renderGuide(item){
       } else if(currentMode === 'DEF'){
         if(window.deleteFromFirestore) await window.deleteFromFirestore('DEF', id);
         defData = defData.filter(d => d.id != id);
-      } else if(currentMode === 'TOTAL'){
-        if(window.deleteFromFirestore) await window.deleteFromFirestore('TOTAL', id);
-        totData = totData.filter(d => d.id != id);
       }
     } catch(e) { renderList(); return; } // delete failed - error already alerted
     activeDeckName = null; renderList(); alert('삭제완료');
@@ -4078,7 +4116,7 @@ function searchGuide(){
     }
 
     if(matches.length === 0){ alert('검색 결과가 없습니다.'); return; }
-    if(matches.length === 1){ renderGuide(matches[0]); } 
+    if(matches.length === 1){ renderGuide(matches[0]); }
     else { activeDeckName = null; renderList(matches); alert(`${matches.length}개의 덱을 찾았습니다.`); }
   }
 
@@ -4148,6 +4186,36 @@ function searchGuide(){
   };
   document.getElementById('close-deeplink-modal-btn').onclick = function() {
     document.getElementById('deeplink-modal-overlay').style.display = 'none';
+  };
+
+  // 카운터덱 탭 자체는 이미 화면에서 제거됐지만, Firestore에는 예전 데이터(guild_atk_db, guild_total_db)가
+  // 그대로 남아있어 실제 삭제를 원할 때 쓰는 1회성 관리자용 정리 버튼. 되돌릴 수 없으므로 두 번 확인함.
+  wipeOldCounterDataBtn.onclick = async function() {
+    if (!isAdmin) return;
+    if (!confirm('예전 카운터덱 데이터를 Firestore에서 전부 삭제합니다.\n되돌릴 수 없어요. 정말 진행할까요?')) return;
+    if (!confirm('마지막 확인입니다. 정말로 전부 삭제하시겠습니까?')) return;
+    wipeOldCounterDataBtn.disabled = true;
+    wipeOldCounterDataBtn.textContent = '삭제 중...';
+    try {
+      const [atkSnap, totSnap] = await Promise.all([
+        getDocs(collection(db, "guild_atk_db")),
+        getDocs(collection(db, "guild_total_db"))
+      ]);
+      const deletions = [];
+      atkSnap.forEach(d => deletions.push(deleteDoc(d.ref)));
+      totSnap.forEach(d => deletions.push(deleteDoc(d.ref)));
+      await Promise.all(deletions);
+      atkData = [];
+      totData = [];
+      alert(`삭제 완료! (guild_atk_db ${atkSnap.size}개, guild_total_db ${totSnap.size}개 삭제됨)`);
+      wipeOldCounterDataBtn.style.display = 'none';
+    } catch (e) {
+      console.error('카운터덱 데이터 삭제 실패:', e);
+      alert('⚠️ 삭제 중 오류가 발생했습니다. (원인: ' + e.code + ' - ' + e.message + ')');
+    } finally {
+      wipeOldCounterDataBtn.disabled = false;
+      wipeOldCounterDataBtn.textContent = '🗑️ 예전 카운터덱 데이터 전체 삭제';
+    }
   };
 </script>
   </div>
