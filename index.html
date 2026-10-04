@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0043)file:///C:/Users/65380/Downloads/index.html -->
+<!-- saved from url=(0014)about:internet -->
 <html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -581,8 +581,8 @@
   <div class="top-nav">
     <div class="logo"></div>
     <div style="display:flex; align-items:center; gap:10px;">
-      <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); white-space:nowrap;">👥 오늘 0명</div>
-      <button id="admin-mode-btn" class="admin-btn">🔒 관리자</button>
+      <div id="visitor-count-badge" style="font-size:11px; font-weight:800; color:var(--text-dim); white-space:nowrap;">👥 오늘 23명</div>
+      <button id="admin-mode-btn" class="admin-btn admin-on">🔓 관리자 On</button>
     </div>
   </div>
 
@@ -591,7 +591,7 @@
     <div class="gcd-notice-box" style="display:none;">
       <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
         <span>📢 길드전 및 총력전 세팅</span>
-        <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display: none;">✏️ 수정</button>
+        <button type="button" id="notice-edit-btn" class="btn-mini-edit" style="display: inline-block;">✏️ 수정</button>
       </div>
       <div id="notice-content">도면 길드전 내용 위주로 작성합니다.<br><br>길드전 해보신 후 피드백 적극 수용합니다.<br></div>
       <div id="notice-edit-area" style="display:none; margin-top:8px;">
@@ -606,7 +606,7 @@
     <!-- 관리자용 덱 추가 버튼 바 -->
     <div class="admin-control-bar">
       <button class="add-btn" id="toggle-add-btn" style="display: none;">+ 덱 추가하기</button>
-      <button class="add-btn" id="show-deeplink-table-btn" style="display: none; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
+      <button class="add-btn" id="show-deeplink-table-btn" style="display: flex; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
       <button class="add-btn" id="wipe-old-counter-data-btn" style="display: none; background: #b91c1c;">🗑️ 예전 카운터덱 데이터 전체 삭제</button>
     </div>
 
@@ -1187,21 +1187,21 @@
 
 
     <!-- 검색 바 -->
-    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: none;">⚔️ 길드전 공격 구성 덱</div>
+    <div id="gcd-mode-title" style="font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; display: block;">⚔️ 길드전 공격 구성 덱</div>
     <!-- 길드전 공격 하위 탭 (카운터 모음 / 공격 루트안) -->
-    <div id="tot-subtabs" style="display: flex; gap: 8px; margin-bottom: 14px;">
-      <div id="tot-section-route" class="tot-section-pill active-total active-route">공격 루트</div>
+    <div id="tot-subtabs" style="display: none; gap: 8px; margin-bottom: 14px;">
+      <div id="tot-section-route" class="tot-section-pill active-total">공격 루트</div>
       <div id="tot-section-atkdeck" class="tot-section-pill">공격덱</div>
       <div id="tot-section-def" class="tot-section-pill">방어덱</div>
     </div>
     <!-- 공격 루트안: 외성/내성/본성 × 1안~N안 스프레드시트 형태 표 -->
-    <div id="route-plan-list-wrapper" style="display: block;">
+    <div id="route-plan-list-wrapper" style="display: none;">
       <div id="route-notice-box" class="gcd-notice-box" style="display: block; margin-bottom: 20px;">
         <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
           <span>공지사항</span>
           <button type="button" id="route-notice-edit-btn" class="btn-mini-edit" style="display: none;">✏️ 수정</button>
         </div>
-        <div id="route-notice-content">ⓐ 장신구 및 덱에 따라 하나 정해서 공격 권장드립니다.<br>ⓑ 특이사항 없을 시 루트대로 공격 진행 부탁드립니다.<br>ⓒ 카운터 모를 시 맨션주세요.<br>★★ 내성, 본성은 상황에 맞게 해주세요.<br><br>여포 6권불 탄지로 6권불 란드그리드 6불 &lt; 테스트 중 사용 금지</div>
+        <div id="route-notice-content"></div>
         <div id="route-notice-edit-area" style="display:none; margin-top:8px;">
           <textarea id="route-notice-edit-textarea" class="gcd-input" style="width:100%; height:100px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
           <div style="display:flex; gap:8px; margin-top:8px;">
@@ -1213,7 +1213,7 @@
       <div class="route-table-toolbar" id="route-table-admin-toolbar" style="display:none;">
         <button type="button" id="route-table-edit-toggle-btn" class="gcd-btn-action" style="background:#2563eb; width:auto; padding:8px 16px;">✏️ 표 편집</button>
       </div>
-      <div id="route-table-wrap"><div class="route-table-group"><div class="route-table-scroller"><table class="route-table"><thead><tr><th class="route-table-corner"></th><th colspan="3" style="background:#15803d;">팀A</th><th class="route-table-divider-col"></th><th colspan="3" style="background:#1d4ed8;">팀B</th></tr></thead><tbody><tr><td class="route-table-cat" rowspan="1">외성</td><td class="route-table-cell"><div class="route-table-hero-name">라드그리드</div><div class="route-table-hero-tier">5부</div></td><td class="route-table-cell"><div class="route-table-hero-name">손오공</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-cell"><div class="route-table-hero-name">아리스</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-divider-col" rowspan="7"></td><td class="route-table-cell"><div class="route-table-hero-name">라드그리드</div><div class="route-table-hero-tier">5부</div></td><td class="route-table-cell"><div class="route-table-hero-name">손오공</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-cell"><div class="route-table-hero-name">아리스</div><div class="route-table-hero-tier">기합</div></td></tr><tr><td class="route-table-cat" rowspan="1">내성</td><td class="route-table-cell"><div class="route-table-hero-name">루디</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">겔리두스</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">클레미스</div><div class="route-table-hero-tier">5불</div></td><td class="route-table-cell"><div class="route-table-hero-name">루디</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">겔리두스</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">클레미스</div><div class="route-table-hero-tier">5불</div></td></tr><tr><td class="route-table-cat" rowspan="5">본성</td><td class="route-table-cell"><div class="route-table-hero-name">선란</div><div class="route-table-hero-tier">6권기</div></td><td class="route-table-cell"><div class="route-table-hero-name">하연</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">칼헤론</div><div class="route-table-hero-tier">6권불</div></td><td class="route-table-cell"><div class="route-table-hero-name">선란</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">하연</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">칼헤론</div><div class="route-table-hero-tier">6권불</div></td></tr><tr><td class="route-table-cell"><div class="route-table-hero-name">오목</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">동영</div><div class="route-table-hero-tier">X</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td><td class="route-table-cell"><div class="route-table-hero-name">헬레니아</div><div class="route-table-hero-tier">6부철</div></td><td class="route-table-cell"><div class="route-table-hero-name">겔리두스</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">하연</div><div class="route-table-hero-tier">6부</div></td></tr><tr><td class="route-table-cell"><div class="route-table-hero-name">밀리아</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">스쿨드</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td><td class="route-table-cell"><div class="route-table-hero-name">오목</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">동영</div><div class="route-table-hero-tier">X</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td></tr><tr><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell"><div class="route-table-hero-name">밀리아</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">스쿨드</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td></tr><tr><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell"><div class="route-table-hero-name">젠이츠</div><div class="route-table-hero-tier">6대권</div></td><td class="route-table-cell"><div class="route-table-hero-name">탄지로</div><div class="route-table-hero-tier">6권불</div></td><td class="route-table-cell"><div class="route-table-hero-name">아일린</div><div class="route-table-hero-tier">6권불</div></td></tr></tbody></table></div><div class="route-table-scroller"><table class="route-table"><thead><tr><th class="route-table-corner"></th><th colspan="3" style="background:#b45309;">팀C</th><th class="route-table-divider-col"></th><th colspan="3" style="background:#7e22ce;">팀D</th></tr></thead><tbody><tr><td class="route-table-cat" rowspan="2">외성</td><td class="route-table-cell"><div class="route-table-hero-name">라드그리드</div><div class="route-table-hero-tier">5부</div></td><td class="route-table-cell"><div class="route-table-hero-name">손오공</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-cell"><div class="route-table-hero-name">아리스</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-divider-col" rowspan="8"></td><td class="route-table-cell"><div class="route-table-hero-name">선란</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">발리스타</div><div class="route-table-hero-tier">5불권</div></td><td class="route-table-cell"><div class="route-table-hero-name">콜트(카일)</div><div class="route-table-hero-tier">5불권</div></td></tr><tr><td class="route-table-cell"><div class="route-table-hero-name">연희</div><div class="route-table-hero-tier">5불</div></td><td class="route-table-cell"><div class="route-table-hero-name">동영</div><div class="route-table-hero-tier">5불권</div></td><td class="route-table-cell"><div class="route-table-hero-name">실베스타</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">라드그리드</div><div class="route-table-hero-tier">5부</div></td><td class="route-table-cell"><div class="route-table-hero-name">손오공</div><div class="route-table-hero-tier">기합</div></td><td class="route-table-cell"><div class="route-table-hero-name">아리스</div><div class="route-table-hero-tier">기합</div></td></tr><tr><td class="route-table-cat" rowspan="2">내성</td><td class="route-table-cell"><div class="route-table-hero-name">루디</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">겔리두스</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">클레미스</div><div class="route-table-hero-tier">5불</div></td><td class="route-table-cell"><div class="route-table-hero-name">루디</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">겔리두스</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">클레미스</div><div class="route-table-hero-tier">5불</div></td></tr><tr><td class="route-table-cell"><div class="route-table-hero-name">초선</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">밀리아</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td></tr><tr><td class="route-table-cat" rowspan="4">본성</td><td class="route-table-cell"><div class="route-table-hero-name">선란</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">하연</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">칼헤론</div><div class="route-table-hero-tier">6권불</div></td><td class="route-table-cell"><div class="route-table-hero-name">헬레니아</div><div class="route-table-hero-tier">6권기</div></td><td class="route-table-cell"><div class="route-table-hero-name">하연</div><div class="route-table-hero-tier">6부</div></td><td class="route-table-cell"><div class="route-table-hero-name">아일린</div><div class="route-table-hero-tier">6권불</div></td></tr><tr><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell"><div class="route-table-hero-name">밀리아</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">스쿨드</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td></tr><tr><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell"><div class="route-table-hero-name">스쿨드</div><div class="route-table-hero-tier">6권</div></td><td class="route-table-cell"><div class="route-table-hero-name">동영</div><div class="route-table-hero-tier">X</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td></tr><tr><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell route-table-cell-empty">–</td><td class="route-table-cell"><div class="route-table-hero-name">오목</div><div class="route-table-hero-tier">6불</div></td><td class="route-table-cell"><div class="route-table-hero-name">동영</div><div class="route-table-hero-tier">X</div></td><td class="route-table-cell"><div class="route-table-hero-name">윤건</div><div class="route-table-hero-tier">6권불(부권)</div></td></tr></tbody></table></div></div></div>
+      <div id="route-table-wrap"></div>
     </div>
     <!-- 공격덱: "영웅 이미지 3장 + 공격 시 → 상대 방어덱" 목록. 관리자는 표 안에서 바로 입력/저장 -->
     <div id="atkdeck-list-wrapper" style="display: none;">
@@ -1234,193 +1234,7 @@
       <div class="search-row" style="margin-bottom: 14px;">
         <input type="text" id="atkdeck-search-input" class="gcd-input" style="margin:0;" placeholder="🔍 영웅 이름으로 검색...">
       </div>
-      <div id="atkdeck-table-wrap">
-      <table class="atkdeck-table">
-        <thead><tr><th>공격덱</th><th class="atkdeck-arrow-head"><span class="atkdeck-arrow-head-arrow">→</span> 공격</th><th>상대 방어덱</th></tr></thead>
-        <tbody><tr>
-        <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="0" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/fkemrmflem.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="0" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/dhrhd.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="0" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">라오아</div><div class="atkdeck-memo2-text">스킬 : 오공2 아리스1 오공1</div></div>
-        </td>
-        <td class="atkdeck-arrow">→</td>
-        <td class="atkdeck-defdecks-cell">
-          <div class="atkdeck-defdecks-row">
-            <div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/fnel.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/rpfflentm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">루겔아</div>
-          
-        </div><div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/image.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/tmznfem.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">밀실스</div>
-          
-        </div>
-            
-          </div>
-        </td>
-        
-      </tr><tr>
-        <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="1" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/DHAHR.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="1" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="1" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/fprls.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">목실레</div><div class="atkdeck-memo2-text">스킬 : 오목1 실베2 오2</div></div>
-        </td>
-        <td class="atkdeck-arrow">→</td>
-        <td class="atkdeck-defdecks-cell">
-          <div class="atkdeck-defdecks-row">
-            <div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/fnel.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/rpfflentm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">루겔아</div>
-          
-        </div>
-            
-          </div>
-        </td>
-        
-      </tr><tr>
-        <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="2" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="2" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/qkffltmxk.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="2" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">선발칼</div><div class="atkdeck-memo2-text">스킬 : 선란2 선란1 발리2</div></div>
-        </td>
-        <td class="atkdeck-arrow">→</td>
-        <td class="atkdeck-defdecks-cell">
-          <div class="atkdeck-defdecks-row">
-            <div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/image.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/tmznfem.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">밀실스</div>
-          
-        </div>
-            
-          </div>
-        </td>
-        
-      </tr><tr>
-        <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="3" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="3" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="3" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">여델칼</div><div class="atkdeck-memo2-text">스킬 : 여포1 여포2 델론즈2</div></div>
-        </td>
-        <td class="atkdeck-arrow">→</td>
-        <td class="atkdeck-defdecks-cell">
-          <div class="atkdeck-defdecks-row">
-            <div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">선델클</div>
-          
-        </div>
-            
-          </div>
-        </td>
-        
-      </tr><tr>
-        <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="4" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/fkemrmflem.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="4" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/dhrhd.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="4" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">라오클</div><div class="atkdeck-memo2-text">스킬 : 클레2 오공2 클레1</div></div>
-        </td>
-        <td class="atkdeck-arrow">→</td>
-        <td class="atkdeck-defdecks-cell">
-          <div class="atkdeck-defdecks-row">
-            <div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">선델클</div>
-          
-        </div>
-            
-          </div>
-        </td>
-        
-      </tr><tr>
-        <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="5" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/chtjs.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="5" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="5" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">초선델</div><div class="atkdeck-memo2-text">스킬 : 초선2 델론즈2 선란1</div></div>
-        </td>
-        <td class="atkdeck-arrow">→</td>
-        <td class="atkdeck-defdecks-cell">
-          <div class="atkdeck-defdecks-row">
-            <div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">선델클</div>
-          
-        </div>
-            
-          </div>
-        </td>
-        
-      </tr><tr>
-        <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="6" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/fnel.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="6" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/rpfflentm.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="6" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">루겔클</div><div class="atkdeck-memo2-text">스킬 : 클레1 루디2 겔두2</div></div>
-        </td>
-        <td class="atkdeck-arrow">→</td>
-        <td class="atkdeck-defdecks-cell">
-          <div class="atkdeck-defdecks-row">
-            <div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">선델오</div>
-          
-        </div>
-            
-          </div>
-        </td>
-        
-      </tr><tr>
-        <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="7" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/chtjs.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="7" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/ehddud.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="7" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/dbsrjs.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">초동윤</div><div class="atkdeck-memo2-text">스킬 : 초선2 윤건2 윤건1</div></div>
-        </td>
-        <td class="atkdeck-arrow">→</td>
-        <td class="atkdeck-defdecks-cell">
-          <div class="atkdeck-defdecks-row">
-            <div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">선델하</div>
-          
-        </div>
-            
-          </div>
-        </td>
-        
-      </tr><tr>
-        <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="8" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/dusgml.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="8" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/vmfpdldi.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="8" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">연프실</div><div class="atkdeck-memo2-text">스킬 : 연희2 실베1 실베2</div></div>
-        </td>
-        <td class="atkdeck-arrow">→</td>
-        <td class="atkdeck-defdecks-cell">
-          <div class="atkdeck-defdecks-row">
-            <div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">여올칼</div>
-          
-        </div>
-            
-          </div>
-        </td>
-        
-      </tr><tr>
-        <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="9" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/gpffpsldk.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="9" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="9" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/vkffksntm.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">헬하팔</div><div class="atkdeck-memo2-text">스킬 : 헬레1 헬레2 하연2</div></div>
-        </td>
-        <td class="atkdeck-arrow">→</td>
-        <td class="atkdeck-defdecks-cell">
-          <div class="atkdeck-defdecks-row">
-            <div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/dusgml.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/ehddud.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dbsrjs.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">연동윤</div>
-          
-        </div>
-            
-          </div>
-        </td>
-        
-      </tr><tr>
-        <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row"><div class="atkdeck-icon-clickable" data-row="10" data-slot="0" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="10" data-slot="1" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" class="atkdeck-icon-preview"></div><div class="atkdeck-icon-clickable" data-row="10" data-slot="2" title="클릭하면 이 영웅의 상세공략이 열려요"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" class="atkdeck-icon-preview"></div></div><div class="atkdeck-memo-text">선하칼</div><div class="atkdeck-memo2-text">스킬 : 선란1 하연2 선란2</div></div>
-        </td>
-        <td class="atkdeck-arrow">→</td>
-        <td class="atkdeck-defdecks-cell">
-          <div class="atkdeck-defdecks-row">
-            <div class="atkdeck-defdeck-block">
-          <div class="atkdeck-icons-row"><img referrerpolicy="no-referrer" src="./index_files/dbsrjs.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/dusgml.webp" class="atkdeck-icon-preview"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" class="atkdeck-icon-preview"></div>
-          <div class="atkdeck-memo-text">윤연하</div>
-          
-        </div>
-            
-          </div>
-        </td>
-        
-      </tr></tbody>
-      </table>
-      
-    </div>
+      <div id="atkdeck-table-wrap"></div>
     </div>
     <div class="gcd-search-box" id="gcd-search-section" style="padding: 16px 24px; display: none;">
       <div class="search-row">
@@ -1432,9 +1246,9 @@
     <div id="def-notice-box" class="gcd-notice-box" style="display: none; margin-bottom: 20px;">
       <div class="gcd-notice-title" style="display:flex; justify-content:space-between; align-items:center;">
         <span>공지사항</span>
-        <button type="button" id="def-notice-edit-btn" class="btn-mini-edit" style="display: none;">✏️ 수정</button>
+        <button type="button" id="def-notice-edit-btn" class="btn-mini-edit" style="display: inline-block;">✏️ 수정</button>
       </div>
-      <div id="def-notice-content"></div>
+      <div id="def-notice-content">세팅 고정 → 덱 1위 - 4위<br>윤목하 또는 윤동목 사용 할 지 정하셔서 세팅해주시면됩니다.<br>4개 덱 외에 하나 뭐하실지 모르시겠다면 맨션주세요.<br>미리 수정 하신 분들은 프리셋 저장도 해놓으시면 편합니다 !<br><br>★ 기본 4덱 + a<br>윤동목 여선하 라겔아 밀스실 + a 덱<br><br>★ 4덱 동일 + a (윤목하 사용 시)<br>윤목하 여클칼 라겔아 밀스실 + a 덱</div>
       <div id="def-notice-edit-area" style="display:none; margin-top:8px;">
         <textarea id="def-notice-edit-textarea" class="gcd-input" style="width:100%; height:100px; font-size:13px; line-height:1.5; box-sizing:border-box;" placeholder="한 줄에 한 항목씩 입력하세요. **글자**로 감싸면 굵게 표시돼요."></textarea>
         <div style="display:flex; gap:8px; margin-top:8px;">
@@ -1446,34 +1260,30 @@
 
     <!-- 리스트 영역 -->
     <div id="list-wrapper" style="display: none;">
-      <div class="list-header" id="list-header" style="display: none;">
+      <div class="list-header" id="list-header" style="display: grid;">
         <div>구분</div>
         <div>영웅 구성</div>
         <div style="text-align: center;">상세 공략 열기</div>
       </div>
-      <div id="gcd-deck-buttons"><div class="list-item picked-item">
-        <div><span class="badge def">DEF</span></div>
-        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><span class="rank-badge">1위</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dbsrjs.webp" alt="윤건"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/ehddud.webp" alt="동영"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/DHAHR.webp" alt="오목"></div></div><div class="hero-comp-keywords">내성, 본성</div></div></div>
+      <div id="gcd-deck-buttons"><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item picked-item">
-        <div><span class="badge def">DEF</span></div>
-        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><span class="rank-badge">2위</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" alt="하연"></div></div><div class="hero-comp-keywords">내성</div></div></div>
+      </div><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item picked-item">
-        <div><span class="badge def">DEF</span></div>
-        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><span class="rank-badge">3위</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/fkemrmflem.webp" alt="라드그리드"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/rpfflentm.webp" alt="겔리두스"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dkfltm.webp" alt="아리스"></div></div><div class="hero-comp-keywords">외성</div></div></div>
+      </div><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"><span>델론즈</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" alt="하연"><span>하연</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item picked-item">
-        <div><span class="badge def">DEF</span></div>
-        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><span class="rank-badge">4위</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/image.webp" alt="밀리아"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tmznfem.webp" alt="스쿨드"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tlfqptmxk.webp" alt="실베스타"></div></div><div class="hero-comp-keywords">외성</div></div></div>
+      </div><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dhfmzk.webp" alt="오르카"><span>오르카</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zkfgpfhs.webp" alt="칼헤론"><span>칼헤론</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item picked-item-norank">
-        <div><span class="badge def">DEF</span></div>
-        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/epffhswm.webp" alt="델론즈"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"></div></div><div class="hero-comp-keywords">외성, 내성</div></div></div>
-        <div><button class="detail-btn">상세 공략 열기</button></div>
-      </div><div class="list-item picked-item-norank">
-        <div><span class="badge def">DEF</span></div>
-        <div class="hero-comp"><span class="picked-badge">✅ 채택</span><div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/dbsrjs.webp" alt="윤건"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/DHAHR.webp" alt="오목"></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/gkdus.webp" alt="하연"></div></div><div class="hero-comp-keywords">내성, 본성</div></div></div>
+      </div><div class="list-item">
+        <div><span class="badge atk">ATK</span></div>
+        <div class="hero-comp"><div class="hero-comp-icons"><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/duvh.webp" alt="여포"><span>여포</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/tjsfks.webp" alt="선란"><span>선란</span></div><div class="hero-comp-icon-item"><img referrerpolicy="no-referrer" src="./index_files/zmffpaltm.webp" alt="클레미스"><span>클레미스</span></div></div></div>
         <div><button class="detail-btn">상세 공략 열기</button></div>
       </div></div></div>
 
@@ -2043,7 +1853,7 @@
       isAdmin = !!user;
       updateAdminUI();
       // 현재 보고 있는 화면을 관리자 상태에 맞게 다시 그려줌
-      if (currentMode === 'ATK' || currentMode === 'DEF') renderList();
+      if (currentMode === 'DEF') renderList();
     });
 
     async function checkAndInitDB() {
@@ -3148,19 +2958,6 @@
     document.getElementById('load-title-modal-overlay').style.display = 'none';
   };
 
-  function resetAtkForm(){
-    document.getElementById('custom-atk-id').value = '';
-    document.getElementById('custom-atk-name').value = '';
-    document.getElementById('custom-atk-keywords').value = '';
-    document.getElementById('custom-atk-type').value = '공덱';
-    for(let i=0; i<4; i++) {
-      document.getElementById(`atk-title-name-${i}`).value = '';
-      document.getElementById(`atk-title-img-${i}`).value = '';
-    }
-    renderCounterBuilder('counter-cards-container', [], 'c');
-    document.getElementById('atk-form-title').textContent = '➕ 커스텀 공격 카운터덱 추가';
-  }
-
   function resetDefForm(){
     document.getElementById('custom-def-id').value = '';
     document.getElementById('custom-def-name').value = '';
@@ -3468,7 +3265,7 @@
   function renderList(listToRender){
     listContainer.innerHTML = '';
 
-    let currentDB = listToRender || (currentMode === 'ATK' ? getFullAtkDB().filter(d => (d.deckType || '공덱') === atkSubFilter) : getFullDefDB());
+    let currentDB = listToRender || getFullDefDB();
     if (currentMode === 'DEF' && !listToRender) {
       currentDB = currentDB.map((item, idx) => ({ item, idx })).sort((a, b) => {
         const pa = a.item.isPicked ? 1 : 0, pb = b.item.isPicked ? 1 : 0;
@@ -3503,8 +3300,7 @@
       }
       
       let badgeHtml = '';
-      if(currentMode === 'ATK') badgeHtml = `<span class="badge atk">ATK</span>`;
-      else if(currentMode === 'DEF') badgeHtml = `<span class="badge def">DEF</span>`;
+      if(currentMode === 'DEF') badgeHtml = `<span class="badge def">DEF</span>`;
 
       let isActive = activeDeckName === item.name;
       let isPicked = !!item.isPicked;
@@ -3560,84 +3356,7 @@
           `;
         }
 
-        if(currentMode === 'ATK'){
-          let countersHtml = '';
-          let cList = (item.counters || []).map((c, idx) => ({ c, idx }));
-          // 승률 높은 조합이 위로 오도록 정렬 (⭐정석 최상단 → 승률순 → 🚫비추천은 항상 맨 아래, 원래 저장 순서는 안 바뀜 - 화면 표시 순서만 바뀜)
-          cList.sort((a, b) => {
-            const keyA = getComboKey(item.id, a.c, a.idx), keyB = getComboKey(item.id, b.c, b.idx);
-            const sa = !!(statsData[keyA] && statsData[keyA].isStandard);
-            const sb = !!(statsData[keyB] && statsData[keyB].isStandard);
-            if (sa !== sb) return sa ? -1 : 1; // ⭐ 정석으로 지정된 조합이 항상 최상단
-            const na = !!(statsData[keyA] && statsData[keyA].isNotRecommended);
-            const nb = !!(statsData[keyB] && statsData[keyB].isNotRecommended);
-            if (na !== nb) return na ? 1 : -1; // 🚫 비추천으로 지정된 조합이 항상 최하단
-            const wa = getWinRate(keyA);
-            const wb = getWinRate(keyB);
-            if (wa.total === 0 && wb.total === 0) return 0;
-            if (wa.total === 0) return 1;
-            if (wb.total === 0) return -1;
-            if (wb.pct !== wa.pct) return wb.pct - wa.pct;
-            return wb.wins - wa.wins; // 승률 같으면 승수 많은 쪽이 위로
-          });
-          cList.forEach(({ c, idx: cIdx }, i) => {
-            let slots = c.slots;
-            if(!slots && c.backSlots) {
-              let sArr = [...(c.backSlots || []), ...(c.frontSlots || [])];
-              while(sArr.length < 8) sArr.push("");
-              slots = sArr.map(img => ({ img, info: "" }));
-            }
-            let boardHtml = generateFormationBoardBySlots(slots, `${item.id}_atk_${cIdx}`);
-            let petHtml = generatePetDisplay(c.pet);
-            let statsKey = getComboKey(item.id, c, cIdx);
-            let statsWr = getWinRate(statsKey);
-            let isStandard = !!(statsData[statsKey] && statsData[statsKey].isStandard);
-            let isNotRecommended = !!(statsData[statsKey] && statsData[statsKey].isNotRecommended);
-            let standardBadgeHtml = isStandard ? `<span class="stats-standard-badge">⭐ 정석</span>` : '';
-            let winOrNotRecBadgeHtml = isNotRecommended ? `<span class="stats-not-recommended-badge">🚫 비추천</span>` : renderWinRateBadge(statsKey);
-            let standardToggleHtml = isAdmin ? `<button class="stats-vote-btn standard-toggle${isStandard ? ' active' : ''}" onclick="window.toggleStandardTag('${statsKey}')">⭐ 정석${isStandard ? ' 해제' : ' 지정'}</button>` : '';
-            let notRecommendedToggleHtml = isAdmin ? `<button class="stats-vote-btn not-recommended-toggle${isNotRecommended ? ' active' : ''}" onclick="window.toggleNotRecommendedTag('${statsKey}')">🚫 비추천${isNotRecommended ? ' 해제' : ' 지정'}</button>` : '';
-            let orderSideHtml = (c.skillOrder || c.skillOrder2 || c.speedOrder) ? `
-              <div class="counter-order-side">
-                ${c.skillOrder ? `<div><span class="counter-order-label">스킬순서${c.skillOrder2 ? ' 1' : ''}</span>${c.skillOrder}</div>` : ''}
-                ${c.skillOrder2 ? `<div><span class="counter-order-label">스킬순서 2</span>${c.skillOrder2}</div>` : ''}
-                ${c.speedOrder ? `<div><span class="counter-order-label">속공순서</span>${c.speedOrder}</div>` : ''}
-              </div>
-            ` : '';
-            let cardHtml = `
-              <div class="gcd-atk-card-item${isStandard ? ' is-standard' : ''}${isNotRecommended ? ' is-not-recommended' : ''}">
-                <div class="gcd-atk-card-title" style="justify-content:flex-end;">
-                  <span style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                    ${standardBadgeHtml}
-                    ${winOrNotRecBadgeHtml}
-                    <span style="font-size:11px; background:var(--red-soft); color:var(--red); padding:2px 8px; border-radius:6px;">${c.formation || '기본 진형'}</span>
-                    ${standardToggleHtml}
-                    ${notRecommendedToggleHtml}
-                  </span>
-                </div>
-                ${generateVideoEmbedHtml(c.videoUrl)}
-                <div class="counter-body-formation-row">
-                  ${orderSideHtml}
-                  <div style="flex:1; text-align:center;"><div class="counter-board-shift" style="display:inline-flex; align-items:center; flex-wrap:wrap;">${boardHtml}${petHtml}</div></div>
-                </div>
-                <div style="margin-top:10px; font-weight:900; line-height:1.6; white-space:pre-line;">${c.body || ''}</div>
-              </div>
-            `;
-            countersHtml += cardHtml;
-          });
-
-          detailDiv.innerHTML = `
-            <div class="gcd-result-card">
-              <div class="gcd-res-target">
-                <span>${editControlsHtml}</span>
-              </div>
-              <div class="gcd-info-block gcd-atk-block">
-                <div class="title">⚔️ 카운터 상세 공략</div>
-                ${countersHtml}
-              </div>
-            </div>
-          `;
-        } else if (currentMode === 'DEF') {
+        if (currentMode === 'DEF') {
           let defCountersHtml = '';
           (item.counters || []).forEach((c, cIdx) => {
             let slots = c.slots || Array(8).fill({img: "", info: ""});
@@ -4008,38 +3727,7 @@ function renderGuide(item){
 
   window.editDeckItem = function(id){
     if(!isAdmin) return;
-    if(currentMode === 'ATK'){
-      const item = atkData.find(d => d.id == id);
-      if(!item) return;
-      document.getElementById('custom-atk-id').value = item.id;
-      document.getElementById('custom-atk-keywords').value = item.keywords ? item.keywords.join(', ') : '';
-      document.getElementById('custom-atk-type').value = item.deckType || '공덱';
-      let thArr = item.titleHeroes || [];
-      for(let i=0; i<4; i++) {
-        document.getElementById(`atk-title-name-${i}`).value = thArr[i]?.name || '';
-        document.getElementById(`atk-title-img-${i}`).value = thArr[i]?.img || '';
-      }
-      // 대표 영웅 이름을 기준으로 공격덱 이름을 다시 계산 (저장된 이름이 예전 값이라
-      // 실제 대표 영웅이랑 어긋나 있어도, 여기서 항상 최신 대표 영웅 기준으로 맞춰줌)
-      const syncedNames = thArr.map(h => (h?.name || '').trim()).filter(Boolean);
-      document.getElementById('custom-atk-name').value = syncedNames.length > 0 ? syncedNames.join(' · ') : item.name;
-      
-      let counters = item.counters || [];
-      counters = counters.map(c => {
-        if(!c.slots && c.backSlots) {
-          let sArr = [...(c.backSlots || []), ...(c.frontSlots || [])];
-          while(sArr.length < 8) sArr.push("");
-          c.slots = sArr.map(img => ({ img, info: "" }));
-        }
-        return c;
-      });
-      renderCounterBuilder('counter-cards-container', counters, 'c');
-
-      document.getElementById('atk-form-title').textContent = '✏️ 카운터덱 수정';
-      document.getElementById('gcd-add-atk-section').style.display = 'block';
-      toggleAddBtn.textContent = '닫기';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if(currentMode === 'DEF'){
+    if(currentMode === 'DEF'){
       const item = defData.find(d => d.id == id);
       if(!item) return;
       document.getElementById('custom-def-id').value = item.id;
@@ -4088,10 +3776,7 @@ function renderGuide(item){
     if(!isAdmin) return;
     if(!confirm('정말로 삭제하시겠습니까?')) return;
     try {
-      if(currentMode === 'ATK'){
-        if(window.deleteFromFirestore) await window.deleteFromFirestore('ATK', id);
-        atkData = atkData.filter(d => d.id != id);
-      } else if(currentMode === 'DEF'){
+      if(currentMode === 'DEF'){
         if(window.deleteFromFirestore) await window.deleteFromFirestore('DEF', id);
         defData = defData.filter(d => d.id != id);
       }
@@ -4102,7 +3787,7 @@ function renderGuide(item){
 function searchGuide(){
     const query = input.value.trim();
     if(!query){ alert('검색어를 입력해 주세요!'); return; }
-    const currentDB = currentMode === 'ATK' ? getFullAtkDB().filter(d => (d.deckType || '공덱') === atkSubFilter) : (currentMode === 'DEF' ? getFullDefDB() : getFullTotDB());
+    const currentDB = currentMode === 'DEF' ? getFullDefDB() : getFullTotDB();
     const inputTags = query.split(',').map(s=>s.trim()).filter(Boolean);
     let matches = [];
     // 검색 키워드뿐 아니라, 목록 줄에 바로 적어둔 내용(listNote)도 같이 검색 대상에 포함
