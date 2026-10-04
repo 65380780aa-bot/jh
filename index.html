@@ -3659,7 +3659,7 @@
       for (let r = 0; r < maxRows; r++) {
         bodyHtml += '<tr>';
         if (r === 0) {
-          bodyHtml += `<td class="route-table-cat" rowspan="${maxRows}">${cat.key}<small>(택${cat.pick})</small></td>`;
+          bodyHtml += `<td class="route-table-cat" rowspan="${maxRows}">${cat.key}</td>`;
         }
         plans.forEach(p => {
           const row = ((p.cells && p.cells[cat.key]) || [])[r];
