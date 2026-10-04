@@ -155,6 +155,22 @@
     table.route-table thead th { background: #15803d; color: #fff; font-size: 13px; font-weight: 900; white-space: nowrap; }
     table.route-table thead th.route-table-corner { background: #f9f8f4; }
     table.route-table .route-table-cat { background: #f0fdf4; font-weight: 900; color: #15803d; font-size: 13px; white-space: nowrap; }
+    table.route-table .route-table-divider-col {
+      width: 7px;
+      min-width: 7px;
+      padding: 0;
+      /* border-collapse 환경에서는 border:none이어도 옆 칸의 테두리가 비집고 나와 보이므로,
+         좌우 테두리만 hidden으로 숨김 (양옆에 생기던 이상한 선 제거). 위/아래까지 hidden으로 주면
+         표 맨 위 테두리가 이 칸 자리에서만 끊겨서 볼록 튀어나온 것처럼 보이는 문제가 생기므로 위/아래는 그대로 둠 */
+      border-style: solid hidden solid hidden;
+      background-image: repeating-linear-gradient(to bottom, #dc2626 0, #dc2626 4px, transparent 4px, transparent 9px);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 1px 100%;
+    }
+    @media (max-width: 480px) {
+      table.route-table .route-table-divider-col { width: 5px; min-width: 5px; }
+    }
     table.route-table .route-table-cat small { display: block; font-weight: 700; color: #4b8f5e; font-size: 10.5px; margin-top: 2px; }
     table.route-table td.route-table-cell { min-width: 56px; }
     .route-table-hero-name { font-weight: 800; font-size: 13px; color: var(--ink); white-space: nowrap; }
@@ -3652,8 +3668,21 @@
   // 읽기 전용(일반 보기) 표 렌더링 — 이미지 없이 이름+세팅 텍스트만, rowspan으로 외성/내성/본성 묶음 표시
   // plans 중 일부(최대 2개)만 받아서 표 하나(<table>)를 만듦 — 안을 2개씩 묶어 줄바꿈 표시하는 데 사용
   function buildRouteTableChunk(plans){
-    let headHtml = `<th class="route-table-corner"></th>` + plans.map(p => `<th colspan="3">🗺️ ${escRoute(p.label)}</th>`).join('');
+    // plans가 2개 이상일 때, 안(팀) 사이에 가늘고 간격이 일정한 빨간 점선을 그어 구분함.
+    // table border-collapse로 각 <td>마다 점선 테두리를 넣으면 줄(row) 경계마다 점선 간격이 끊겨서 들쭉날쭉해지므로,
+    // 대신 전체 표 높이를 한 번에 덮는 rowspan 칸 하나에 반복 그라데이션 배경으로 점선을 그려서 간격을 일정하게 유지함.
+    let totalBodyRows = 0;
+    ROUTE_CATEGORIES.forEach(cat => { totalBodyRows += routeTableMaxRows(plans, cat.key); });
+
+    let headParts = [`<th class="route-table-corner"></th>`];
+    plans.forEach((p, idx) => {
+      if (idx > 0) headParts.push(`<th class="route-table-divider-col"></th>`);
+      headParts.push(`<th colspan="3">🗺️ ${escRoute(p.label)}</th>`);
+    });
+    const headHtml = headParts.join('');
+
     let bodyHtml = '';
+    let isFirstBodyRow = true;
     ROUTE_CATEGORIES.forEach(cat => {
       const maxRows = routeTableMaxRows(plans, cat.key);
       for (let r = 0; r < maxRows; r++) {
@@ -3661,7 +3690,7 @@
         if (r === 0) {
           bodyHtml += `<td class="route-table-cat" rowspan="${maxRows}">${cat.key}</td>`;
         }
-        plans.forEach(p => {
+        plans.forEach((p, pIdx) => {
           const row = ((p.cells && p.cells[cat.key]) || [])[r];
           for (let c = 0; c < 3; c++) {
             const cell = row && row.slots && row.slots[c];
@@ -3671,8 +3700,12 @@
               bodyHtml += `<td class="route-table-cell route-table-cell-empty">–</td>`;
             }
           }
+          if (pIdx < plans.length - 1 && isFirstBodyRow) {
+            bodyHtml += `<td class="route-table-divider-col" rowspan="${totalBodyRows}"></td>`;
+          }
         });
         bodyHtml += '</tr>';
+        isFirstBodyRow = false;
       }
     });
     return `<div class="route-table-scroller"><table class="route-table"><thead><tr>${headHtml}</tr></thead><tbody>${bodyHtml}</tbody></table></div>`;
