@@ -13,7 +13,8 @@
 // (양쪽에 다 정의하면 "충돌" 에러가 남)
 
 const FIREBASE_PROJECT_ID = 'jh-695bd';
-const COLLECTIONS = ['guild_atk_db', 'guild_def_db', 'guild_total_db'];
+// 카운터덱(guild_atk_db)/총력덱(guild_total_db) 탭은 제거되어 데이터가 없으므로 더 이상 조회하지 않음
+const COLLECTIONS = ['guild_def_db'];
 
 // 링크 미리보기를 만드는 대표적인 봇들의 User-Agent 패턴
 const BOT_UA_PATTERN = /kakaotalk-scrap|facebookexternalhit|Twitterbot|Slackbot|TelegramBot|LinkedInBot|WhatsApp|Discordbot/i;
@@ -53,16 +54,19 @@ async function findDeckNameByKeyword(keyword) {
   return null;
 }
 
-// tab 값별 카드 제목/설명 (?tab=def, ?tab=total, ?tab=공덱, ?tab=마덱, ?tab=방덱 처럼
+// tab(+section) 값별 카드 제목 (?tab=def, ?tab=total&section=route/atkdeck/def 처럼
 // 특정 탭 전체를 여는 고정 링크용). description을 안 적어두면 index.html에 있는
-// 원래 og:description을 그대로 씀 (def/total은 지금까지 하던 대로 그대로 둠).
-const TAB_META = {
-  def: { title: '길드방어덱구성' },
-  total: { title: '총력전덱구성' },
-  '공덱': { title: '카운터 덱 확인', description: '공덱' },
-  '마덱': { title: '카운터 덱 확인', description: '마덱' },
-  '방덱': { title: '카운터 덱 확인', description: '방덱' }
-};
+// 원래 og:description을 그대로 씀.
+// 카운터덱(공덱/마덱/방덱 하위필터) 탭은 제거되어 관련 항목도 함께 제거함.
+function getTabMeta(tabParam, sectionParam) {
+  if (tabParam === 'def') return { title: '길드전방어덱' };
+  if (tabParam === 'total') {
+    if (sectionParam === 'atkdeck') return { title: '길드전공격' };
+    if (sectionParam === 'def') return { title: '길드전방어덱' };
+    return { title: '길드전공격루트' }; // section 없음 또는 route
+  }
+  return null;
+}
 
 function escapeHtml(str) {
   return String(str)
@@ -134,14 +138,16 @@ export default async function middleware(request) {
   const url = new URL(request.url);
   const deckParam = url.searchParams.get('deck');
   const tabParam = url.searchParams.get('tab');
+  const sectionParam = url.searchParams.get('section');
   const noCard = url.searchParams.get('nocard') === '1';
 
   const ua = request.headers.get('user-agent') || '';
   const isBot = BOT_UA_PATTERN.test(ua);
 
+  const tabMeta = getTabMeta(tabParam, sectionParam);
   const isBotNoCard = isBot && noCard;
   const isBotWithDeck = !!deckParam && isBot && !noCard;
-  const isBotWithTab = !deckParam && !!tabParam && TAB_META[tabParam] && isBot && !noCard;
+  const isBotWithTab = !deckParam && !!tabParam && !!tabMeta && isBot && !noCard;
 
   // nocard=1 로 붙은 링크는 봇이든 사람이든 상관없이 무조건 카드 없이 순수 링크로만 취급.
   // (사람이 클릭했을 땐 그냥 정상적으로 페이지가 열리면 되고, 봇이 미리보기 만들 때만
@@ -179,8 +185,7 @@ export default async function middleware(request) {
       const staticRes = await fetchIndexHtml(request.url);
       if (!staticRes.ok) return staticRes;
       const html = await staticRes.text();
-      const meta = TAB_META[tabParam];
-      return new Response(withTitle(html, meta.title, request.url, meta.description), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
+      return new Response(withTitle(html, tabMeta.title, request.url, tabMeta.description), { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
     } catch (e) {
       try {
         return await passThroughStatic(request);
@@ -205,7 +210,7 @@ export default async function middleware(request) {
       return new Response(html, { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
     }
 
-    html = withTitle(html, '카운터 덱 확인', request.url);
+    html = withTitle(html, `${deckName} - 방어덱 확인`, request.url);
     return new Response(html, { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
   } catch (e) {
     // 어떤 이유로든 실패하면 그냥 원본 정적 파일로 안전하게 폴백
