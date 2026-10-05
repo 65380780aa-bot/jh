@@ -61,7 +61,7 @@ async function findDeckNameByKeyword(keyword) {
 function getTabMeta(tabParam, sectionParam) {
   if (tabParam === 'def') return { title: '길드전방어덱' };
   if (tabParam === 'total') {
-    if (sectionParam === 'atkdeck') return { title: '길드전공격' };
+    if (sectionParam === 'atkdeck') return { title: '길드전공격덱' };
     if (sectionParam === 'def') return { title: '길드전방어덱' };
     return { title: '길드전공격루트' }; // section 없음 또는 route
   }
