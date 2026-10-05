@@ -305,6 +305,20 @@
     .atkdeck-table .atkdeck-atk { color: var(--blue); }
     .atkdeck-table .atkdeck-def { color: var(--ink); font-size: 15px; font-weight: 800; }
     .atkdeck-icons-row { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+    .atkdeck-icons-with-form { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: nowrap; }
+    .atkdeck-formation-side { flex: 0 0 74px; width: 74px; box-sizing: border-box; text-align: center; font-size: 12px; font-weight: 800; line-height: 1.3; color: var(--red); background: var(--red-soft); padding: 5px 0; border-radius: 999px; white-space: nowrap; }
+    .atkdeck-formation-side-empty { background: transparent; }
+    /* 일반 보기: 진형 칸(고정 폭) + 영웅 이미지 칸(고정 폭)으로 모든 줄을 같은 틀에 맞춰 정렬 */
+    .atkdeck-combo-view { width: 240px; margin: 0 auto; }
+    .atkdeck-combo-view .atkdeck-icons-with-form > .atkdeck-icons-row { width: 156px; justify-content: center; flex-wrap: nowrap; }
+    .atkdeck-combo-view .atkdeck-memo-text, .atkdeck-combo-view .atkdeck-memo2-text { width: 100%; box-sizing: border-box; padding-left: 84px; text-align: center; }
+    @media (max-width:680px){
+      .atkdeck-combo-view { width: auto; }
+      .atkdeck-combo-view .atkdeck-icons-with-form > .atkdeck-icons-row { width: auto; }
+      .atkdeck-combo-view .atkdeck-memo-text, .atkdeck-combo-view .atkdeck-memo2-text { padding-left: 0; }
+    }
+    @media (max-width:430px){ .atkdeck-icons-with-form { flex-wrap: wrap; } }
+    @media (max-width:680px){ .atkdeck-formation-side { flex-basis: 62px; width: 62px; font-size: 11px; } }
     .atkdeck-icon-preview { width: 48px; height: 48px; border-radius: 4px; object-fit: cover; border: 1px solid var(--border); background: var(--bg); }
     .atkdeck-icon-preview-empty { display: block; }
     .atkdeck-icon-edit { display: flex; flex-direction: column; align-items: center; gap: 4px; }
@@ -359,11 +373,6 @@
       .atkdeck-defdecks-row { gap: 6px; }
       .atkdeck-icon-preview { width: 38px; height: 38px; }
     }
-    .winrate-badge { display:inline-block; font-size:11px; font-weight:800; padding:3px 9px; border-radius:999px; white-space:nowrap; }
-    .winrate-badge.wr-good { background:#e7f0e2; color:#3f6b2f; }
-    .winrate-badge.wr-mid { background:#f4efe3; color:#8a6d3b; }
-    .winrate-badge.wr-bad { background:#f6e9e5; color:#b1503a; }
-    .winrate-badge.wr-none { background:var(--bg); color:#9a978c; }
     .stats-rank-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:2px; white-space:nowrap; background:var(--ink); color:#fff; }
     .stats-rank-row { display:flex; align-items:center; gap:10px; border:1px solid var(--border); border-radius:3px; padding:10px 12px; background:var(--card); margin-bottom:8px; }
     .stats-rank-row.unverified { opacity:0.55; }
@@ -371,25 +380,7 @@
     .stats-combo-row { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:10px 14px 10px 24px; border-left:2px solid var(--border); margin-bottom:4px; }
     .stats-combo-trigger { display:flex; align-items:center; justify-content:space-between; gap:8px; border:1px solid var(--border); border-radius:3px; padding:10px 14px; background:var(--card); cursor:pointer; font-size:13px; font-weight:700; }
     .stats-combo-panel { border:1px solid var(--border); border-radius:3px; margin-top:6px; max-height:320px; overflow-y:auto; background:var(--card); }
-    .stats-vote-btns { display:flex; gap:4px; flex-wrap:wrap; }
-    .stats-vote-btn { font-size:11px; font-weight:800; padding:5px 10px; border-radius:3px; border:1px solid; cursor:pointer; background:var(--card); }
-    .stats-vote-btn.win { color:#3f6b2f; border-color:#a9c99a; }
-    .stats-vote-btn.win:hover { background:#e7f0e2; }
-    .stats-vote-btn.loss { color:#b1503a; border-color:#e0b5a8; }
-    .stats-vote-btn.loss:hover { background:#f6e9e5; }
-    .stats-vote-btn.win-minus { color:#3f6b2f; border-color:var(--border); opacity:0.7; }
-    .stats-vote-btn.win-minus:hover { background:#e7f0e2; opacity:1; }
-    .stats-vote-btn.loss-minus { color:#b1503a; border-color:var(--border); opacity:0.7; }
-    .stats-vote-btn.loss-minus:hover { background:#f6e9e5; opacity:1; }
-    .stats-vote-btn.standard-toggle { color:#3f6b2f; border-color:#a9c99a; }
-    .stats-vote-btn.standard-toggle:hover { background:#e7f0e2; }
-    .stats-vote-btn.standard-toggle.active { background:#4d7a3c; color:#fff; border-color:#4d7a3c; }
-    .stats-standard-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:2px; white-space:nowrap; background:#e7f0e2; color:#3f6b2f; }
     .stats-combo-row.is-standard { border-left:2px solid #4d7a3c; background:#f2f6ef; }
-    .stats-vote-btn.not-recommended-toggle { color:var(--text-dim); border-color:var(--border); }
-    .stats-vote-btn.not-recommended-toggle:hover { background:var(--bg); }
-    .stats-vote-btn.not-recommended-toggle.active { background:#b1503a; color:#fff; border-color:#b1503a; }
-    .stats-not-recommended-badge { display:inline-block; font-size:11px; font-weight:900; padding:3px 9px; border-radius:2px; white-space:nowrap; background:#f6e9e5; color:#b1503a; }
     .stats-combo-option { display:flex; align-items:center; gap:10px; padding:10px 14px; cursor:pointer; border-bottom:1px solid var(--border); }
     .stats-combo-option:last-child { border-bottom:none; }
     .stats-combo-option:hover { background:#f9f8f4; }
@@ -571,11 +562,9 @@
       /* 전적통계 탭 모바일 축소 */
       .stats-rank-row, .stats-deck-header, .stats-combo-row { padding: 8px 10px; }
       .stats-combo-row { padding-left: 18px; }
-      .winrate-badge { font-size: 10px; padding: 2px 7px; }
       .stats-rank-badge { font-size: 10px; padding: 2px 7px; }
       .stats-icon-name-item img { width: 38px; height: 38px; }
       .stats-icon-name-item span { font-size: 10.5px; }
-      .stats-vote-btn { font-size: 10px; padding: 4px 8px; }
     }
 
     @media (max-width: 430px) {
@@ -1880,19 +1869,20 @@
         if (!slotClickable) return slotHtml;
         return `<div class="atkdeck-icon-clickable" data-row="${idx}" data-slot="${i}" title="클릭하면 이 영웅의 상세공략이 열려요">${slotHtml}</div>`;
       });
-      // 진형 배치가 있으면 목록 이미지도 후열(위)/전열(아래) 4칸 격자로 배치해서 보여줌 (관리자 편집 화면은 입력칸 때문에 기존 한 줄 유지)
+      // 진형 배치가 있으면 후열(위)/전열(아래) 두 줄로 보여주고, 각 줄은 가운데 정렬 (칸 크기는 모든 줄 동일)
+      // (관리자 편집 화면은 입력칸 때문에 기존 한 줄 유지)
       const placed = (r.positions || []).map((pos, i) => pos ? { i, row: pos[0], col: parseInt(pos.slice(1), 10) } : null).filter(Boolean);
       let iconsHtml;
       if (!isAdmin && placed.length) {
         const buildRow = (rowKey) => {
           const inRow = placed.filter(p => p.row === rowKey);
           if (!inRow.length) return '';
-          // 빈칸은 그리지 않고, 배치된 영웅만 칸 순서대로 가운데 정렬해서 보여줌
+          // 빈칸은 그리지 않고, 배치된 영웅만 칸 순서대로 가운데 정렬 (혼자 있는 영웅도 가운데로)
           const cells = inRow.slice().sort((x, y) => x.col - y.col).map(p => `<div class="atkdeck-fgrid-cell">${iconSlotHtmls[p.i]}</div>`).join('');
           return `<div class="atkdeck-fgrid-row">${cells}</div>`;
         };
         const unplaced = [0, 1, 2].filter(i => !(r.positions || [])[i] && icons[i] && icons[i].img).map(i => iconSlotHtmls[i]).join('');
-        iconsHtml = `<div class="atkdeck-fgrid">${buildRow('b')}${buildRow('f')}${unplaced ? `<div class="atkdeck-fgrid-row" style="justify-content:center;">${unplaced}</div>` : ''}</div>`;
+        iconsHtml = `<div class="atkdeck-fgrid">${buildRow('b')}${buildRow('f')}${unplaced ? `<div class="atkdeck-fgrid-row">${unplaced}</div>` : ''}</div>`;
       } else {
         iconsHtml = iconSlotHtmls.join('');
       }
@@ -1929,7 +1919,7 @@
 
       const mainRowHtml = `<tr>
         <td class="atkdeck-atk-cell">
-          <div class="atkdeck-combo-block"><div class="atkdeck-icons-row">${iconsHtml}</div>${atkMemoHtml}${atkMemo2Html}${formationBtnHtml}</div>
+          <div class="atkdeck-combo-block${isAdmin ? '' : ' atkdeck-combo-view'}"><div class="atkdeck-icons-with-form"><span class="atkdeck-formation-side${r.formation ? '' : ' atkdeck-formation-side-empty'}">${r.formation ? escAtkDeck(r.formation) : ''}</span><div class="atkdeck-icons-row">${iconsHtml}</div></div>${atkMemoHtml}${atkMemo2Html}${formationBtnHtml}</div>
         </td>
         <td class="atkdeck-arrow">→</td>
         <td class="atkdeck-defdecks-cell">
@@ -2097,7 +2087,6 @@
   let routeTableData = defaultRouteTable(); // Firestore에서 불러온 실제 데이터 (읽기 전용 표시에 사용)
   let routeTableEditMode = false; // 관리자가 '표 편집' 버튼을 눌러 편집 중인지
   let routeTableDraft = null; // 편집 중 작업용 복사본 (저장 전까지는 여기만 수정됨)
-  let statsData = {}; // { "atk_4_0": { wins: 3, losses: 1, isStandard: true } } - 카운터 조합별 승/패 기록 + ⭐정석 파훼덱 수동 태그
 
   const adminBtn = document.getElementById('admin-mode-btn');
   const toggleAddBtn = document.getElementById('toggle-add-btn');
@@ -2143,15 +2132,15 @@
         signOut(auth).then(() => { alert('잠겼습니다.'); }).catch(e => { alert('로그아웃 실패: ' + e.message); });
       }
     } else {
-      const email = prompt('관리자 이메일을 입력하세요:');
-      if (email === null) return;
+      // 관리자 이메일은 고정 — 비밀번호만 입력하면 로그인됨 (비밀번호는 코드에 없고 Firebase에만 저장됨)
+      const ADMIN_EMAIL = '65380780aa@gmail.com';
       const pwd = prompt('관리자 비밀번호를 입력하세요:');
       if (pwd === null) return;
-      signInWithEmailAndPassword(auth, email.trim(), pwd)
+      signInWithEmailAndPassword(auth, ADMIN_EMAIL, pwd.trim())
         .then(() => { localStorage.setItem('gcd_owner_device', '1'); alert('관리자 활성화!'); })
         .catch(e => {
           if (e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found') {
-            alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+            alert('비밀번호가 올바르지 않습니다.');
           } else {
             alert('로그인 실패: ' + e.message);
           }
@@ -2181,13 +2170,6 @@
       // 덮어써버리는 위험한 부작용이 있었음. 그래서 완전히 비활성화함.
     }
     checkAndInitDB();
-
-    // 전적통계: 카운터 조합별 승/패 기록 (완전히 별도 컬렉션, 기존 덱 데이터는 안 건드림)
-    onSnapshot(collection(db, "counterStats"), (snap) => {
-      let map = {};
-      snap.forEach(d => { map[d.id] = d.data(); });
-      statsData = map;
-    });
 
     // 방문자 카운터: 매일 자정 기준으로 초기화(날짜별로 별도 문서에 저장).
     // 관리자 본인 기기(localStorage에 owner 표시된 기기)는 카운트에서 제외.
@@ -2522,10 +2504,6 @@
     // 이 공통 toggleAddBtn은 route/atkdeck 섹션에서는 숨겨져 있음 (updateTotSectionView 참고)
   };
 
-  // 카운터 조합 승/패 통계 키 생성: cid(고유ID)가 있으면 그걸 쓰고, 없는 예전 데이터는 배열 인덱스로 폴백
-  function getComboKey(itemId, c, cIdx) {
-    return `${itemId}_${c && c.cid ? c.cid : cIdx}`;
-  }
   function genCid() {
     return 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
   }
@@ -3400,24 +3378,6 @@
 
   // 슬롯 기반 진형 보드 생성 (이미지 주소 지원 및 클릭 토글 연동)
 
-  // 전적통계 헬퍼 함수들
-  function getWinRate(key) {
-    const rec = statsData[key] || { wins: 0, losses: 0 };
-    const wins = rec.wins || 0, losses = rec.losses || 0;
-    const total = wins + losses;
-    const pct = total > 0 ? Math.round((wins / total) * 100) : null;
-    return { wins, losses, total, pct };
-  }
-
-  function renderWinRateBadge(key) {
-    const { wins, losses, total, pct } = getWinRate(key);
-    if (total === 0) {
-      return `<span class="winrate-badge wr-none">⚪ 미검증</span>`;
-    }
-    let cls = pct >= 70 ? 'wr-good' : (pct >= 40 ? 'wr-mid' : 'wr-bad');
-    return `<span class="winrate-badge ${cls}">승률 ${pct}% (${wins}승 ${losses}패)</span>`;
-  }
-
   window.togglePickedItem = async function(type, id) {
     if (!isAdmin) return;
     const colName = type === 'ATK' ? "guild_atk_db" : (type === 'DEF' ? "guild_def_db" : "guild_total_db");
@@ -3450,51 +3410,6 @@
       await setDoc(doc(db, colName, String(id)), { listNote: note || null }, { merge: true });
     } catch (e) {
       console.error("List note save failed:", e);
-      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
-    }
-  };
-
-  window.toggleStandardTag = async function(key) {
-    if (!isAdmin) return;
-    const current = !!(statsData[key] && statsData[key].isStandard);
-    try {
-      await setDoc(doc(db, "counterStats", key), {
-        isStandard: !current
-      }, { merge: true });
-    } catch (e) {
-      console.error("Standard tag save failed:", e);
-      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
-    }
-  };
-
-  window.toggleNotRecommendedTag = async function(key) {
-    if (!isAdmin) return;
-    const current = !!(statsData[key] && statsData[key].isNotRecommended);
-    try {
-      await setDoc(doc(db, "counterStats", key), {
-        isNotRecommended: !current
-      }, { merge: true });
-    } catch (e) {
-      console.error("Not-recommended tag save failed:", e);
-      alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
-    }
-  };
-
-  window.recordStatsResult = async function(key, result, delta) {
-    if (!isAdmin) return;
-    // 0 밑으로 안 내려가게 방지
-    if (delta < 0) {
-      const current = getWinRate(key);
-      const currentVal = result === 'win' ? current.wins : current.losses;
-      if (currentVal <= 0) return;
-    }
-    try {
-      await setDoc(doc(db, "counterStats", key), {
-        wins: increment(result === 'win' ? delta : 0),
-        losses: increment(result === 'loss' ? delta : 0)
-      }, { merge: true });
-    } catch (e) {
-      console.error("Stats save failed:", e);
       alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
     }
   };
