@@ -8,12 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>도면</title>
   <meta property="og:title" content="도면 - 세븐나이츠 리버스 길드 전략실">
-  <meta property="og:description" content="카운터 덱 확인">
+  <meta property="og:description" content="공격 루트 · 공격덱 · 방어덱 확인">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://index-ebon-omega.vercel.app/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="도면 - 세븐나이츠 리버스 길드 전략실">
-  <meta name="twitter:description" content="카운터 덱 확인">
+  <meta name="twitter:description" content="공격 루트 · 공격덱 · 방어덱 확인">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
     @import url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css');
@@ -3812,17 +3812,12 @@ function searchGuide(){
 
   function buildDeeplinkTable() {
     const base = window.location.origin + window.location.pathname;
-    const groups = [
-      { label: '⚔️ 공덱', data: totData.filter(d => (d.deckType || '공덱') === '공덱') },
-      { label: '🔮 마덱', data: totData.filter(d => (d.deckType || '공덱') === '마덱') },
-      { label: '🛡️ 방덱', data: totData.filter(d => (d.deckType || '공덱') === '방덱') }
-    ];
     const seenKeywords = new Map(); // 키워드 중복 감지용
 
-    // 특정 조합이 아니라 "탭 전체"로 바로 여는 고정 링크
+    // 특정 조합이 아니라 "탭 전체"로 바로 여는 고정 링크 (카운터덱 탭은 제거되어 링크도 함께 제거함)
     const tabLinks = [
-      { label: '🎯 길드전 · 카운터덱 탭 전체 보기', url: `${base}?tab=total&section=counter` },
       { label: '🗺️ 길드전 · 공격 루트 탭 전체 보기', url: `${base}?tab=total&section=route` },
+      { label: '⚔️ 길드전 · 공격덱 탭 전체 보기', url: `${base}?tab=total&section=atkdeck` },
       { label: '🛡️ 길드전 · 방어덱 탭 전체 보기', url: `${base}?tab=def` }
     ];
     let html = `<h3 style="margin:0 0 8px 0; font-size:15px; font-weight:900;">📌 탭 바로가기</h3>`;
@@ -3834,13 +3829,12 @@ function searchGuide(){
       </div>`;
     });
 
-    groups.forEach(group => {
-      const items = group.data || [];
-      if (items.length === 0) return;
-      html += `<h3 style="margin:20px 0 8px 0; font-size:15px; font-weight:900;">${group.label} (${items.length}개)</h3>`;
-      items.forEach(item => {
+    // 방어덱(defData)의 키워드별 개별 딥링크도 함께 보여줌 (카운터덱/총력덱은 제거되어 더 이상 표시하지 않음)
+    const defItems = (defData || []).filter(d => (d.keywords || []).filter(Boolean).length > 0);
+    if (defItems.length > 0) {
+      html += `<h3 style="margin:20px 0 8px 0; font-size:15px; font-weight:900;">🛡️ 방어덱 (${defItems.length}개)</h3>`;
+      defItems.forEach(item => {
         const kws = (item.keywords || []).filter(Boolean);
-        if (kws.length === 0) return;
         html += `<div style="border:1px solid var(--border); background:#f9f8f4; border-radius:10px; padding:10px 14px; margin-bottom:8px;">
           <div style="font-weight:900; font-size:13px; margin-bottom:6px;">${item.name}</div>`;
         kws.forEach(kw => {
@@ -3858,7 +3852,7 @@ function searchGuide(){
         });
         html += `</div>`;
       });
-    });
+    }
 
     if (!html) html = `<p style="color:#8b95ac; font-size:13px;">등록된 덱/키워드가 없습니다.</p>`;
     document.getElementById('deeplink-table-body').innerHTML = html;
