@@ -289,6 +289,11 @@
     .atkdeck-icon-preview-empty { display: block; }
     .atkdeck-icon-edit { display: flex; flex-direction: column; align-items: center; gap: 4px; }
     .atkdeck-icon-img-row { display: flex; gap: 4px; align-items: center; }
+    .atkdeck-icon-name-input, .atkdeck-defdeck-icon-name-input { font-size: 11px; width: 100px; padding: 3px 5px; border: 1px solid var(--border); border-radius: 4px; text-align: center; font-weight: 700; }
+    .atkdeck-save-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+    .atkdeck-save-status { font-size: 12px; font-weight: 700; color: var(--text-dim); }
+    .atkdeck-save-status.dirty { color: var(--red); }
+    .atkdeck-save-status.ok { color: #16a34a; }
     .atkdeck-icon-input, .atkdeck-defdeck-icon-input { font-size: 11px; width: 66px; padding: 3px 5px; border: 1px solid var(--border); border-radius: 4px; }
     .atkdeck-icon-load-btn, .atkdeck-defdeck-icon-load-btn { font-size: 11px; padding: 3px 5px; white-space: nowrap; }
     .atkdeck-combo-block { display: flex; flex-direction: column; align-items: center; gap: 6px; }
@@ -784,13 +789,27 @@
   }
   function escAtkDeck(s){ return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+  let atkDeckSaveState = 'saved'; // 'saved' | 'saving' | 'error'
+  function updateAtkDeckSaveStatus(){
+    const el = document.getElementById('atkdeck-save-status');
+    if (!el) return;
+    el.classList.remove('dirty', 'ok');
+    if (atkDeckSaveState === 'saving') el.textContent = '저장 중...';
+    else if (atkDeckSaveState === 'error') { el.textContent = '⚠️ 저장 실패 — 💾 저장을 다시 눌러주세요'; el.classList.add('dirty'); }
+    else { el.textContent = '✅ 저장됨'; el.classList.add('ok'); }
+  }
   async function saveAtkDeckRows(){
-    if (!isAdmin || !atkDeckListRef) return;
+    if (!isAdmin || !atkDeckListRef) return false;
+    atkDeckSaveState = 'saving'; updateAtkDeckSaveStatus();
     try {
-      await setDoc(atkDeckListRef, { rows: currentAtkDeckRows }, { merge: true });
+      await setDoc(atkDeckListRef, { rows: JSON.parse(JSON.stringify(currentAtkDeckRows)) }, { merge: true });
+      atkDeckSaveState = 'saved'; updateAtkDeckSaveStatus();
+      return true;
     } catch (e) {
       console.error("Atk deck rows save failed:", e);
+      atkDeckSaveState = 'error'; updateAtkDeckSaveStatus();
       alert('⚠️ 저장 실패! (원인: ' + e.code + ' - ' + e.message + ')');
+      return false;
     }
   }
 
@@ -894,7 +913,35 @@
         if (!currentAtkDeckRows[rIdx]) return;
         if (!currentAtkDeckRows[rIdx].icons) currentAtkDeckRows[rIdx].icons = makeEmptyAtkIcons();
         const prevDetail = (currentAtkDeckRows[rIdx].icons[sIdx] && currentAtkDeckRows[rIdx].icons[sIdx].detail) || makeEmptyAtkDetail();
-        currentAtkDeckRows[rIdx].icons[sIdx] = { img: e.target.value.trim(), detail: prevDetail };
+        const prevName = (currentAtkDeckRows[rIdx].icons[sIdx] && currentAtkDeckRows[rIdx].icons[sIdx].name) || '';
+        currentAtkDeckRows[rIdx].icons[sIdx] = { img: e.target.value.trim(), name: prevName, detail: prevDetail };
+        saveAtkDeckRows();
+      };
+    });
+    // 영웅 이름 입력칸 (불러오기 목록에 이 이름으로 뜸)
+    wrap.querySelectorAll('.atkdeck-icon-name-input, .atkdeck-defdeck-icon-name-input').forEach(inp => {
+      inp.onclick = (e) => e.stopPropagation();
+      inp.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } };
+      inp.onblur = (e) => {
+        const rIdx = parseInt(inp.getAttribute('data-row'), 10);
+        const sIdx = parseInt(inp.getAttribute('data-slot'), 10);
+        const row = currentAtkDeckRows[rIdx];
+        if (!row) return;
+        const dAttr = inp.getAttribute('data-deck');
+        let icons;
+        if (dAttr !== null) {
+          const deck = row.defDecks && row.defDecks[parseInt(dAttr, 10)];
+          if (!deck) return;
+          if (!deck.icons) deck.icons = makeEmptyAtkIcons();
+          icons = deck.icons;
+        } else {
+          if (!row.icons) row.icons = makeEmptyAtkIcons();
+          icons = row.icons;
+        }
+        if (!icons[sIdx]) icons[sIdx] = { img: '', name: '' };
+        const v = e.target.value.trim();
+        if ((icons[sIdx].name || '') === v) return;
+        icons[sIdx].name = v;
         saveAtkDeckRows();
       };
     });
@@ -916,7 +963,7 @@
         const deck = currentAtkDeckRows[rIdx] && currentAtkDeckRows[rIdx].defDecks[dIdx];
         if (!deck) return;
         if (!deck.icons) deck.icons = makeEmptyAtkIcons();
-        deck.icons[sIdx] = { img: e.target.value.trim() };
+        deck.icons[sIdx] = { img: e.target.value.trim(), name: (deck.icons[sIdx] && deck.icons[sIdx].name) || '' };
         saveAtkDeckRows();
       };
     });
@@ -999,12 +1046,26 @@
         renderAtkDeckTable();
       };
     }
+    // 💾 저장 버튼: 입력 중인 칸까지 반영한 뒤 표 전체를 한 번에 저장
+    document.querySelectorAll('.atkdeck-save-btn').forEach(btn => {
+      btn.onclick = async () => {
+        const ae = document.activeElement;
+        if (ae && wrap.contains(ae) && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA')) ae.blur();
+        btn.disabled = true;
+        const ok = await saveAtkDeckRows();
+        btn.disabled = false;
+        if (ok) alert('저장되었습니다!');
+      };
+    });
+    updateAtkDeckSaveStatus();
   }
 
   // 영웅 이미지 3개 슬롯 하나(공통) HTML 조각
   function atkDeckIconSlotHtml(ic, inputClass, loadClass, dataAttrs){
     if (isAdmin) {
+      const nameClass = inputClass === 'atkdeck-icon-input' ? 'atkdeck-icon-name-input' : 'atkdeck-defdeck-icon-name-input';
       return `<div class="atkdeck-icon-edit">
+        <input type="text" class="${nameClass}" ${dataAttrs} placeholder="영웅 이름" value="${escAtkDeck(ic.name || '')}">
         <div class="atkdeck-icon-img-row">
           <input type="text" class="${inputClass}" ${dataAttrs} placeholder="이미지 URL" value="${escAtkDeck(ic.img || '')}">
           <button type="button" class="btn-mini-edit ${loadClass}" ${dataAttrs} title="기존 영웅 이미지 불러오기">📥</button>
@@ -1183,12 +1244,14 @@
       rowsHtml = `<tr><td colspan="${isAdmin ? 4 : 3}" style="padding:20px; color:var(--text-dim); font-size:13px;">검색 결과가 없습니다.</td></tr>`;
     }
 
+    const saveBarHtml = isAdmin ? `<div class="atkdeck-save-bar"><button type="button" class="add-btn atkdeck-save-btn" style="background:#16a34a;">💾 저장</button><span id="atkdeck-save-status" class="atkdeck-save-status"></span></div>` : '';
     wrap.innerHTML = `
+      ${saveBarHtml}
       <table class="atkdeck-table">
         <thead><tr><th>공격덱</th><th class="atkdeck-arrow-head"><span class="atkdeck-arrow-head-arrow">→</span> 공격</th><th>상대 방어덱</th>${isAdmin ? '<th></th>' : ''}</tr></thead>
         <tbody>${rowsHtml}</tbody>
       </table>
-      ${isAdmin ? `<button type="button" id="atkdeck-row-add-btn" class="add-btn" style="margin-top:12px; width:auto; padding:8px 16px;">+ 추가</button>` : ''}
+      ${isAdmin ? `<div style="display:flex; gap:8px; margin-top:12px;"><button type="button" id="atkdeck-row-add-btn" class="add-btn" style="width:auto; padding:8px 16px;">+ 추가</button><button type="button" class="add-btn atkdeck-save-btn" style="background:#16a34a; width:auto; padding:8px 16px;">💾 저장</button></div>` : ''}
     `;
 
     wireAtkDeckRowEvents();
@@ -1208,7 +1271,7 @@
         if (Array.isArray(r.defDecks)) {
           defDecks = r.defDecks.map(d => ({
             name: d.name || '',
-            icons: [0, 1, 2].map(i => ({ img: (d.icons && d.icons[i] && d.icons[i].img) || '' }))
+            icons: [0, 1, 2].map(i => ({ img: (d.icons && d.icons[i] && d.icons[i].img) || '', name: (d.icons && d.icons[i] && d.icons[i].name) || '' }))
           }));
         } else if (typeof r.def === 'string') {
           // 예전 버전(이미지 없이 "상대 방어덱" 텍스트 한 칸)에서 넘어온 데이터 마이그레이션
@@ -1232,7 +1295,7 @@
           } else {
             detail = makeEmptyAtkDetail();
           }
-          return { img: (rawIc && rawIc.img) || '', detail };
+          return { img: (rawIc && rawIc.img) || '', name: (rawIc && rawIc.name) || '', detail };
         });
         // 그보다 더 예전 버전(줄 전체에 상세공략 하나)에서 넘어온 데이터는 첫 번째 영웅 슬롯으로 이전
         if (typeof r.detail === 'string' && r.detail && !atkDetailHasContent(icons[0].detail)) {
@@ -2309,7 +2372,16 @@
       (deck.backSlotNames || []).forEach((n, i) => addHero({ name: n, img: (deck.backSlots || [])[i] || '' }));
       (deck.frontSlotNames || []).forEach((n, i) => addHero({ name: n, img: (deck.frontSlots || [])[i] || '' }));
     });
-    return Array.from(pool.values()).sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ko-KR'));
+    // 공격덱 탭 표에 넣은 영웅 이미지(공격 측 + 상대 방어덱)도 목록에 포함
+    (currentAtkDeckRows || []).forEach(r => {
+      (r.icons || []).forEach(ic => addHero({ name: (ic && ic.name) || '', img: (ic && ic.img) || '' }));
+      (r.defDecks || []).forEach(d => (d.icons || []).forEach(ic => addHero({ name: (ic && ic.name) || '', img: (ic && ic.img) || '' })));
+    });
+    // 이름 없는 이미지가 이미 이름 있는 항목과 같은 이미지면 중복이므로 제외
+    const namedImgs = new Set(Array.from(pool.values()).filter(h => h.name && h.img).map(h => h.img));
+    return Array.from(pool.values())
+      .filter(h => h.name || !namedImgs.has(h.img))
+      .sort((a, b) => ((a.name ? 0 : 1) - (b.name ? 0 : 1)) || (a.name || '').localeCompare(b.name || '', 'ko-KR'));
   }
 
   function renderLoadTitleList(query){
@@ -2334,6 +2406,7 @@
   }
 
   window.openLoadTitleHeroModal = function(prefix, idx){
+    loadAtkDeckRowTarget = null; // 공격덱 표에서 열었다가 그냥 닫은 경우 남아있는 타겟 초기화
     loadTitleTargetPrefix = prefix;
     loadTitleTargetIndex = idx;
     document.getElementById('load-title-search').value = '';
@@ -2353,12 +2426,12 @@
         if (deckIdx === undefined || deckIdx === null) {
           if (!row.icons) row.icons = makeEmptyAtkIcons();
           const prevDetail = (row.icons[sIdx] && row.icons[sIdx].detail) || makeEmptyAtkDetail();
-          row.icons[sIdx] = { img: h.img || '', detail: prevDetail };
+          row.icons[sIdx] = { img: h.img || '', name: h.name || '', detail: prevDetail };
         } else {
           const deck = row.defDecks && row.defDecks[deckIdx];
           if (deck) {
             if (!deck.icons) deck.icons = makeEmptyAtkIcons();
-            deck.icons[sIdx] = { img: h.img || '' };
+            deck.icons[sIdx] = { img: h.img || '', name: h.name || '' };
           }
         }
         saveAtkDeckRows();
@@ -2376,6 +2449,7 @@
 
   document.getElementById('load-title-search').oninput = (e) => renderLoadTitleList(e.target.value);
   document.getElementById('close-load-title-modal-btn').onclick = function(){
+    loadAtkDeckRowTarget = null;
     document.getElementById('load-title-modal-overlay').style.display = 'none';
   };
 
