@@ -522,7 +522,6 @@
     <div class="admin-control-bar">
       <button class="add-btn" id="toggle-add-btn" style="display: none;">+ 덱 추가하기</button>
       <button class="add-btn" id="show-deeplink-table-btn" style="display: none; background: rgb(29, 78, 216);">🔗 딥링크 주소 모음</button>
-      <button class="add-btn" id="wipe-old-counter-data-btn" style="display: none; background: rgb(185, 28, 28);">🗑️ 예전 카운터덱 데이터 전체 삭제</button>
     </div>
 
     <!-- 딥링크 표 모달 -->
@@ -2507,7 +2506,6 @@
   const adminBtn = document.getElementById('admin-mode-btn');
   const toggleAddBtn = document.getElementById('toggle-add-btn');
   const showDeeplinkTableBtn = document.getElementById('show-deeplink-table-btn');
-  const wipeOldCounterDataBtn = document.getElementById('wipe-old-counter-data-btn');
   const listContainer = document.getElementById('gcd-deck-buttons');
 
   function updateAdminUI() {
@@ -2516,7 +2514,6 @@
       adminBtn.classList.add('admin-on');
       toggleAddBtn.style.display = 'flex';
       showDeeplinkTableBtn.style.display = 'flex';
-      wipeOldCounterDataBtn.style.display = 'flex';
       document.getElementById('def-notice-edit-btn').style.display = 'inline-block';
       document.getElementById('route-notice-edit-btn').style.display = 'inline-block';
       document.getElementById('atkdeck-notice-edit-btn').style.display = 'inline-block';
@@ -2526,7 +2523,6 @@
       adminBtn.classList.remove('admin-on');
       toggleAddBtn.style.display = 'none';
       showDeeplinkTableBtn.style.display = 'none';
-      wipeOldCounterDataBtn.style.display = 'none';
       document.getElementById('gcd-add-def-section').style.display = 'none';
       document.getElementById('def-notice-edit-btn').style.display = 'none';
       document.getElementById('def-notice-edit-area').style.display = 'none';
@@ -4471,53 +4467,6 @@ function searchGuide(){
     document.getElementById('deeplink-modal-overlay').style.display = 'none';
   };
 
-  // 카운터덱 탭 자체는 이미 화면에서 제거됐지만, Firestore에는 예전 데이터(guild_atk_db, guild_total_db)가
-  // 그대로 남아있어 실제 삭제를 원할 때 쓰는 1회성 관리자용 정리 버튼. 되돌릴 수 없으므로 두 번 확인함.
-  wipeOldCounterDataBtn.onclick = async function() {
-    if (!isAdmin) return;
-    const WIPE_COLLECTIONS = ['guild_atk_db', 'guild_total_db', 'counterStats'];
-    const originalText = '🗑️ 예전 카운터덱 데이터 전체 삭제';
-    wipeOldCounterDataBtn.disabled = true;
-    wipeOldCounterDataBtn.textContent = '확인 중...';
-    try {
-      // 1) 먼저 각 컬렉션에 실제로 몇 개가 남아있는지 확인해서 보여줌
-      const snaps = await Promise.all(WIPE_COLLECTIONS.map(c => getDocs(collection(db, c))));
-      const total = snaps.reduce((n, sn) => n + sn.size, 0);
-      const summary = WIPE_COLLECTIONS.map((c, i) => `${c}: ${snaps[i].size}개`).join('\n');
-      if (total === 0) {
-        alert('이미 전부 비어 있어요. 삭제할 데이터가 없습니다.\n\n' + summary);
-        wipeOldCounterDataBtn.style.display = 'none';
-        return;
-      }
-      if (!confirm('아래 데이터를 Firestore에서 전부 삭제합니다.\n되돌릴 수 없어요.\n\n' + summary + '\n\n정말 진행할까요?')) return;
-      if (!confirm('마지막 확인입니다. 정말로 전부 삭제하시겠습니까?')) return;
-
-      // 2) 삭제 (하나가 실패해도 나머지는 계속 진행하고, 실패한 건 이유를 모아서 알려줌)
-      wipeOldCounterDataBtn.textContent = '삭제 중...';
-      const jobs = [];
-      snaps.forEach((sn, i) => sn.forEach(d => jobs.push(deleteDoc(d.ref).then(() => ({ ok: true }), err => ({ ok: false, col: WIPE_COLLECTIONS[i], err })))));
-      const results = await Promise.all(jobs);
-      const failed = results.filter(r => !r.ok);
-
-      // 3) 실제로 지워졌는지 다시 조회해서 남은 개수 확인
-      const after = await Promise.all(WIPE_COLLECTIONS.map(c => getDocs(collection(db, c))));
-      const remain = after.reduce((n, sn) => n + sn.size, 0);
-      const afterSummary = WIPE_COLLECTIONS.map((c, i) => `${c}: 남은 ${after[i].size}개`).join('\n');
-      if (failed.length === 0 && remain === 0) {
-        alert('삭제 완료! 전부 지워졌어요.\n\n' + afterSummary);
-        wipeOldCounterDataBtn.style.display = 'none';
-      } else {
-        const reason = failed.length ? (failed[0].err.code + ' - ' + failed[0].err.message) : '알 수 없음';
-        alert(`⚠️ 일부가 지워지지 않았어요. (실패 ${failed.length}건)\n원인: ${reason}\n\n` + afterSummary);
-      }
-    } catch (e) {
-      console.error('카운터덱 데이터 삭제 실패:', e);
-      alert('⚠️ 삭제 중 오류가 발생했습니다. (원인: ' + e.code + ' - ' + e.message + ')');
-    } finally {
-      wipeOldCounterDataBtn.disabled = false;
-      wipeOldCounterDataBtn.textContent = originalText;
-    }
-  };
 </script>
   </div>
 
